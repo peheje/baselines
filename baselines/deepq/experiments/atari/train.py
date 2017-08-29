@@ -9,7 +9,7 @@ import json
 
 import baselines.common.tf_util as U
 
-from baselines import logger
+from baselines import logger, logger_utils
 from baselines import deepq
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
 from baselines.common.misc_util import (
@@ -26,8 +26,7 @@ from baselines.common.schedules import LinearSchedule, PiecewiseSchedule
 # copy over LazyFrames
 from baselines.common.atari_wrappers_deprecated import wrap_dqn
 from baselines.common.azure_utils import Container
-from .model import model, dueling_model
-
+from baselines.deepq.experiments.atari.model import model, dueling_model
 
 def parse_args():
     parser = argparse.ArgumentParser("DQN experiments for Atari games")
@@ -54,7 +53,7 @@ def parse_args():
     parser.add_argument("--prioritized-beta0", type=float, default=0.4, help="initial value of beta parameters for prioritized replay")
     parser.add_argument("--prioritized-eps", type=float, default=1e-6, help="eps parameter for prioritized replay buffer")
     # Checkpointing
-    parser.add_argument("--save-dir", type=str, default=None, help="directory in which training state and model should be saved.")
+    parser.add_argument("--save-dir", type=str, default="/tmp", help="directory in which training state and model should be saved.")
     parser.add_argument("--save-azure-container", type=str, default=None,
                         help="It present data will saved/loaded from Azure. Should be in format ACCOUNT_NAME:ACCOUNT_KEY:CONTAINER")
     parser.add_argument("--save-freq", type=int, default=1e6, help="save model once every time this many iterations are completed")
@@ -110,6 +109,12 @@ def maybe_load_model(savedir, container):
 
 if __name__ == '__main__':
     args = parse_args()
+
+    # Initialize logger
+    logger.reset()
+    logger_path = logger_utils.path_with_date(args.save_dir, args.env)
+    logger.configure(logger_path, ["tensorboard", "stdout"])
+    logger_utils.log_call_parameters(logger_path, args)
     
     # Parse savedir and azure container.
     savedir = args.save_dir
@@ -258,6 +263,9 @@ if __name__ == '__main__':
             if done:
                 steps_left = args.num_steps - info["steps"]
                 completion = np.round(info["steps"] / args.num_steps, 1)
+
+                logger.record_tabular("max q", np.max(debug["q_values"](obs.__array__().reshape(1, 84, 84, 4))))
+                logger.record_tabular("reward", info["rewards"][-1])
 
                 logger.record_tabular("% completion", completion)
                 logger.record_tabular("steps", info["steps"])
