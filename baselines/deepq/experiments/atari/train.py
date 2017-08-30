@@ -53,7 +53,8 @@ def parse_args():
     parser.add_argument("--prioritized-beta0", type=float, default=0.4, help="initial value of beta parameters for prioritized replay")
     parser.add_argument("--prioritized-eps", type=float, default=1e-6, help="eps parameter for prioritized replay buffer")
     # Checkpointing
-    parser.add_argument("--save-dir", type=str, default="/tmp", help="directory in which training state and model should be saved.")
+    parser.add_argument("--overwrite-load-dir", type=str, default=None, help="directory to force load model from and continue training")
+    parser.add_argument("--save-dir", type=str, default="/media/data/phjnho", help="directory in which training state and model should be saved.")
     parser.add_argument("--save-azure-container", type=str, default=None,
                         help="It present data will saved/loaded from Azure. Should be in format ACCOUNT_NAME:ACCOUNT_KEY:CONTAINER")
     parser.add_argument("--save-freq", type=int, default=1e6, help="save model once every time this many iterations are completed")
@@ -105,16 +106,26 @@ def maybe_load_model(savedir, container):
         U.load_state(os.path.join(savedir, model_dir, "saved"))
         logger.log("Loaded models checkpoint at {} iterations".format(state["num_iters"]))
         return state
+    else:
+        print("Could not find {}".format(state_path))
 
 
 if __name__ == '__main__':
     args = parse_args()
 
-    # Initialize logger
-    logger.reset()
-    logger_path = logger_utils.path_with_date(args.save_dir, args.env)
-    logger.configure(logger_path, ["tensorboard", "stdout"])
-    logger_utils.log_call_parameters(logger_path, args)
+    force_load_path = args.overwrite_load_dir
+    print("forceeeee {}".format(force_load_path))
+    if force_load_path is None:
+        # Initialize logger
+        logger.reset()
+        logger_path = logger_utils.path_with_date(args.save_dir, args.env)
+        logger.configure(logger_path, ["tensorboard", "stdout"])
+        logger_utils.log_call_parameters(logger_path, args)
+        savedir = logger_path
+    else:
+        print("FORCE load dir and continue training at {}".format(force_load_path))
+        logger.configure(force_load_path, ["tensorboard", "stdout"])
+        savedir = force_load_path
 
     #10000 random states for training statistics
     #NUM_STATISTICS_STATES=10000
@@ -122,7 +133,7 @@ if __name__ == '__main__':
 
     
     # Parse savedir and azure container.
-    savedir = args.save_dir
+    
     if savedir is None:
         savedir = os.getenv('OPENAI_LOGDIR', None)
     if args.save_azure_container is not None:
