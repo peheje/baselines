@@ -6,7 +6,6 @@ import numpy as np
 from gym.monitoring import VideoRecorder
 
 import baselines.common.tf_util as U
-
 from baselines import deepq
 from baselines.common.misc_util import (
     boolean_flag,
