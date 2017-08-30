@@ -291,8 +291,8 @@ if __name__ == '__main__':
                 logger.record_tabular("max q", np.max(q_vals))
                 logger.record_tabular("avg q", np.mean(q_vals))
 
-                logger.record_tabular("reward", info["rewards"][-1])
-
+                if len(info["rewards"]) > 0:
+                    logger.record_tabular("reward", info["rewards"][-1])
                 logger.record_tabular("% completion", completion)
                 logger.record_tabular("steps", info["steps"])
                 logger.record_tabular("iters", num_iters)
