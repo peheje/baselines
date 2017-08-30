@@ -31,7 +31,7 @@ from baselines.deepq.experiments.atari.model import model, dueling_model
 def parse_args():
     parser = argparse.ArgumentParser("DQN experiments for Atari games")
     # Environment
-    parser.add_argument("--env", type=str, default="Pong", help="name of the game")
+    parser.add_argument("--env", type=str, default="Breakout", help="name of the game")
     parser.add_argument("--seed", type=int, default=42, help="which seed to use")
     # Core DQN parameters
     parser.add_argument("--replay-buffer-size", type=int, default=int(1e6), help="replay buffer size")
@@ -115,6 +115,11 @@ if __name__ == '__main__':
     logger_path = logger_utils.path_with_date(args.save_dir, args.env)
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger_utils.log_call_parameters(logger_path, args)
+
+    #10000 random states for training statistics
+    #NUM_STATISTICS_STATES=10000
+    #statistics_states=[]
+
     
     # Parse savedir and azure container.
     savedir = args.save_dir
@@ -190,6 +195,22 @@ if __name__ == '__main__':
         num_iters_since_reset = 0
         reset = True
 
+
+        #save random steps for diagnostics
+
+
+        #save_start_time = time.time()
+        #print("Starting to save states")
+        #for i in range(NUM_STATISTICS_STATES):
+        #    obs_to_save, _, game_done, _ = env.step(env.action_space.sample())
+        #    statistics_states.append(obs_to_save)
+        #    if game_done:
+        #        env.reset()
+
+        #print("Done saving states")
+        #print("--- %s seconds ---" % (time.time() - save_start_time))
+
+
         # Main trianing loop
         while True:
             num_iters += 1
@@ -224,6 +245,7 @@ if __name__ == '__main__':
                 num_iters_since_reset = 0
                 obs = env.reset()
                 reset = True
+
 
             if (num_iters > max(5 * args.batch_size, args.replay_buffer_size // 20) and
                     num_iters % args.learning_freq == 0):
@@ -264,7 +286,11 @@ if __name__ == '__main__':
                 steps_left = args.num_steps - info["steps"]
                 completion = np.round(info["steps"] / args.num_steps, 1)
 
-                logger.record_tabular("max q", np.max(debug["q_values"](obs.__array__().reshape(1, 84, 84, 4))))
+                q_vals=debug["q_values"](obs.__array__().reshape(1, 84, 84, 4))
+
+                logger.record_tabular("max q", np.max(q_vals))
+                logger.record_tabular("avg q", np.mean(q_vals))
+
                 logger.record_tabular("reward", info["rewards"][-1])
 
                 logger.record_tabular("% completion", completion)
