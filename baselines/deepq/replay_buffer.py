@@ -1,11 +1,13 @@
 import numpy as np
 import random
+import copy
+import psutil
 
 from baselines.common.segment_tree import SumSegmentTree, MinSegmentTree
 
 
 class ReplayBuffer(object):
-    def __init__(self, size):
+    def __init__(self, size, replay_size_limit=0):
         """Create Prioritized Replay buffer.
 
         Parameters
@@ -17,12 +19,29 @@ class ReplayBuffer(object):
         self._storage = []
         self._maxsize = size
         self._next_idx = 0
+        self.replay_size_limit = replay_size_limit
 
     def __len__(self):
         return len(self._storage)
 
+    def __ram_test__(self, data):
+        print("Performing ram test to determine size of ReplayBuffer...")
+        arr = []
+        mem = psutil.virtual_memory()
+        while mem.percent < self.replay_size_limit:
+            for _ in range(100):
+                arr.append(copy.deepcopy(data))
+            mem = psutil.virtual_memory()
+        test_size = len(arr)
+        print("Ram test complete, setting size of ReplayBuffer to {}".format(test_size))
+        return test_size
+
     def add(self, obs_t, action, reward, obs_tp1, done):
         data = (obs_t, action, reward, obs_tp1, done)
+
+        if self.replay_size_limit != 0:
+            self._maxsize = self.__ram_test__(data)
+            self.replay_size_limit = 0
 
         if self._next_idx >= len(self._storage):
             self._storage.append(data)

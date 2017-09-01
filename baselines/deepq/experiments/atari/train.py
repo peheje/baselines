@@ -33,6 +33,7 @@ def parse_args():
     # Environment
     parser.add_argument("--env", type=str, default="Breakout", help="name of the game")
     parser.add_argument("--seed", type=int, default=42, help="which seed to use")
+    parser.add_argument("--replay-size-limit", type=int, default=0, help="Performs a ram test to set the max size of replay size to not exceed this percentage of your ram.")
     # Core DQN parameters
     parser.add_argument("--replay-buffer-size", type=int, default=int(1e6), help="replay buffer size")
     parser.add_argument("--lr", type=float, default=1e-4, help="learning rate for Adam optimizer")
@@ -114,7 +115,6 @@ if __name__ == '__main__':
     args = parse_args()
 
     force_load_path = args.overwrite_load_dir
-    print("forceeeee {}".format(force_load_path))
     if force_load_path is None:
         # Initialize logger
         logger.reset()
@@ -187,7 +187,7 @@ if __name__ == '__main__':
             replay_buffer = PrioritizedReplayBuffer(args.replay_buffer_size, args.prioritized_alpha)
             beta_schedule = LinearSchedule(approximate_num_iters, initial_p=args.prioritized_beta0, final_p=1.0)
         else:
-            replay_buffer = ReplayBuffer(args.replay_buffer_size)
+            replay_buffer = ReplayBuffer(args.replay_buffer_size, replay_size_limit=args.replay_size_limit)
 
         U.initialize()
         update_target()
