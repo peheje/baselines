@@ -1,0 +1,53 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Environment1.py	../Environment1.py	1;"	kind:file	line:1
+TraciSimpleCross	../Environment1.py	/^class TraciSimpleCross(gym.Env):$/;"	kind:class	line:26
+__init__	../Environment1.py	/^    def __init__(self):$/;"	kind:member	line:59
+_render	../Environment1.py	/^    def _render(self, mode='human', close=False):$/;"	kind:member	line:122
+_reset	../Environment1.py	/^    def _reset(self):$/;"	kind:member	line:101
+_seed	../Environment1.py	/^    def _seed(self, seed=None):$/;"	kind:member	line:75
+_step	../Environment1.py	/^    def _step(self, action):$/;"	kind:member	line:79
+absolute_import	../embedded.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+absolute_import	../runner.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+checkBinary	../Environment1.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:16
+checkBinary	../runner.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:37
+embedded.py	../embedded.py	1;"	kind:file	line:1
+generate_routefile	../Environment1.py	/^    def generate_routefile(self):$/;"	kind:member	line:32
+generate_routefile	../runner.py	/^def generate_routefile():$/;"	kind:function	line:46
+get_options	../runner.py	/^def get_options():$/;"	kind:function	line:124
+gym	../Environment1.py	/^import gym$/;"	kind:namespace	line:5
+logger	../Environment1.py	/^logger = logging.getLogger(__name__)$/;"	kind:variable	line:23
+logging	../Environment1.py	/^import logging$/;"	kind:namespace	line:1
+metadata	../Environment1.py	/^    metadata = {$/;"	kind:variable	line:27
+np	../Environment1.py	/^import numpy as np$/;"	kind:namespace	line:6
+options	../embedded.py	/^    options = runner.get_options()$/;"	kind:variable	line:38
+options	../runner.py	/^    options = get_options()$/;"	kind:variable	line:134
+optparse	../runner.py	/^import optparse$/;"	kind:namespace	line:27
+os	../Environment1.py	/^import os$/;"	kind:namespace	line:2
+os	../embedded.py	/^import os$/;"	kind:namespace	line:24
+os	../runner.py	/^import os$/;"	kind:namespace	line:25
+print_function	../runner.py	/^from __future__ import print_function$/;"	kind:namespace	line:23
+random	../runner.py	/^import random$/;"	kind:namespace	line:29
+retCode	../embedded.py	/^    retCode = subprocess.call([sumoBinary, "-c", "data\/cross.sumocfg", "--python-script", __file__],$/;"	kind:variable	line:53
+run	../runner.py	/^def run():$/;"	kind:function	line:93
+runner	../embedded.py	/^import runner$/;"	kind:namespace	line:30
+runner.py	../runner.py	1;"	kind:file	line:1
+seeding	../Environment1.py	/^from gym.utils import seeding$/;"	kind:namespace	line:8
+spaces	../Environment1.py	/^from gym import spaces$/;"	kind:namespace	line:7
+subprocess	../embedded.py	/^import subprocess$/;"	kind:namespace	line:26
+subprocess	../runner.py	/^import subprocess$/;"	kind:namespace	line:28
+sumoBinary	../embedded.py	/^        sumoBinary = runner.checkBinary('sumo')$/;"	kind:variable	line:42
+sumoBinary	../embedded.py	/^        sumoBinary = runner.checkBinary('sumo-gui')$/;"	kind:variable	line:45
+sumoBinary	../runner.py	/^        sumoBinary = checkBinary('sumo')$/;"	kind:variable	line:139
+sumoBinary	../runner.py	/^        sumoBinary = checkBinary('sumo-gui')$/;"	kind:variable	line:141
+sys	../Environment1.py	/^import sys$/;"	kind:namespace	line:3
+sys	../embedded.py	/^import sys$/;"	kind:namespace	line:25
+sys	../runner.py	/^import sys$/;"	kind:namespace	line:26
+tc	../runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43
+traci	../Environment1.py	/^import traci$/;"	kind:namespace	line:21
+traci	../runner.py	/^import traci$/;"	kind:namespace	line:42
+traci	../runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43

@@ -1,0 +1,220 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+Container	../atari/download_model.py	/^from baselines.common.azure_utils import Container$/;"	kind:namespace	line:4
+Container	../atari/train.py	/^from baselines.common.azure_utils import Container$/;"	kind:namespace	line:28
+LinearSchedule	../atari/train.py	/^from baselines.common.schedules import LinearSchedule, PiecewiseSchedule$/;"	kind:namespace	line:24
+LinearSchedule	../custom_cartpole.py	/^from baselines.common.schedules import LinearSchedule$/;"	kind:namespace	line:12
+PiecewiseSchedule	../atari/train.py	/^from baselines.common.schedules import LinearSchedule, PiecewiseSchedule$/;"	kind:namespace	line:24
+PrioritizedReplayBuffer	../atari/train.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:14
+ReplayBuffer	../atari/train.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:14
+ReplayBuffer	../custom_cartpole.py	/^from baselines.deepq.replay_buffer import ReplayBuffer$/;"	kind:namespace	line:11
+ScaledFloatFrame	../enjoy_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+ScaledFloatFrame	../train_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+SimpleMonitor	../atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+TraciSimpleCross	../traci/TraciSimpleCross.py	/^class TraciSimpleCross(gym.Env):$/;"	kind:class	line:26
+TraciSimpleCross.py	../traci/TraciSimpleCross.py	1;"	kind:file	line:1
+U	../atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+U	../atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+U	../atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+U	../custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+VideoRecorder	../atari/enjoy.py	/^from gym.monitoring import VideoRecorder$/;"	kind:namespace	line:6
+__init__	../traci/TraciSimpleCross.py	/^    def __init__(self):$/;"	kind:member	line:59
+__init__.py	../__init__.py	1;"	kind:file	line:1
+__init__.py	../atari/__init__.py	1;"	kind:file	line:1
+_render	../traci/TraciSimpleCross.py	/^    def _render(self, mode='human', close=False):$/;"	kind:member	line:122
+_reset	../traci/TraciSimpleCross.py	/^    def _reset(self):$/;"	kind:member	line:101
+_seed	../traci/TraciSimpleCross.py	/^    def _seed(self, seed=None):$/;"	kind:member	line:75
+_step	../traci/TraciSimpleCross.py	/^    def _step(self, action):$/;"	kind:member	line:79
+absolute_import	../traci/embedded.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+absolute_import	../traci/runner.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+account_key	../atari/train.py	/^                              account_key=account_key,$/;"	kind:variable	line:142
+act	../atari/enjoy.py	/^        act = deepq.build_act($/;"	kind:variable	line:64
+action	../custom_cartpole.py	/^            action = act(obs[None], update_eps=exploration.value(t))[0]$/;"	kind:variable	line:49
+approximate_num_iters	../atari/train.py	/^        approximate_num_iters = args.num_steps \/ 4$/;"	kind:variable	line:179
+argparse	../atari/download_model.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../atari/enjoy.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../atari/train.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../atari/wang2015_eval.py	/^import argparse$/;"	kind:namespace	line:1
+args	../atari/enjoy.py	/^        args = parse_args()$/;"	kind:variable	line:62
+args	../atari/train.py	/^    args = parse_args()$/;"	kind:variable	line:114
+baselines	../atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+baselines	../atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+baselines	../atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+baselines	../custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+boolean_flag	../atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+callback	../atari/download_model.py	/^        def callback(current, total):$/;"	kind:function	line:37
+callback	../train_cartpole.py	/^def callback(lcl, glb):$/;"	kind:function	line:6
+checkBinary	../traci/TraciSimpleCross.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:16
+checkBinary	../traci/runner.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:37
+common	../atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+common	../atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+common	../atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+common	../custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+container	../atari/train.py	/^        container = Container(account_name=account_name,$/;"	kind:variable	line:141
+container	../atari/train.py	/^        container = None$/;"	kind:variable	line:149
+container_name	../atari/train.py	/^                              container_name=container_name,$/;"	kind:variable	line:143
+contrib	../atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+contrib	../custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+custom_cartpole.py	../custom_cartpole.py	1;"	kind:file	line:1
+deepq	../atari/enjoy.py	/^from baselines import deepq$/;"	kind:namespace	line:9
+deepq	../atari/train.py	/^from baselines import deepq$/;"	kind:namespace	line:13
+deepq	../atari/wang2015_eval.py	/^from baselines import deepq$/;"	kind:namespace	line:8
+deepq	../custom_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:10
+deepq	../enjoy_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../enjoy_mountaincar.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../enjoy_pong.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../train_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../train_mountaincar.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../train_pong.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+download_model.py	../atari/download_model.py	1;"	kind:file	line:1
+dueling_model	../atari/enjoy.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:15
+dueling_model	../atari/model.py	/^def dueling_model(img_in, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:33
+dueling_model	../atari/train.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:29
+dueling_model	../atari/wang2015_eval.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:11
+embedded.py	../traci/embedded.py	1;"	kind:file	line:1
+enjoy.py	../atari/enjoy.py	1;"	kind:file	line:1
+enjoy_cartpole.py	../enjoy_cartpole.py	1;"	kind:file	line:1
+enjoy_mountaincar.py	../enjoy_mountaincar.py	1;"	kind:file	line:1
+enjoy_pong.py	../enjoy_pong.py	1;"	kind:file	line:1
+env	../atari/enjoy.py	/^        env = make_env(args.env)$/;"	kind:variable	line:63
+env	../atari/train.py	/^        env = gym.wrappers.Monitor(env, os.path.join(savedir, 'gym_monitor'), force=True)$/;"	kind:variable	line:157
+env	../custom_cartpole.py	/^        env = gym.make("CartPole-v0")$/;"	kind:variable	line:27
+episode_rewards	../custom_cartpole.py	/^        episode_rewards = [0.0]$/;"	kind:variable	line:45
+exploration	../atari/train.py	/^        exploration = PiecewiseSchedule([$/;"	kind:variable	line:180
+exploration	../custom_cartpole.py	/^        exploration = LinearSchedule(schedule_timesteps=10000, initial_p=1.0, final_p=0.02)$/;"	kind:variable	line:39
+force_load_path	../atari/train.py	/^    force_load_path = args.overwrite_load_dir$/;"	kind:variable	line:116
+generate_routefile	../traci/TraciSimpleCross.py	/^    def generate_routefile(self):$/;"	kind:member	line:32
+generate_routefile	../traci/runner.py	/^def generate_routefile():$/;"	kind:function	line:46
+get_options	../traci/runner.py	/^def get_options():$/;"	kind:function	line:124
+get_wrapper_by_name	../atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+gym	../atari/enjoy.py	/^import gym$/;"	kind:namespace	line:2
+gym	../atari/train.py	/^import gym$/;"	kind:namespace	line:2
+gym	../atari/wang2015_eval.py	/^import gym$/;"	kind:namespace	line:2
+gym	../custom_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../enjoy_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../enjoy_mountaincar.py	/^import gym$/;"	kind:namespace	line:1
+gym	../enjoy_pong.py	/^import gym$/;"	kind:namespace	line:1
+gym	../traci/TraciSimpleCross.py	/^import gym$/;"	kind:namespace	line:5
+gym	../train_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../train_mountaincar.py	/^import gym$/;"	kind:namespace	line:1
+gym	../train_pong.py	/^import gym$/;"	kind:namespace	line:1
+is_solved	../custom_cartpole.py	/^            is_solved = t > 100 and np.mean(episode_rewards[-101:-1]) >= 200$/;"	kind:variable	line:60
+iteration_time_est	../atari/train.py	/^        iteration_time_est = RunningAvg(0.999)$/;"	kind:variable	line:204
+itertools	../custom_cartpole.py	/^import itertools$/;"	kind:namespace	line:2
+json	../atari/train.py	/^import json$/;"	kind:namespace	line:8
+layer_norm_fn	../atari/model.py	/^def layer_norm_fn(x, relu=True):$/;"	kind:function	line:5
+layers	../atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+layers	../custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+logger	../atari/train.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:12
+logger	../custom_cartpole.py	/^from baselines import logger$/;"	kind:namespace	line:9
+logger	../traci/TraciSimpleCross.py	/^logger = logging.getLogger(__name__)$/;"	kind:variable	line:23
+logger_path	../atari/train.py	/^        logger_path = logger_utils.path_with_date(args.save_dir, args.env)$/;"	kind:variable	line:121
+logger_utils	../atari/train.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:12
+logging	../traci/TraciSimpleCross.py	/^import logging$/;"	kind:namespace	line:1
+main	../atari/download_model.py	/^def main():$/;"	kind:function	line:22
+main	../atari/wang2015_eval.py	/^def main():$/;"	kind:function	line:66
+main	../enjoy_cartpole.py	/^def main():$/;"	kind:function	line:6
+main	../enjoy_mountaincar.py	/^def main():$/;"	kind:function	line:6
+main	../enjoy_pong.py	/^def main():$/;"	kind:function	line:7
+main	../train_cartpole.py	/^def main():$/;"	kind:function	line:12
+main	../train_mountaincar.py	/^def main():$/;"	kind:function	line:6
+main	../train_pong.py	/^def main():$/;"	kind:function	line:7
+make_env	../atari/enjoy.py	/^def make_env(game_name):$/;"	kind:function	line:30
+make_env	../atari/train.py	/^def make_env(game_name):$/;"	kind:function	line:65
+make_env	../atari/wang2015_eval.py	/^def make_env(game_name):$/;"	kind:function	line:14
+make_obs_ph	../atari/enjoy.py	/^            make_obs_ph=lambda name: U.Uint8Input(env.observation_space.shape, name=name),$/;"	kind:variable	line:65
+make_obs_ph	../custom_cartpole.py	/^            make_obs_ph=lambda name: U.BatchInput(env.observation_space.shape, name=name),$/;"	kind:variable	line:30
+maybe_create	../atari/train.py	/^                              maybe_create=True)$/;"	kind:variable	line:144
+maybe_load_model	../atari/train.py	/^def maybe_load_model(savedir, container):$/;"	kind:function	line:90
+maybe_save_model	../atari/train.py	/^def maybe_save_model(savedir, container, state):$/;"	kind:function	line:72
+metadata	../traci/TraciSimpleCross.py	/^    metadata = {$/;"	kind:variable	line:27
+model	../atari/enjoy.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:15
+model	../atari/model.py	/^def model(img_in, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:12
+model	../atari/train.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:29
+model	../atari/wang2015_eval.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:11
+model	../custom_cartpole.py	/^def model(inpt, num_actions, scope, reuse=False):$/;"	kind:function	line:15
+model.py	../atari/model.py	1;"	kind:file	line:1
+model_wrapper	../atari/train.py	/^        def model_wrapper(img_in, num_actions, scope, **kwargs):$/;"	kind:function	line:165
+np	../atari/enjoy.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../atari/train.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../atari/wang2015_eval.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../custom_cartpole.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../traci/TraciSimpleCross.py	/^import numpy as np$/;"	kind:namespace	line:6
+num_actions	../atari/enjoy.py	/^            num_actions=env.action_space.n)$/;"	kind:variable	line:67
+num_actions	../custom_cartpole.py	/^            num_actions=env.action_space.n,$/;"	kind:variable	line:32
+num_iters	../atari/train.py	/^        num_iters = 0$/;"	kind:variable	line:194
+num_iters_since_reset	../atari/train.py	/^        num_iters_since_reset = 0$/;"	kind:variable	line:206
+obs	../atari/train.py	/^        obs = env.reset()$/;"	kind:variable	line:205
+obs	../custom_cartpole.py	/^                obs = env.reset()$/;"	kind:variable	line:57
+obs	../custom_cartpole.py	/^            obs = new_obs$/;"	kind:variable	line:53
+obs	../custom_cartpole.py	/^        obs = env.reset()$/;"	kind:variable	line:46
+optimizer	../custom_cartpole.py	/^            optimizer=tf.train.AdamOptimizer(learning_rate=5e-4),$/;"	kind:variable	line:33
+options	../traci/embedded.py	/^    options = runner.get_options()$/;"	kind:variable	line:38
+options	../traci/runner.py	/^    options = get_options()$/;"	kind:variable	line:134
+optparse	../traci/runner.py	/^import optparse$/;"	kind:namespace	line:27
+os	../atari/enjoy.py	/^import os$/;"	kind:namespace	line:3
+os	../atari/train.py	/^import os$/;"	kind:namespace	line:4
+os	../atari/wang2015_eval.py	/^import os$/;"	kind:namespace	line:4
+os	../traci/TraciSimpleCross.py	/^import os$/;"	kind:namespace	line:2
+os	../traci/embedded.py	/^import os$/;"	kind:namespace	line:24
+os	../traci/runner.py	/^import os$/;"	kind:namespace	line:25
+parse_args	../atari/download_model.py	/^def parse_args():$/;"	kind:function	line:7
+parse_args	../atari/enjoy.py	/^def parse_args():$/;"	kind:function	line:18
+parse_args	../atari/train.py	/^def parse_args():$/;"	kind:function	line:31
+parse_args	../atari/wang2015_eval.py	/^def parse_args():$/;"	kind:function	line:21
+play	../atari/enjoy.py	/^def play(env, act, stochastic, video_path):$/;"	kind:function	line:37
+print_function	../traci/runner.py	/^from __future__ import print_function$/;"	kind:namespace	line:23
+progressbar	../atari/download_model.py	/^import progressbar$/;"	kind:namespace	line:2
+q_func	../atari/enjoy.py	/^            q_func=dueling_model if args.dueling else model,$/;"	kind:variable	line:66
+q_func	../custom_cartpole.py	/^            q_func=model,$/;"	kind:variable	line:31
+random	../traci/runner.py	/^import random$/;"	kind:namespace	line:29
+replay_buffer	../custom_cartpole.py	/^        replay_buffer = ReplayBuffer(50000)$/;"	kind:variable	line:36
+reset	../atari/train.py	/^        reset = True$/;"	kind:variable	line:207
+retCode	../traci/embedded.py	/^    retCode = subprocess.call([sumoBinary, "-c", "data\/cross.sumocfg", "--python-script", __file__],$/;"	kind:variable	line:53
+run	../traci/runner.py	/^def run():$/;"	kind:function	line:93
+runner	../traci/embedded.py	/^import runner$/;"	kind:namespace	line:30
+runner.py	../traci/runner.py	1;"	kind:file	line:1
+savedir	../atari/train.py	/^            savedir = tempfile.TemporaryDirectory().name$/;"	kind:variable	line:147
+savedir	../atari/train.py	/^        savedir = force_load_path$/;"	kind:variable	line:128
+savedir	../atari/train.py	/^        savedir = logger_path$/;"	kind:variable	line:124
+savedir	../atari/train.py	/^        savedir = os.getenv('OPENAI_LOGDIR', None)$/;"	kind:variable	line:138
+seeding	../traci/TraciSimpleCross.py	/^from gym.utils import seeding$/;"	kind:namespace	line:8
+set_global_seeds	../atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+spaces	../traci/TraciSimpleCross.py	/^from gym import spaces$/;"	kind:namespace	line:7
+state	../atari/train.py	/^        state = maybe_load_model(savedir, container)$/;"	kind:variable	line:197
+steps_per_iter	../atari/train.py	/^        steps_per_iter = RunningAvg(0.999)$/;"	kind:variable	line:203
+subprocess	../traci/embedded.py	/^import subprocess$/;"	kind:namespace	line:26
+subprocess	../traci/runner.py	/^import subprocess$/;"	kind:namespace	line:28
+sumoBinary	../traci/embedded.py	/^        sumoBinary = runner.checkBinary('sumo')$/;"	kind:variable	line:42
+sumoBinary	../traci/embedded.py	/^        sumoBinary = runner.checkBinary('sumo-gui')$/;"	kind:variable	line:45
+sumoBinary	../traci/runner.py	/^        sumoBinary = checkBinary('sumo')$/;"	kind:variable	line:139
+sumoBinary	../traci/runner.py	/^        sumoBinary = checkBinary('sumo-gui')$/;"	kind:variable	line:141
+sys	../traci/TraciSimpleCross.py	/^import sys$/;"	kind:namespace	line:3
+sys	../traci/embedded.py	/^import sys$/;"	kind:namespace	line:25
+sys	../traci/runner.py	/^import sys$/;"	kind:namespace	line:26
+tc	../traci/runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43
+tempfile	../atari/train.py	/^import tempfile$/;"	kind:namespace	line:6
+tensorflow	../atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+tensorflow	../custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+tf	../atari/model.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../atari/train.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../custom_cartpole.py	/^import tensorflow as tf$/;"	kind:namespace	line:4
+time	../atari/train.py	/^import time$/;"	kind:namespace	line:7
+traci	../traci/TraciSimpleCross.py	/^import traci$/;"	kind:namespace	line:21
+traci	../traci/runner.py	/^import traci$/;"	kind:namespace	line:42
+traci	../traci/runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43
+train.py	../atari/train.py	1;"	kind:file	line:1
+train_cartpole.py	../train_cartpole.py	1;"	kind:file	line:1
+train_mountaincar.py	../train_mountaincar.py	1;"	kind:file	line:1
+train_pong.py	../train_pong.py	1;"	kind:file	line:1
+wang2015_eval	../atari/wang2015_eval.py	/^def wang2015_eval(game_name, act, stochastic):$/;"	kind:function	line:32
+wang2015_eval.py	../atari/wang2015_eval.py	1;"	kind:file	line:1
+wrap_dqn	../atari/enjoy.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:14
+wrap_dqn	../atari/train.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:27
+wrap_dqn	../atari/wang2015_eval.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:10
+wrap_dqn	../enjoy_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+wrap_dqn	../train_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
