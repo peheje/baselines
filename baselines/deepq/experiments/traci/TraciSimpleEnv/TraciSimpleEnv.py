@@ -53,12 +53,12 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 100_000  # number of time steps
+        N = 1_000_000  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 10
-        p_e_w = 1 / 10
-        p_n_s = 1 / 10
-        p_s_n = 1 / 10
+        p_w_e = 1 / 20
+        p_e_w = 1 / 20
+        p_n_s = 0 / 50
+        p_s_n = 0 / 50
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -95,10 +95,10 @@ class TraciSimpleEnv(gym.Env):
 
     def __init__(self):
         self.generate_routefile()
-        self.sumo_binary = checkBinary('sumo')
+        self.sumo_binary = checkBinary('sumo-gui')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 25
+        self.max_cars_in_queue = 1
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue])
         low = np.array([0, 0, 0, 0])
@@ -107,7 +107,7 @@ class TraciSimpleEnv(gym.Env):
         self.num_inductors = 4
         self.vehicle_ids = []
 
-        self.action_space = spaces.Discrete(2)
+        self.action_space = spaces.Discrete(3)
         self.observation_space = spaces.Box(low, high)
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
 
@@ -135,11 +135,13 @@ class TraciSimpleEnv(gym.Env):
                 traci.trafficlights.setPhase("0", 3)
             elif phase == 0:
                 traci.trafficlights.setPhase("0", 0)
-        else:
+        elif action == 1:
             if phase == 0:
                 traci.trafficlights.setPhase("0", 1)
             elif phase == 2:
                 traci.trafficlights.setPhase("0", 2)
+        else:
+            pass    # do nothing
 
         # Run simulation step
         traci.simulationStep()
@@ -156,15 +158,22 @@ class TraciSimpleEnv(gym.Env):
             self.unique_counters[i].remove_many(cars_on_out_inductor)
 
         for i in range(self.num_inductors):
-            self.state[i] = self.unique_counters[i].get_count()
+            self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
 
         # Build reward
-        reward = self.reward_squared_wait_sum()
+        reward = self.reward_leving_cars()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
         return np.array(self.state), reward, done, {}
+
+    def reward_leving_cars(self):
+        s = 0
+        for i in range(4):
+            leaving_id = "l" + str(i)
+            s += traci.inductionloop.getLastStepVehicleNumber(leaving_id)
+        return s
 
     def reward_emission(self):
         self.vehicle_ids = traci.vehicle.getIDList()
@@ -184,8 +193,6 @@ class TraciSimpleEnv(gym.Env):
         return -np.mean(np.square(wait_sum))
 
     def _reset(self):
-
-        traci.close()
         return np.array([0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
