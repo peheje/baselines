@@ -1,1 +1,10 @@
-<e1Detector id="0" lane="4i_0" pos="450" freq="30" file="cross.out" friendlyPos="x"/>
+<additionals>
+    <e1Detector id="i0" lane="1i_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i1" lane="3i_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i2" lane="2i_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i3" lane="4i_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o0" lane="1i_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o1" lane="3i_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o2" lane="2i_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o3" lane="4i_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+</additionals>
