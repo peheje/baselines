@@ -1,7 +1,6 @@
 import gym
 import TraciSimpleEnv.TraciSimpleEnv
 env = gym.make('TraciSimpleEnv-v0')
-#env = gym.make('CartPole-v0')
 
 print("made gym")
 

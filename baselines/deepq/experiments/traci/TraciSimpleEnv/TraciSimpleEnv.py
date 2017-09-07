@@ -8,7 +8,6 @@ from gym import spaces
 from gym.utils import seeding
 from threading import Thread
 
-
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
     sys.path.append(os.path.join(os.path.dirname(
@@ -25,6 +24,23 @@ import traci
 logger = logging.getLogger(__name__)
 
 
+class UniqueCounter:
+    def __init__(self):
+        self.ids = {}
+
+    def add_many(self, list_of_ids):
+        for i in list_of_ids:
+            self.ids[i] = True
+
+    def remove_many(self, list_of_ids):
+        for i in list_of_ids:
+            if i in self.ids:
+                del self.ids[i]
+
+    def get_count(self):
+        return len(self.ids)
+
+
 class TraciSimpleEnv(gym.Env):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
@@ -33,13 +49,15 @@ class TraciSimpleEnv(gym.Env):
     }
 
     def generate_routefile(self):
-        """ Generates an XML file that gets loaded by the simulator which spawns all the cars. """
+        """ Generates an XML file that gets loaded by the simulator which spawns all the cars.
+            Cars MUST HAVE UNIQUE ID
+        """
 
-        N = 100  # number of time steps
+        N = 2000  # number of time steps
         # demand per second from different directions
-        p_w_e = 0 / 10
-        p_e_w = 1 / 11
-        p_n_s = 0 / 30
+        p_w_e = 1 / 2
+        p_e_w = 1 / 2
+        p_n_s = 0 / 2
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -50,13 +68,17 @@ class TraciSimpleEnv(gym.Env):
             vehNr = 0
             for i in range(N):
                 if np.random.uniform() < p_w_e:
-                    print('    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i), file=routes)
+                    print('    <vehicle id="right_%i" type="typeWE" route="right" depart="%i" />' % (vehNr, i),
+                          file=routes)
                     vehNr += 1
                 if np.random.uniform() < p_e_w:
-                    print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i), file=routes)
+                    print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i),
+                          file=routes)
                     vehNr += 1
                 if np.random.uniform() < p_n_s:
-                    print('    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i), file=routes)
+                    print(
+                        '    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i),
+                        file=routes)
                     vehNr += 1
             print("</routes>", file=routes)
         self.route_file_generated = True
@@ -75,11 +97,18 @@ class TraciSimpleEnv(gym.Env):
 
         self.route_file_generated = False
         self.num_inductors = 4
-        self.vehicle_ids = traci.vehicle.getIDList()
+        self.vehicle_ids = []
 
         self.action_space = spaces.Discrete(2)
         self.observation_space = spaces.Box(-high, high)
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
+
+        self.unique_counters = [
+            UniqueCounter(),
+            UniqueCounter(),
+            UniqueCounter(),
+            UniqueCounter()
+        ]
 
         self.state = [0, 0, 0, 0]
         self._seed()
@@ -95,9 +124,18 @@ class TraciSimpleEnv(gym.Env):
         traci.simulationStep()
 
         # Build state
-        for inductor_id in range(self.num_inductors):
-            self.state[inductor_id] += traci.inductionloop.getLastStepVehicleNumber("i"+str(inductor_id))
-            self.state[inductor_id] -= traci.inductionloop.getLastStepVehicleNumber("o"+str(inductor_id))
+        for i in range(self.num_inductors):
+            input_id = "i" + str(i)
+            output_id = "o" + str(i)
+
+            cars_on_in_inductor = traci.inductionloop.getLastStepVehicleIDs(input_id)
+            cars_on_out_inductor = traci.inductionloop.getLastStepVehicleIDs(output_id)
+
+            self.unique_counters[i].add_many(cars_on_in_inductor)
+            self.unique_counters[i].remove_many(cars_on_out_inductor)
+
+        for i in range(self.num_inductors):
+            self.state[i] = self.unique_counters[i].get_count()
 
         # Build reward
         wait_sum = 0
