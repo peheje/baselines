@@ -53,7 +53,7 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 2000  # number of time steps
+        N = 100  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10
@@ -145,15 +145,22 @@ class TraciSimpleEnv(gym.Env):
             self.state[i] = self.unique_counters[i].get_count()
 
         # Build reward
-        self.vehicle_ids = traci.vehicle.getIDList()
-        wait_sum = 0
-        for veh_id in self.vehicle_ids:
-            wait_sum += traci.vehicle.getWaitingTime(veh_id) ** 2
+        reward = self.reward_total_in_queue()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
-        return np.array(self.state), -np.mean(wait_sum), done, {}
+        return np.array(self.state), reward, done, {}
+
+    def reward_total_in_queue(self):
+        return sum(self.state)
+
+    def reward_squared_wait_sum(self):
+        self.vehicle_ids = traci.vehicle.getIDList()
+        wait_sum = 0
+        for veh_id in self.vehicle_ids:
+            wait_sum += traci.vehicle.getWaitingTime(veh_id) ** 2
+        return -np.mean(wait_sum)
 
     def _reset(self):
 

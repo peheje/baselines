@@ -8,3 +8,6 @@ while True:
     obs, rew, done, info = env.step(env.action_space.sample())
 
     print(obs, rew, done, info)
+
+    if done:
+        env.reset()
