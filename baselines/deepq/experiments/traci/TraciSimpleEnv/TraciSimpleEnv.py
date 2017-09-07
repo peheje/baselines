@@ -95,19 +95,20 @@ class TraciSimpleEnv(gym.Env):
 
     def __init__(self):
         self.generate_routefile()
-        self.sumo_binary = checkBinary('sumo-gui')
+        self.sumo_binary = checkBinary('sumo')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 1000
+        self.max_cars_in_queue = 25
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue])
+        low = np.array([0, 0, 0, 0])
 
         self.route_file_generated = False
         self.num_inductors = 4
         self.vehicle_ids = []
 
         self.action_space = spaces.Discrete(2)
-        self.observation_space = spaces.Box(-high, high)
+        self.observation_space = spaces.Box(low, high)
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
 
         self.unique_counters = [
