@@ -53,7 +53,7 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 100  # number of time steps
+        N = 100_000  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10
@@ -127,6 +127,19 @@ class TraciSimpleEnv(gym.Env):
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
+        # Run action
+        phase = traci.trafficlights.getPhase("0")
+        if action == 0:
+            if phase == 2:
+                traci.trafficlights.setPhase("0", 3)
+            elif phase == 0:
+                traci.trafficlights.setPhase("0", 0)
+        else:
+            if phase == 0:
+                traci.trafficlights.setPhase("0", 1)
+            elif phase == 2:
+                traci.trafficlights.setPhase("0", 2)
+
         # Run simulation step
         traci.simulationStep()
 
@@ -145,22 +158,29 @@ class TraciSimpleEnv(gym.Env):
             self.state[i] = self.unique_counters[i].get_count()
 
         # Build reward
-        reward = self.reward_total_in_queue()
+        reward = self.reward_squared_wait_sum()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
         return np.array(self.state), reward, done, {}
 
+    def reward_emission(self):
+        self.vehicle_ids = traci.vehicle.getIDList()
+        emissions = []
+        for veh_id in self.vehicle_ids:
+            emissions.append(traci.vehicle.getCO2Emission(veh_id))
+        return -np.mean(emissions)
+
     def reward_total_in_queue(self):
-        return sum(self.state)
+        return -sum(self.state)
 
     def reward_squared_wait_sum(self):
         self.vehicle_ids = traci.vehicle.getIDList()
         wait_sum = 0
         for veh_id in self.vehicle_ids:
-            wait_sum += traci.vehicle.getWaitingTime(veh_id) ** 2
-        return -np.mean(wait_sum)
+            wait_sum += traci.vehicle.getWaitingTime(veh_id)
+        return -np.mean(np.square(wait_sum))
 
     def _reset(self):
 
