@@ -7,6 +7,7 @@ import numpy as np
 from gym import spaces
 from gym.utils import seeding
 from threading import Thread
+import copy
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -55,10 +56,10 @@ class TraciSimpleEnv(gym.Env):
 
         N = 1_000_000  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 20
-        p_e_w = 1 / 20
-        p_n_s = 0 / 50
-        p_s_n = 0 / 50
+        p_w_e = 0 / 30
+        p_e_w = 1 / 30
+        p_n_s = 1 / 30
+        p_s_n = 0 / 30
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -98,7 +99,7 @@ class TraciSimpleEnv(gym.Env):
         self.sumo_binary = checkBinary('sumo-gui')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 1
+        self.max_cars_in_queue = 20
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue])
         low = np.array([0, 0, 0, 0])
@@ -161,14 +162,14 @@ class TraciSimpleEnv(gym.Env):
             self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
 
         # Build reward
-        reward = self.reward_leving_cars()
+        reward = self.reward_total_in_queue()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
         return np.array(self.state), reward, done, {}
 
-    def reward_leving_cars(self):
+    def reward_leaving_cars(self):
         s = 0
         for i in range(4):
             leaving_id = "l" + str(i)
