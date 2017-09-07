@@ -55,15 +55,17 @@ class TraciSimpleEnv(gym.Env):
 
         N = 2000  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 2
-        p_e_w = 1 / 2
-        p_n_s = 0 / 2
+        p_w_e = 1 / 10
+        p_e_w = 1 / 10
+        p_n_s = 1 / 10
+        p_s_n = 1 / 10
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
             <route id="right" edges="51o 1i 2o 52i" />
             <route id="left" edges="52o 2i 1o 51i" />
+            <route id="up" edges="53o 3i 4o 54i" />
             <route id="down" edges="54o 4i 3o 53i" />""", file=routes)
             vehNr = 0
             for i in range(N):
@@ -78,6 +80,11 @@ class TraciSimpleEnv(gym.Env):
                 if np.random.uniform() < p_n_s:
                     print(
                         '    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i),
+                        file=routes)
+                    vehNr += 1
+                if np.random.uniform() < p_s_n:
+                    print(
+                        '    <vehicle id="up_%i" type="typeNS" route="up" depart="%i" color="1,0,0"/>' % (vehNr, i),
                         file=routes)
                     vehNr += 1
             print("</routes>", file=routes)
@@ -138,14 +145,15 @@ class TraciSimpleEnv(gym.Env):
             self.state[i] = self.unique_counters[i].get_count()
 
         # Build reward
+        self.vehicle_ids = traci.vehicle.getIDList()
         wait_sum = 0
         for veh_id in self.vehicle_ids:
-            wait_sum += traci.vehicle.getWaitingTime(veh_id)
+            wait_sum += traci.vehicle.getWaitingTime(veh_id) ** 2
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
-        return np.array(self.state), np.mean(wait_sum), done, {}
+        return np.array(self.state), -np.mean(wait_sum), done, {}
 
     def _reset(self):
 
