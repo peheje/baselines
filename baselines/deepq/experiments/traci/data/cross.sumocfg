@@ -6,6 +6,7 @@
         <net-file value="cross.net.xml"/>
         <route-files value="cross.rou.xml"/>
         <additional-files value="cross1.det.xml"/>
+        <gui-settings-file value="gui.settings.xml"/>
     </input>
 
     <time>

@@ -6,6 +6,8 @@ import gym
 import numpy as np
 from gym import spaces
 from gym.utils import seeding
+from threading import Thread
+
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 try:
@@ -23,18 +25,21 @@ import traci
 logger = logging.getLogger(__name__)
 
 
-class TraciSimpleCross(gym.Env):
+class TraciSimpleEnv(gym.Env):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
-        'video.frames_per_second': 50
+        'video.frames_per_second': 50,
+        "traci": True
     }
 
     def generate_routefile(self):
-        N = 3600  # number of time steps
+        """ Generates an XML file that gets loaded by the simulator which spawns all the cars. """
+
+        N = 100  # number of time steps
         # demand per second from different directions
-        p_w_e = 1.0 / 10
-        p_e_w = 1.0 / 11
-        p_n_s = 1.0 / 30
+        p_w_e = 0 / 10
+        p_e_w = 1 / 11
+        p_n_s = 0 / 30
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -56,14 +61,21 @@ class TraciSimpleCross(gym.Env):
             print("</routes>", file=routes)
         self.route_file_generated = True
 
+    def __traci_start__(self):
+        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
+
     def __init__(self):
+        self.generate_routefile()
+        self.sumo_binary = checkBinary('sumo-gui')
+        Thread(target=self.__traci_start__())
+
         self.max_cars_in_queue = 1000
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue])
 
         self.route_file_generated = False
         self.num_inductors = 4
-        self.vehicle_ids = traci.getIDList()
+        self.vehicle_ids = traci.vehicle.getIDList()
 
         self.action_space = spaces.Discrete(2)
         self.observation_space = spaces.Box(-high, high)
@@ -84,14 +96,13 @@ class TraciSimpleCross(gym.Env):
 
         # Build state
         for inductor_id in range(self.num_inductors):
-            self.state[inductor_id] += traci.getLastStepVehicleNumber("i"+str(inductor_id))
-        for inductor_id in range(self.num_inductors):
-            self.state[inductor_id] -= traci.getLastStepVehicleNumber("o"+str(inductor_id))
+            self.state[inductor_id] += traci.inductionloop.getLastStepVehicleNumber("i"+str(inductor_id))
+            self.state[inductor_id] -= traci.inductionloop.getLastStepVehicleNumber("o"+str(inductor_id))
 
         # Build reward
         wait_sum = 0
         for veh_id in self.vehicle_ids:
-            wait_sum += traci.getWaitingTime(veh_id)
+            wait_sum += traci.vehicle.getWaitingTime(veh_id)
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
@@ -101,22 +112,6 @@ class TraciSimpleCross(gym.Env):
     def _reset(self):
 
         traci.close()
-
-        # this script has been called from the command line. It will start sumo as a
-        # server, then connect and run
-        # sumo_binary = checkBinary('sumo')
-        sumo_binary = checkBinary('sumo-gui')
-
-        # first, generate the route file for this simulation
-        if not self.route_file_generated:
-            self.generate_routefile()
-
-        self.vehicle_ids = traci.getIDList()
-
-        # this is the normal way of using traci. sumo is started as a
-        # subprocess and then the python script connects and runs
-        traci.start([sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
-
         return np.array([0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):

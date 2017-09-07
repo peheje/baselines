@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  7 09:14:40 2017 by SUMO gui Version 0.30.0
+<!-- generated on Thu Sep  7 10:12:54 2017 by SUMO gui Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="cross.net.xml"/>
-        <route-files value="cross.rou.xml"/>
-        <additional-files value="cross1.det.xml,cross2.det.xml,cross3.det.xml,cross4.det.xml,cross5.det.xml,cross6.det.xml,cross7.det.xml,cross8.det.xml"/>
+        <net-file value="data/cross.net.xml"/>
+        <route-files value="data/cross.rou.xml"/>
+        <additional-files value="data/cross1.det.xml"/>
     </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
 
     <time>
         <begin value="0"/>
@@ -19,5 +23,13 @@
         <verbose value="true"/>
         <no-step-log value="true"/>
     </report>
+
+    <traci_server>
+        <remote-port value="51148"/>
+    </traci_server>
+
+    <gui_only>
+        <gui-settings-file value="data/gui.settings.xml"/>
+    </gui_only>
 
 </configuration>
