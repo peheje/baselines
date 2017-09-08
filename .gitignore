@@ -31,4 +31,4 @@ src
 *.egg-info
 .cache
 
-baselines/deepq/experiments/traci/data/e1Detector_4o_0_9.txt
+baselines/deepq/experiments/traci/data/*.txt
