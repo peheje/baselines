@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+from collections import deque
 
 import gym
 import numpy as np
@@ -54,12 +55,12 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 1_000_000  # number of time steps
+        N = 1000000  # number of time steps
         # demand per second from different directions
-        p_w_e = 0 / 30
-        p_e_w = 1 / 30
-        p_n_s = 1 / 30
-        p_s_n = 0 / 30
+        p_w_e = 1 / 10
+        p_e_w = 1 / 10
+        p_n_s = 1 / 10
+        p_s_n = 1 / 10
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -99,10 +100,11 @@ class TraciSimpleEnv(gym.Env):
         self.sumo_binary = checkBinary('sumo-gui')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 20
+        self.max_cars_in_queue = 10
+        self.traffic_phases=4
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
-                         self.max_cars_in_queue, self.max_cars_in_queue])
-        low = np.array([0, 0, 0, 0])
+                         self.max_cars_in_queue, self.max_cars_in_queue,self.traffic_phases])
+        low = np.array([0, 0, 0, 0,0])
 
         self.route_file_generated = False
         self.num_inductors = 4
@@ -119,7 +121,7 @@ class TraciSimpleEnv(gym.Env):
             UniqueCounter()
         ]
 
-        self.state = [0, 0, 0, 0]
+        self.state = [0, 0, 0, 0, 0]
         self._seed()
 
     def _seed(self, seed=None):
@@ -160,9 +162,10 @@ class TraciSimpleEnv(gym.Env):
 
         for i in range(self.num_inductors):
             self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
+        self.state[4]=phase
 
         # Build reward
-        reward = self.reward_total_in_queue()
+        reward = self.reward_total_waiting_vehicles()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
@@ -182,6 +185,14 @@ class TraciSimpleEnv(gym.Env):
         for veh_id in self.vehicle_ids:
             emissions.append(traci.vehicle.getCO2Emission(veh_id))
         return -np.mean(emissions)
+    def reward_total_waiting_vehicles(self):
+        self.vehicle_ids = traci.vehicle.getIDList()
+        totalWaitTime = 0
+        for veh_id in self.vehicle_ids:
+            if traci.vehicle.getSpeed(veh_id) < 1:
+                totalWaitTime += 1.0
+        return -totalWaitTime
+
 
     def reward_total_in_queue(self):
         return -sum(self.state)
@@ -194,7 +205,7 @@ class TraciSimpleEnv(gym.Env):
         return -np.mean(np.square(wait_sum))
 
     def _reset(self):
-        return np.array([0, 0, 0, 0])
+        return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
         print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")

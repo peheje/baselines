@@ -23,7 +23,8 @@ print_every = 10
 
 n_actions = 3
 n_states = env.max_cars_in_queue+1
-state_actions = (n_states, n_states, n_states, n_states, n_actions)
+n_traffic_phases=4
+state_actions = (n_states, n_states, n_states, n_states,n_traffic_phases, n_actions)
 
 q = np.zeros(state_actions)
 
