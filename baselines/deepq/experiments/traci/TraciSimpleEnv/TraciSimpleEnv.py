@@ -55,12 +55,12 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 1000000  # number of time steps
+        N = 100_000  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 10
-        p_e_w = 1 / 10
-        p_n_s = 1 / 10
-        p_s_n = 1 / 10
+        p_w_e = 1 / 20
+        p_e_w = 1 / 20
+        p_n_s = 1 / 20
+        p_s_n = 1 / 20
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -100,7 +100,7 @@ class TraciSimpleEnv(gym.Env):
         self.sumo_binary = checkBinary('sumo-gui')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 10
+        self.max_cars_in_queue = 5
         self.traffic_phases=4
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue,self.traffic_phases])
@@ -188,11 +188,11 @@ class TraciSimpleEnv(gym.Env):
 
     def reward_total_waiting_vehicles(self):
         self.vehicle_ids = traci.vehicle.getIDList()
-        totalWaitTime = 0
+        total_wait_time = 0.0
         for veh_id in self.vehicle_ids:
             if traci.vehicle.getSpeed(veh_id) < 1:
-                totalWaitTime += 1.0
-        return -totalWaitTime
+                total_wait_time += 1.0
+        return -total_wait_time
 
     def reward_total_in_queue(self):
         return -sum(self.state)
