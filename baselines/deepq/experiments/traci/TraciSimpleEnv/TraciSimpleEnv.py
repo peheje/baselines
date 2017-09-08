@@ -64,7 +64,7 @@ class TraciSimpleEnv(gym.Env):
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-            <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
+            <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <route id="right" edges="51o 1i 2o 52i" />
             <route id="left" edges="52o 2i 1o 51i" />
             <route id="up" edges="53o 3i 4o 54i" />
@@ -93,7 +93,7 @@ class TraciSimpleEnv(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
+        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start"])
 
     def __init__(self):
         self.generate_routefile()
@@ -185,6 +185,7 @@ class TraciSimpleEnv(gym.Env):
         for veh_id in self.vehicle_ids:
             emissions.append(traci.vehicle.getCO2Emission(veh_id))
         return -np.mean(emissions)
+
     def reward_total_waiting_vehicles(self):
         self.vehicle_ids = traci.vehicle.getIDList()
         totalWaitTime = 0
@@ -192,7 +193,6 @@ class TraciSimpleEnv(gym.Env):
             if traci.vehicle.getSpeed(veh_id) < 1:
                 totalWaitTime += 1.0
         return -totalWaitTime
-
 
     def reward_total_in_queue(self):
         return -sum(self.state)
