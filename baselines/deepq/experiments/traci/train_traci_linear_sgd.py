@@ -1,4 +1,6 @@
 # Inspired by https://bitbucket.org/chrisyeh96/cs-229-325-project
+import random
+
 import gym
 import TraciSimpleEnv.TraciSimpleEnv
 import numpy as np
@@ -65,8 +67,10 @@ n_episodes = 1000000
 epsilon = 0.4
 epsilon_decay = 0.9999
 print_every = 500
-batch_size = 5000  # Train when batch size reaches this size
-batch = deque(maxlen=batch_size*10)
+train_every = 100
+mini_batch_size = 32
+max_batch_size = 100000
+batch = deque(maxlen=max_batch_size)
 
 qf = LinearQFunction(gamma=gamma, n_actions=n_actions)
 
@@ -76,8 +80,9 @@ for episode in range(1, n_episodes):
     a = np.random.randint(0, n_actions) if np.random.rand() < epsilon else qf.get_best_q(s)[0]
     sn, r, done, info = env.step(a)
     batch.append((s, a, r, sn))
-    if episode % batch_size == 0:
-        batch_unpacked = list(zip(*batch))
+    if episode % train_every == 0:
+        mini_batch = random.sample(batch, mini_batch_size)
+        batch_unpacked = list(zip(*mini_batch))
         qf.train(*batch_unpacked)
     s = np.copy(sn)
     epsilon *= epsilon_decay
