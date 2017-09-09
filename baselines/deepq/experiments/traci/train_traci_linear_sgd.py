@@ -69,7 +69,7 @@ epsilon_decay = 0.9999
 print_every = 500
 train_every = 100
 mini_batch_size = 32
-max_batch_size = 100000
+max_batch_size = mini_batch_size*100
 batch = deque(maxlen=max_batch_size)
 
 qf = LinearQFunction(gamma=gamma, n_actions=n_actions)
