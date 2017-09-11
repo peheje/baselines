@@ -2,6 +2,8 @@ import gym
 
 from baselines import deepq
 import TraciSimpleEnv.TraciSimpleEnv
+from baselines import logger, logger_utils
+
 
 def callback(lcl, glb):
     # stop training if reward exceeds 199
@@ -10,7 +12,13 @@ def callback(lcl, glb):
 
 
 def main():
+
     env = gym.make('TraciSimpleEnv-v0')
+
+    logger.reset()
+    logger_path = logger_utils.path_with_date("/tmp/TraciSimpleEnv-v0", "TraciSimpleEnv-v0")
+    logger.configure(logger_path, ["tensorboard", "stdout"])
+
     model = deepq.models.mlp([64])
     act = deepq.learn(
         env,
@@ -21,7 +29,9 @@ def main():
         exploration_fraction=0.1,
         exploration_final_eps=0.02,
         print_freq=1,
-        callback=callback
+        print_timestep_freq=100,
+        callback=callback,
+        log_path="/tmp/traci"
     )
     print("Saving model to traffic_model.pkl")
     act.save("traffic_model.pkl")
