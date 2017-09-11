@@ -96,12 +96,12 @@ class TraciSimpleEnv(gym.Env):
         traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml","--start","--quit-on-end"])
 
     def __init__(self):
-        self.render=False
+        self.shouldRender=False
         self.restart()
 
     def restart(self):
         self.generate_routefile()
-        if self.render:
+        if self.shouldRender:
             self.sumo_binary = checkBinary('sumo-gui')
         else:
             self.sumo_binary = checkBinary('sumo')
@@ -218,5 +218,4 @@ class TraciSimpleEnv(gym.Env):
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
-        self.render=True
-        print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")
+        self.shouldRender=True
