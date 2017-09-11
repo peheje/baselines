@@ -97,7 +97,10 @@ class TraciSimpleEnv(gym.Env):
 
     def __init__(self):
         self.generate_routefile()
-        self.sumo_binary = checkBinary('sumo')
+        if self.render:
+            self.sumo_binary = checkBinary('sumo-gui')
+        else:
+            self.sumo_binary = checkBinary('sumo')
         Thread(target=self.__traci_start__())
 
         self.max_cars_in_queue = 20
@@ -212,4 +215,5 @@ class TraciSimpleEnv(gym.Env):
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
+        self.render=True
         print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")

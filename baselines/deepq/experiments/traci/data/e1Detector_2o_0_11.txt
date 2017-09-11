@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< Updated upstream
 <!-- generated on Fri Sep  8 12:44:28 2017 by SUMO Version 0.30.0
+=======
+<!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
+>>>>>>> Stashed changes
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +29,11 @@
     </report>
 
     <traci_server>
+<<<<<<< Updated upstream
         <remote-port value="36697"/>
+=======
+        <remote-port value="43253"/>
+>>>>>>> Stashed changes
     </traci_server>
 
     <gui_only>
@@ -35,3 +43,10 @@
     </gui_only>
 
 </configuration>
+<<<<<<< Updated upstream
+=======
+-->
+
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+</detector>
+>>>>>>> Stashed changes

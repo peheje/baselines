@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< Updated upstream
 <!-- generated on Fri Sep  8 12:44:28 2017 by SUMO Version 0.30.0
+=======
+<!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
+>>>>>>> Stashed changes
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -25,7 +29,11 @@
     </report>
 
     <traci_server>
+<<<<<<< Updated upstream
         <remote-port value="36697"/>
+=======
+        <remote-port value="43253"/>
+>>>>>>> Stashed changes
     </traci_server>
 
     <gui_only>
@@ -38,6 +46,7 @@
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+<<<<<<< Updated upstream
     <tripinfo id="right_0" depart="1.00" departLane="51o_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="92.00" arrivalLane="52i_0" arrivalPos="10.00" arrivalSpeed="11.62" duration="91.00" routeLength="1015.10" waitSteps="0" timeLoss="15.02" rerouteNo="0" devices="tripinfo_right_0" vType="typeWE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="right_2" depart="6.00" departLane="51o_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="97.00" arrivalLane="52i_0" arrivalPos="10.00" arrivalSpeed="10.95" duration="91.00" routeLength="1015.10" waitSteps="0" timeLoss="14.81" rerouteNo="0" devices="tripinfo_right_2" vType="typeWE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="right_3" depart="11.00" departLane="51o_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="102.00" arrivalLane="52i_0" arrivalPos="10.00" arrivalSpeed="11.50" duration="91.00" routeLength="1015.10" waitSteps="0" timeLoss="14.17" rerouteNo="0" devices="tripinfo_right_3" vType="typeWE" speedFactor="1.00" vaporized=""/>
@@ -84,3 +93,6 @@
     <tripinfo id="right_61" depart="174.00" departLane="51o_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="337.00" arrivalLane="52i_0" arrivalPos="10.00" arrivalSpeed="10.82" duration="163.00" routeLength="1015.10" waitSteps="38" timeLoss="86.88" rerouteNo="0" devices="tripinfo_right_61" vType="typeWE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="left_69" depart="194.00" departLane="52o_0" departPos="5.10" departSpeed="0.00" departDelay="3.00" arrival="337.00" arrivalLane="51i_0" arrivalPos="10.00" arrivalSpeed="11.37" duration="143.00" routeLength="1015.10" waitSteps="34" timeLoss="67.00" rerouteNo="0" devices="tripinfo_left_69" vType="typeWE" speedFactor="1.00" vaporized=""/>
     <tripinfo id="left_71" depart="199.00" departLane="52o_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="339.00" arrivalLane="51i_0" arrivalPos="10.00" arrivalSpeed="10.81" duration="140.00" routeLength="1015.10" waitSteps="30" timeLoss="63.89" rerouteNo="0" devices="
+=======
+</tripinfos>
+>>>>>>> Stashed changes
