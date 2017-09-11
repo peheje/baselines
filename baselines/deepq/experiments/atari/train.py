@@ -114,7 +114,7 @@ if __name__ == '__main__':
     args = parse_args()
 
     force_load_path = args.overwrite_load_dir
-    print("forceeeee {}".format(force_load_path))
+    print("force load {}".format(force_load_path))
     if force_load_path is None:
         # Initialize logger
         logger.reset()
