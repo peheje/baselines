@@ -7,7 +7,7 @@ import zipfile
 
 import baselines.common.tf_util as U
 
-from baselines import logger
+from baselines import logger,logger_utils
 from baselines.common.schedules import LinearSchedule
 from baselines import deepq
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
@@ -167,6 +167,9 @@ def learn(env,
 
     sess = U.make_session(num_cpu=num_cpu)
     sess.__enter__()
+    logger.reset()
+    logger_path = logger_utils.path_with_date("/tmp/logs", "test")
+    logger.configure(logger_path, ["tensorboard", "stdout"])
 
     def make_obs_ph(name):
         return U.BatchInput(env.observation_space.shape, name=name)
