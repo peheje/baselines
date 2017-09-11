@@ -97,6 +97,10 @@ class TraciSimpleEnv(gym.Env):
                      "--quit-on-end"])
 
     def __init__(self):
+        self.render=False
+        self.restart()
+
+    def restart(self):
         self.generate_routefile()
         if self.render:
             self.sumo_binary = checkBinary('sumo-gui')
@@ -127,7 +131,6 @@ class TraciSimpleEnv(gym.Env):
 
         self.state = [0, 0, 0, 0, 0]
         self._seed()
-
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
@@ -212,7 +215,7 @@ class TraciSimpleEnv(gym.Env):
         # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
-            self.__init__()
+            self.restart()
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
