@@ -64,7 +64,7 @@ class TraciSimpleEnv(gym.Env):
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-            <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="7" minGap="3" maxSpeed="25" guiShape="bus"/>
+            <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <route id="right" edges="51o 1i 2o 52i" />
             <route id="left" edges="52o 2i 1o 51i" />
             <route id="up" edges="53o 3i 4o 54i" />
@@ -100,7 +100,7 @@ class TraciSimpleEnv(gym.Env):
         self.sumo_binary = checkBinary('sumo')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 10
+        self.max_cars_in_queue = 20
         self.traffic_phases=4
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
                          self.max_cars_in_queue, self.max_cars_in_queue,self.traffic_phases])
@@ -162,7 +162,7 @@ class TraciSimpleEnv(gym.Env):
 
         for i in range(self.num_inductors):
             self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
-        self.state[4]=phase
+        self.state[4] = phase
 
         # Build reward
         reward = self.reward_total_waiting_vehicles()
@@ -185,14 +185,14 @@ class TraciSimpleEnv(gym.Env):
         for veh_id in self.vehicle_ids:
             emissions.append(traci.vehicle.getCO2Emission(veh_id))
         return -np.mean(emissions)
+
     def reward_total_waiting_vehicles(self):
         self.vehicle_ids = traci.vehicle.getIDList()
-        totalWaitTime = 0
+        total_wait_time = 0.0
         for veh_id in self.vehicle_ids:
             if traci.vehicle.getSpeed(veh_id) < 1:
-                totalWaitTime += 1.0
-        return -totalWaitTime
-
+                total_wait_time += 1.0
+        return -total_wait_time
 
     def reward_total_in_queue(self):
         return -sum(self.state)
