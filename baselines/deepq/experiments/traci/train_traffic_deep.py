@@ -18,7 +18,7 @@ def main():
     logger.reset()
     logger_path = logger_utils.path_with_date("/tmp/TraciSimpleEnv-v0", "TraciSimpleEnv-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
-
+    env.render()
     model = deepq.models.mlp([64])
     act = deepq.learn(
         env,

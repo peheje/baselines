@@ -76,7 +76,7 @@ class TraciSimpleEnv(gym.Env):
                           file=routes)
                     vehNr += 1
                 if np.random.uniform() < p_e_w:
-                    print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i),
+                    print('    <vehicle id="left_%i" type="typeWE" route="up" depart="%i" />' % (vehNr, i),
                           file=routes)
                     vehNr += 1
                 if np.random.uniform() < p_n_s:
@@ -219,5 +219,5 @@ class TraciSimpleEnv(gym.Env):
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
-        self.render = True
+        self.shouldRender = True
         print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")
