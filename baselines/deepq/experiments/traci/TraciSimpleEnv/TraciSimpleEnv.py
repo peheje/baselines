@@ -93,7 +93,8 @@ class TraciSimpleEnv(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml","--start","--quit-on-end"])
+        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
+                     "--quit-on-end"])
 
     def __init__(self):
         self.shouldRender=False
@@ -150,7 +151,7 @@ class TraciSimpleEnv(gym.Env):
             elif phase == 2:
                 traci.trafficlights.setPhase("0", 2)
         else:
-            pass    # do nothing
+            pass  # do nothing
 
         # Run simulation step
         traci.simulationStep()
@@ -211,11 +212,12 @@ class TraciSimpleEnv(gym.Env):
         return -np.mean(np.square(wait_sum))
 
     def _reset(self):
-        #Check if actually done, might be initial reset call
+        # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
             self.restart()
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
-        self.shouldRender=True
+        self.render = True
+        print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")

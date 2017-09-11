@@ -84,6 +84,7 @@ def learn(env,
           train_freq=1,
           batch_size=32,
           print_freq=1,
+          print_timestep_freq=100,
           checkpoint_freq=10000,
           learning_starts=1000,
           gamma=1.0,
@@ -95,7 +96,8 @@ def learn(env,
           prioritized_replay_eps=1e-6,
           num_cpu=16,
           param_noise=False,
-          callback=None):
+          callback=None,
+          log_path="/tmp/log"):
     """Train a deepq model.
 
     Parameters
@@ -167,9 +169,6 @@ def learn(env,
 
     sess = U.make_session(num_cpu=num_cpu)
     sess.__enter__()
-    logger.reset()
-    logger_path = logger_utils.path_with_date("/tmp/logs", "test")
-    logger.configure(logger_path, ["tensorboard", "stdout"])
 
     def make_obs_ph(name):
         return U.BatchInput(env.observation_space.shape, name=name)
@@ -272,6 +271,13 @@ def learn(env,
                 logger.record_tabular("episodes", num_episodes)
                 logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
                 logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
+                logger.dump_tabular()
+
+            # Print every timestep for traci (resets are sparse)
+            if t % print_timestep_freq == 0:
+                logger.record_tabular("steps_timestep", t)
+                logger.record_tabular("reward_timestep", rew)
+                logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
                 logger.dump_tabular()
 
             if (checkpoint_freq is not None and t > learning_starts and
