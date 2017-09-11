@@ -55,7 +55,7 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 1000000  # number of time steps
+        N = 1000  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10
@@ -93,11 +93,11 @@ class TraciSimpleEnv(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml"])
+        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml","--start","--quit-on-end"])
 
     def __init__(self):
         self.generate_routefile()
-        self.sumo_binary = checkBinary('sumo-gui')
+        self.sumo_binary = checkBinary('sumo')
         Thread(target=self.__traci_start__())
 
         self.max_cars_in_queue = 10
@@ -205,6 +205,10 @@ class TraciSimpleEnv(gym.Env):
         return -np.mean(np.square(wait_sum))
 
     def _reset(self):
+        #Check if actually done, might be initial reset call
+        if traci.simulation.getMinExpectedNumber() < 1:
+            traci.close(wait=False)
+            self.__init__()
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
