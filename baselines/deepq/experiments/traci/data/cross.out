@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <!-- generated on Fri Sep  8 12:44:28 2017 by SUMO Version 0.30.0
+=======
+<!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
+>>>>>>> Stashed changes
 =======
 <!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
 >>>>>>> Stashed changes
@@ -30,7 +34,11 @@
 
     <traci_server>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <remote-port value="36697"/>
+=======
+        <remote-port value="43253"/>
+>>>>>>> Stashed changes
 =======
         <remote-port value="43253"/>
 >>>>>>> Stashed changes
@@ -46,6 +54,7 @@
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
+<<<<<<< Updated upstream
 <<<<<<< Updated upstream
     <interval begin="0.00" end="30.00" id="i0" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
     <interval begin="0.00" end="30.00" id="i1" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
@@ -104,6 +113,9 @@
     <interval begin="180.00" end="210.00" id="o2" nVehContrib="1" flow="120.00" occupancy="88.49" speed="0.26" length="5.00" nVehEntered="1"/>
     <interval begin="180.00" end="210.00" id="o3" nVehContrib="0" flow="0.00" occupancy="99.76" speed="-1.00" length="-1.00" nVehEntered="1"/>
     <interval begin="210.00" end="240.00" id="i0" nVehContrib="4" flow="480.00" occupancy="4.05" speed="16.46" length
+=======
+</detector>
+>>>>>>> Stashed changes
 =======
 </detector>
 >>>>>>> Stashed changes

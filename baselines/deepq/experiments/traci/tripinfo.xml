@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <!-- generated on Fri Sep  8 12:44:28 2017 by SUMO Version 0.30.0
+=======
+<!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
+>>>>>>> Stashed changes
 =======
 <!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
 >>>>>>> Stashed changes
@@ -30,7 +34,11 @@
 
     <traci_server>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <remote-port value="36697"/>
+=======
+        <remote-port value="43253"/>
+>>>>>>> Stashed changes
 =======
         <remote-port value="43253"/>
 >>>>>>> Stashed changes
@@ -95,4 +103,7 @@
     <tripinfo id="left_71" depart="199.00" departLane="52o_0" departPos="5.10" departSpeed="0.00" departDelay="2.00" arrival="339.00" arrivalLane="51i_0" arrivalPos="10.00" arrivalSpeed="10.81" duration="140.00" routeLength="1015.10" waitSteps="30" timeLoss="63.89" rerouteNo="0" devices="
 =======
 </tripinfos>
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
