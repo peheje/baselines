@@ -2,7 +2,11 @@
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 <!-- generated on Fri Sep  8 12:44:28 2017 by SUMO Version 0.30.0
+=======
+<!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
+>>>>>>> Stashed changes
 =======
 <!-- generated on Fri 08 Sep 2017 12:54:24 PM CEST by SUMO gui Version 0.30.0
 >>>>>>> Stashed changes
@@ -35,7 +39,11 @@
     <traci_server>
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         <remote-port value="36697"/>
+=======
+        <remote-port value="43253"/>
+>>>>>>> Stashed changes
 =======
         <remote-port value="43253"/>
 >>>>>>> Stashed changes
@@ -104,6 +112,9 @@
 =======
 </tripinfos>
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
