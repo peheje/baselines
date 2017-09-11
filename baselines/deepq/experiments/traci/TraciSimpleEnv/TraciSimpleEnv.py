@@ -93,7 +93,8 @@ class TraciSimpleEnv(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml","--start","--quit-on-end"])
+        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
+                     "--quit-on-end"])
 
     def __init__(self):
         self.generate_routefile()
@@ -104,10 +105,10 @@ class TraciSimpleEnv(gym.Env):
         Thread(target=self.__traci_start__())
 
         self.max_cars_in_queue = 20
-        self.traffic_phases=4
+        self.traffic_phases = 4
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
-                         self.max_cars_in_queue, self.max_cars_in_queue,self.traffic_phases])
-        low = np.array([0, 0, 0, 0,0])
+                         self.max_cars_in_queue, self.max_cars_in_queue, self.traffic_phases])
+        low = np.array([0, 0, 0, 0, 0])
 
         self.route_file_generated = False
         self.num_inductors = 4
@@ -147,7 +148,7 @@ class TraciSimpleEnv(gym.Env):
             elif phase == 2:
                 traci.trafficlights.setPhase("0", 2)
         else:
-            pass    # do nothing
+            pass  # do nothing
 
         # Run simulation step
         traci.simulationStep()
@@ -208,12 +209,12 @@ class TraciSimpleEnv(gym.Env):
         return -np.mean(np.square(wait_sum))
 
     def _reset(self):
-        #Check if actually done, might be initial reset call
+        # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
             self.__init__()
         return np.array([0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
-        self.render=True
+        self.render = True
         print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")
