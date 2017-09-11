@@ -32,3 +32,9 @@ src
 .cache
 
 baselines/deepq/experiments/traci/data/*.txt
+
+baselines/deepq/experiments/traci/data/cross\.out
+
+baselines/deepq/experiments/traci/data/cross\.rou\.xml
+
+baselines/deepq/experiments/traci/tripinfo\.xml
