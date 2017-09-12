@@ -55,7 +55,7 @@ class TraciSimpleEnv(gym.Env):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 1000  # number of time steps
+        N = 300  # number of time steps
         # demand per second from different directions
         p_w_e = 1/10
         p_e_w = 1/10
@@ -133,7 +133,7 @@ class TraciSimpleEnv(gym.Env):
         self.num_inductors = 4
         self.vehicle_ids = []
 
-        self.action_space = spaces.Discrete(3)
+        self.action_space = spaces.Discrete(9)
         self.observation_space = spaces.Box(low, high)
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
 
@@ -154,24 +154,36 @@ class TraciSimpleEnv(gym.Env):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
+    def discrete_to_multidiscrete(self, action, num_actions):
+        mod_rest = action % num_actions
+        div_floor = action // num_actions
+        return [mod_rest, div_floor]
+
+    def set_light_phase(self,light_id,action,cur_phase):
+        # Run action
+
+        if action == 0:
+            if cur_phase == 2:
+                traci.trafficlights.setPhase(light_id, 3)
+            elif cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 0)
+        elif action == 1:
+            if cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 1)
+            elif cur_phase == 2:
+                traci.trafficlights.setPhase(light_id, 2)
+        else:
+            pass  # do nothing
+
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
-        # Run action
+        # convert action into two actions
+        action = self.discrete_to_multidiscrete(action=action, num_actions=3)
         phase_a = traci.trafficlights.getPhase("a")
         phase_b = traci.trafficlights.getPhase("b")
-        if action == 0:
-            if phase_a == 2:
-                traci.trafficlights.setPhase("a", 3)
-            elif phase_a == 0:
-                traci.trafficlights.setPhase("a", 0)
-        elif action == 1:
-            if phase_a == 0:
-                traci.trafficlights.setPhase("a", 1)
-            elif phase_a == 2:
-                traci.trafficlights.setPhase("a", 2)
-        else:
-            pass  # do nothing
+        self.set_light_phase("a",action[0],phase_a)
+        self.set_light_phase("b",action[1],phase_b)
 
         # Run simulation step
         traci.simulationStep()
@@ -193,14 +205,20 @@ class TraciSimpleEnv(gym.Env):
             self.unique_counters[i+self.num_inductors].add_many(cars_on_in_inductor)
             self.unique_counters[i+self.num_inductors].remove_many(cars_on_out_inductor)
 
-        for i in range(self.num_inductors):
-            self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
-            self.state[i+self.num_inductors] = min(self.unique_counters[i+self.num_inductors].get_count(), self.max_cars_in_queue)
+
+            num_cars_a = self.unique_counters[i].get_count()
+            num_cars_b=self.unique_counters[i+self.num_inductors].get_count()
+            # Add one if car on inductor
+            if traci.inductionloop.getLastStepOccupancy(output_id + "_a") !=-1:
+                num_cars_a+=1
+            if traci.inductionloop.getLastStepOccupancy(output_id + "_b") != -1:
+                num_cars_b += 1
+
+            self.state[i] = min(num_cars_a, self.max_cars_in_queue)
+            self.state[i+self.num_inductors] = min(num_cars_b, self.max_cars_in_queue)
 
         self.state[8] = phase_a
         self.state[9] = phase_b
-
-        print(self.state)
 
         # Build reward
         reward = self.reward_total_waiting_vehicles()

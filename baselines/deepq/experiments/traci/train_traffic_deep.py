@@ -18,13 +18,13 @@ def main():
     logger.reset()
     logger_path = logger_utils.path_with_date("/tmp/TraciSimpleEnv-v0", "TraciSimpleEnv-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
-    env.render()
+    #env.render()
     model = deepq.models.mlp([64])
     act = deepq.learn(
         env,
         q_func=model,
         lr=1e-3,
-        max_timesteps=100000,
+        max_timesteps=10000000,
         buffer_size=50000,
         exploration_fraction=0.1,
         exploration_final_eps=0.02,

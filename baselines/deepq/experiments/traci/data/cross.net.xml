@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue 12 Sep 2017 11:32:51 AM CEST by Netedit Version 0.30.0
+<!-- generated on Tue 12 Sep 2017 01:32:40 PM CEST by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -272,23 +272,15 @@
 
     <tlLogic id="a" type="static" programID="0" offset="0">
         <phase duration="27" state="GGgrrrGGgrrr"/>
-        <phase duration="6" state="yygrrryygrrr"/>
-        <phase duration="6" state="rrGrrrrrGrrr"/>
-        <phase duration="6" state="rryrrrrryrrr"/>
+        <phase duration="6" state="yyyrrryyyrrr"/>
         <phase duration="27" state="rrrGGgrrrGGg"/>
-        <phase duration="6" state="rrryygrrryyg"/>
-        <phase duration="6" state="rrrrrGrrrrrG"/>
-        <phase duration="6" state="rrrrryrrrrry"/>
+        <phase duration="6" state="rrryyyrrryyy"/>
     </tlLogic>
     <tlLogic id="b" type="static" programID="0" offset="0">
         <phase duration="27" state="rrrGGgrrrGGg"/>
-        <phase duration="6" state="rrryygrrryyg"/>
-        <phase duration="6" state="rrrrrGrrrrrG"/>
-        <phase duration="6" state="rrrrryrrrrry"/>
+        <phase duration="6" state="rrryyyrrryyy"/>
         <phase duration="27" state="GGgrrrGGgrrr"/>
-        <phase duration="6" state="yygrrryygrrr"/>
-        <phase duration="6" state="rrGrrrrrGrrr"/>
-        <phase duration="6" state="rryrrrrryrrr"/>
+        <phase duration="6" state="yyyrrryyyrrr"/>
     </tlLogic>
 
     <junction id="1" type="priority" x="10.00" y="510.00" incLanes="1o_a_0 51o_0" intLanes=":1_0_0 :1_4_0 :1_2_0 :1_5_0" shape="10.00,513.25 10.00,506.75 10.00,513.25">
