@@ -58,7 +58,7 @@ class LinearQFunction:
                 self.models[action].partial_fit(x, y)
 
 
-env = gym.make('TraciSimpleEnv-v0')
+env = gym.make('Traci_2_cross_env-v0')
 print("made gym")
 
 gamma = 0.99

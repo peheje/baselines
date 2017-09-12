@@ -22,7 +22,7 @@ def longest_queue_action(state, old_action):
 
 
 def main():
-    env = gym.make('TraciSimpleEnv-v0')
+    env = gym.make('Traci_2_cross_env-v0')
     s = env.reset()
     a = 0
 

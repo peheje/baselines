@@ -38,3 +38,23 @@ baselines/deepq/experiments/traci/data/cross\.out
 baselines/deepq/experiments/traci/data/cross\.rou\.xml
 
 baselines/deepq/experiments/traci/tripinfo\.xml
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_2o_0_14\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_2o_0_12\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_2i_0_15\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_2i_0_10\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE10_0_15\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE10_0_20\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE8_0_13\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE8_0_19\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE9_0_17\.txt
+
+baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE9_0_21\.txt

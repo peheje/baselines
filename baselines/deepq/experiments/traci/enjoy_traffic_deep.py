@@ -4,7 +4,7 @@ from baselines import deepq
 import TraciSimpleEnv.TraciSimpleEnv
 
 def main():
-    env = gym.make('TraciSimpleEnv-v0')
+    env = gym.make('Traci_2_cross_env-v0')
     act = deepq.load("traffic_model.pkl")
     env.render()
 

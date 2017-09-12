@@ -1,7 +1,7 @@
 import gym
 
 from baselines import deepq
-import TraciSimpleEnv.TraciSimpleEnv
+import Traci_2_cross_env.Traci_2_cross_env
 from baselines import logger, logger_utils
 
 
@@ -13,10 +13,10 @@ def callback(lcl, glb):
 
 def main():
 
-    env = gym.make('TraciSimpleEnv-v0')
+    env = gym.make('Traci_2_cross_env-v0')
 
     logger.reset()
-    logger_path = logger_utils.path_with_date("/tmp/TraciSimpleEnv-v0", "TraciSimpleEnv-v0")
+    logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
     #env.render()
     model = deepq.models.mlp([64])

@@ -43,7 +43,7 @@ class UniqueCounter:
         return len(self.ids)
 
 
-class TraciSimpleEnv(gym.Env):
+class Traci_2_cross_env(gym.Env):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
         'video.frames_per_second': 50,
@@ -63,7 +63,7 @@ class TraciSimpleEnv(gym.Env):
         p_s_n_a = 1/10
         p_n_s_b = 1/10
         p_s_n_b = 1/10
-        with open("data/cross.rou.xml", "w") as routes:
+        with open("scenarios/2_cross/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -107,7 +107,7 @@ class TraciSimpleEnv(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "data/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
+        traci.start([self.sumo_binary, "-c", "scenarios/2_cross/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
                      "--quit-on-end"])
 
     def __init__(self):

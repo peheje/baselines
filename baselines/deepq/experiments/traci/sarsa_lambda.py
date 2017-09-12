@@ -10,7 +10,7 @@ import gym
 
 import TraciSimpleEnv.TraciSimpleEnv
 
-env = gym.make('TraciSimpleEnv-v0')
+env = gym.make('Traci_2_cross_env-v0')
 
 alpha = 0.2  # learning-rate
 eps = 0.3  # random step chance
