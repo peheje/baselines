@@ -112,6 +112,12 @@ class Traci_2_cross_env(gym.Env):
 
     def __init__(self):
         self.shouldRender=False
+        self.num_actions=9
+        self.num_state_scalars=10
+        self.num_history_states=4
+        self.min_state_scalar_value = 0
+        self.max_state_scalar_value=20
+
         self.restart()
 
     def restart(self):
@@ -123,32 +129,19 @@ class Traci_2_cross_env(gym.Env):
         Thread(target=self.__traci_start__())
 
         self.max_cars_in_queue = 20
-        self.traffic_phases = 4
-        high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
-                         self.max_cars_in_queue, self.max_cars_in_queue,self.max_cars_in_queue, self.max_cars_in_queue,
-                         self.max_cars_in_queue, self.max_cars_in_queue, self.traffic_phases, self.traffic_phases])
-        low = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
         self.route_file_generated = False
         self.num_inductors = 4
         self.vehicle_ids = []
 
-        self.action_space = spaces.Discrete(9)
-        self.observation_space = spaces.Box(low, high)
+        self.action_space = spaces.Discrete(self.num_actions)
+        self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,shape=(self.num_state_scalars*self.num_history_states))
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
 
-        self.unique_counters = [
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter(),
-            UniqueCounter()
-        ]
+        self.unique_counters = [UniqueCounter() for _ in range(self.num_inductors*2)]
 
-        self.state = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.state = deque([], maxlen=self.num_history_states)
+        for i in range(self.num_history_states):
+            self.state.append(np.zeros(self.num_state_scalars))
         self._seed()
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -189,6 +182,7 @@ class Traci_2_cross_env(gym.Env):
         traci.simulationStep()
 
         # Build state
+        cur_state=np.zeros(self.num_state_scalars)
         for i in range(self.num_inductors):
             input_id = "i" + str(i)
             output_id = "o" + str(i)
@@ -214,11 +208,14 @@ class Traci_2_cross_env(gym.Env):
             if traci.inductionloop.getLastStepOccupancy(output_id + "_b") != -1:
                 num_cars_b += 1
 
-            self.state[i] = min(num_cars_a, self.max_cars_in_queue)
-            self.state[i+self.num_inductors] = min(num_cars_b, self.max_cars_in_queue)
+            cur_state[i] = min(num_cars_a, self.max_cars_in_queue)
+            cur_state[i+self.num_inductors] = min(num_cars_b, self.max_cars_in_queue)
 
-        self.state[8] = phase_a
-        self.state[9] = phase_b
+        cur_state[8] = phase_a
+        cur_state[9] = phase_b
+
+
+        self.state.append(cur_state)
 
         # Build reward
         reward = self.reward_total_waiting_vehicles()
@@ -226,7 +223,7 @@ class Traci_2_cross_env(gym.Env):
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
-        return np.array(self.state), reward, done, {}
+        return np.hstack(self.state), reward, done, {}
 
     def reward_leaving_cars(self):
         s = 0
@@ -265,7 +262,7 @@ class Traci_2_cross_env(gym.Env):
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
             self.restart()
-        return np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        return np.hstack(self.state)
 
     def _render(self, mode='human', close=False):
         self.shouldRender = True
