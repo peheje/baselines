@@ -57,18 +57,22 @@ class TraciSimpleEnv(gym.Env):
 
         N = 1000  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 10
-        p_e_w = 1 / 10
-        p_n_s = 1 / 10
-        p_s_n = 1 / 10
+        p_w_e = 1/10
+        p_e_w = 1/10
+        p_n_s_a = 1/10
+        p_s_n_a = 1/10
+        p_n_s_b = 1/10
+        p_s_n_b = 1/10
         with open("data/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
-            <route id="right" edges="51o 1i 2o 52i" />
-            <route id="left" edges="52o 2i 1o 51i" />
-            <route id="up" edges="53o 3i 4o 54i" />
-            <route id="down" edges="54o 4i 3o 53i" />""", file=routes)
+            <route id="right" edges="51o 1i_a 2o 1o_b 52o" />
+            <route id="left" edges="52i 1i_b 2i 1o_a 51i" />
+            <route id="up_a" edges="53o 3i_a 4o_a 54i" />
+            <route id="down_a" edges="54o 4i_a 3o_a 53i" />
+            <route id="up_b" edges="3i_b 4o_b" />
+            <route id="down_b" edges="4i_b 3o_b" />""", file=routes)
             vehNr = 0
             for i in range(N):
                 if np.random.uniform() < p_w_e:
@@ -79,14 +83,24 @@ class TraciSimpleEnv(gym.Env):
                     print('    <vehicle id="left_%i" type="typeWE" route="left" depart="%i" />' % (vehNr, i),
                           file=routes)
                     vehNr += 1
-                if np.random.uniform() < p_n_s:
+                if np.random.uniform() < p_n_s_a:
                     print(
-                        '    <vehicle id="down_%i" type="typeNS" route="down" depart="%i" color="1,0,0"/>' % (vehNr, i),
+                        '    <vehicle id="down_%i" type="typeNS" route="down_a" depart="%i"/>' % (vehNr, i),
                         file=routes)
                     vehNr += 1
-                if np.random.uniform() < p_s_n:
+                if np.random.uniform() < p_s_n_a:
                     print(
-                        '    <vehicle id="up_%i" type="typeNS" route="up" depart="%i" color="1,0,0"/>' % (vehNr, i),
+                        '    <vehicle id="up_%i" type="typeNS" route="up_a" depart="%i"/>' % (vehNr, i),
+                        file=routes)
+                    vehNr += 1
+                if np.random.uniform() < p_n_s_b:
+                    print(
+                        '    <vehicle id="up_%i" type="typeNS" route="up_b" depart="%i"/>' % (vehNr, i),
+                        file=routes)
+                    vehNr += 1
+                if np.random.uniform() < p_s_n_b:
+                    print(
+                        '    <vehicle id="up_%i" type="typeNS" route="down_b" depart="%i"/>' % (vehNr, i),
                         file=routes)
                     vehNr += 1
             print("</routes>", file=routes)
@@ -111,8 +125,9 @@ class TraciSimpleEnv(gym.Env):
         self.max_cars_in_queue = 20
         self.traffic_phases = 4
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
-                         self.max_cars_in_queue, self.max_cars_in_queue, self.traffic_phases])
-        low = np.array([0, 0, 0, 0, 0])
+                         self.max_cars_in_queue, self.max_cars_in_queue,self.max_cars_in_queue, self.max_cars_in_queue,
+                         self.max_cars_in_queue, self.max_cars_in_queue, self.traffic_phases, self.traffic_phases])
+        low = np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
         self.route_file_generated = False
         self.num_inductors = 4
@@ -126,10 +141,14 @@ class TraciSimpleEnv(gym.Env):
             UniqueCounter(),
             UniqueCounter(),
             UniqueCounter(),
+            UniqueCounter(),
+            UniqueCounter(),
+            UniqueCounter(),
+            UniqueCounter(),
             UniqueCounter()
         ]
 
-        self.state = [0, 0, 0, 0, 0]
+        self.state = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
         self._seed()
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -139,17 +158,18 @@ class TraciSimpleEnv(gym.Env):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
         # Run action
-        phase = traci.trafficlights.getPhase("0")
+        phase_a = traci.trafficlights.getPhase("a")
+        phase_b = traci.trafficlights.getPhase("b")
         if action == 0:
-            if phase == 2:
-                traci.trafficlights.setPhase("0", 3)
-            elif phase == 0:
-                traci.trafficlights.setPhase("0", 0)
+            if phase_a == 2:
+                traci.trafficlights.setPhase("a", 3)
+            elif phase_a == 0:
+                traci.trafficlights.setPhase("a", 0)
         elif action == 1:
-            if phase == 0:
-                traci.trafficlights.setPhase("0", 1)
-            elif phase == 2:
-                traci.trafficlights.setPhase("0", 2)
+            if phase_a == 0:
+                traci.trafficlights.setPhase("a", 1)
+            elif phase_a == 2:
+                traci.trafficlights.setPhase("a", 2)
         else:
             pass  # do nothing
 
@@ -161,15 +181,26 @@ class TraciSimpleEnv(gym.Env):
             input_id = "i" + str(i)
             output_id = "o" + str(i)
 
-            cars_on_in_inductor = traci.inductionloop.getLastStepVehicleIDs(input_id)
-            cars_on_out_inductor = traci.inductionloop.getLastStepVehicleIDs(output_id)
+            cars_on_in_inductor = traci.inductionloop.getLastStepVehicleIDs(input_id+"_a")
+            cars_on_out_inductor = traci.inductionloop.getLastStepVehicleIDs(output_id+"_a")
 
             self.unique_counters[i].add_many(cars_on_in_inductor)
             self.unique_counters[i].remove_many(cars_on_out_inductor)
 
+            cars_on_in_inductor = traci.inductionloop.getLastStepVehicleIDs(input_id + "_b")
+            cars_on_out_inductor = traci.inductionloop.getLastStepVehicleIDs(output_id + "_b")
+
+            self.unique_counters[i+self.num_inductors].add_many(cars_on_in_inductor)
+            self.unique_counters[i+self.num_inductors].remove_many(cars_on_out_inductor)
+
         for i in range(self.num_inductors):
             self.state[i] = min(self.unique_counters[i].get_count(), self.max_cars_in_queue)
-        self.state[4] = phase
+            self.state[i+self.num_inductors] = min(self.unique_counters[i+self.num_inductors].get_count(), self.max_cars_in_queue)
+
+        self.state[8] = phase_a
+        self.state[9] = phase_b
+
+        print(self.state)
 
         # Build reward
         reward = self.reward_total_waiting_vehicles()
@@ -216,7 +247,7 @@ class TraciSimpleEnv(gym.Env):
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
             self.restart()
-        return np.array([0, 0, 0, 0, 0])
+        return np.array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
 
     def _render(self, mode='human', close=False):
         self.shouldRender = True
