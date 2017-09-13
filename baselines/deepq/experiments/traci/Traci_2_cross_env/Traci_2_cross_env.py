@@ -95,7 +95,7 @@ class Traci_2_cross_env(gym.Env):
              "--quit-on-end"])
 
     def __init__(self):
-        self.shouldRender = False
+        self.shouldRender = True
         self.num_actions = 9
         self.num_state_scalars = 10
         self.num_history_states = 4

@@ -43,7 +43,7 @@ class Traci_1_cross_env(gym.Env):
         p_e_w = 1 / 10
         p_n_s = 1 / 10
         p_s_n = 1 / 10
-        with open("../scenarios/1_cross/cross.rou.xml", "w") as routes:
+        with open("scenarios/1_cross/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -75,11 +75,12 @@ class Traci_1_cross_env(gym.Env):
         self.route_file_generated = True
 
     def __traci_start__(self):
-        traci.start([self.sumo_binary, "-c", "../scenarios/1_cross/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
-                     "--quit-on-end"])
+        traci.start(
+            [self.sumo_binary, "-c", "scenarios/1_cross/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
+             "--quit-on-end"])
 
     def __init__(self):
-        self.shouldRender=False
+        self.shouldRender = True
         self.restart()
 
     def restart(self):
@@ -113,6 +114,7 @@ class Traci_1_cross_env(gym.Env):
 
         self.state = [0, 0, 0, 0, 0]
         self._seed()
+
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
