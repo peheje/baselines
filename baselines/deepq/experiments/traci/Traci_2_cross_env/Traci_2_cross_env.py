@@ -6,27 +6,18 @@ from threading import Thread
 
 import gym
 import numpy as np
-from experiments.traci.utilities.UniqueCounter import UniqueCounter
+from BaseTraciEnv import BaseTraciEnv
+from utilities.UniqueCounter import UniqueCounter
 from gym import spaces
 from gym.utils import seeding
 
-# we need to import python modules from the $SUMO_HOME/tools directory
-try:
-    sys.path.append(os.path.join(os.path.dirname(
-        __file__), '..', '..', '..', '..', "tools"))  # tutorial in tests
-    sys.path.append(os.path.join(os.environ.get("SUMO_HOME", os.path.join(
-        os.path.dirname(__file__), "..", "..", "..")), "tools"))  # tutorial in docs
-    from sumolib import checkBinary
-except ImportError:
-    sys.exit(
-        "please declare environment variable 'SUMO_HOME' as the root directory of your sumo installation (it should contain folders 'bin', 'tools' and 'docs')")
-
 import traci
+from sumolib import checkBinary
 
 logger = logging.getLogger(__name__)
 
 
-class Traci_2_cross_env(gym.Env):
+class Traci_2_cross_env(BaseTraciEnv):
     metadata = {
         'render.modes': ['human', 'rgb_array'],
         'video.frames_per_second': 50,
@@ -95,12 +86,18 @@ class Traci_2_cross_env(gym.Env):
              "--quit-on-end"])
 
     def __init__(self):
-        self.shouldRender = True
+        self.route_file_generated = False
+        self.num_queues_pr_traffic = 4
+        self.shouldRender = False
         self.num_actions = 9
         self.num_state_scalars = 10
         self.num_history_states = 4
+        self.max_cars_in_queue = 20
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 20
+        self.sumo_binary = None
+        self.state = []
+        self.unique_counters = []
 
         self.restart()
 
@@ -112,17 +109,12 @@ class Traci_2_cross_env(gym.Env):
             self.sumo_binary = checkBinary('sumo')
         Thread(target=self.__traci_start__())
 
-        self.max_cars_in_queue = 20
-        self.route_file_generated = False
-        self.num_inductors = 4
-        self.vehicle_ids = []
-
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.num_state_scalars * self.num_history_states))
         # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
 
-        self.unique_counters = [UniqueCounter() for _ in range(self.num_inductors * 2)]
+        self.unique_counters = [UniqueCounter() for _ in range(self.num_queues_pr_traffic * 2)]
 
         self.state = deque([], maxlen=self.num_history_states)
         for i in range(self.num_history_states):
@@ -132,27 +124,6 @@ class Traci_2_cross_env(gym.Env):
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
-
-    def discrete_to_multidiscrete(self, action, num_actions):
-        mod_rest = action % num_actions
-        div_floor = action // num_actions
-        return [mod_rest, div_floor]
-
-    def set_light_phase(self, light_id, action, cur_phase):
-        # Run action
-
-        if action == 0:
-            if cur_phase == 2:
-                traci.trafficlights.setPhase(light_id, 3)
-            elif cur_phase == 0:
-                traci.trafficlights.setPhase(light_id, 0)
-        elif action == 1:
-            if cur_phase == 0:
-                traci.trafficlights.setPhase(light_id, 1)
-            elif cur_phase == 2:
-                traci.trafficlights.setPhase(light_id, 2)
-        else:
-            pass  # do nothing
 
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
@@ -169,7 +140,7 @@ class Traci_2_cross_env(gym.Env):
 
         # Build state
         cur_state = np.zeros(self.num_state_scalars)
-        for i in range(self.num_inductors):
+        for i in range(self.num_queues_pr_traffic):
             input_id = "i" + str(i)
             output_id = "o" + str(i)
 
@@ -182,11 +153,11 @@ class Traci_2_cross_env(gym.Env):
             cars_on_in_inductor = traci.inductionloop.getLastStepVehicleIDs(input_id + "_b")
             cars_on_out_inductor = traci.inductionloop.getLastStepVehicleIDs(output_id + "_b")
 
-            self.unique_counters[i + self.num_inductors].add_many(cars_on_in_inductor)
-            self.unique_counters[i + self.num_inductors].remove_many(cars_on_out_inductor)
+            self.unique_counters[i + self.num_queues_pr_traffic].add_many(cars_on_in_inductor)
+            self.unique_counters[i + self.num_queues_pr_traffic].remove_many(cars_on_out_inductor)
 
             num_cars_a = self.unique_counters[i].get_count()
-            num_cars_b = self.unique_counters[i + self.num_inductors].get_count()
+            num_cars_b = self.unique_counters[i + self.num_queues_pr_traffic].get_count()
             # Add one if car on inductor
             if traci.inductionloop.getLastStepOccupancy(output_id + "_a") != -1:
                 num_cars_a += 1
@@ -194,7 +165,7 @@ class Traci_2_cross_env(gym.Env):
                 num_cars_b += 1
 
             cur_state[i] = min(num_cars_a, self.max_cars_in_queue)
-            cur_state[i + self.num_inductors] = min(num_cars_b, self.max_cars_in_queue)
+            cur_state[i + self.num_queues_pr_traffic] = min(num_cars_b, self.max_cars_in_queue)
 
         cur_state[8] = phase_a
         cur_state[9] = phase_b
@@ -208,38 +179,6 @@ class Traci_2_cross_env(gym.Env):
         done = traci.simulation.getMinExpectedNumber() < 1
 
         return np.hstack(self.state), reward, done, {}
-
-    def reward_leaving_cars(self):
-        s = 0
-        for i in range(4):
-            leaving_id = "l" + str(i)
-            s += traci.inductionloop.getLastStepVehicleNumber(leaving_id)
-        return s
-
-    def reward_emission(self):
-        self.vehicle_ids = traci.vehicle.getIDList()
-        emissions = []
-        for veh_id in self.vehicle_ids:
-            emissions.append(traci.vehicle.getCO2Emission(veh_id))
-        return -np.mean(emissions)
-
-    def reward_total_waiting_vehicles(self):
-        self.vehicle_ids = traci.vehicle.getIDList()
-        total_wait_time = 0.0
-        for veh_id in self.vehicle_ids:
-            if traci.vehicle.getSpeed(veh_id) < 1:
-                total_wait_time += 1.0
-        return -total_wait_time
-
-    def reward_total_in_queue(self):
-        return -sum(self.state)
-
-    def reward_squared_wait_sum(self):
-        self.vehicle_ids = traci.vehicle.getIDList()
-        wait_sum = 0
-        for veh_id in self.vehicle_ids:
-            wait_sum += traci.vehicle.getWaitingTime(veh_id)
-        return -np.mean(np.square(wait_sum))
 
     def _reset(self):
         # Check if actually done, might be initial reset call
