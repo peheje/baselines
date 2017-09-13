@@ -2,7 +2,7 @@
 import random
 
 import gym
-import TraciSimpleEnv.TraciSimpleEnv
+import Traci_2_cross_env.Traci_2_cross_env
 import numpy as np
 from collections import deque
 from sklearn.linear_model import SGDRegressor
