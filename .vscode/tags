@@ -1,0 +1,1710 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+A2cProcessFrame	../baselines/common/atari_wrappers_deprecated.py	/^class A2cProcessFrame(gym.Wrapper):$/;"	kind:class	line:223
+ALREADY_INITIALIZED	../baselines/common/tf_util.py	/^ALREADY_INITIALIZED = set()$/;"	kind:variable	line:237
+ActWrapper	../baselines/deepq/simple.py	/^class ActWrapper(object):$/;"	kind:class	line:17
+ActionNoise	../baselines/ddpg/noise.py	/^class ActionNoise(object):$/;"	kind:class	line:31
+Actor	../baselines/ddpg/main.py	/^from baselines.ddpg.models import Actor, Critic$/;"	kind:namespace	line:11
+Actor	../baselines/ddpg/models.py	/^class Actor(Model):$/;"	kind:class	line:22
+AdaptiveParamNoiseSpec	../baselines/ddpg/noise.py	/^class AdaptiveParamNoiseSpec(object):$/;"	kind:class	line:4
+AddClock	../baselines/acktr/filters.py	/^class AddClock(Filter):$/;"	kind:class	line:53
+AzureMissingResourceHttpError	../baselines/common/azure_utils.py	/^from azure.common import AzureMissingResourceHttpError$/;"	kind:namespace	line:5
+BatchInput	../baselines/common/tf_util.py	/^class BatchInput(PlacholderTfInput):$/;"	kind:class	line:136
+BernoulliPd	../baselines/common/distributions.py	/^class BernoulliPd(Pd):$/;"	kind:class	line:209
+BernoulliPdType	../baselines/common/distributions.py	/^class BernoulliPdType(PdType):$/;"	kind:class	line:88
+BlobService	../baselines/common/azure_utils.py	/^    from azure.storage.blob import BlobService$/;"	kind:namespace	line:7
+BlobService	../baselines/common/azure_utils.py	/^    from azure.storage.blob import BlockBlobService as BlobService$/;"	kind:namespace	line:9
+C1H6P3R7B	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+CURRENT	../baselines/logger.py	/^    CURRENT = None  # Current logger being used by the free functions above$/;"	kind:variable	line:219
+CategoricalPd	../baselines/common/distributions.py	/^class CategoricalPd(Pd):$/;"	kind:class	line:123
+CategoricalPdType	../baselines/common/distributions.py	/^class CategoricalPdType(PdType):$/;"	kind:class	line:47
+ClipRewardEnv	../baselines/common/atari_wrappers.py	/^class ClipRewardEnv(gym.RewardWrapper):$/;"	kind:class	line:115
+ClippedRewardsWrapper	../baselines/common/atari_wrappers_deprecated.py	/^class ClippedRewardsWrapper(gym.RewardWrapper):$/;"	kind:class	line:146
+CloudpickleWrapper	../baselines/common/vec_env/subproc_vec_env.py	/^class CloudpickleWrapper(object):$/;"	kind:class	line:25
+CnnPolicy	../baselines/a2c/a2c.py	/^from baselines.a2c.policies import CnnPolicy$/;"	kind:namespace	line:16
+CnnPolicy	../baselines/a2c/policies.py	/^class CnnPolicy(object):$/;"	kind:class	line:91
+CnnPolicy	../baselines/a2c/run_atari.py	/^from baselines.a2c.policies import CnnPolicy, LstmPolicy, LnLstmPolicy$/;"	kind:namespace	line:9
+CnnPolicy	../baselines/acktr/policies.py	/^class CnnPolicy(object):$/;"	kind:class	line:8
+CnnPolicy	../baselines/acktr/run_atari.py	/^from baselines.acktr.policies import CnnPolicy$/;"	kind:namespace	line:9
+CnnPolicy	../baselines/ppo1/cnn_policy.py	/^class CnnPolicy(object):$/;"	kind:class	line:7
+CnnPolicy	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^class CnnPolicy(object):$/;"	kind:class	line:7
+CnnPolicy	../baselines/trpo_mpi/run_atari.py	/^    from baselines.trpo_mpi.nosharing_cnn_policy import CnnPolicy$/;"	kind:namespace	line:17
+CompositionFilter	../baselines/acktr/filters.py	/^class CompositionFilter(Filter):$/;"	kind:class	line:15
+ConstantSchedule	../baselines/common/schedules.py	/^class ConstantSchedule(object):$/;"	kind:class	line:18
+ConstantSchedule	../baselines/common/tests/test_schedules.py	/^from baselines.common.schedules import ConstantSchedule, PiecewiseSchedule$/;"	kind:namespace	line:3
+Container	../baselines/common/azure_utils.py	/^class Container(object):$/;"	kind:class	line:49
+Container	../baselines/deepq/experiments/atari/download_model.py	/^from baselines.common.azure_utils import Container$/;"	kind:namespace	line:4
+Container	../baselines/deepq/experiments/atari/train.py	/^from baselines.common.azure_utils import Container$/;"	kind:namespace	line:28
+Counter	../baselines/deepq/experiments/traci/utilities/utils.py	/^from collections import Counter$/;"	kind:namespace	line:10
+Critic	../baselines/ddpg/main.py	/^from baselines.ddpg.models import Actor, Critic$/;"	kind:namespace	line:11
+Critic	../baselines/ddpg/models.py	/^class Critic(Model):$/;"	kind:class	line:49
+DDPG	../baselines/ddpg/ddpg.py	/^class DDPG(object):$/;"	kind:class	line:57
+DDPG	../baselines/ddpg/training.py	/^from baselines.ddpg.ddpg import DDPG$/;"	kind:namespace	line:6
+DEBUG	../baselines/logger.py	/^DEBUG = 10$/;"	kind:variable	line:12
+DEFAULT	../baselines/logger.py	/^    DEFAULT = None  # A logger with no output files. (See right below class definition)$/;"	kind:variable	line:217
+DISABLED	../baselines/logger.py	/^DISABLED = 50$/;"	kind:variable	line:17
+Dataset	../baselines/common/__init__.py	/^from baselines.common.dataset import Dataset$/;"	kind:namespace	line:2
+Dataset	../baselines/common/dataset.py	/^class Dataset(object):$/;"	kind:class	line:3
+Dataset	../baselines/ppo1/pposgd_simple.py	/^from baselines.common import Dataset, explained_variance, fmt_row, zipsame$/;"	kind:namespace	line:1
+DiagGaussianPd	../baselines/common/distributions.py	/^class DiagGaussianPd(Pd):$/;"	kind:class	line:183
+DiagGaussianPdType	../baselines/common/distributions.py	/^class DiagGaussianPdType(PdType):$/;"	kind:class	line:76
+DivFilter	../baselines/acktr/filters.py	/^class DivFilter(Filter):$/;"	kind:class	line:79
+ERROR	../baselines/logger.py	/^ERROR = 40$/;"	kind:variable	line:15
+EXT	../baselines/bench/monitor.py	/^    EXT = "monitor.json"$/;"	kind:variable	line:15
+EpisodeStats	../baselines/a2c/utils.py	/^class EpisodeStats:$/;"	kind:class	line:187
+EpisodeStats	../baselines/acktr/utils.py	/^class EpisodeStats:$/;"	kind:class	line:167
+EpisodicLifeEnv	../baselines/common/atari_wrappers.py	/^class EpisodicLifeEnv(gym.Wrapper):$/;"	kind:class	line:50
+EpisodicLifeEnv	../baselines/common/atari_wrappers_deprecated.py	/^class EpisodicLifeEnv(gym.Wrapper):$/;"	kind:class	line:53
+Event	../baselines/common/azure_utils.py	/^from threading import Event$/;"	kind:namespace	line:11
+EzPickle	../baselines/common/misc_util.py	/^class EzPickle(object):$/;"	kind:class	line:38
+Filter	../baselines/acktr/filters.py	/^class Filter(object):$/;"	kind:class	line:5
+FireResetEnv	../baselines/common/atari_wrappers.py	/^class FireResetEnv(gym.Wrapper):$/;"	kind:class	line:33
+FireResetEnv	../baselines/common/atari_wrappers_deprecated.py	/^class FireResetEnv(gym.Wrapper):$/;"	kind:class	line:35
+FlattenFilter	../baselines/acktr/filters.py	/^class FlattenFilter(Filter):$/;"	kind:class	line:63
+FrameStack	../baselines/common/atari_wrappers.py	/^class FrameStack(gym.Wrapper):$/;"	kind:class	line:133
+FrameStack	../baselines/common/atari_wrappers_deprecated.py	/^class FrameStack(gym.Wrapper):$/;"	kind:class	line:170
+FrameStack	../baselines/ppo1/run_atari.py	/^    from baselines.common.atari_wrappers import (wrap_deepmind, FrameStack)$/;"	kind:namespace	line:11
+FrameStack	../baselines/trpo_mpi/run_atari.py	/^    from baselines.common.atari_wrappers import (wrap_deepmind, FrameStack)$/;"	kind:namespace	line:11
+GaussianMlpPolicy	../baselines/acktr/policies.py	/^class GaussianMlpPolicy(object):$/;"	kind:class	line:43
+GaussianMlpPolicy	../baselines/acktr/run_mujoco.py	/^from baselines.acktr.policies import GaussianMlpPolicy$/;"	kind:namespace	line:11
+GetFlat	../baselines/common/tf_util.py	/^class GetFlat(object):$/;"	kind:class	line:639
+HumanOutputFormat	../baselines/logger.py	/^class HumanOutputFormat(OutputFormat):$/;"	kind:class	line:36
+INFO	../baselines/logger.py	/^INFO = 20$/;"	kind:variable	line:13
+IdentityFilter	../baselines/acktr/filters.py	/^class IdentityFilter(Filter):$/;"	kind:class	line:11
+Image	../baselines/common/atari_wrappers.py	/^from PIL import Image$/;"	kind:namespace	line:3
+Ind2OneHotFilter	../baselines/acktr/filters.py	/^class Ind2OneHotFilter(Filter):$/;"	kind:class	line:69
+JSONLogger	../baselines/bench/monitor.py	/^class JSONLogger(object):$/;"	kind:class	line:101
+JSONOutputFormat	../baselines/logger.py	/^class JSONOutputFormat(OutputFormat):$/;"	kind:class	line:79
+KFAC_DEBUG	../baselines/acktr/kfac.py	/^KFAC_DEBUG = False$/;"	kind:variable	line:8
+KFAC_OPS	../baselines/acktr/kfac.py	/^KFAC_OPS = ['MatMul', 'Conv2D', 'BiasAdd']$/;"	kind:variable	line:7
+KMeans	../baselines/deepq/experiments/traci/utilities/utils.py	/^from sklearn.cluster import KMeans$/;"	kind:namespace	line:8
+KfacOptimizer	../baselines/acktr/kfac.py	/^class KfacOptimizer():$/;"	kind:class	line:11
+LOG_OUTPUT_FORMATS	../baselines/logger.py	/^LOG_OUTPUT_FORMATS = ['stdout', 'log', 'json']$/;"	kind:variable	line:10
+LazyFrames	../baselines/common/atari_wrappers_deprecated.py	/^class LazyFrames(object):$/;"	kind:class	line:152
+LinearQFunction	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^class LinearQFunction:$/;"	kind:class	line:12
+LinearSchedule	../baselines/common/schedules.py	/^class LinearSchedule(object):$/;"	kind:class	line:76
+LinearSchedule	../baselines/deepq/experiments/atari/train.py	/^from baselines.common.schedules import LinearSchedule, PiecewiseSchedule$/;"	kind:namespace	line:24
+LinearSchedule	../baselines/deepq/experiments/custom_cartpole.py	/^from baselines.common.schedules import LinearSchedule$/;"	kind:namespace	line:12
+LinearSchedule	../baselines/deepq/simple.py	/^from baselines.common.schedules import LinearSchedule$/;"	kind:namespace	line:11
+LnLstmPolicy	../baselines/a2c/policies.py	/^class LnLstmPolicy(object):$/;"	kind:class	line:8
+LnLstmPolicy	../baselines/a2c/run_atari.py	/^from baselines.a2c.policies import CnnPolicy, LstmPolicy, LnLstmPolicy$/;"	kind:namespace	line:9
+LoadMonitorResultsError	../baselines/bench/monitor.py	/^class LoadMonitorResultsError(Exception):$/;"	kind:class	line:114
+Logger	../baselines/logger.py	/^class Logger(object):$/;"	kind:class	line:216
+LstmPolicy	../baselines/a2c/policies.py	/^class LstmPolicy(object):$/;"	kind:class	line:49
+LstmPolicy	../baselines/a2c/run_atari.py	/^from baselines.a2c.policies import CnnPolicy, LstmPolicy, LnLstmPolicy$/;"	kind:namespace	line:9
+MESSAGE_DEPTH	../baselines/common/console_util.py	/^MESSAGE_DEPTH = 0$/;"	kind:variable	line:44
+MPI	../baselines/common/mpi_adam.py	/^from mpi4py import MPI$/;"	kind:namespace	line:1
+MPI	../baselines/common/mpi_moments.py	/^from mpi4py import MPI$/;"	kind:namespace	line:1
+MPI	../baselines/common/mpi_running_mean_std.py	/^from mpi4py import MPI$/;"	kind:namespace	line:1
+MPI	../baselines/ddpg/main.py	/^from mpi4py import MPI$/;"	kind:namespace	line:17
+MPI	../baselines/ddpg/training.py	/^from mpi4py import MPI$/;"	kind:namespace	line:13
+MPI	../baselines/ddpg/util.py	/^from mpi4py import MPI$/;"	kind:namespace	line:6
+MPI	../baselines/ppo1/pposgd_simple.py	/^from mpi4py import MPI$/;"	kind:namespace	line:8
+MPI	../baselines/ppo1/run_atari.py	/^from mpi4py import MPI$/;"	kind:namespace	line:3
+MPI	../baselines/trpo_mpi/run_atari.py	/^from mpi4py import MPI$/;"	kind:namespace	line:2
+MPI	../baselines/trpo_mpi/run_mujoco.py	/^from mpi4py import MPI$/;"	kind:namespace	line:4
+MPI	../baselines/trpo_mpi/trpo_mpi.py	/^from mpi4py import MPI$/;"	kind:namespace	line:7
+MaxAndSkipEnv	../baselines/common/atari_wrappers.py	/^class MaxAndSkipEnv(gym.Wrapper):$/;"	kind:class	line:86
+MaxAndSkipEnv	../baselines/common/atari_wrappers_deprecated.py	/^class MaxAndSkipEnv(gym.Wrapper):$/;"	kind:class	line:93
+Memory	../baselines/ddpg/main.py	/^from baselines.ddpg.memory import Memory$/;"	kind:namespace	line:12
+Memory	../baselines/ddpg/memory.py	/^class Memory(object):$/;"	kind:class	line:42
+MinSegmentTree	../baselines/common/segment_tree.py	/^class MinSegmentTree(SegmentTree):$/;"	kind:class	line:135
+MinSegmentTree	../baselines/common/tests/test_segment_tree.py	/^from baselines.common.segment_tree import SumSegmentTree, MinSegmentTree$/;"	kind:namespace	line:3
+MinSegmentTree	../baselines/deepq/replay_buffer.py	/^from baselines.common.segment_tree import SumSegmentTree, MinSegmentTree$/;"	kind:namespace	line:4
+MlpPolicy	../baselines/ppo1/mlp_policy.py	/^class MlpPolicy(object):$/;"	kind:class	line:7
+MlpPolicy	../baselines/trpo_mpi/run_mujoco.py	/^from baselines.ppo1.mlp_policy import MlpPolicy$/;"	kind:namespace	line:10
+Model	../baselines/a2c/a2c.py	/^class Model(object):$/;"	kind:class	line:19
+Model	../baselines/acktr/acktr_disc.py	/^class Model(object):$/;"	kind:class	line:16
+Model	../baselines/ddpg/models.py	/^class Model(object):$/;"	kind:class	line:5
+Module	../baselines/common/tf_util.py	/^class Module(object):$/;"	kind:class	line:495
+Monitor	../baselines/bench/monitor.py	/^class Monitor(Wrapper):$/;"	kind:class	line:14
+MpiAdam	../baselines/common/mpi_adam.py	/^class MpiAdam(object):$/;"	kind:class	line:6
+MpiAdam	../baselines/ddpg/ddpg.py	/^from baselines.common.mpi_adam import MpiAdam$/;"	kind:namespace	line:9
+MpiAdam	../baselines/ppo1/pposgd_simple.py	/^from baselines.common.mpi_adam import MpiAdam$/;"	kind:namespace	line:6
+MpiAdam	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common.mpi_adam import MpiAdam$/;"	kind:namespace	line:9
+Mujoco	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+MultiCategoricalPd	../baselines/common/distributions.py	/^class MultiCategoricalPd(Pd):$/;"	kind:class	line:160
+MultiCategoricalPdType	../baselines/common/distributions.py	/^class MultiCategoricalPdType(PdType):$/;"	kind:class	line:60
+NeuralNetValueFunction	../baselines/acktr/run_mujoco.py	/^from baselines.acktr.value_functions import NeuralNetValueFunction$/;"	kind:namespace	line:12
+NeuralNetValueFunction	../baselines/acktr/value_functions.py	/^class NeuralNetValueFunction(object):$/;"	kind:class	line:9
+NoopResetEnv	../baselines/common/atari_wrappers.py	/^class NoopResetEnv(gym.Wrapper):$/;"	kind:class	line:8
+NoopResetEnv	../baselines/common/atari_wrappers_deprecated.py	/^class NoopResetEnv(gym.Wrapper):$/;"	kind:class	line:9
+NormalActionNoise	../baselines/ddpg/noise.py	/^class NormalActionNoise(ActionNoise):$/;"	kind:class	line:36
+Not	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+OrnsteinUhlenbeckActionNoise	../baselines/ddpg/noise.py	/^class OrnsteinUhlenbeckActionNoise(ActionNoise):$/;"	kind:class	line:49
+OutputFormat	../baselines/logger.py	/^class OutputFormat(object):$/;"	kind:class	line:19
+Pd	../baselines/common/distributions.py	/^class Pd(object):$/;"	kind:class	line:7
+PdType	../baselines/common/distributions.py	/^class PdType(object):$/;"	kind:class	line:27
+PiecewiseSchedule	../baselines/common/schedules.py	/^class PiecewiseSchedule(object):$/;"	kind:class	line:38
+PiecewiseSchedule	../baselines/common/tests/test_schedules.py	/^from baselines.common.schedules import ConstantSchedule, PiecewiseSchedule$/;"	kind:namespace	line:3
+PiecewiseSchedule	../baselines/deepq/experiments/atari/train.py	/^from baselines.common.schedules import LinearSchedule, PiecewiseSchedule$/;"	kind:namespace	line:24
+Pipe	../baselines/common/vec_env/subproc_vec_env.py	/^from multiprocessing import Process, Pipe$/;"	kind:namespace	line:2
+PlacholderTfInput	../baselines/common/tf_util.py	/^class PlacholderTfInput(TfInput):$/;"	kind:class	line:123
+PrioritizedReplayBuffer	../baselines/deepq/__init__.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer  # noqa$/;"	kind:namespace	line:5
+PrioritizedReplayBuffer	../baselines/deepq/experiments/atari/train.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:14
+PrioritizedReplayBuffer	../baselines/deepq/replay_buffer.py	/^class PrioritizedReplayBuffer(ReplayBuffer):$/;"	kind:class	line:71
+PrioritizedReplayBuffer	../baselines/deepq/simple.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:13
+Process	../baselines/common/vec_env/subproc_vec_env.py	/^from multiprocessing import Process, Pipe$/;"	kind:namespace	line:2
+ProcessFrame84	../baselines/common/atari_wrappers_deprecated.py	/^class ProcessFrame84(gym.ObservationWrapper):$/;"	kind:class	line:123
+Profiler	../baselines/deepq/experiments/traci/utilities/profiler.py	/^class Profiler:$/;"	kind:class	line:6
+Profiler	../baselines/deepq/experiments/traci/utilities/utils.py	/^from utilities.profiler import Profiler$/;"	kind:namespace	line:9
+ReplayBuffer	../baselines/deepq/__init__.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer  # noqa$/;"	kind:namespace	line:5
+ReplayBuffer	../baselines/deepq/experiments/atari/train.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:14
+ReplayBuffer	../baselines/deepq/experiments/custom_cartpole.py	/^from baselines.deepq.replay_buffer import ReplayBuffer$/;"	kind:namespace	line:11
+ReplayBuffer	../baselines/deepq/replay_buffer.py	/^class ReplayBuffer(object):$/;"	kind:class	line:7
+ReplayBuffer	../baselines/deepq/simple.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer$/;"	kind:namespace	line:13
+RingBuffer	../baselines/ddpg/memory.py	/^class RingBuffer(object):$/;"	kind:class	line:4
+Runner	../baselines/a2c/a2c.py	/^class Runner(object):$/;"	kind:class	line:92
+Runner	../baselines/acktr/acktr_disc.py	/^class Runner(object):$/;"	kind:class	line:107
+RunningAvg	../baselines/common/misc_util.py	/^class RunningAvg(object):$/;"	kind:class	line:123
+RunningMeanStd	../baselines/common/mpi_running_mean_std.py	/^class RunningMeanStd(object):$/;"	kind:class	line:4
+RunningMeanStd	../baselines/ddpg/ddpg.py	/^from baselines.common.mpi_running_mean_std import RunningMeanStd$/;"	kind:namespace	line:11
+RunningMeanStd	../baselines/ppo1/cnn_policy.py	/^from baselines.common.mpi_running_mean_std import RunningMeanStd$/;"	kind:namespace	line:1
+RunningMeanStd	../baselines/ppo1/mlp_policy.py	/^from baselines.common.mpi_running_mean_std import RunningMeanStd$/;"	kind:namespace	line:1
+RunningMeanStd	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^from baselines.common.mpi_running_mean_std import RunningMeanStd$/;"	kind:namespace	line:1
+RunningStat	../baselines/acktr/filters.py	/^from baselines.acktr.running_stat import RunningStat$/;"	kind:namespace	line:1
+RunningStat	../baselines/acktr/running_stat.py	/^class RunningStat(object):$/;"	kind:class	line:4
+SGDRegressor	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^from sklearn.linear_model import SGDRegressor$/;"	kind:namespace	line:8
+ScaledFloatFrame	../baselines/common/atari_wrappers_deprecated.py	/^class ScaledFloatFrame(gym.ObservationWrapper):$/;"	kind:class	line:202
+ScaledFloatFrame	../baselines/deepq/experiments/enjoy_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+ScaledFloatFrame	../baselines/deepq/experiments/train_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+Schedule	../baselines/common/schedules.py	/^class Schedule(object):$/;"	kind:class	line:12
+Scheduler	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import Scheduler, make_path, find_trainable_variables$/;"	kind:namespace	line:15
+Scheduler	../baselines/a2c/utils.py	/^class Scheduler(object):$/;"	kind:class	line:170
+Scheduler	../baselines/acktr/acktr_disc.py	/^from baselines.acktr.utils import Scheduler, find_trainable_variables$/;"	kind:namespace	line:11
+Scheduler	../baselines/acktr/utils.py	/^class Scheduler(object):$/;"	kind:class	line:150
+SegmentTree	../baselines/common/segment_tree.py	/^class SegmentTree(object):$/;"	kind:class	line:4
+SetFromFlat	../baselines/common/tf_util.py	/^class SetFromFlat(object):$/;"	kind:class	line:620
+SimpleMonitor	../baselines/common/misc_util.py	/^class SimpleMonitor(gym.Wrapper):$/;"	kind:class	line:157
+SimpleMonitor	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+StackFilter	../baselines/acktr/filters.py	/^class StackFilter(Filter):$/;"	kind:class	line:87
+SubprocVecEnv	../baselines/a2c/a2c.py	/^from baselines.common.vec_env.subproc_vec_env import SubprocVecEnv$/;"	kind:namespace	line:11
+SubprocVecEnv	../baselines/a2c/run_atari.py	/^from baselines.common.vec_env.subproc_vec_env import SubprocVecEnv$/;"	kind:namespace	line:7
+SubprocVecEnv	../baselines/acktr/run_atari.py	/^from baselines.common.vec_env.subproc_vec_env import SubprocVecEnv$/;"	kind:namespace	line:7
+SubprocVecEnv	../baselines/common/vec_env/subproc_vec_env.py	/^class SubprocVecEnv(VecEnv):$/;"	kind:class	line:38
+SumSegmentTree	../baselines/common/segment_tree.py	/^class SumSegmentTree(SegmentTree):$/;"	kind:class	line:94
+SumSegmentTree	../baselines/common/tests/test_segment_tree.py	/^from baselines.common.segment_tree import SumSegmentTree, MinSegmentTree$/;"	kind:namespace	line:3
+SumSegmentTree	../baselines/deepq/replay_buffer.py	/^from baselines.common.segment_tree import SumSegmentTree, MinSegmentTree$/;"	kind:namespace	line:4
+TensorBoardOutputFormat	../baselines/logger.py	/^class TensorBoardOutputFormat(OutputFormat):$/;"	kind:class	line:91
+TfInput	../baselines/common/tf_util.py	/^class TfInput(object):$/;"	kind:class	line:104
+Thread	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^from threading import Thread$/;"	kind:namespace	line:10
+TraciSimpleEnv	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^class TraciSimpleEnv(gym.Env):$/;"	kind:class	line:46
+TraciSimpleEnv	../baselines/deepq/experiments/traci/enjoy_traffic_deep.py	/^import TraciSimpleEnv.TraciSimpleEnv$/;"	kind:namespace	line:4
+TraciSimpleEnv	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^import TraciSimpleEnv.TraciSimpleEnv$/;"	kind:namespace	line:4
+TraciSimpleEnv	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import TraciSimpleEnv.TraciSimpleEnv$/;"	kind:namespace	line:11
+TraciSimpleEnv	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^import TraciSimpleEnv.TraciSimpleEnv$/;"	kind:namespace	line:5
+TraciSimpleEnv	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^import TraciSimpleEnv.TraciSimpleEnv$/;"	kind:namespace	line:4
+TraciSimpleEnv.py	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	1;"	kind:file	line:1
+U	../baselines/a2c/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+U	../baselines/acktr/acktr_cont.py	/^from baselines.common import tf_util as U$/;"	kind:namespace	line:5
+U	../baselines/acktr/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+U	../baselines/acktr/utils.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:4
+U	../baselines/acktr/value_functions.py	/^from baselines.common import tf_util as U$/;"	kind:namespace	line:4
+U	../baselines/common/distributions.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+U	../baselines/common/mpi_adam.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+U	../baselines/common/mpi_running_mean_std.py	/^import tensorflow as tf, baselines.common.tf_util as U, numpy as np$/;"	kind:namespace	line:2
+U	../baselines/ddpg/ddpg.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+U	../baselines/ddpg/training.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+U	../baselines/deepq/build_graph.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:97
+U	../baselines/deepq/experiments/atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+U	../baselines/deepq/experiments/atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+U	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+U	../baselines/deepq/experiments/custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+U	../baselines/deepq/simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+U	../baselines/ppo1/cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+U	../baselines/ppo1/mlp_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+U	../baselines/ppo1/pposgd_simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+U	../baselines/ppo1/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:18
+U	../baselines/ppo1/run_mujoco.py	/^from baselines.common import set_global_seeds, tf_util as U$/;"	kind:namespace	line:2
+U	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+U	../baselines/trpo_mpi/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:19
+U	../baselines/trpo_mpi/run_mujoco.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:17
+U	../baselines/trpo_mpi/trpo_mpi.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+Uint8Input	../baselines/common/tf_util.py	/^class Uint8Input(PlacholderTfInput):$/;"	kind:class	line:152
+UniqueCounter	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^class UniqueCounter:$/;"	kind:class	line:29
+VALUE_SETTERS	../baselines/common/tf_util.py	/^VALUE_SETTERS = collections.OrderedDict()$/;"	kind:variable	line:253
+VARIABLES	../baselines/common/tf_util.py	/^VARIABLES = {}$/;"	kind:variable	line:547
+VecEnv	../baselines/common/vec_env/__init__.py	/^class VecEnv(object):$/;"	kind:class	line:1
+VecEnv	../baselines/common/vec_env/subproc_vec_env.py	/^from baselines.common.vec_env import VecEnv$/;"	kind:namespace	line:3
+VideoRecorder	../baselines/deepq/experiments/atari/enjoy.py	/^from gym.monitoring import VideoRecorder$/;"	kind:namespace	line:6
+WARN	../baselines/logger.py	/^WARN = 30$/;"	kind:variable	line:14
+WarpFrame	../baselines/common/atari_wrappers.py	/^class WarpFrame(gym.ObservationWrapper):$/;"	kind:class	line:120
+Wrapper	../baselines/bench/monitor.py	/^from gym.core import Wrapper$/;"	kind:namespace	line:4
+WrapperModule	../baselines/common/tf_util.py	/^        class WrapperModule(Module):$/;"	kind:class	line:536
+ZFilter	../baselines/acktr/acktr_cont.py	/^from baselines.acktr.filters import ZFilter$/;"	kind:namespace	line:7
+ZFilter	../baselines/acktr/filters.py	/^class ZFilter(Filter):$/;"	kind:class	line:28
+_ATARI_SUFFIX	../baselines/bench/benchmarks.py	/^_ATARI_SUFFIX = 'NoFrameskip-v4'$/;"	kind:variable	line:32
+_BENCHMARKS	../baselines/bench/benchmarks.py	/^_BENCHMARKS = []$/;"	kind:variable	line:4
+_Function	../baselines/common/tf_util.py	/^class _Function(object):$/;"	kind:class	line:406
+_MemFriendlyFunction	../baselines/common/tf_util.py	/^class _MemFriendlyFunction(object):$/;"	kind:class	line:461
+_PLACEHOLDER_CACHE	../baselines/common/tf_util.py	/^_PLACEHOLDER_CACHE = {}  # name -> (placeholder, dtype, shape)$/;"	kind:variable	line:728
+__all__	../baselines/bench/monitor.py	/^__all__ = ['Monitor', 'get_monitor_files', 'load_results']$/;"	kind:variable	line:1
+__array__	../baselines/common/atari_wrappers_deprecated.py	/^    def __array__(self, dtype=None):$/;"	kind:member	line:163
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:12
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:18
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:41
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:58
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:6
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:64
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:72
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:82
+__call__	../baselines/acktr/filters.py	/^    def __call__(self, x, update=True):$/;"	kind:member	line:92
+__call__	../baselines/common/tf_util.py	/^    def __call__(self):$/;"	kind:member	line:643
+__call__	../baselines/common/tf_util.py	/^    def __call__(self, *args):$/;"	kind:member	line:502
+__call__	../baselines/common/tf_util.py	/^    def __call__(self, *args, **kwargs):$/;"	kind:member	line:424
+__call__	../baselines/common/tf_util.py	/^    def __call__(self, *inputvals):$/;"	kind:member	line:468
+__call__	../baselines/common/tf_util.py	/^    def __call__(self, theta):$/;"	kind:member	line:635
+__call__	../baselines/ddpg/models.py	/^    def __call__(self, obs, action, reuse=False):$/;"	kind:member	line:54
+__call__	../baselines/ddpg/models.py	/^    def __call__(self, obs, reuse=False):$/;"	kind:member	line:28
+__call__	../baselines/ddpg/noise.py	/^    def __call__(self):$/;"	kind:member	line:41
+__call__	../baselines/ddpg/noise.py	/^    def __call__(self):$/;"	kind:member	line:58
+__call__	../baselines/deepq/simple.py	/^    def __call__(self, *args, **kwargs):$/;"	kind:member	line:39
+__enter__	../baselines/deepq/experiments/traci/utilities/profiler.py	/^    def __enter__(self):$/;"	kind:member	line:11
+__exit__	../baselines/deepq/experiments/traci/utilities/profiler.py	/^    def __exit__(self, type, value, traceback):$/;"	kind:member	line:15
+__float__	../baselines/common/misc_util.py	/^    def __float__(self):$/;"	kind:member	line:152
+__getitem__	../baselines/common/segment_tree.py	/^    def __getitem__(self, idx):$/;"	kind:member	line:89
+__getitem__	../baselines/ddpg/memory.py	/^    def __getitem__(self, idx):$/;"	kind:member	line:14
+__getstate__	../baselines/bench/monitor.py	/^    def __getstate__(self): # XXX$/;"	kind:member	line:41
+__getstate__	../baselines/common/misc_util.py	/^    def __getstate__(self):$/;"	kind:member	line:62
+__getstate__	../baselines/common/vec_env/subproc_vec_env.py	/^    def __getstate__(self):$/;"	kind:member	line:31
+__init__	../baselines/a2c/a2c.py	/^    def __init__(self, env, model, nsteps=5, nstack=4, gamma=0.99):$/;"	kind:member	line:94
+__init__	../baselines/a2c/a2c.py	/^    def __init__(self, policy, ob_space, ac_space, nenvs, nsteps, nstack, num_procs,$/;"	kind:member	line:21
+__init__	../baselines/a2c/policies.py	/^    def __init__(self, sess, ob_space, ac_space, nenv, nsteps, nstack, nlstm=256, reuse=False):$/;"	kind:member	line:51
+__init__	../baselines/a2c/policies.py	/^    def __init__(self, sess, ob_space, ac_space, nenv, nsteps, nstack, nlstm=256, reuse=False):$/;"	kind:member	line:9
+__init__	../baselines/a2c/policies.py	/^    def __init__(self, sess, ob_space, ac_space, nenv, nsteps, nstack, reuse=False):$/;"	kind:member	line:93
+__init__	../baselines/a2c/utils.py	/^    def __init__(self, nsteps, nenvs):$/;"	kind:member	line:188
+__init__	../baselines/a2c/utils.py	/^    def __init__(self, v, nvalues, schedule):$/;"	kind:member	line:172
+__init__	../baselines/acktr/acktr_disc.py	/^    def __init__(self, env, model, nsteps, nstack, gamma):$/;"	kind:member	line:109
+__init__	../baselines/acktr/acktr_disc.py	/^    def __init__(self, policy, ob_space, ac_space, nenvs,total_timesteps, nprocs=32, nsteps=20,$/;"	kind:member	line:18
+__init__	../baselines/acktr/filters.py	/^    def __init__(self):$/;"	kind:member	line:54
+__init__	../baselines/acktr/filters.py	/^    def __init__(self, divisor):$/;"	kind:member	line:80
+__init__	../baselines/acktr/filters.py	/^    def __init__(self, fs):$/;"	kind:member	line:16
+__init__	../baselines/acktr/filters.py	/^    def __init__(self, length):$/;"	kind:member	line:88
+__init__	../baselines/acktr/filters.py	/^    def __init__(self, n):$/;"	kind:member	line:70
+__init__	../baselines/acktr/filters.py	/^    def __init__(self, shape, demean=True, destd=True, clip=10.0):$/;"	kind:member	line:34
+__init__	../baselines/acktr/kfac.py	/^    def __init__(self, learning_rate=0.01, momentum=0.9, clip_kl=0.01, kfac_update=2, stats_accum_iter=60, full_stats_init=False, cold_iter=100, cold_lr=None, async=False, async_stats=False, epsilon=1e-2, stats_decay=0.95, blockdiag_bias=False, channel_fac=False, factored_damping=False, approxT2=False, use_float64=False, weight_decay_dict={},max_grad_norm=0.5):$/;"	kind:member	line:13
+__init__	../baselines/acktr/policies.py	/^    def __init__(self, ob_dim, ac_dim):$/;"	kind:member	line:44
+__init__	../baselines/acktr/policies.py	/^    def __init__(self, sess, ob_space, ac_space, nenv, nsteps, nstack, reuse=False):$/;"	kind:member	line:10
+__init__	../baselines/acktr/running_stat.py	/^    def __init__(self, shape):$/;"	kind:member	line:5
+__init__	../baselines/acktr/utils.py	/^    def __init__(self, nsteps, nenvs):$/;"	kind:member	line:168
+__init__	../baselines/acktr/utils.py	/^    def __init__(self, v, nvalues, schedule):$/;"	kind:member	line:152
+__init__	../baselines/acktr/value_functions.py	/^    def __init__(self, ob_dim, ac_dim): #pylint: disable=W0613$/;"	kind:member	line:10
+__init__	../baselines/bench/monitor.py	/^    def __init__(self, env, filename, allow_early_resets=False):$/;"	kind:member	line:18
+__init__	../baselines/bench/monitor.py	/^    def __init__(self, file):$/;"	kind:member	line:102
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env):$/;"	kind:member	line:121
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env):$/;"	kind:member	line:34
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env):$/;"	kind:member	line:51
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env, k):$/;"	kind:member	line:134
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env, noop_max=30):$/;"	kind:member	line:9
+__init__	../baselines/common/atari_wrappers.py	/^    def __init__(self, env, skip=4):$/;"	kind:member	line:87
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env):$/;"	kind:member	line:224
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env, k):$/;"	kind:member	line:171
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env=None):$/;"	kind:member	line:124
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env=None):$/;"	kind:member	line:36
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env=None):$/;"	kind:member	line:54
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env=None, noop_max=30):$/;"	kind:member	line:10
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, env=None, skip=4):$/;"	kind:member	line:94
+__init__	../baselines/common/atari_wrappers_deprecated.py	/^    def __init__(self, frames):$/;"	kind:member	line:153
+__init__	../baselines/common/azure_utils.py	/^    def __init__(self, account_name, account_key, container_name, maybe_create=False):$/;"	kind:member	line:52
+__init__	../baselines/common/dataset.py	/^    def __init__(self, data_map, deterministic=False, shuffle=True):$/;"	kind:member	line:4
+__init__	../baselines/common/distributions.py	/^    def __init__(self, flat):$/;"	kind:member	line:184
+__init__	../baselines/common/distributions.py	/^    def __init__(self, logits):$/;"	kind:member	line:124
+__init__	../baselines/common/distributions.py	/^    def __init__(self, logits):$/;"	kind:member	line:210
+__init__	../baselines/common/distributions.py	/^    def __init__(self, low, high):$/;"	kind:member	line:61
+__init__	../baselines/common/distributions.py	/^    def __init__(self, low, high, flat):$/;"	kind:member	line:161
+__init__	../baselines/common/distributions.py	/^    def __init__(self, ncat):$/;"	kind:member	line:48
+__init__	../baselines/common/distributions.py	/^    def __init__(self, size):$/;"	kind:member	line:77
+__init__	../baselines/common/distributions.py	/^    def __init__(self, size):$/;"	kind:member	line:89
+__init__	../baselines/common/misc_util.py	/^    def __init__(self, *args, **kwargs):$/;"	kind:member	line:58
+__init__	../baselines/common/misc_util.py	/^    def __init__(self, env):$/;"	kind:member	line:158
+__init__	../baselines/common/misc_util.py	/^    def __init__(self, gamma, init_value=None):$/;"	kind:member	line:124
+__init__	../baselines/common/mpi_adam.py	/^    def __init__(self, var_list, *, beta1=0.9, beta2=0.999, epsilon=1e-08, scale_grad_by_procs=True, comm=None):$/;"	kind:member	line:7
+__init__	../baselines/common/mpi_running_mean_std.py	/^    def __init__(self, epsilon=1e-2, shape=()):$/;"	kind:member	line:6
+__init__	../baselines/common/schedules.py	/^    def __init__(self, endpoints, interpolation=linear_interpolation, outside_value=None):$/;"	kind:member	line:39
+__init__	../baselines/common/schedules.py	/^    def __init__(self, schedule_timesteps, final_p, initial_p=1.0):$/;"	kind:member	line:77
+__init__	../baselines/common/schedules.py	/^    def __init__(self, value):$/;"	kind:member	line:19
+__init__	../baselines/common/segment_tree.py	/^    def __init__(self, capacity):$/;"	kind:member	line:136
+__init__	../baselines/common/segment_tree.py	/^    def __init__(self, capacity):$/;"	kind:member	line:95
+__init__	../baselines/common/segment_tree.py	/^    def __init__(self, capacity, operation, neutral_element):$/;"	kind:member	line:5
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, inputs, outputs, updates, givens, check_nan=False):$/;"	kind:member	line:407
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, name):$/;"	kind:member	line:496
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, name="(unnamed)"):$/;"	kind:member	line:105
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, nondata_inputs, data_inputs, outputs, batch_size):$/;"	kind:member	line:462
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, placeholder):$/;"	kind:member	line:124
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, shape, dtype=tf.float32, name=None):$/;"	kind:member	line:137
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, shape, name=None):$/;"	kind:member	line:153
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, var_list):$/;"	kind:member	line:640
+__init__	../baselines/common/tf_util.py	/^    def __init__(self, var_list, dtype=tf.float32):$/;"	kind:member	line:621
+__init__	../baselines/common/vec_env/subproc_vec_env.py	/^    def __init__(self, env_fns):$/;"	kind:member	line:39
+__init__	../baselines/common/vec_env/subproc_vec_env.py	/^    def __init__(self, x):$/;"	kind:member	line:29
+__init__	../baselines/ddpg/ddpg.py	/^    def __init__(self, actor, critic, memory, observation_shape, action_shape, param_noise=None, action_noise=None,$/;"	kind:member	line:58
+__init__	../baselines/ddpg/memory.py	/^    def __init__(self, limit, action_shape, observation_shape):$/;"	kind:member	line:43
+__init__	../baselines/ddpg/memory.py	/^    def __init__(self, maxlen, shape, dtype='float32'):$/;"	kind:member	line:5
+__init__	../baselines/ddpg/models.py	/^    def __init__(self, name):$/;"	kind:member	line:6
+__init__	../baselines/ddpg/models.py	/^    def __init__(self, name='critic', layer_norm=True):$/;"	kind:member	line:50
+__init__	../baselines/ddpg/models.py	/^    def __init__(self, nb_actions, name='actor', layer_norm=True):$/;"	kind:member	line:23
+__init__	../baselines/ddpg/noise.py	/^    def __init__(self, initial_stddev=0.1, desired_action_stddev=0.1, adoption_coefficient=1.01):$/;"	kind:member	line:5
+__init__	../baselines/ddpg/noise.py	/^    def __init__(self, mu, sigma):$/;"	kind:member	line:37
+__init__	../baselines/ddpg/noise.py	/^    def __init__(self, mu, sigma, theta=.15, dt=1e-2, x0=None):$/;"	kind:member	line:50
+__init__	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def __init__(self):$/;"	kind:member	line:30
+__init__	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def __init__(self):$/;"	kind:member	line:99
+__init__	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    def __init__(self, gamma, n_actions):$/;"	kind:member	line:13
+__init__	../baselines/deepq/experiments/traci/utilities/profiler.py	/^    def __init__(self):$/;"	kind:member	line:8
+__init__	../baselines/deepq/replay_buffer.py	/^    def __init__(self, size):$/;"	kind:member	line:8
+__init__	../baselines/deepq/replay_buffer.py	/^    def __init__(self, size, alpha):$/;"	kind:member	line:72
+__init__	../baselines/deepq/simple.py	/^    def __init__(self, act, act_params):$/;"	kind:member	line:18
+__init__	../baselines/logger.py	/^    def __init__(self, dir):$/;"	kind:member	line:95
+__init__	../baselines/logger.py	/^    def __init__(self, dir, output_formats):$/;"	kind:member	line:221
+__init__	../baselines/logger.py	/^    def __init__(self, file):$/;"	kind:member	line:37
+__init__	../baselines/logger.py	/^    def __init__(self, file):$/;"	kind:member	line:80
+__init__	../baselines/ppo1/cnn_policy.py	/^    def __init__(self, name, ob_space, ac_space, kind='large'):$/;"	kind:member	line:9
+__init__	../baselines/ppo1/mlp_policy.py	/^    def __init__(self, name, *args, **kwargs):$/;"	kind:member	line:9
+__init__	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def __init__(self, name, ob_space, ac_space):$/;"	kind:member	line:9
+__init__.py	../baselines/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/a2c/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/acktr/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/bench/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/common/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/common/vec_env/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/ddpg/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/deepq/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/deepq/experiments/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/deepq/experiments/atari/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/deepq/experiments/traci/TraciSimpleEnv/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/ppo1/__init__.py	1;"	kind:file	line:1
+__init__.py	../baselines/trpo_mpi/__init__.py	1;"	kind:file	line:1
+__len__	../baselines/ddpg/memory.py	/^    def __len__(self):$/;"	kind:member	line:11
+__len__	../baselines/deepq/replay_buffer.py	/^    def __len__(self):$/;"	kind:member	line:21
+__repr__	../baselines/ddpg/noise.py	/^    def __repr__(self):$/;"	kind:member	line:26
+__repr__	../baselines/ddpg/noise.py	/^    def __repr__(self):$/;"	kind:member	line:44
+__repr__	../baselines/ddpg/noise.py	/^    def __repr__(self):$/;"	kind:member	line:66
+__setitem__	../baselines/common/segment_tree.py	/^    def __setitem__(self, idx, val):$/;"	kind:member	line:77
+__setstate__	../baselines/bench/monitor.py	/^    def __setstate__(self, d):$/;"	kind:member	line:50
+__setstate__	../baselines/common/misc_util.py	/^    def __setstate__(self, d):$/;"	kind:member	line:65
+__setstate__	../baselines/common/vec_env/subproc_vec_env.py	/^    def __setstate__(self, ob):$/;"	kind:member	line:34
+__traci_start__	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def __traci_start__(self):$/;"	kind:member	line:95
+_apply_stats	../baselines/acktr/kfac.py	/^    def _apply_stats(self, statsUpdates, accumulate=False, accumulateCoeff=0.):$/;"	kind:member	line:474
+_atari50	../baselines/bench/benchmarks.py	/^_atari50 =  [ # actually 49$/;"	kind:variable	line:114
+_atari7	../baselines/bench/benchmarks.py	/^_atari7 = ['BeamRider', 'Breakout', 'Enduro', 'Pong', 'Qbert', 'Seaquest', 'SpaceInvaders']$/;"	kind:variable	line:1
+_atariexpl7	../baselines/bench/benchmarks.py	/^_atariexpl7 = ['Freeway', 'Gravitar', 'MontezumaRevenge', 'Pitfall', 'PrivateEye', 'Solaris', 'Venture']$/;"	kind:variable	line:2
+_call	../baselines/common/tf_util.py	/^            def _call(self, *args):$/;"	kind:member	line:537
+_call	../baselines/common/tf_util.py	/^    def _call(self, *args):$/;"	kind:member	line:519
+_cnn_to_mlp	../baselines/deepq/models.py	/^def _cnn_to_mlp(convs, hiddens, dueling, inpt, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:33
+_demo	../baselines/logger.py	/^def _demo():$/;"	kind:function	line:289
+_do_log	../baselines/logger.py	/^    def _do_log(self, args):$/;"	kind:member	line:256
+_encode_sample	../baselines/deepq/replay_buffer.py	/^    def _encode_sample(self, idxes):$/;"	kind:member	line:33
+_feed_input	../baselines/common/tf_util.py	/^    def _feed_input(self, feed_dict, inpt, value):$/;"	kind:member	line:418
+_get_ob	../baselines/common/atari_wrappers_deprecated.py	/^    def _get_ob(self):$/;"	kind:member	line:197
+_init	../baselines/ppo1/cnn_policy.py	/^    def _init(self, ob_space, ac_space, kind):$/;"	kind:member	line:14
+_init	../baselines/ppo1/mlp_policy.py	/^    def _init(self, ob_space, ac_space, hid_size, num_hid_layers, gaussian_fixed_var=True):$/;"	kind:member	line:14
+_init	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def _init(self, ob_space, ac_space):$/;"	kind:member	line:14
+_initializer	../baselines/common/tf_util.py	/^    def _initializer(shape, dtype=None, partition_info=None):  # pylint: disable=W0613$/;"	kind:function	line:288
+_ln	../baselines/a2c/utils.py	/^def _ln(x, g, b, e=1e-5, axes=[1]):$/;"	kind:function	line:100
+_mlp	../baselines/deepq/models.py	/^def _mlp(hiddens, inpt, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:5
+_mujocosmall	../baselines/bench/benchmarks.py	/^_mujocosmall = [$/;"	kind:variable	line:61
+_observation	../baselines/common/atari_wrappers.py	/^    def _observation(self):$/;"	kind:member	line:154
+_observation	../baselines/common/atari_wrappers.py	/^    def _observation(self, obs):$/;"	kind:member	line:127
+_observation	../baselines/common/atari_wrappers_deprecated.py	/^    def _observation(self, obs):$/;"	kind:member	line:128
+_observation	../baselines/common/atari_wrappers_deprecated.py	/^    def _observation(self, obs):$/;"	kind:member	line:203
+_ortho_init	../baselines/a2c/utils.py	/^    def _ortho_init(shape, dtype, partition_info=None):$/;"	kind:function	line:26
+_ortho_init	../baselines/acktr/utils.py	/^    def _ortho_init(shape, dtype, partition_info=None):$/;"	kind:function	line:30
+_preproc	../baselines/acktr/value_functions.py	/^    def _preproc(self, path):$/;"	kind:member	line:34
+_reduce_helper	../baselines/common/segment_tree.py	/^    def _reduce_helper(self, start, end, node, node_start, node_end):$/;"	kind:member	line:37
+_render	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def _render(self, mode='human', close=False):$/;"	kind:member	line:221
+_reset	../baselines/common/atari_wrappers.py	/^    def _reset(self):$/;"	kind:member	line:108
+_reset	../baselines/common/atari_wrappers.py	/^    def _reset(self):$/;"	kind:member	line:143
+_reset	../baselines/common/atari_wrappers.py	/^    def _reset(self):$/;"	kind:member	line:18
+_reset	../baselines/common/atari_wrappers.py	/^    def _reset(self):$/;"	kind:member	line:40
+_reset	../baselines/common/atari_wrappers.py	/^    def _reset(self):$/;"	kind:member	line:73
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:115
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:186
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:19
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:232
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:42
+_reset	../baselines/common/atari_wrappers_deprecated.py	/^    def _reset(self):$/;"	kind:member	line:77
+_reset	../baselines/common/misc_util.py	/^    def _reset(self):$/;"	kind:member	line:178
+_reset	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def _reset(self):$/;"	kind:member	line:214
+_reward	../baselines/common/atari_wrappers.py	/^    def _reward(self, reward):$/;"	kind:member	line:116
+_reward	../baselines/common/atari_wrappers_deprecated.py	/^    def _reward(self, reward):$/;"	kind:member	line:147
+_sample_proportional	../baselines/deepq/replay_buffer.py	/^    def _sample_proportional(self, batch_size):$/;"	kind:member	line:107
+_seed	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def _seed(self, seed=None):$/;"	kind:member	line:134
+_step	../baselines/common/atari_wrappers.py	/^    def _step(self, action):$/;"	kind:member	line:149
+_step	../baselines/common/atari_wrappers.py	/^    def _step(self, action):$/;"	kind:member	line:59
+_step	../baselines/common/atari_wrappers.py	/^    def _step(self, action):$/;"	kind:member	line:94
+_step	../baselines/common/atari_wrappers_deprecated.py	/^    def _step(self, action):$/;"	kind:member	line:101
+_step	../baselines/common/atari_wrappers_deprecated.py	/^    def _step(self, action):$/;"	kind:member	line:192
+_step	../baselines/common/atari_wrappers_deprecated.py	/^    def _step(self, action):$/;"	kind:member	line:228
+_step	../baselines/common/atari_wrappers_deprecated.py	/^    def _step(self, action):$/;"	kind:member	line:63
+_step	../baselines/common/misc_util.py	/^    def _step(self, action):$/;"	kind:member	line:198
+_step	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def _step(self, action):$/;"	kind:member	line:138
+_thunk	../baselines/a2c/run_atari.py	/^        def _thunk():$/;"	kind:function	line:15
+_thunk	../baselines/acktr/run_atari.py	/^        def _thunk():$/;"	kind:function	line:14
+_truncate	../baselines/logger.py	/^    def _truncate(self, s):$/;"	kind:member	line:70
+a	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    a = np.random.randint(0, n_actions) if np.random.rand() < epsilon else qf.get_best_q(s)[0]$/;"	kind:variable	line:86
+a2c.py	../baselines/a2c/a2c.py	1;"	kind:file	line:1
+absolute_import	../baselines/deepq/experiments/traci/embedded.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+absolute_import	../baselines/deepq/experiments/traci/runner.py	/^from __future__ import absolute_import$/;"	kind:namespace	line:22
+absolute_scope_name	../baselines/common/tf_util.py	/^def absolute_scope_name(relative_scope_name):$/;"	kind:function	line:697
+account_key	../baselines/deepq/experiments/atari/train.py	/^                              account_key=account_key,$/;"	kind:variable	line:142
+acktr_cont.py	../baselines/acktr/acktr_cont.py	1;"	kind:file	line:1
+acktr_disc.py	../baselines/acktr/acktr_disc.py	1;"	kind:file	line:1
+act	../baselines/acktr/policies.py	/^    def act(self, ob):$/;"	kind:member	line:78
+act	../baselines/deepq/experiments/atari/enjoy.py	/^        act = deepq.build_act($/;"	kind:variable	line:64
+act	../baselines/ppo1/cnn_policy.py	/^    def act(self, stochastic, ob):$/;"	kind:member	line:48
+act	../baselines/ppo1/mlp_policy.py	/^    def act(self, stochastic, ob):$/;"	kind:member	line:50
+act	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def act(self, stochastic, ob):$/;"	kind:member	line:48
+action	../baselines/deepq/experiments/custom_cartpole.py	/^            action = act(obs[None], update_eps=exploration.value(t))[0]$/;"	kind:variable	line:49
+action	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^        action = action_next$/;"	kind:variable	line:58
+action	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    action = np.random.randint(0, n_actions) if np.random.uniform() < eps else argmax_random_tie(q[tuple(state)])$/;"	kind:variable	line:39
+action_next	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^        action_next = np.random.randint(0, n_actions) if np.random.uniform() < eps else argmax_random_tie(q[tuple(state_next)])$/;"	kind:variable	line:50
+adapt	../baselines/ddpg/noise.py	/^    def adapt(self, distance):$/;"	kind:member	line:12
+adapt_param_noise	../baselines/ddpg/ddpg.py	/^    def adapt_param_noise(self):$/;"	kind:member	line:347
+add	../baselines/deepq/replay_buffer.py	/^    def add(self, *args, **kwargs):$/;"	kind:member	line:100
+add	../baselines/deepq/replay_buffer.py	/^    def add(self, obs_t, action, reward, obs_tp1, done):$/;"	kind:member	line:24
+add_many	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def add_many(self, list_of_ids):$/;"	kind:member	line:33
+add_vtarg_and_adv	../baselines/ppo1/pposgd_simple.py	/^def add_vtarg_and_adv(seg, gamma, lam):$/;"	kind:function	line:64
+add_vtarg_and_adv	../baselines/trpo_mpi/trpo_mpi.py	/^def add_vtarg_and_adv(seg, gamma, lam):$/;"	kind:function	line:69
+allmean	../baselines/trpo_mpi/trpo_mpi.py	/^    def allmean(x):$/;"	kind:function	line:161
+alpha	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^alpha = 0.2  # learning-rate$/;"	kind:variable	line:15
+amax_probability_chooser	../baselines/deepq/experiments/traci/utilities/utils.py	/^def amax_probability_chooser(arr):$/;"	kind:function	line:13
+append	../baselines/ddpg/memory.py	/^    def append(self, obs0, action, reward, obs1, terminal1, training=True):$/;"	kind:member	line:71
+append	../baselines/ddpg/memory.py	/^    def append(self, v):$/;"	kind:member	line:22
+applyStatsEigen	../baselines/acktr/kfac.py	/^    def applyStatsEigen(self, eigen_list):$/;"	kind:member	line:600
+apply_gradients	../baselines/acktr/kfac.py	/^    def apply_gradients(self, grads):$/;"	kind:member	line:895
+apply_gradients_kfac	../baselines/acktr/kfac.py	/^    def apply_gradients_kfac(self, grads):$/;"	kind:member	line:809
+apply_stats	../baselines/acktr/kfac.py	/^    def apply_stats(self, statsUpdates):$/;"	kind:member	line:438
+approximate_num_iters	../baselines/deepq/experiments/atari/train.py	/^        approximate_num_iters = args.num_steps \/ 4$/;"	kind:variable	line:179
+archives	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+argmax	../baselines/common/tf_util.py	/^def argmax(x, axis=None):$/;"	kind:function	line:50
+argmax_random_tie	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^from utilities.utils import argmax_random_tie$/;"	kind:namespace	line:8
+argmax_random_tie	../baselines/deepq/experiments/traci/utilities/utils.py	/^def argmax_random_tie(arr):$/;"	kind:function	line:37
+argmax_random_tie2	../baselines/deepq/experiments/traci/utilities/utils.py	/^def argmax_random_tie2(arr):$/;"	kind:function	line:41
+argparse	../baselines/a2c/run_atari.py	/^    import argparse$/;"	kind:namespace	line:35
+argparse	../baselines/acktr/run_atari.py	/^    import argparse$/;"	kind:namespace	line:29
+argparse	../baselines/acktr/run_mujoco.py	/^import argparse$/;"	kind:namespace	line:2
+argparse	../baselines/ddpg/main.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../baselines/deepq/experiments/atari/download_model.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../baselines/deepq/experiments/atari/enjoy.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../baselines/deepq/experiments/atari/train.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import argparse$/;"	kind:namespace	line:1
+argparse	../baselines/ppo1/run_atari.py	/^    import argparse$/;"	kind:namespace	line:48
+argparse	../baselines/ppo1/run_mujoco.py	/^    import argparse$/;"	kind:namespace	line:31
+argparse	../baselines/trpo_mpi/run_atari.py	/^    import argparse$/;"	kind:namespace	line:46
+argparse	../baselines/trpo_mpi/run_mujoco.py	/^    import argparse$/;"	kind:namespace	line:40
+args	../baselines/acktr/run_mujoco.py	/^    args = parser.parse_args()$/;"	kind:variable	line:41
+args	../baselines/ddpg/main.py	/^    args = parse_args()$/;"	kind:variable	line:111
+args	../baselines/deepq/experiments/atari/enjoy.py	/^        args = parse_args()$/;"	kind:variable	line:62
+args	../baselines/deepq/experiments/atari/train.py	/^    args = parse_args()$/;"	kind:variable	line:114
+arr	../baselines/deepq/experiments/traci/utilities/utils.py	/^    arr = np.random.random(10)$/;"	kind:variable	line:53
+arr2	../baselines/deepq/experiments/traci/utilities/utils.py	/^    arr2 = np.copy(arr)$/;"	kind:variable	line:54
+array_min2d	../baselines/ddpg/memory.py	/^def array_min2d(x):$/;"	kind:function	line:35
+atari_wrappers.py	../baselines/common/atari_wrappers.py	1;"	kind:file	line:1
+atari_wrappers_deprecated.py	../baselines/common/atari_wrappers_deprecated.py	1;"	kind:file	line:1
+author	../setup.py	/^      author="OpenAI",$/;"	kind:variable	line:25
+author_email	../setup.py	/^      author_email="gym@openai.com",$/;"	kind:variable	line:27
+avg_norm	../baselines/a2c/utils.py	/^def avg_norm(t):$/;"	kind:function	line:238
+azure_utils.py	../baselines/common/azure_utils.py	1;"	kind:file	line:1
+baselines	../baselines/a2c/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+baselines	../baselines/acktr/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+baselines	../baselines/acktr/utils.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:4
+baselines	../baselines/common/distributions.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+baselines	../baselines/common/mpi_adam.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+baselines	../baselines/common/mpi_running_mean_std.py	/^import tensorflow as tf, baselines.common.tf_util as U, numpy as np$/;"	kind:namespace	line:2
+baselines	../baselines/ddpg/ddpg.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+baselines	../baselines/ddpg/main.py	/^import baselines.ddpg.training as training$/;"	kind:namespace	line:10
+baselines	../baselines/ddpg/training.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+baselines	../baselines/deepq/build_graph.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:97
+baselines	../baselines/deepq/experiments/atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+baselines	../baselines/deepq/experiments/atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+baselines	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+baselines	../baselines/deepq/experiments/custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+baselines	../baselines/deepq/simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+baselines	../baselines/ppo1/cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+baselines	../baselines/ppo1/mlp_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+baselines	../baselines/ppo1/pposgd_simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+baselines	../baselines/ppo1/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:18
+baselines	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+baselines	../baselines/trpo_mpi/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:19
+baselines	../baselines/trpo_mpi/run_mujoco.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:17
+baselines	../baselines/trpo_mpi/trpo_mpi.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+batch	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^batch = deque(maxlen=max_batch_size)$/;"	kind:variable	line:79
+batch_to_seq	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+batch_to_seq	../baselines/a2c/utils.py	/^def batch_to_seq(h, nbatch, nsteps, flat=False):$/;"	kind:function	line:60
+before	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+bench	../baselines/a2c/run_atari.py	/^from baselines import bench$/;"	kind:namespace	line:5
+bench	../baselines/acktr/run_atari.py	/^from baselines import bench$/;"	kind:namespace	line:5
+bench	../baselines/acktr/run_mujoco.py	/^from baselines import bench$/;"	kind:namespace	line:9
+bench	../baselines/ddpg/main.py	/^from baselines import logger, bench$/;"	kind:namespace	line:5
+bench	../baselines/ppo1/run_atari.py	/^from baselines import bench$/;"	kind:namespace	line:5
+bench	../baselines/ppo1/run_mujoco.py	/^from baselines import bench$/;"	kind:namespace	line:3
+bench	../baselines/trpo_mpi/run_atari.py	/^from baselines import bench$/;"	kind:namespace	line:7
+bench	../baselines/trpo_mpi/run_mujoco.py	/^from baselines import bench$/;"	kind:namespace	line:12
+benchmarks.py	../baselines/bench/benchmarks.py	1;"	kind:file	line:1
+blue	../baselines/common/console_util.py	/^    blue=34,$/;"	kind:variable	line:28
+boolean_flag	../baselines/common/misc_util.py	/^def boolean_flag(parser, name, default=False, help=None):$/;"	kind:function	line:226
+boolean_flag	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+build_act	../baselines/deepq/__init__.py	/^from baselines.deepq.build_graph import build_act, build_train  # noqa$/;"	kind:namespace	line:2
+build_act	../baselines/deepq/build_graph.py	/^def build_act(make_obs_ph, q_func, num_actions, scope="deepq", reuse=None):$/;"	kind:function	line:115
+build_act_with_param_noise	../baselines/deepq/build_graph.py	/^def build_act_with_param_noise(make_obs_ph, q_func, num_actions, scope="deepq", reuse=None, param_noise_filter_func=None):$/;"	kind:function	line:169
+build_graph.py	../baselines/deepq/build_graph.py	1;"	kind:file	line:1
+build_train	../baselines/deepq/__init__.py	/^from baselines.deepq.build_graph import build_act, build_train  # noqa$/;"	kind:namespace	line:2
+build_train	../baselines/deepq/build_graph.py	/^def build_train(make_obs_ph, q_func, num_actions, optimizer, grad_norm_clipping=None, gamma=1.0,$/;"	kind:function	line:282
+builtins	../baselines/common/tf_util.py	/^import builtins$/;"	kind:namespace	line:3
+but	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+cProfile	../baselines/deepq/experiments/traci/utilities/profiler.py	/^import cProfile$/;"	kind:namespace	line:1
+callback	../baselines/deepq/experiments/atari/download_model.py	/^        def callback(current, total):$/;"	kind:function	line:37
+callback	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^def callback(lcl, glb):$/;"	kind:function	line:8
+callback	../baselines/deepq/experiments/train_cartpole.py	/^def callback(lcl, glb):$/;"	kind:function	line:6
+cat_entropy	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import cat_entropy, mse$/;"	kind:namespace	line:17
+cat_entropy	../baselines/a2c/utils.py	/^def cat_entropy(logits):$/;"	kind:function	line:12
+cat_entropy	../baselines/acktr/acktr_disc.py	/^from baselines.acktr.utils import cat_entropy, mse$/;"	kind:namespace	line:12
+cat_entropy	../baselines/acktr/utils.py	/^def cat_entropy(logits):$/;"	kind:function	line:16
+cat_entropy_softmax	../baselines/a2c/utils.py	/^def cat_entropy_softmax(p0):$/;"	kind:function	line:19
+cat_entropy_softmax	../baselines/acktr/utils.py	/^def cat_entropy_softmax(p0):$/;"	kind:function	line:23
+categorical_sample_logits	../baselines/common/tf_util.py	/^def categorical_sample_logits(X):$/;"	kind:function	line:89
+cg	../baselines/common/cg.py	/^def cg(f_Ax, b, cg_iters=10, callback=None, verbose=False, residual_tol=1e-10):$/;"	kind:function	line:2
+cg	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common.cg import cg$/;"	kind:namespace	line:10
+cg.py	../baselines/common/cg.py	1;"	kind:file	line:1
+checkBinary	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:19
+checkBinary	../baselines/deepq/experiments/traci/runner.py	/^    from sumolib import checkBinary$/;"	kind:namespace	line:37
+check_shape	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+check_shape	../baselines/a2c/utils.py	/^def check_shape(ts,shapes):$/;"	kind:function	line:232
+check_synced	../baselines/common/mpi_adam.py	/^    def check_synced(self):$/;"	kind:member	line:42
+checkallclose	../baselines/common/mpi_running_mean_std.py	/^    def checkallclose(x,y):$/;"	kind:function	line:91
+clip	../baselines/common/tf_util.py	/^clip = tf.clip_by_value$/;"	kind:variable	line:14
+clipoutNeg	../baselines/acktr/kfac_utils.py	/^def clipoutNeg(vec, threshold=1e-6):$/;"	kind:function	line:93
+close	../baselines/bench/monitor.py	/^    def close(self):$/;"	kind:member	line:88
+close	../baselines/common/vec_env/__init__.py	/^    def close(self):$/;"	kind:member	line:18
+close	../baselines/common/vec_env/subproc_vec_env.py	/^    def close(self):$/;"	kind:member	line:66
+close	../baselines/logger.py	/^    def close(self):$/;"	kind:member	line:121
+close	../baselines/logger.py	/^    def close(self):$/;"	kind:member	line:250
+close	../baselines/logger.py	/^    def close(self):$/;"	kind:member	line:32
+cloudpickle	../baselines/acktr/acktr_disc.py	/^        import cloudpickle$/;"	kind:namespace	line:183
+cloudpickle	../baselines/common/vec_env/subproc_vec_env.py	/^        import cloudpickle$/;"	kind:namespace	line:32
+cnn_policy	../baselines/ppo1/run_atari.py	/^    from baselines.ppo1 import pposgd_simple, cnn_policy$/;"	kind:namespace	line:17
+cnn_policy.py	../baselines/ppo1/cnn_policy.py	1;"	kind:file	line:1
+cnn_to_mlp	../baselines/deepq/models.py	/^def cnn_to_mlp(convs, hiddens, dueling=False, layer_norm=False):$/;"	kind:function	line:70
+coldSGDstart	../baselines/acktr/kfac.py	/^        def coldSGDstart():$/;"	kind:function	line:899
+collections	../baselines/common/tf_util.py	/^import collections$/;"	kind:namespace	line:7
+color2num	../baselines/common/console_util.py	/^color2num = dict($/;"	kind:variable	line:23
+colorize	../baselines/common/console_util.py	/^def colorize(string, color, bold=False, highlight=False):$/;"	kind:function	line:35
+colorize	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common import colorize$/;"	kind:namespace	line:6
+com	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+come	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+common	../baselines/a2c/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+common	../baselines/acktr/acktr_cont.py	/^from baselines import common$/;"	kind:namespace	line:4
+common	../baselines/acktr/policies.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:5
+common	../baselines/acktr/utils.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:4
+common	../baselines/acktr/value_functions.py	/^from baselines import common$/;"	kind:namespace	line:3
+common	../baselines/common/distributions.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+common	../baselines/common/mpi_adam.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+common	../baselines/common/mpi_running_mean_std.py	/^import tensorflow as tf, baselines.common.tf_util as U, numpy as np$/;"	kind:namespace	line:2
+common	../baselines/ddpg/ddpg.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+common	../baselines/ddpg/training.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+common	../baselines/deepq/build_graph.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:97
+common	../baselines/deepq/experiments/atari/enjoy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+common	../baselines/deepq/experiments/atari/train.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:10
+common	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:6
+common	../baselines/deepq/experiments/custom_cartpole.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:7
+common	../baselines/deepq/simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:8
+common	../baselines/ppo1/cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+common	../baselines/ppo1/mlp_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+common	../baselines/ppo1/pposgd_simple.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+common	../baselines/ppo1/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:18
+common	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:2
+common	../baselines/trpo_mpi/run_atari.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:19
+common	../baselines/trpo_mpi/run_mujoco.py	/^    import baselines.common.tf_util as U$/;"	kind:namespace	line:17
+common	../baselines/trpo_mpi/trpo_mpi.py	/^import baselines.common.tf_util as U$/;"	kind:namespace	line:3
+compat	../baselines/logger.py	/^        from tensorflow.python.util import compat$/;"	kind:namespace	line:104
+computeStatsEigen	../baselines/acktr/kfac.py	/^    def computeStatsEigen(self):$/;"	kind:member	line:536
+compute_and_apply_stats	../baselines/acktr/kfac.py	/^    def compute_and_apply_stats(self, loss_sampled, var_list=None):$/;"	kind:member	line:283
+compute_gradients	../baselines/acktr/kfac.py	/^    def compute_gradients(self, loss, var_list=None):$/;"	kind:member	line:801
+compute_stats	../baselines/acktr/kfac.py	/^    def compute_stats(self, loss_sampled, var_list=None):$/;"	kind:member	line:291
+concatenate	../baselines/common/tf_util.py	/^def concatenate(arrs, axis=0):$/;"	kind:function	line:46
+configure	../baselines/logger.py	/^def configure(dir=None, format_strs=None):$/;"	kind:function	line:262
+console_util.py	../baselines/common/console_util.py	1;"	kind:file	line:1
+constant	../baselines/a2c/utils.py	/^def constant(p):$/;"	kind:function	line:159
+constant	../baselines/acktr/utils.py	/^def constant(p):$/;"	kind:function	line:111
+container	../baselines/deepq/experiments/atari/train.py	/^        container = Container(account_name=account_name,$/;"	kind:variable	line:141
+container	../baselines/deepq/experiments/atari/train.py	/^        container = None$/;"	kind:variable	line:149
+container_name	../baselines/deepq/experiments/atari/train.py	/^                              container_name=container_name,$/;"	kind:variable	line:143
+contextmanager	../baselines/common/console_util.py	/^from contextlib import contextmanager$/;"	kind:namespace	line:2
+contextmanager	../baselines/trpo_mpi/trpo_mpi.py	/^from contextlib import contextmanager$/;"	kind:namespace	line:11
+contrib	../baselines/deepq/experiments/atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+contrib	../baselines/deepq/experiments/custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+contrib	../baselines/deepq/models.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+conv	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+conv	../baselines/a2c/utils.py	/^def conv(x, scope, nf, rf, stride, pad='VALID', act=tf.nn.relu, init_scale=1.0):$/;"	kind:function	line:42
+conv	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+conv	../baselines/acktr/utils.py	/^def conv(x, scope, nf, rf, stride, pad='VALID', act=tf.nn.relu, init_scale=1.0):$/;"	kind:function	line:46
+conv2d	../baselines/common/tf_util.py	/^def conv2d(x, num_filters, name, filter_size=(3, 3), stride=(1, 1), pad="SAME", dtype=tf.float32, collections=None,$/;"	kind:function	line:295
+conv_to_fc	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+conv_to_fc	../baselines/a2c/utils.py	/^def conv_to_fc(x):$/;"	kind:function	line:139
+conv_to_fc	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+conv_to_fc	../baselines/acktr/utils.py	/^def conv_to_fc(x):$/;"	kind:function	line:82
+copy	../baselines/common/tf_util.py	/^import copy$/;"	kind:namespace	line:5
+copy	../baselines/ddpg/ddpg.py	/^from copy import copy$/;"	kind:namespace	line:1
+copy	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import copy$/;"	kind:namespace	line:11
+copy	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^from copy import copy$/;"	kind:namespace	line:4
+copyStats	../baselines/acktr/kfac.py	/^            def copyStats(var_list):$/;"	kind:function	line:548
+crimson	../baselines/common/console_util.py	/^    crimson=38$/;"	kind:variable	line:32
+custom_cartpole.py	../baselines/deepq/experiments/custom_cartpole.py	1;"	kind:file	line:1
+cv2	../baselines/common/atari_wrappers_deprecated.py	/^import cv2$/;"	kind:namespace	line:1
+cyan	../baselines/common/console_util.py	/^    cyan=36,$/;"	kind:variable	line:30
+d	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^        d = reward + gamma * q[tuple(state_next)][action_next] - q[tuple(state)][action]$/;"	kind:variable	line:51
+dataset	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common import explained_variance, zipsame, dataset$/;"	kind:namespace	line:1
+dataset.py	../baselines/common/dataset.py	1;"	kind:file	line:1
+datetime	../baselines/logger.py	/^import datetime$/;"	kind:namespace	line:7
+datetime	../baselines/logger_utils.py	/^from datetime import datetime$/;"	kind:namespace	line:1
+ddpg	../baselines/ddpg/main.py	/^import baselines.ddpg.training as training$/;"	kind:namespace	line:10
+ddpg.py	../baselines/ddpg/ddpg.py	1;"	kind:file	line:1
+debug	../baselines/logger.py	/^def debug(*args):$/;"	kind:function	line:180
+deepq	../baselines/deepq/experiments/atari/enjoy.py	/^from baselines import deepq$/;"	kind:namespace	line:9
+deepq	../baselines/deepq/experiments/atari/train.py	/^from baselines import deepq$/;"	kind:namespace	line:13
+deepq	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines import deepq$/;"	kind:namespace	line:8
+deepq	../baselines/deepq/experiments/custom_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:10
+deepq	../baselines/deepq/experiments/enjoy_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/enjoy_mountaincar.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/enjoy_pong.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/traci/enjoy_traffic_deep.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/train_cartpole.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/train_mountaincar.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/experiments/train_pong.py	/^from baselines import deepq$/;"	kind:namespace	line:3
+deepq	../baselines/deepq/simple.py	/^from baselines import deepq$/;"	kind:namespace	line:12
+default_param_noise_filter	../baselines/deepq/build_graph.py	/^def default_param_noise_filter(var):$/;"	kind:function	line:100
+definition	../baselines/logger.py	/^    DEFAULT = None  # A logger with no output files. (See right below class definition)$/;"	kind:class	line:217
+denormalize	../baselines/ddpg/ddpg.py	/^def denormalize(x, stats):$/;"	kind:function	line:21
+dense	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+dense	../baselines/acktr/utils.py	/^def dense(x, size, name, weight_init=None, bias_init=0, weight_loss_dict=None, reuse=None):$/;"	kind:function	line:64
+dense	../baselines/acktr/value_functions.py	/^from baselines.acktr.utils import dense$/;"	kind:namespace	line:7
+dense	../baselines/common/tf_util.py	/^def dense(x, size, name, weight_init=None, bias=True):$/;"	kind:function	line:325
+densenobias	../baselines/common/tf_util.py	/^def densenobias(x, size, name, weight_init=None):$/;"	kind:function	line:347
+deque	../baselines/a2c/utils.py	/^from collections import deque$/;"	kind:namespace	line:6
+deque	../baselines/acktr/filters.py	/^from collections import deque$/;"	kind:namespace	line:2
+deque	../baselines/acktr/utils.py	/^from collections import deque$/;"	kind:namespace	line:5
+deque	../baselines/common/atari_wrappers.py	/^from collections import deque$/;"	kind:namespace	line:2
+deque	../baselines/common/atari_wrappers_deprecated.py	/^from collections import deque$/;"	kind:namespace	line:5
+deque	../baselines/ddpg/training.py	/^from collections import deque$/;"	kind:namespace	line:3
+deque	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^from collections import deque$/;"	kind:namespace	line:4
+deque	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^from collections import deque$/;"	kind:namespace	line:7
+deque	../baselines/deepq/simple.py	/^from collections import deque$/;"	kind:namespace	line:14
+deque	../baselines/ppo1/pposgd_simple.py	/^from collections import deque$/;"	kind:namespace	line:9
+deque	../baselines/trpo_mpi/trpo_mpi.py	/^from collections import deque$/;"	kind:namespace	line:8
+dequeue_op	../baselines/acktr/kfac.py	/^            def dequeue_op():$/;"	kind:function	line:828
+dequeue_stats_op	../baselines/acktr/kfac.py	/^            def dequeue_stats_op():$/;"	kind:function	line:462
+description	../setup.py	/^      description="OpenAI baselines: high quality implementations of reinforcement learning algorithms",$/;"	kind:variable	line:24
+detectMinVal	../baselines/acktr/kfac_utils.py	/^def detectMinVal(input_mat, var, threshold=1e-6, name='', debug=False):$/;"	kind:function	line:98
+dill	../baselines/deepq/simple.py	/^import dill$/;"	kind:namespace	line:3
+discount	../baselines/common/math_util.py	/^def discount(x, gamma):$/;"	kind:function	line:5
+discount_with_boundaries	../baselines/common/math_util.py	/^def discount_with_boundaries(X, New, gamma):$/;"	kind:function	line:63
+discount_with_dones	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import discount_with_dones$/;"	kind:namespace	line:14
+discount_with_dones	../baselines/a2c/utils.py	/^def discount_with_dones(rewards, dones, gamma):$/;"	kind:function	line:144
+discount_with_dones	../baselines/acktr/acktr_disc.py	/^from baselines.acktr.utils import discount_with_dones$/;"	kind:namespace	line:10
+discount_with_dones	../baselines/acktr/utils.py	/^def discount_with_dones(rewards, dones, gamma):$/;"	kind:function	line:96
+distributions.py	../baselines/common/distributions.py	1;"	kind:file	line:1
+double_linear_con	../baselines/acktr/utils.py	/^def double_linear_con(p):$/;"	kind:function	line:124
+double_middle_drop	../baselines/acktr/utils.py	/^def double_middle_drop(p):$/;"	kind:function	line:132
+download_model.py	../baselines/deepq/experiments/atari/download_model.py	1;"	kind:file	line:1
+dropout	../baselines/common/tf_util.py	/^def dropout(x, pkeep, phase=None, mask=None):$/;"	kind:function	line:351
+dueling_model	../baselines/deepq/experiments/atari/enjoy.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:15
+dueling_model	../baselines/deepq/experiments/atari/model.py	/^def dueling_model(img_in, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:33
+dueling_model	../baselines/deepq/experiments/atari/train.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:29
+dueling_model	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:11
+dump_tabular	../baselines/logger.py	/^dump_tabular = dumpkvs$/;"	kind:variable	line:210
+dumpkvs	../baselines/logger.py	/^    def dumpkvs(self):$/;"	kind:member	line:232
+dumpkvs	../baselines/logger.py	/^def dumpkvs():$/;"	kind:function	line:160
+e	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    e = np.zeros((state_actions))$/;"	kind:variable	line:35
+e_decay	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^e_decay = 0.9995  # epsilon decay each episode$/;"	kind:variable	line:19
+embedded.py	../baselines/deepq/experiments/traci/embedded.py	1;"	kind:file	line:1
+enjoy.py	../baselines/deepq/experiments/atari/enjoy.py	1;"	kind:file	line:1
+enjoy_cartpole.py	../baselines/deepq/experiments/enjoy_cartpole.py	1;"	kind:file	line:1
+enjoy_mountaincar.py	../baselines/deepq/experiments/enjoy_mountaincar.py	1;"	kind:file	line:1
+enjoy_pong.py	../baselines/deepq/experiments/enjoy_pong.py	1;"	kind:file	line:1
+enjoy_traffic_deep.py	../baselines/deepq/experiments/traci/enjoy_traffic_deep.py	1;"	kind:file	line:1
+enjoy_traffic_lqf.py	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	1;"	kind:file	line:1
+ensure_tf_input	../baselines/common/tf_util.py	/^def ensure_tf_input(thing):$/;"	kind:function	line:175
+entropy	../baselines/common/distributions.py	/^    def entropy(self):$/;"	kind:member	line:147
+entropy	../baselines/common/distributions.py	/^    def entropy(self):$/;"	kind:member	line:175
+entropy	../baselines/common/distributions.py	/^    def entropy(self):$/;"	kind:member	line:20
+entropy	../baselines/common/distributions.py	/^    def entropy(self):$/;"	kind:member	line:201
+entropy	../baselines/common/distributions.py	/^    def entropy(self):$/;"	kind:member	line:221
+entry_point	../baselines/deepq/experiments/traci/TraciSimpleEnv/__init__.py	/^    entry_point='TraciSimpleEnv.TraciSimpleEnv:TraciSimpleEnv',$/;"	kind:variable	line:5
+env	../baselines/deepq/experiments/atari/enjoy.py	/^        env = make_env(args.env)$/;"	kind:variable	line:63
+env	../baselines/deepq/experiments/atari/train.py	/^        env = gym.wrappers.Monitor(env, os.path.join(savedir, 'gym_monitor'), force=True)$/;"	kind:variable	line:157
+env	../baselines/deepq/experiments/custom_cartpole.py	/^        env = gym.make("CartPole-v0")$/;"	kind:variable	line:27
+env	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^env = gym.make('TraciSimpleEnv-v0')$/;"	kind:variable	line:13
+env	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^env = gym.make('TraciSimpleEnv-v0')$/;"	kind:variable	line:62
+env_shortname	../baselines/bench/benchmarks.py	/^def env_shortname(s):$/;"	kind:function	line:133
+episode_rewards	../baselines/deepq/experiments/custom_cartpole.py	/^        episode_rewards = [0.0]$/;"	kind:variable	line:45
+eps	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^eps = 0.3  # random step chance$/;"	kind:variable	line:16
+epsilon	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^epsilon = 0.4$/;"	kind:variable	line:73
+epsilon_decay	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^epsilon_decay = 0.9999$/;"	kind:variable	line:74
+error	../baselines/logger.py	/^def error(*args):$/;"	kind:function	line:192
+eval	../baselines/common/tf_util.py	/^def eval(expr, feed_dict=None):$/;"	kind:function	line:247
+event_pb2	../baselines/logger.py	/^        from tensorflow.core.util import event_pb2$/;"	kind:namespace	line:103
+exists	../baselines/common/azure_utils.py	/^    def exists(self, blob_name):$/;"	kind:member	line:148
+explained_variance	../baselines/a2c/a2c.py	/^from baselines.common import set_global_seeds, explained_variance$/;"	kind:namespace	line:10
+explained_variance	../baselines/acktr/acktr_disc.py	/^from baselines.common import set_global_seeds, explained_variance$/;"	kind:namespace	line:8
+explained_variance	../baselines/common/math_util.py	/^def explained_variance(ypred,y):$/;"	kind:function	line:25
+explained_variance	../baselines/ppo1/pposgd_simple.py	/^from baselines.common import Dataset, explained_variance, fmt_row, zipsame$/;"	kind:namespace	line:1
+explained_variance	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common import explained_variance, zipsame, dataset$/;"	kind:namespace	line:1
+explained_variance_2d	../baselines/common/math_util.py	/^def explained_variance_2d(ypred, y):$/;"	kind:function	line:40
+exploration	../baselines/deepq/experiments/atari/train.py	/^        exploration = PiecewiseSchedule([$/;"	kind:variable	line:180
+exploration	../baselines/deepq/experiments/custom_cartpole.py	/^        exploration = LinearSchedule(schedule_timesteps=10000, initial_p=1.0, final_p=0.02)$/;"	kind:variable	line:39
+f	../baselines/bench/monitor.py	/^    f = None$/;"	kind:variable	line:16
+factorReshape	../baselines/acktr/kfac_utils.py	/^def factorReshape(Q, e, grad, facIndx=0, ftype='act'):$/;"	kind:function	line:111
+fancy_slice_2d	../baselines/common/tf_util.py	/^def fancy_slice_2d(X, inds0, inds1):$/;"	kind:function	line:651
+fc	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+fc	../baselines/a2c/utils.py	/^def fc(x, scope, nh, act=tf.nn.relu, init_scale=1.0):$/;"	kind:function	line:51
+fc	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+fc	../baselines/acktr/utils.py	/^def fc(x, scope, nh, act=tf.nn.relu, init_scale=1.0):$/;"	kind:function	line:55
+feed	../baselines/a2c/utils.py	/^    def feed(self, rewards, masks):$/;"	kind:member	line:197
+feed	../baselines/acktr/utils.py	/^    def feed(self, rewards, masks):$/;"	kind:member	line:177
+filters.py	../baselines/acktr/filters.py	1;"	kind:file	line:1
+find_packages	../setup.py	/^from setuptools import setup, find_packages$/;"	kind:namespace	line:1
+find_prefixsum_idx	../baselines/common/segment_tree.py	/^    def find_prefixsum_idx(self, prefixsum):$/;"	kind:member	line:106
+find_task_for_env_id_in_any_benchmark	../baselines/bench/benchmarks.py	/^def find_task_for_env_id_in_any_benchmark(env_id):$/;"	kind:function	line:25
+find_trainable_variables	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import Scheduler, make_path, find_trainable_variables$/;"	kind:namespace	line:15
+find_trainable_variables	../baselines/a2c/utils.py	/^def find_trainable_variables(key):$/;"	kind:function	line:152
+find_trainable_variables	../baselines/acktr/acktr_disc.py	/^from baselines.acktr.utils import Scheduler, find_trainable_variables$/;"	kind:namespace	line:11
+find_trainable_variables	../baselines/acktr/utils.py	/^def find_trainable_variables(key):$/;"	kind:function	line:104
+fisher_vector_product	../baselines/trpo_mpi/trpo_mpi.py	/^        def fisher_vector_product(p):$/;"	kind:function	line:212
+fit	../baselines/acktr/value_functions.py	/^    def fit(self, paths, targvals):$/;"	kind:member	line:42
+fixed_list_blobs	../baselines/common/azure_utils.py	/^def fixed_list_blobs(service, *args, **kwargs):$/;"	kind:function	line:18
+flatgrad	../baselines/common/tf_util.py	/^def flatgrad(loss, var_list, clip_norm=None):$/;"	kind:function	line:610
+flatparam	../baselines/common/distributions.py	/^    def flatparam(self):$/;"	kind:member	line:11
+flatparam	../baselines/common/distributions.py	/^    def flatparam(self):$/;"	kind:member	line:126
+flatparam	../baselines/common/distributions.py	/^    def flatparam(self):$/;"	kind:member	line:165
+flatparam	../baselines/common/distributions.py	/^    def flatparam(self):$/;"	kind:member	line:190
+flatparam	../baselines/common/distributions.py	/^    def flatparam(self):$/;"	kind:member	line:213
+flatten_arrays	../baselines/common/math_util.py	/^def flatten_arrays(arrs):$/;"	kind:function	line:50
+flatten_lists	../baselines/ppo1/pposgd_simple.py	/^def flatten_lists(listoflists):$/;"	kind:function	line:215
+flatten_lists	../baselines/trpo_mpi/trpo_mpi.py	/^def flatten_lists(listoflists):$/;"	kind:function	line:290
+flattenallbut0	../baselines/common/tf_util.py	/^def flattenallbut0(x):$/;"	kind:function	line:746
+fmt_item	../baselines/common/console_util.py	/^def fmt_item(x, l):$/;"	kind:function	line:15
+fmt_row	../baselines/common/console_util.py	/^def fmt_row(width, row, header=False):$/;"	kind:function	line:10
+fmt_row	../baselines/ppo1/pposgd_simple.py	/^from baselines.common import Dataset, explained_variance, fmt_row, zipsame$/;"	kind:namespace	line:1
+for	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+force_load_path	../baselines/deepq/experiments/atari/train.py	/^    force_load_path = args.overwrite_load_dir$/;"	kind:variable	line:116
+found	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^            found = True$/;"	kind:variable	line:68
+found	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    found = False$/;"	kind:variable	line:40
+fromflat	../baselines/common/distributions.py	/^    def fromflat(cls, flat):$/;"	kind:member	line:157
+fromflat	../baselines/common/distributions.py	/^    def fromflat(cls, flat):$/;"	kind:member	line:180
+fromflat	../baselines/common/distributions.py	/^    def fromflat(cls, flat):$/;"	kind:member	line:206
+fromflat	../baselines/common/distributions.py	/^    def fromflat(cls, flat):$/;"	kind:member	line:227
+function	../baselines/common/tf_util.py	/^def function(inputs, outputs, updates=None, givens=None):$/;"	kind:function	line:365
+functools	../baselines/common/tf_util.py	/^import functools$/;"	kind:namespace	line:4
+gamma	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^gamma = 0.9  # discount factor$/;"	kind:variable	line:17
+gamma	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^gamma = 0.99$/;"	kind:variable	line:70
+generate_routefile	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def generate_routefile(self):$/;"	kind:member	line:53
+generate_routefile	../baselines/deepq/experiments/traci/runner.py	/^def generate_routefile():$/;"	kind:function	line:46
+get	../baselines/common/azure_utils.py	/^    def get(self, dest_path, blob_name, callback=None):$/;"	kind:member	line:101
+get	../baselines/common/tf_util.py	/^    def get(self):$/;"	kind:member	line:112
+get	../baselines/common/tf_util.py	/^    def get(self):$/;"	kind:member	line:129
+get	../baselines/common/tf_util.py	/^    def get(self):$/;"	kind:member	line:171
+getFactors	../baselines/acktr/kfac.py	/^    def getFactors(self, g, varlist):$/;"	kind:member	line:56
+getKfacGradOp	../baselines/acktr/kfac.py	/^                    def getKfacGradOp():$/;"	kind:function	line:872
+getKfacPrecondUpdates	../baselines/acktr/kfac.py	/^    def getKfacPrecondUpdates(self, gradlist, varlist):$/;"	kind:member	line:616
+getStats	../baselines/acktr/kfac.py	/^    def getStats(self, factors, varlist):$/;"	kind:member	line:181
+getStatsEigen	../baselines/acktr/kfac.py	/^    def getStatsEigen(self, stats=None):$/;"	kind:member	line:510
+get_batch	../baselines/ddpg/memory.py	/^    def get_batch(self, idxs):$/;"	kind:member	line:19
+get_benchmark	../baselines/bench/benchmarks.py	/^def get_benchmark(benchmark_name):$/;"	kind:function	line:15
+get_best_q	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    def get_best_q(self, features):$/;"	kind:member	line:38
+get_by_index	../baselines/a2c/utils.py	/^def get_by_index(x, idx):$/;"	kind:function	line:224
+get_count	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def get_count(self):$/;"	kind:member	line:42
+get_dir	../baselines/logger.py	/^    def get_dir(self):$/;"	kind:member	line:247
+get_dir	../baselines/logger.py	/^def get_dir():$/;"	kind:function	line:202
+get_episode_lengths	../baselines/bench/monitor.py	/^    def get_episode_lengths(self):$/;"	kind:member	line:98
+get_episode_rewards	../baselines/bench/monitor.py	/^    def get_episode_rewards(self):$/;"	kind:member	line:95
+get_initial_state	../baselines/ppo1/cnn_policy.py	/^    def get_initial_state(self):$/;"	kind:member	line:55
+get_initial_state	../baselines/ppo1/mlp_policy.py	/^    def get_initial_state(self):$/;"	kind:member	line:57
+get_initial_state	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def get_initial_state(self):$/;"	kind:member	line:55
+get_monitor_files	../baselines/bench/monitor.py	/^def get_monitor_files(dir):$/;"	kind:function	line:117
+get_options	../baselines/deepq/experiments/traci/runner.py	/^def get_options():$/;"	kind:function	line:124
+get_parents	../baselines/common/tf_util.py	/^def get_parents(node):$/;"	kind:function	line:550
+get_perturbed_actor_updates	../baselines/ddpg/ddpg.py	/^def get_perturbed_actor_updates(actor, perturbed_actor, param_noise_stddev):$/;"	kind:function	line:41
+get_placeholder	../baselines/common/tf_util.py	/^def get_placeholder(name, dtype, shape):$/;"	kind:function	line:731
+get_placeholder_cached	../baselines/common/tf_util.py	/^def get_placeholder_cached(name):$/;"	kind:function	line:742
+get_q	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    def get_q(self, features):$/;"	kind:member	line:33
+get_session	../baselines/common/tf_util.py	/^def get_session():$/;"	kind:function	line:218
+get_state	../baselines/common/misc_util.py	/^    def get_state(self):$/;"	kind:member	line:207
+get_stats	../baselines/ddpg/ddpg.py	/^    def get_stats(self):$/;"	kind:member	line:328
+get_stats	../baselines/ddpg/noise.py	/^    def get_stats(self):$/;"	kind:member	line:20
+get_target_updates	../baselines/ddpg/ddpg.py	/^def get_target_updates(vars, target_vars, tau):$/;"	kind:function	line:27
+get_task	../baselines/bench/benchmarks.py	/^def get_task(benchmark, env_id):$/;"	kind:function	line:21
+get_total_steps	../baselines/bench/monitor.py	/^    def get_total_steps(self):$/;"	kind:member	line:92
+get_trainable_variables	../baselines/ppo1/cnn_policy.py	/^    def get_trainable_variables(self):$/;"	kind:member	line:53
+get_trainable_variables	../baselines/ppo1/mlp_policy.py	/^    def get_trainable_variables(self):$/;"	kind:member	line:55
+get_trainable_variables	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def get_trainable_variables(self):$/;"	kind:member	line:53
+get_variables	../baselines/ppo1/cnn_policy.py	/^    def get_variables(self):$/;"	kind:member	line:51
+get_variables	../baselines/ppo1/mlp_policy.py	/^    def get_variables(self):$/;"	kind:member	line:53
+get_variables	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    def get_variables(self):$/;"	kind:member	line:51
+get_wrapper_by_name	../baselines/common/misc_util.py	/^def get_wrapper_by_name(env, classname):$/;"	kind:function	line:245
+get_wrapper_by_name	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+getkvs	../baselines/logger.py	/^def getkvs():$/;"	kind:function	line:169
+glob	../baselines/bench/monitor.py	/^from glob import glob$/;"	kind:namespace	line:7
+gmatmul	../baselines/acktr/kfac_utils.py	/^def gmatmul(a, b, transpose_a=False, transpose_b=False, reduce_dim=None):$/;"	kind:function	line:5
+gradOp	../baselines/acktr/kfac.py	/^                    def gradOp():$/;"	kind:function	line:869
+gray	../baselines/common/console_util.py	/^    gray=30,$/;"	kind:variable	line:24
+green	../baselines/common/console_util.py	/^    green=32,$/;"	kind:variable	line:26
+gym	../baselines/a2c/a2c.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/a2c/policies.py	/^import gym$/;"	kind:namespace	line:6
+gym	../baselines/a2c/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+gym	../baselines/a2c/utils.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/acktr/policies.py	/^import gym$/;"	kind:namespace	line:6
+gym	../baselines/acktr/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+gym	../baselines/acktr/run_mujoco.py	/^import gym$/;"	kind:namespace	line:6
+gym	../baselines/bench/monitor.py	/^import gym$/;"	kind:namespace	line:3
+gym	../baselines/common/atari_wrappers.py	/^import gym$/;"	kind:namespace	line:4
+gym	../baselines/common/atari_wrappers_deprecated.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/common/misc_util.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/ddpg/main.py	/^import gym$/;"	kind:namespace	line:15
+gym	../baselines/ddpg/util.py	/^import gym$/;"	kind:namespace	line:3
+gym	../baselines/deepq/experiments/atari/enjoy.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/deepq/experiments/atari/train.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import gym$/;"	kind:namespace	line:2
+gym	../baselines/deepq/experiments/custom_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/enjoy_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/enjoy_mountaincar.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/enjoy_pong.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import gym$/;"	kind:namespace	line:6
+gym	../baselines/deepq/experiments/traci/enjoy_traffic_deep.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import gym$/;"	kind:namespace	line:9
+gym	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^import gym$/;"	kind:namespace	line:4
+gym	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/train_cartpole.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/train_mountaincar.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/deepq/experiments/train_pong.py	/^import gym$/;"	kind:namespace	line:1
+gym	../baselines/ppo1/cnn_policy.py	/^import gym$/;"	kind:namespace	line:4
+gym	../baselines/ppo1/mlp_policy.py	/^import gym$/;"	kind:namespace	line:4
+gym	../baselines/ppo1/run_atari.py	/^import gym, logging$/;"	kind:namespace	line:7
+gym	../baselines/ppo1/run_mujoco.py	/^import gym, logging$/;"	kind:namespace	line:5
+gym	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^import gym$/;"	kind:namespace	line:4
+gym	../baselines/trpo_mpi/run_atari.py	/^import gym, logging$/;"	kind:namespace	line:5
+gym	../baselines/trpo_mpi/run_mujoco.py	/^import gym$/;"	kind:namespace	line:7
+helper	../baselines/common/misc_util.py	/^    def helper(cnt, name):$/;"	kind:function	line:105
+histogram_from_atoms	../baselines/deepq/experiments/traci/utilities/utils.py	/^def histogram_from_atoms(atoms):$/;"	kind:function	line:26
+https	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+huber_loss	../baselines/common/tf_util.py	/^def huber_loss(x, delta=1.0):$/;"	kind:function	line:189
+id	../baselines/deepq/experiments/traci/TraciSimpleEnv/__init__.py	/^    id='TraciSimpleEnv-v0',$/;"	kind:variable	line:4
+ignore	../baselines/common/tf_util.py	/^import tensorflow as tf  # pylint: ignore-module$/;"	kind:namespace	line:2
+imports	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+in_session	../baselines/common/tf_util.py	/^def in_session(f):$/;"	kind:function	line:720
+info	../baselines/logger.py	/^def info(*args):$/;"	kind:function	line:184
+initialize	../baselines/common/tf_util.py	/^def initialize():$/;"	kind:function	line:240
+initialize	../baselines/ddpg/ddpg.py	/^    def initialize(self, sess):$/;"	kind:member	line:318
+install_requires	../setup.py	/^      install_requires=[$/;"	kind:variable	line:12
+intprod	../baselines/common/tf_util.py	/^def intprod(x):$/;"	kind:function	line:606
+io	../baselines/deepq/experiments/traci/utilities/profiler.py	/^import io$/;"	kind:namespace	line:2
+is_placeholder	../baselines/common/tf_util.py	/^def is_placeholder(x):$/;"	kind:function	line:100
+is_solved	../baselines/deepq/experiments/custom_cartpole.py	/^            is_solved = t > 100 and np.mean(episode_rewards[-101:-1]) >= 200$/;"	kind:variable	line:60
+iterate_once	../baselines/common/dataset.py	/^    def iterate_once(self, batch_size):$/;"	kind:member	line:36
+iteration_time_est	../baselines/deepq/experiments/atari/train.py	/^        iteration_time_est = RunningAvg(0.999)$/;"	kind:variable	line:204
+iterbatches	../baselines/common/dataset.py	/^def iterbatches(arrays, *, num_batches=None, batch_size=None, shuffle=True, include_final_partial_batch=True):$/;"	kind:function	line:50
+iters	../baselines/deepq/experiments/traci/utilities/utils.py	/^    iters = 100000$/;"	kind:variable	line:55
+itertools	../baselines/deepq/experiments/custom_cartpole.py	/^import itertools$/;"	kind:namespace	line:2
+joblib	../baselines/a2c/a2c.py	/^import joblib$/;"	kind:namespace	line:4
+joblib	../baselines/acktr/acktr_disc.py	/^import joblib$/;"	kind:namespace	line:3
+json	../baselines/bench/monitor.py	/^    import json$/;"	kind:namespace	line:12
+json	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+json	../baselines/deepq/experiments/atari/train.py	/^import json$/;"	kind:namespace	line:8
+json	../baselines/logger.py	/^import json$/;"	kind:namespace	line:5
+kfac	../baselines/acktr/acktr_cont.py	/^from baselines.acktr import kfac$/;"	kind:namespace	line:6
+kfac	../baselines/acktr/acktr_disc.py	/^from baselines.acktr import kfac$/;"	kind:namespace	line:13
+kfac	../baselines/acktr/value_functions.py	/^from baselines.acktr import kfac$/;"	kind:namespace	line:6
+kfac.py	../baselines/acktr/kfac.py	1;"	kind:file	line:1
+kfac_utils.py	../baselines/acktr/kfac_utils.py	1;"	kind:file	line:1
+kl	../baselines/common/distributions.py	/^    def kl(self, other):$/;"	kind:member	line:138
+kl	../baselines/common/distributions.py	/^    def kl(self, other):$/;"	kind:member	line:171
+kl	../baselines/common/distributions.py	/^    def kl(self, other):$/;"	kind:member	line:18
+kl	../baselines/common/distributions.py	/^    def kl(self, other):$/;"	kind:member	line:198
+kl	../baselines/common/distributions.py	/^    def kl(self, other):$/;"	kind:member	line:219
+kl_div	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+kl_div	../baselines/acktr/utils.py	/^def kl_div(action_dist1, action_dist2, action_size):$/;"	kind:function	line:87
+l2loss	../baselines/common/tf_util.py	/^def l2loss(params):$/;"	kind:function	line:76
+lambd	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^lambd = 0.9  # if 0 td(0)$/;"	kind:variable	line:18
+layer_norm_fn	../baselines/deepq/experiments/atari/model.py	/^def layer_norm_fn(x, relu=True):$/;"	kind:function	line:5
+layers	../baselines/deepq/experiments/atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+layers	../baselines/deepq/experiments/custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+layers	../baselines/deepq/models.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+learn	../baselines/a2c/a2c.py	/^def learn(policy, env, seed, nsteps=5, nstack=4, total_timesteps=int(80e6), vf_coef=0.5, ent_coef=0.01, max_grad_norm=0.5, lr=7e-4, lrschedule='linear', epsilon=1e-5, alpha=0.99, gamma=0.99, log_interval=100):$/;"	kind:function	line:156
+learn	../baselines/a2c/run_atari.py	/^from baselines.a2c.a2c import learn$/;"	kind:namespace	line:6
+learn	../baselines/acktr/acktr_cont.py	/^def learn(env, policy, vf, gamma, lam, timesteps_per_batch, num_timesteps,$/;"	kind:function	line:48
+learn	../baselines/acktr/acktr_disc.py	/^def learn(policy, env, seed, total_timesteps=int(40e6), gamma=0.99, log_interval=1, nprocs=32, nsteps=20,$/;"	kind:function	line:169
+learn	../baselines/acktr/run_atari.py	/^from baselines.acktr.acktr_disc import learn$/;"	kind:namespace	line:6
+learn	../baselines/acktr/run_mujoco.py	/^from baselines.acktr.acktr_cont import learn$/;"	kind:namespace	line:10
+learn	../baselines/deepq/__init__.py	/^from baselines.deepq.simple import learn, load  # noqa$/;"	kind:namespace	line:4
+learn	../baselines/deepq/simple.py	/^def learn(env,$/;"	kind:function	line:78
+learn	../baselines/ppo1/pposgd_simple.py	/^def learn(env, policy_func, *,$/;"	kind:function	line:80
+learn	../baselines/trpo_mpi/trpo_mpi.py	/^def learn(env, policy_func, *,$/;"	kind:function	line:82
+lengths_to_mask	../baselines/common/tf_util.py	/^def lengths_to_mask(lengths_b, max_length):$/;"	kind:function	line:702
+linear	../baselines/a2c/utils.py	/^def linear(p):$/;"	kind:function	line:162
+linear	../baselines/acktr/utils.py	/^def linear(p):$/;"	kind:function	line:114
+linear_interpolation	../baselines/common/schedules.py	/^def linear_interpolation(l, r, alpha):$/;"	kind:function	line:34
+list	../baselines/common/azure_utils.py	/^    def list(self, prefix=None):$/;"	kind:member	line:144
+list_benchmarks	../baselines/bench/benchmarks.py	/^def list_benchmarks():$/;"	kind:function	line:12
+lnlstm	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+lnlstm	../baselines/a2c/utils.py	/^def lnlstm(xs, ms, s, scope, nh, init_scale=1.0):$/;"	kind:function	line:106
+load	../baselines/a2c/a2c.py	/^        def load(load_path):$/;"	kind:function	line:75
+load	../baselines/acktr/acktr_disc.py	/^        def load(load_path):$/;"	kind:function	line:88
+load	../baselines/deepq/__init__.py	/^from baselines.deepq.simple import learn, load  # noqa$/;"	kind:namespace	line:4
+load	../baselines/deepq/simple.py	/^    def load(path, num_cpu=16):$/;"	kind:member	line:23
+load	../baselines/deepq/simple.py	/^def load(path, num_cpu=16):$/;"	kind:function	line:59
+load_results	../baselines/bench/monitor.py	/^def load_results(dir, raw_episodes=False):$/;"	kind:function	line:120
+load_state	../baselines/common/tf_util.py	/^def load_state(fname):$/;"	kind:function	line:272
+loading	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+log	../baselines/logger.py	/^    def log(self, *args, level=INFO):$/;"	kind:member	line:238
+log	../baselines/logger.py	/^def log(*args, level=INFO):$/;"	kind:function	line:173
+log_call_parameters	../baselines/logger_utils.py	/^def log_call_parameters(dir, params):$/;"	kind:function	line:13
+logger	../baselines/a2c/a2c.py	/^from baselines import logger$/;"	kind:namespace	line:8
+logger	../baselines/a2c/run_atari.py	/^from baselines import logger$/;"	kind:namespace	line:3
+logger	../baselines/acktr/acktr_cont.py	/^from baselines import logger$/;"	kind:namespace	line:3
+logger	../baselines/acktr/acktr_disc.py	/^from baselines import logger$/;"	kind:namespace	line:6
+logger	../baselines/acktr/run_atari.py	/^from baselines import logger$/;"	kind:namespace	line:3
+logger	../baselines/acktr/run_mujoco.py	/^from baselines import logger$/;"	kind:namespace	line:7
+logger	../baselines/acktr/value_functions.py	/^from baselines import logger$/;"	kind:namespace	line:1
+logger	../baselines/ddpg/ddpg.py	/^from baselines import logger$/;"	kind:namespace	line:8
+logger	../baselines/ddpg/main.py	/^from baselines import logger, bench$/;"	kind:namespace	line:5
+logger	../baselines/ddpg/training.py	/^from baselines import logger$/;"	kind:namespace	line:10
+logger	../baselines/deepq/experiments/atari/train.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:12
+logger	../baselines/deepq/experiments/custom_cartpole.py	/^from baselines import logger$/;"	kind:namespace	line:9
+logger	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^logger = logging.getLogger(__name__)$/;"	kind:variable	line:26
+logger	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:5
+logger	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:9
+logger	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:5
+logger	../baselines/deepq/simple.py	/^from baselines import logger,logger_utils$/;"	kind:namespace	line:10
+logger	../baselines/ppo1/pposgd_simple.py	/^from baselines import logger$/;"	kind:namespace	line:2
+logger	../baselines/ppo1/run_atari.py	/^from baselines import logger$/;"	kind:namespace	line:8
+logger	../baselines/ppo1/run_mujoco.py	/^from baselines import logger$/;"	kind:namespace	line:6
+logger	../baselines/trpo_mpi/run_atari.py	/^from baselines import logger$/;"	kind:namespace	line:6
+logger	../baselines/trpo_mpi/run_mujoco.py	/^from baselines import logger$/;"	kind:namespace	line:9
+logger	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines import logger$/;"	kind:namespace	line:2
+logger.py	../baselines/logger.py	1;"	kind:file	line:1
+logger_path	../baselines/deepq/experiments/atari/train.py	/^        logger_path = logger_utils.path_with_date(args.save_dir, args.env)$/;"	kind:variable	line:121
+logger_path	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^logger_path = logger_utils.path_with_date("\/tmp\/TraciSimpleEnv-v0", "TraciSimpleEnv-v0")$/;"	kind:variable	line:67
+logger_utils	../baselines/deepq/experiments/atari/train.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:12
+logger_utils	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:5
+logger_utils	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:9
+logger_utils	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^from baselines import logger, logger_utils$/;"	kind:namespace	line:5
+logger_utils	../baselines/deepq/simple.py	/^from baselines import logger,logger_utils$/;"	kind:namespace	line:10
+logger_utils.py	../baselines/logger_utils.py	1;"	kind:file	line:1
+logging	../baselines/a2c/a2c.py	/^import logging$/;"	kind:namespace	line:5
+logging	../baselines/a2c/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+logging	../baselines/acktr/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+logging	../baselines/acktr/run_mujoco.py	/^import logging$/;"	kind:namespace	line:3
+logging	../baselines/ddpg/main.py	/^import logging$/;"	kind:namespace	line:4
+logging	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import logging$/;"	kind:namespace	line:1
+logging	../baselines/ppo1/run_atari.py	/^import gym, logging$/;"	kind:namespace	line:7
+logging	../baselines/ppo1/run_mujoco.py	/^import gym, logging$/;"	kind:namespace	line:5
+logging	../baselines/trpo_mpi/run_atari.py	/^import gym, logging$/;"	kind:namespace	line:5
+logging	../baselines/trpo_mpi/run_mujoco.py	/^import logging$/;"	kind:namespace	line:8
+logkv	../baselines/logger.py	/^    def logkv(self, key, val):$/;"	kind:member	line:229
+logkv	../baselines/logger.py	/^def logkv(key, val):$/;"	kind:function	line:146
+logkvs	../baselines/logger.py	/^def logkvs(d):$/;"	kind:function	line:153
+logp	../baselines/common/distributions.py	/^    def logp(self, x):$/;"	kind:member	line:24
+longest_queue_action	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^def longest_queue_action(state, old_action):$/;"	kind:function	line:11
+lrelu	../baselines/common/tf_util.py	/^def lrelu(x, leak=0.2):$/;"	kind:function	line:83
+lstm	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+lstm	../baselines/a2c/utils.py	/^def lstm(xs, ms, s, scope, nh, init_scale=1.0):$/;"	kind:function	line:76
+magenta	../baselines/common/console_util.py	/^    magenta=35,$/;"	kind:variable	line:29
+main	../baselines/a2c/run_atari.py	/^def main():$/;"	kind:function	line:34
+main	../baselines/acktr/run_atari.py	/^def main():$/;"	kind:function	line:28
+main	../baselines/deepq/experiments/atari/download_model.py	/^def main():$/;"	kind:function	line:22
+main	../baselines/deepq/experiments/atari/wang2015_eval.py	/^def main():$/;"	kind:function	line:66
+main	../baselines/deepq/experiments/enjoy_cartpole.py	/^def main():$/;"	kind:function	line:6
+main	../baselines/deepq/experiments/enjoy_mountaincar.py	/^def main():$/;"	kind:function	line:6
+main	../baselines/deepq/experiments/enjoy_pong.py	/^def main():$/;"	kind:function	line:7
+main	../baselines/deepq/experiments/traci/enjoy_traffic_deep.py	/^def main():$/;"	kind:function	line:6
+main	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^def main():$/;"	kind:function	line:26
+main	../baselines/deepq/experiments/traci/train_traffic_deep.py	/^def main():$/;"	kind:function	line:14
+main	../baselines/deepq/experiments/train_cartpole.py	/^def main():$/;"	kind:function	line:12
+main	../baselines/deepq/experiments/train_mountaincar.py	/^def main():$/;"	kind:function	line:6
+main	../baselines/deepq/experiments/train_pong.py	/^def main():$/;"	kind:function	line:7
+main	../baselines/ppo1/run_atari.py	/^def main():$/;"	kind:function	line:47
+main	../baselines/ppo1/run_mujoco.py	/^def main():$/;"	kind:function	line:30
+main	../baselines/trpo_mpi/run_atari.py	/^def main():$/;"	kind:function	line:45
+main	../baselines/trpo_mpi/run_mujoco.py	/^def main():$/;"	kind:function	line:39
+main.py	../baselines/ddpg/main.py	1;"	kind:file	line:1
+make_archive	../baselines/common/azure_utils.py	/^def make_archive(source_path, dest_path):$/;"	kind:function	line:34
+make_env	../baselines/a2c/run_atari.py	/^    def make_env(rank):$/;"	kind:function	line:14
+make_env	../baselines/acktr/run_atari.py	/^    def make_env(rank):$/;"	kind:function	line:13
+make_env	../baselines/deepq/experiments/atari/enjoy.py	/^def make_env(game_name):$/;"	kind:function	line:30
+make_env	../baselines/deepq/experiments/atari/train.py	/^def make_env(game_name):$/;"	kind:function	line:65
+make_env	../baselines/deepq/experiments/atari/wang2015_eval.py	/^def make_env(game_name):$/;"	kind:function	line:14
+make_feed_dict	../baselines/common/tf_util.py	/^    def make_feed_dict(data):$/;"	kind:member	line:118
+make_feed_dict	../baselines/common/tf_util.py	/^    def make_feed_dict(self, data):$/;"	kind:member	line:132
+make_obs_ph	../baselines/deepq/experiments/atari/enjoy.py	/^            make_obs_ph=lambda name: U.Uint8Input(env.observation_space.shape, name=name),$/;"	kind:variable	line:65
+make_obs_ph	../baselines/deepq/experiments/custom_cartpole.py	/^            make_obs_ph=lambda name: U.BatchInput(env.observation_space.shape, name=name),$/;"	kind:variable	line:30
+make_obs_ph	../baselines/deepq/simple.py	/^    def make_obs_ph(name):$/;"	kind:function	line:174
+make_output_format	../baselines/logger.py	/^def make_output_format(format, ev_dir):$/;"	kind:function	line:127
+make_path	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import Scheduler, make_path, find_trainable_variables$/;"	kind:namespace	line:15
+make_path	../baselines/a2c/utils.py	/^def make_path(f):$/;"	kind:function	line:156
+make_path	../baselines/acktr/utils.py	/^def make_path(f):$/;"	kind:function	line:108
+make_pdtype	../baselines/a2c/policies.py	/^from baselines.common.distributions import make_pdtype$/;"	kind:namespace	line:4
+make_pdtype	../baselines/acktr/policies.py	/^from baselines.common.distributions import make_pdtype$/;"	kind:namespace	line:4
+make_pdtype	../baselines/common/distributions.py	/^def make_pdtype(ac_space):$/;"	kind:function	line:230
+make_pdtype	../baselines/ppo1/cnn_policy.py	/^from baselines.common.distributions import make_pdtype$/;"	kind:namespace	line:5
+make_pdtype	../baselines/ppo1/mlp_policy.py	/^from baselines.common.distributions import make_pdtype$/;"	kind:namespace	line:5
+make_pdtype	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^from baselines.common.distributions import make_pdtype$/;"	kind:namespace	line:5
+make_session	../baselines/common/tf_util.py	/^def make_session(num_cpu):$/;"	kind:function	line:223
+math_ops	../baselines/common/distributions.py	/^from tensorflow.python.ops import math_ops$/;"	kind:namespace	line:4
+math_util.py	../baselines/common/math_util.py	1;"	kind:file	line:1
+matplotlib	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+matplotlib	../baselines/deepq/experiments/traci/utilities/utils.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+max	../baselines/common/tf_util.py	/^def max(x, axis=None, keepdims=False):$/;"	kind:function	line:36
+max_batch_size	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^max_batch_size = mini_batch_size*100$/;"	kind:variable	line:78
+maybe_create	../baselines/deepq/experiments/atari/train.py	/^                              maybe_create=True)$/;"	kind:variable	line:144
+maybe_load_model	../baselines/deepq/experiments/atari/train.py	/^def maybe_load_model(savedir, container):$/;"	kind:function	line:90
+maybe_save_model	../baselines/deepq/experiments/atari/train.py	/^def maybe_save_model(savedir, container, state):$/;"	kind:function	line:72
+mean	../baselines/acktr/running_stat.py	/^    def mean(self):$/;"	kind:member	line:23
+mean	../baselines/common/tf_util.py	/^def mean(x, axis=None, keepdims=False):$/;"	kind:function	line:22
+mean_length	../baselines/a2c/utils.py	/^    def mean_length(self):$/;"	kind:member	line:210
+mean_length	../baselines/acktr/utils.py	/^    def mean_length(self):$/;"	kind:member	line:190
+mean_reward	../baselines/a2c/utils.py	/^    def mean_reward(self):$/;"	kind:member	line:216
+mean_reward	../baselines/acktr/utils.py	/^    def mean_reward(self):$/;"	kind:member	line:196
+mem_friendly_function	../baselines/common/tf_util.py	/^def mem_friendly_function(nondata_inputs, data_inputs, outputs, batch_size):$/;"	kind:function	line:453
+memory.py	../baselines/ddpg/memory.py	1;"	kind:file	line:1
+metadata	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    metadata = {$/;"	kind:variable	line:47
+middle_drop	../baselines/acktr/utils.py	/^def middle_drop(p):$/;"	kind:function	line:118
+min	../baselines/common/segment_tree.py	/^    def min(self, start=0, end=None):$/;"	kind:member	line:143
+min	../baselines/common/tf_util.py	/^def min(x, axis=None, keepdims=False):$/;"	kind:function	line:41
+mini_batch_size	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^mini_batch_size = 32$/;"	kind:variable	line:77
+minimize	../baselines/acktr/kfac.py	/^    def minimize(self, loss, loss_sampled, var_list=None):$/;"	kind:member	line:922
+minimize_and_clip	../baselines/common/tf_util.py	/^def minimize_and_clip(optimizer, objective, var_list, clip_val=10):$/;"	kind:function	line:202
+misc_util.py	../baselines/common/misc_util.py	1;"	kind:file	line:1
+mlp	../baselines/deepq/models.py	/^def mlp(hiddens=[], layer_norm=False):$/;"	kind:function	line:17
+mlp_policy	../baselines/ppo1/run_mujoco.py	/^    from baselines.ppo1 import mlp_policy, pposgd_simple$/;"	kind:namespace	line:10
+mlp_policy.py	../baselines/ppo1/mlp_policy.py	1;"	kind:file	line:1
+mode	../baselines/common/distributions.py	/^    def mode(self):$/;"	kind:member	line:128
+mode	../baselines/common/distributions.py	/^    def mode(self):$/;"	kind:member	line:13
+mode	../baselines/common/distributions.py	/^    def mode(self):$/;"	kind:member	line:167
+mode	../baselines/common/distributions.py	/^    def mode(self):$/;"	kind:member	line:192
+mode	../baselines/common/distributions.py	/^    def mode(self):$/;"	kind:member	line:215
+model	../baselines/deepq/experiments/atari/enjoy.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:15
+model	../baselines/deepq/experiments/atari/model.py	/^def model(img_in, num_actions, scope, reuse=False, layer_norm=False):$/;"	kind:function	line:12
+model	../baselines/deepq/experiments/atari/train.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:29
+model	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.deepq.experiments.atari.model import model, dueling_model$/;"	kind:namespace	line:11
+model	../baselines/deepq/experiments/custom_cartpole.py	/^def model(inpt, num_actions, scope, reuse=False):$/;"	kind:function	line:15
+model.py	../baselines/deepq/experiments/atari/model.py	1;"	kind:file	line:1
+model_wrapper	../baselines/deepq/experiments/atari/train.py	/^        def model_wrapper(img_in, num_actions, scope, **kwargs):$/;"	kind:function	line:165
+models	../baselines/deepq/__init__.py	/^from baselines.deepq import models  # noqa$/;"	kind:namespace	line:1
+models.py	../baselines/ddpg/models.py	1;"	kind:file	line:1
+models.py	../baselines/deepq/models.py	1;"	kind:file	line:1
+module	../baselines/common/tf_util.py	/^def module(name):$/;"	kind:function	line:533
+module	../baselines/common/tf_util.py	/^import tensorflow as tf  # pylint: ignore-module$/;"	kind:namespace	line:2
+monitor	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+monitor.py	../baselines/bench/monitor.py	1;"	kind:file	line:1
+mpi_adam.py	../baselines/common/mpi_adam.py	1;"	kind:file	line:1
+mpi_fork	../baselines/common/mpi_fork.py	/^def mpi_fork(n, bind_to_core=False):$/;"	kind:function	line:3
+mpi_fork	../baselines/trpo_mpi/run_mujoco.py	/^from baselines.common.mpi_fork import mpi_fork$/;"	kind:namespace	line:11
+mpi_fork.py	../baselines/common/mpi_fork.py	1;"	kind:file	line:1
+mpi_max	../baselines/ddpg/training.py	/^from baselines.ddpg.util import mpi_mean, mpi_std, mpi_max, mpi_sum$/;"	kind:namespace	line:7
+mpi_max	../baselines/ddpg/util.py	/^def mpi_max(value):$/;"	kind:function	line:36
+mpi_mean	../baselines/ddpg/ddpg.py	/^from baselines.ddpg.util import reduce_std, mpi_mean$/;"	kind:namespace	line:12
+mpi_mean	../baselines/ddpg/training.py	/^from baselines.ddpg.util import mpi_mean, mpi_std, mpi_max, mpi_sum$/;"	kind:namespace	line:7
+mpi_mean	../baselines/ddpg/util.py	/^def mpi_mean(value):$/;"	kind:function	line:20
+mpi_moments	../baselines/common/mpi_moments.py	/^def mpi_moments(x, axis=0):$/;"	kind:function	line:5
+mpi_moments	../baselines/ddpg/util.py	/^from baselines.common.mpi_moments import mpi_moments$/;"	kind:namespace	line:7
+mpi_moments	../baselines/ppo1/pposgd_simple.py	/^from baselines.common.mpi_moments import mpi_moments$/;"	kind:namespace	line:7
+mpi_moments.py	../baselines/common/mpi_moments.py	1;"	kind:file	line:1
+mpi_running_mean_std.py	../baselines/common/mpi_running_mean_std.py	1;"	kind:file	line:1
+mpi_std	../baselines/ddpg/training.py	/^from baselines.ddpg.util import mpi_mean, mpi_std, mpi_max, mpi_sum$/;"	kind:namespace	line:7
+mpi_std	../baselines/ddpg/util.py	/^def mpi_std(value):$/;"	kind:function	line:28
+mpi_sum	../baselines/ddpg/training.py	/^from baselines.ddpg.util import mpi_mean, mpi_std, mpi_max, mpi_sum$/;"	kind:namespace	line:7
+mpi_sum	../baselines/ddpg/util.py	/^def mpi_sum(value):$/;"	kind:function	line:43
+mse	../baselines/a2c/a2c.py	/^from baselines.a2c.utils import cat_entropy, mse$/;"	kind:namespace	line:17
+mse	../baselines/a2c/utils.py	/^def mse(pred, target):$/;"	kind:function	line:22
+mse	../baselines/acktr/acktr_disc.py	/^from baselines.acktr.utils import cat_entropy, mse$/;"	kind:namespace	line:12
+mse	../baselines/acktr/utils.py	/^def mse(pred, target):$/;"	kind:function	line:26
+mujoco_py	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+must	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+my_explained_variance	../baselines/a2c/utils.py	/^def my_explained_variance(qpred, q):$/;"	kind:function	line:251
+myadd	../baselines/a2c/utils.py	/^def myadd(g1, g2, param):$/;"	kind:function	line:241
+n	../baselines/acktr/running_stat.py	/^    def n(self):$/;"	kind:member	line:20
+n_actions	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^n_actions = 3$/;"	kind:variable	line:24
+n_actions	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^n_actions = env.action_space.n$/;"	kind:variable	line:71
+n_episodes	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^n_episodes = 10000000$/;"	kind:variable	line:8
+n_episodes	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^n_episodes = 100000$/;"	kind:variable	line:21
+n_episodes	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^n_episodes = 1000000$/;"	kind:variable	line:72
+n_states	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^n_states = env.max_cars_in_queue+1$/;"	kind:variable	line:25
+n_traffic_phases	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^n_traffic_phases=4$/;"	kind:variable	line:26
+nb_entries	../baselines/ddpg/memory.py	/^    def nb_entries(self):$/;"	kind:member	line:82
+ncc	../baselines/common/math_util.py	/^def ncc(ypred, y):$/;"	kind:function	line:47
+necessary	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+neglogp	../baselines/common/distributions.py	/^    def neglogp(self, x):$/;"	kind:member	line:130
+neglogp	../baselines/common/distributions.py	/^    def neglogp(self, x):$/;"	kind:member	line:15
+neglogp	../baselines/common/distributions.py	/^    def neglogp(self, x):$/;"	kind:member	line:169
+neglogp	../baselines/common/distributions.py	/^    def neglogp(self, x):$/;"	kind:member	line:194
+neglogp	../baselines/common/distributions.py	/^    def neglogp(self, x):$/;"	kind:member	line:217
+newfunc	../baselines/common/tf_util.py	/^    def newfunc(*args, **kwargs):$/;"	kind:function	line:722
+next_batch	../baselines/common/dataset.py	/^    def next_batch(self, batch_size):$/;"	kind:member	line:23
+nn	../baselines/common/distributions.py	/^from tensorflow.python.ops import nn$/;"	kind:namespace	line:5
+no_op_wrapper	../baselines/acktr/kfac.py	/^                def no_op_wrapper():$/;"	kind:function	line:847
+noise.py	../baselines/ddpg/noise.py	1;"	kind:file	line:1
+noqa	../baselines/deepq/__init__.py	/^from baselines.deepq import models  # noqa$/;"	kind:namespace	line:1
+noqa	../baselines/deepq/__init__.py	/^from baselines.deepq.build_graph import build_act, build_train  # noqa$/;"	kind:namespace	line:2
+noqa	../baselines/deepq/__init__.py	/^from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer  # noqa$/;"	kind:namespace	line:5
+noqa	../baselines/deepq/__init__.py	/^from baselines.deepq.simple import learn, load  # noqa$/;"	kind:namespace	line:4
+normalize	../baselines/ddpg/ddpg.py	/^def normalize(x, stats):$/;"	kind:function	line:15
+normc_initializer	../baselines/common/tf_util.py	/^def normc_initializer(std=1.0):$/;"	kind:function	line:287
+nosharing_cnn_policy.py	../baselines/trpo_mpi/nosharing_cnn_policy.py	1;"	kind:file	line:1
+np	../baselines/a2c/a2c.py	/^import numpy as np$/;"	kind:namespace	line:6
+np	../baselines/a2c/policies.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/a2c/utils.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/acktr/acktr_cont.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/acktr/acktr_disc.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../baselines/acktr/filters.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/acktr/kfac.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/acktr/kfac_utils.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/acktr/policies.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/acktr/running_stat.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/acktr/utils.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/acktr/value_functions.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/common/atari_wrappers.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/atari_wrappers_deprecated.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/common/cg.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/console_util.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/common/dataset.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/distributions.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/common/math_util.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/misc_util.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/common/mpi_adam.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../baselines/common/mpi_moments.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/common/mpi_running_mean_std.py	/^import tensorflow as tf, baselines.common.tf_util as U, numpy as np$/;"	kind:namespace	line:2
+np	../baselines/common/tests/test_schedules.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/tests/test_segment_tree.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/tf_util.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/common/vec_env/subproc_vec_env.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/ddpg/ddpg.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../baselines/ddpg/memory.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/ddpg/noise.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/ddpg/training.py	/^import numpy as np$/;"	kind:namespace	line:11
+np	../baselines/ddpg/util.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../baselines/deepq/experiments/atari/enjoy.py	/^import numpy as np$/;"	kind:namespace	line:4
+np	../baselines/deepq/experiments/atari/train.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/deepq/experiments/custom_cartpole.py	/^import numpy as np$/;"	kind:namespace	line:3
+np	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import numpy as np$/;"	kind:namespace	line:7
+np	../baselines/deepq/experiments/traci/enjoy_traffic_lqf.py	/^import numpy as np$/;"	kind:namespace	line:2
+np	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import numpy as np$/;"	kind:namespace	line:7
+np	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^import numpy as np$/;"	kind:namespace	line:6
+np	../baselines/deepq/experiments/traci/utilities/utils.py	/^import numpy as np$/;"	kind:namespace	line:5
+np	../baselines/deepq/replay_buffer.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/deepq/simple.py	/^import numpy as np$/;"	kind:namespace	line:1
+np	../baselines/ppo1/pposgd_simple.py	/^import tensorflow as tf, numpy as np$/;"	kind:namespace	line:4
+np	../baselines/trpo_mpi/trpo_mpi.py	/^import tensorflow as tf, numpy as np$/;"	kind:namespace	line:4
+num_actions	../baselines/deepq/experiments/atari/enjoy.py	/^            num_actions=env.action_space.n)$/;"	kind:variable	line:67
+num_actions	../baselines/deepq/experiments/custom_cartpole.py	/^            num_actions=env.action_space.n,$/;"	kind:variable	line:32
+num_envs	../baselines/common/vec_env/subproc_vec_env.py	/^    def num_envs(self):$/;"	kind:member	line:73
+num_iters	../baselines/deepq/experiments/atari/train.py	/^        num_iters = 0$/;"	kind:variable	line:194
+num_iters_since_reset	../baselines/deepq/experiments/atari/train.py	/^        num_iters_since_reset = 0$/;"	kind:variable	line:206
+numel	../baselines/common/tf_util.py	/^def numel(x):$/;"	kind:function	line:602
+obs	../baselines/deepq/experiments/atari/train.py	/^        obs = env.reset()$/;"	kind:variable	line:205
+obs	../baselines/deepq/experiments/custom_cartpole.py	/^                obs = env.reset()$/;"	kind:variable	line:57
+obs	../baselines/deepq/experiments/custom_cartpole.py	/^            obs = new_obs$/;"	kind:variable	line:53
+obs	../baselines/deepq/experiments/custom_cartpole.py	/^        obs = env.reset()$/;"	kind:variable	line:46
+openai	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+operator	../baselines/common/segment_tree.py	/^import operator$/;"	kind:namespace	line:1
+optimOp	../baselines/acktr/kfac.py	/^                    def optimOp():$/;"	kind:function	line:881
+optimizer	../baselines/deepq/experiments/custom_cartpole.py	/^            optimizer=tf.train.AdamOptimizer(learning_rate=5e-4),$/;"	kind:variable	line:33
+options	../baselines/deepq/experiments/traci/embedded.py	/^    options = runner.get_options()$/;"	kind:variable	line:38
+options	../baselines/deepq/experiments/traci/runner.py	/^    options = get_options()$/;"	kind:variable	line:134
+optparse	../baselines/deepq/experiments/traci/runner.py	/^import optparse$/;"	kind:namespace	line:27
+ortho_init	../baselines/a2c/utils.py	/^def ortho_init(scale=1.0):$/;"	kind:function	line:25
+ortho_init	../baselines/acktr/utils.py	/^def ortho_init(scale=1.0):$/;"	kind:function	line:29
+os	../baselines/a2c/a2c.py	/^import os.path as osp$/;"	kind:namespace	line:1
+os	../baselines/a2c/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+os	../baselines/a2c/utils.py	/^import os$/;"	kind:namespace	line:1
+os	../baselines/acktr/acktr_disc.py	/^import os.path as osp$/;"	kind:namespace	line:1
+os	../baselines/acktr/run_atari.py	/^import os, logging, gym$/;"	kind:namespace	line:2
+os	../baselines/acktr/run_mujoco.py	/^import os$/;"	kind:namespace	line:4
+os	../baselines/acktr/utils.py	/^import os$/;"	kind:namespace	line:1
+os	../baselines/common/azure_utils.py	/^import os$/;"	kind:namespace	line:1
+os	../baselines/common/misc_util.py	/^import os$/;"	kind:namespace	line:3
+os	../baselines/common/mpi_fork.py	/^import os, subprocess, sys$/;"	kind:namespace	line:1
+os	../baselines/common/tf_util.py	/^import os$/;"	kind:namespace	line:6
+os	../baselines/ddpg/main.py	/^import os$/;"	kind:namespace	line:3
+os	../baselines/ddpg/training.py	/^import os$/;"	kind:namespace	line:1
+os	../baselines/deepq/experiments/atari/enjoy.py	/^import os$/;"	kind:namespace	line:3
+os	../baselines/deepq/experiments/atari/train.py	/^import os$/;"	kind:namespace	line:4
+os	../baselines/deepq/experiments/atari/wang2015_eval.py	/^import os$/;"	kind:namespace	line:4
+os	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import os$/;"	kind:namespace	line:2
+os	../baselines/deepq/experiments/traci/embedded.py	/^import os$/;"	kind:namespace	line:24
+os	../baselines/deepq/experiments/traci/runner.py	/^import os$/;"	kind:namespace	line:25
+os	../baselines/deepq/simple.py	/^import os$/;"	kind:namespace	line:2
+os	../baselines/logger.py	/^import os$/;"	kind:namespace	line:1
+os	../baselines/logger.py	/^import os.path as osp$/;"	kind:namespace	line:4
+os	../baselines/ppo1/run_atari.py	/^import os.path as osp$/;"	kind:namespace	line:6
+os	../baselines/ppo1/run_mujoco.py	/^import os.path as osp$/;"	kind:namespace	line:4
+os	../baselines/trpo_mpi/run_atari.py	/^import os.path as osp$/;"	kind:namespace	line:4
+os	../baselines/trpo_mpi/run_mujoco.py	/^import os.path as osp$/;"	kind:namespace	line:6
+osp	../baselines/a2c/a2c.py	/^import os.path as osp$/;"	kind:namespace	line:1
+osp	../baselines/acktr/acktr_disc.py	/^import os.path as osp$/;"	kind:namespace	line:1
+osp	../baselines/logger.py	/^import os.path as osp$/;"	kind:namespace	line:4
+osp	../baselines/logger_utils.py	/^from os import path as osp$/;"	kind:namespace	line:2
+osp	../baselines/ppo1/run_atari.py	/^import os.path as osp$/;"	kind:namespace	line:6
+osp	../baselines/ppo1/run_mujoco.py	/^import os.path as osp$/;"	kind:namespace	line:4
+osp	../baselines/trpo_mpi/run_atari.py	/^import os.path as osp$/;"	kind:namespace	line:4
+osp	../baselines/trpo_mpi/run_mujoco.py	/^import os.path as osp$/;"	kind:namespace	line:6
+other	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:22
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:50
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:60
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:66
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:76
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:84
+output_shape	../baselines/acktr/filters.py	/^    def output_shape(self, input_space):$/;"	kind:member	line:97
+output_vars	../baselines/ddpg/models.py	/^    def output_vars(self):$/;"	kind:member	line:75
+p1492828680631850	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+packages	../setup.py	/^      packages=[package for package in find_packages()$/;"	kind:variable	line:10
+param_placeholder	../baselines/common/distributions.py	/^    def param_placeholder(self, prepend_shape, name=None):$/;"	kind:member	line:42
+param_shape	../baselines/common/distributions.py	/^    def param_shape(self):$/;"	kind:member	line:35
+param_shape	../baselines/common/distributions.py	/^    def param_shape(self):$/;"	kind:member	line:52
+param_shape	../baselines/common/distributions.py	/^    def param_shape(self):$/;"	kind:member	line:69
+param_shape	../baselines/common/distributions.py	/^    def param_shape(self):$/;"	kind:member	line:81
+param_shape	../baselines/common/distributions.py	/^    def param_shape(self):$/;"	kind:member	line:93
+parse_args	../baselines/ddpg/main.py	/^def parse_args():$/;"	kind:function	line:82
+parse_args	../baselines/deepq/experiments/atari/download_model.py	/^def parse_args():$/;"	kind:function	line:7
+parse_args	../baselines/deepq/experiments/atari/enjoy.py	/^def parse_args():$/;"	kind:function	line:18
+parse_args	../baselines/deepq/experiments/atari/train.py	/^def parse_args():$/;"	kind:function	line:31
+parse_args	../baselines/deepq/experiments/atari/wang2015_eval.py	/^def parse_args():$/;"	kind:function	line:21
+parser	../baselines/acktr/run_mujoco.py	/^    parser = argparse.ArgumentParser(description='Run Mujoco benchmark.')$/;"	kind:variable	line:38
+path	../baselines/bench/monitor.py	/^from os import path$/;"	kind:namespace	line:5
+path_with_date	../baselines/logger_utils.py	/^def path_with_date(path, game):$/;"	kind:function	line:4
+pathlength	../baselines/acktr/acktr_cont.py	/^def pathlength(path):$/;"	kind:function	line:9
+pathlength	../baselines/acktr/value_functions.py	/^def pathlength(path):$/;"	kind:function	line:49
+pdclass	../baselines/common/distributions.py	/^    def pdclass(self):$/;"	kind:member	line:31
+pdclass	../baselines/common/distributions.py	/^    def pdclass(self):$/;"	kind:member	line:50
+pdclass	../baselines/common/distributions.py	/^    def pdclass(self):$/;"	kind:member	line:65
+pdclass	../baselines/common/distributions.py	/^    def pdclass(self):$/;"	kind:member	line:79
+pdclass	../baselines/common/distributions.py	/^    def pdclass(self):$/;"	kind:member	line:91
+pdfromflat	../baselines/common/distributions.py	/^    def pdfromflat(self, flat):$/;"	kind:member	line:33
+pdfromflat	../baselines/common/distributions.py	/^    def pdfromflat(self, flat):$/;"	kind:member	line:67
+perturb_vars	../baselines/deepq/build_graph.py	/^        def perturb_vars(original_scope, perturbed_scope):$/;"	kind:function	line:225
+perturbable_vars	../baselines/ddpg/models.py	/^    def perturbable_vars(self):$/;"	kind:member	line:18
+pi	../baselines/ddpg/ddpg.py	/^    def pi(self, obs, apply_noise=True, compute_Q=True):$/;"	kind:member	line:249
+pickle	../baselines/common/misc_util.py	/^import pickle$/;"	kind:namespace	line:4
+pickle	../baselines/common/vec_env/subproc_vec_env.py	/^        import pickle$/;"	kind:namespace	line:35
+pickle	../baselines/ddpg/training.py	/^import pickle$/;"	kind:namespace	line:4
+pickle_load	../baselines/common/misc_util.py	/^def pickle_load(path, compression=False):$/;"	kind:function	line:306
+play	../baselines/deepq/experiments/atari/enjoy.py	/^def play(env, act, stochastic, video_path):$/;"	kind:function	line:37
+plot_total_reward	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^plot_total_reward = []$/;"	kind:variable	line:32
+plot_total_steps	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^plot_total_steps = []$/;"	kind:variable	line:31
+plt	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+plt	../baselines/deepq/experiments/traci/utilities/utils.py	/^import matplotlib.pyplot as plt$/;"	kind:namespace	line:6
+policies.py	../baselines/a2c/policies.py	1;"	kind:file	line:1
+policies.py	../baselines/acktr/policies.py	1;"	kind:file	line:1
+policy_fn	../baselines/ppo1/run_atari.py	/^    def policy_fn(name, ob_space, ac_space): #pylint: disable=W0613$/;"	kind:function	line:26
+policy_fn	../baselines/ppo1/run_mujoco.py	/^    def policy_fn(name, ob_space, ac_space):$/;"	kind:function	line:14
+policy_fn	../baselines/trpo_mpi/run_atari.py	/^    def policy_fn(name, ob_space, ac_space): #pylint: disable=W0613$/;"	kind:function	line:30
+policy_fn	../baselines/trpo_mpi/run_mujoco.py	/^    def policy_fn(name, ob_space, ac_space):$/;"	kind:function	line:27
+pposgd_simple	../baselines/ppo1/run_atari.py	/^    from baselines.ppo1 import pposgd_simple, cnn_policy$/;"	kind:namespace	line:17
+pposgd_simple	../baselines/ppo1/run_mujoco.py	/^    from baselines.ppo1 import mlp_policy, pposgd_simple$/;"	kind:namespace	line:10
+pposgd_simple.py	../baselines/ppo1/pposgd_simple.py	1;"	kind:file	line:1
+predict	../baselines/acktr/value_functions.py	/^    def predict(self, path):$/;"	kind:member	line:40
+pretty_eta	../baselines/common/misc_util.py	/^def pretty_eta(seconds_left):$/;"	kind:function	line:81
+print_every	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^print_every = 10$/;"	kind:variable	line:22
+print_every	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^print_every = 500$/;"	kind:variable	line:75
+print_function	../baselines/common/console_util.py	/^from __future__ import print_function$/;"	kind:namespace	line:1
+print_function	../baselines/deepq/experiments/traci/runner.py	/^from __future__ import print_function$/;"	kind:namespace	line:23
+print_timestep_freq	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^print_timestep_freq = 100$/;"	kind:variable	line:65
+probability_chooser	../baselines/deepq/experiments/traci/utilities/utils.py	/^def probability_chooser(atoms):$/;"	kind:function	line:21
+process	../baselines/common/atari_wrappers_deprecated.py	/^    def process(frame):$/;"	kind:member	line:132
+process	../baselines/common/atari_wrappers_deprecated.py	/^    def process(frame):$/;"	kind:member	line:236
+profiler.py	../baselines/deepq/experiments/traci/utilities/profiler.py	1;"	kind:file	line:1
+progress_callback	../baselines/common/azure_utils.py	/^        def progress_callback(current, total):$/;"	kind:function	line:110
+progress_callback	../baselines/common/azure_utils.py	/^        def progress_callback(current, total):$/;"	kind:function	line:68
+progressbar	../baselines/deepq/experiments/atari/download_model.py	/^import progressbar$/;"	kind:namespace	line:2
+pstats	../baselines/deepq/experiments/traci/utilities/profiler.py	/^import pstats$/;"	kind:namespace	line:3
+push	../baselines/acktr/running_stat.py	/^    def push(self, x):$/;"	kind:member	line:9
+put	../baselines/common/azure_utils.py	/^    def put(self, source_path, blob_name, callback=None):$/;"	kind:member	line:61
+pylint	../baselines/common/tf_util.py	/^import tensorflow as tf  # pylint: ignore-module$/;"	kind:namespace	line:2
+pywrap_tensorflow	../baselines/logger.py	/^        from tensorflow.python import pywrap_tensorflow        $/;"	kind:namespace	line:102
+q	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^q = np.zeros(state_actions)$/;"	kind:variable	line:29
+q_func	../baselines/deepq/experiments/atari/enjoy.py	/^            q_func=dueling_model if args.dueling else model,$/;"	kind:variable	line:66
+q_func	../baselines/deepq/experiments/custom_cartpole.py	/^            q_func=model,$/;"	kind:variable	line:31
+qf	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^qf = LinearQFunction(gamma=gamma, n_actions=n_actions)$/;"	kind:variable	line:81
+r1	../baselines/deepq/experiments/traci/utilities/utils.py	/^    r1 = []$/;"	kind:variable	line:57
+r2	../baselines/deepq/experiments/traci/utilities/utils.py	/^    r2 = []$/;"	kind:variable	line:58
+random	../baselines/common/misc_util.py	/^import random$/;"	kind:namespace	line:5
+random	../baselines/deepq/experiments/traci/runner.py	/^import random$/;"	kind:namespace	line:29
+random	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^import random$/;"	kind:namespace	line:2
+random	../baselines/deepq/replay_buffer.py	/^import random$/;"	kind:namespace	line:2
+re	../baselines/acktr/kfac.py	/^import re$/;"	kind:namespace	line:3
+record_tabular	../baselines/logger.py	/^record_tabular = logkv$/;"	kind:variable	line:209
+recurrent	../baselines/ppo1/cnn_policy.py	/^    recurrent = False$/;"	kind:variable	line:8
+recurrent	../baselines/ppo1/mlp_policy.py	/^    recurrent = False$/;"	kind:variable	line:8
+recurrent	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^    recurrent = False$/;"	kind:variable	line:8
+red	../baselines/common/console_util.py	/^    red=31,$/;"	kind:variable	line:25
+reduce	../baselines/acktr/kfac.py	/^from functools import reduce$/;"	kind:namespace	line:5
+reduce	../baselines/common/segment_tree.py	/^    def reduce(self, start=0, end=None):$/;"	kind:member	line:52
+reduce	../baselines/ddpg/ddpg.py	/^from functools import reduce$/;"	kind:namespace	line:2
+reduce_std	../baselines/ddpg/ddpg.py	/^from baselines.ddpg.util import reduce_std, mpi_mean$/;"	kind:namespace	line:12
+reduce_std	../baselines/ddpg/util.py	/^def reduce_std(x, axis=None, keepdims=False):$/;"	kind:function	line:16
+reduce_var	../baselines/ddpg/util.py	/^def reduce_var(x, axis=None, keepdims=False):$/;"	kind:function	line:10
+register	../baselines/deepq/experiments/traci/TraciSimpleEnv/__init__.py	/^from gym.envs.registration import register$/;"	kind:namespace	line:1
+register_benchmark	../baselines/bench/benchmarks.py	/^def register_benchmark(benchmark):$/;"	kind:function	line:6
+relatively_safe_pickle_dump	../baselines/common/misc_util.py	/^def relatively_safe_pickle_dump(obj, path, compression=False):$/;"	kind:function	line:271
+removeNone	../baselines/acktr/kfac.py	/^            def removeNone(tensor_list):$/;"	kind:function	line:541
+remove_many	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def remove_many(self, list_of_ids):$/;"	kind:member	line:37
+replay_buffer	../baselines/deepq/experiments/custom_cartpole.py	/^        replay_buffer = ReplayBuffer(50000)$/;"	kind:variable	line:36
+replay_buffer.py	../baselines/deepq/replay_buffer.py	1;"	kind:file	line:1
+reset	../baselines/acktr/filters.py	/^    def reset(self):$/;"	kind:member	line:56
+reset	../baselines/acktr/filters.py	/^    def reset(self):$/;"	kind:member	line:8
+reset	../baselines/acktr/filters.py	/^    def reset(self):$/;"	kind:member	line:90
+reset	../baselines/bench/monitor.py	/^    def reset(self):$/;"	kind:member	line:62
+reset	../baselines/common/tf_util.py	/^def reset():$/;"	kind:function	line:750
+reset	../baselines/common/vec_env/__init__.py	/^    def reset(self):$/;"	kind:member	line:13
+reset	../baselines/common/vec_env/subproc_vec_env.py	/^    def reset(self):$/;"	kind:member	line:61
+reset	../baselines/ddpg/ddpg.py	/^    def reset(self):$/;"	kind:member	line:365
+reset	../baselines/ddpg/noise.py	/^    def reset(self):$/;"	kind:member	line:32
+reset	../baselines/ddpg/noise.py	/^    def reset(self):$/;"	kind:member	line:63
+reset	../baselines/deepq/experiments/atari/train.py	/^        reset = True$/;"	kind:variable	line:207
+reset	../baselines/logger.py	/^def reset():$/;"	kind:function	line:283
+restart	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def restart(self):$/;"	kind:member	line:103
+retCode	../baselines/deepq/experiments/traci/embedded.py	/^    retCode = subprocess.call([sumoBinary, "-c", "data\/cross.sumocfg", "--python-script", __file__],$/;"	kind:variable	line:53
+reward_emission	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def reward_emission(self):$/;"	kind:member	line:189
+reward_leaving_cars	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def reward_leaving_cars(self):$/;"	kind:member	line:182
+reward_squared_wait_sum	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def reward_squared_wait_sum(self):$/;"	kind:member	line:207
+reward_total_in_queue	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def reward_total_in_queue(self):$/;"	kind:member	line:204
+reward_total_waiting_vehicles	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^    def reward_total_waiting_vehicles(self):$/;"	kind:member	line:196
+rollout	../baselines/acktr/acktr_cont.py	/^def rollout(env, policy, max_pathlength, animate=False, obfilter=None):$/;"	kind:function	line:12
+run	../baselines/a2c/a2c.py	/^    def run(self):$/;"	kind:member	line:114
+run	../baselines/acktr/acktr_disc.py	/^    def run(self):$/;"	kind:member	line:127
+run	../baselines/ddpg/main.py	/^def run(env_id, seed, noise_type, layer_norm, evaluation, **kwargs):$/;"	kind:function	line:19
+run	../baselines/deepq/experiments/traci/runner.py	/^def run():$/;"	kind:function	line:93
+run_atari.py	../baselines/a2c/run_atari.py	1;"	kind:file	line:1
+run_atari.py	../baselines/acktr/run_atari.py	1;"	kind:file	line:1
+run_atari.py	../baselines/ppo1/run_atari.py	1;"	kind:file	line:1
+run_atari.py	../baselines/trpo_mpi/run_atari.py	1;"	kind:file	line:1
+run_mujoco.py	../baselines/acktr/run_mujoco.py	1;"	kind:file	line:1
+run_mujoco.py	../baselines/ppo1/run_mujoco.py	1;"	kind:file	line:1
+run_mujoco.py	../baselines/trpo_mpi/run_mujoco.py	1;"	kind:file	line:1
+runner	../baselines/deepq/experiments/traci/embedded.py	/^import runner$/;"	kind:namespace	line:30
+runner.py	../baselines/deepq/experiments/traci/runner.py	1;"	kind:file	line:1
+running_stat.py	../baselines/acktr/running_stat.py	1;"	kind:file	line:1
+s	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    s = np.copy(sn)$/;"	kind:variable	line:93
+s	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^s = env.reset()$/;"	kind:variable	line:84
+sample	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+sample	../baselines/a2c/utils.py	/^def sample(logits):$/;"	kind:function	line:8
+sample	../baselines/acktr/policies.py	/^from baselines.acktr.utils import conv, fc, dense, conv_to_fc, sample, kl_div$/;"	kind:namespace	line:3
+sample	../baselines/acktr/utils.py	/^def sample(logits):$/;"	kind:function	line:7
+sample	../baselines/common/distributions.py	/^    def sample(self):$/;"	kind:member	line:153
+sample	../baselines/common/distributions.py	/^    def sample(self):$/;"	kind:member	line:177
+sample	../baselines/common/distributions.py	/^    def sample(self):$/;"	kind:member	line:203
+sample	../baselines/common/distributions.py	/^    def sample(self):$/;"	kind:member	line:22
+sample	../baselines/common/distributions.py	/^    def sample(self):$/;"	kind:member	line:223
+sample	../baselines/ddpg/memory.py	/^    def sample(self, batch_size):$/;"	kind:member	line:52
+sample	../baselines/deepq/replay_buffer.py	/^    def sample(self, batch_size):$/;"	kind:member	line:45
+sample	../baselines/deepq/replay_buffer.py	/^    def sample(self, batch_size, beta):$/;"	kind:member	line:116
+sample_dtype	../baselines/common/distributions.py	/^    def sample_dtype(self):$/;"	kind:member	line:39
+sample_dtype	../baselines/common/distributions.py	/^    def sample_dtype(self):$/;"	kind:member	line:56
+sample_dtype	../baselines/common/distributions.py	/^    def sample_dtype(self):$/;"	kind:member	line:73
+sample_dtype	../baselines/common/distributions.py	/^    def sample_dtype(self):$/;"	kind:member	line:85
+sample_dtype	../baselines/common/distributions.py	/^    def sample_dtype(self):$/;"	kind:member	line:97
+sample_placeholder	../baselines/common/distributions.py	/^    def sample_placeholder(self, prepend_shape, name=None):$/;"	kind:member	line:44
+sample_shape	../baselines/common/distributions.py	/^    def sample_shape(self):$/;"	kind:member	line:37
+sample_shape	../baselines/common/distributions.py	/^    def sample_shape(self):$/;"	kind:member	line:54
+sample_shape	../baselines/common/distributions.py	/^    def sample_shape(self):$/;"	kind:member	line:71
+sample_shape	../baselines/common/distributions.py	/^    def sample_shape(self):$/;"	kind:member	line:83
+sample_shape	../baselines/common/distributions.py	/^    def sample_shape(self):$/;"	kind:member	line:95
+sarsa_lambda.py	../baselines/deepq/experiments/traci/sarsa_lambda.py	1;"	kind:file	line:1
+save	../baselines/a2c/a2c.py	/^        def save(save_path):$/;"	kind:function	line:70
+save	../baselines/acktr/acktr_disc.py	/^        def save(save_path):$/;"	kind:function	line:84
+save	../baselines/deepq/simple.py	/^    def save(self, path):$/;"	kind:member	line:42
+save_state	../baselines/common/tf_util.py	/^def save_state(fname):$/;"	kind:function	line:277
+savedir	../baselines/deepq/experiments/atari/train.py	/^            savedir = tempfile.TemporaryDirectory().name$/;"	kind:variable	line:147
+savedir	../baselines/deepq/experiments/atari/train.py	/^        savedir = force_load_path$/;"	kind:variable	line:128
+savedir	../baselines/deepq/experiments/atari/train.py	/^        savedir = logger_path$/;"	kind:variable	line:124
+savedir	../baselines/deepq/experiments/atari/train.py	/^        savedir = os.getenv('OPENAI_LOGDIR', None)$/;"	kind:variable	line:138
+schedules	../baselines/a2c/utils.py	/^schedules = {$/;"	kind:variable	line:165
+schedules	../baselines/acktr/utils.py	/^schedules = {$/;"	kind:variable	line:142
+schedules.py	../baselines/common/schedules.py	1;"	kind:file	line:1
+scipy	../baselines/common/math_util.py	/^import scipy.signal$/;"	kind:namespace	line:2
+scope_name	../baselines/common/tf_util.py	/^def scope_name():$/;"	kind:function	line:692
+scope_vars	../baselines/common/tf_util.py	/^def scope_vars(scope, trainable_only=False):$/;"	kind:function	line:669
+searchFactors	../baselines/acktr/kfac.py	/^        def searchFactors(gradient, graph):$/;"	kind:function	line:64
+seeding	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^from gym.utils import seeding$/;"	kind:namespace	line:9
+segment_tree.py	../baselines/common/segment_tree.py	1;"	kind:file	line:1
+seq_to_batch	../baselines/a2c/policies.py	/^from baselines.a2c.utils import conv, fc, conv_to_fc, batch_to_seq, seq_to_batch, lstm, lnlstm, sample, check_shape$/;"	kind:namespace	line:3
+seq_to_batch	../baselines/a2c/utils.py	/^def seq_to_batch(h, flat = False):$/;"	kind:function	line:67
+services	../baselines/common/azure_utils.py	/^    services = {}$/;"	kind:variable	line:50
+set_global_seeds	../baselines/a2c/a2c.py	/^from baselines.common import set_global_seeds, explained_variance$/;"	kind:namespace	line:10
+set_global_seeds	../baselines/a2c/run_atari.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:4
+set_global_seeds	../baselines/acktr/acktr_disc.py	/^from baselines.common import set_global_seeds, explained_variance$/;"	kind:namespace	line:8
+set_global_seeds	../baselines/acktr/run_atari.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:4
+set_global_seeds	../baselines/acktr/run_mujoco.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:8
+set_global_seeds	../baselines/common/misc_util.py	/^def set_global_seeds(i):$/;"	kind:function	line:70
+set_global_seeds	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.common.misc_util import get_wrapper_by_name, SimpleMonitor, boolean_flag, set_global_seeds$/;"	kind:namespace	line:9
+set_global_seeds	../baselines/ppo1/run_atari.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:4
+set_global_seeds	../baselines/ppo1/run_mujoco.py	/^from baselines.common import set_global_seeds, tf_util as U$/;"	kind:namespace	line:2
+set_global_seeds	../baselines/trpo_mpi/run_atari.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:3
+set_global_seeds	../baselines/trpo_mpi/run_mujoco.py	/^from baselines.common import set_global_seeds$/;"	kind:namespace	line:5
+set_level	../baselines/logger.py	/^    def set_level(self, level):$/;"	kind:member	line:244
+set_level	../baselines/logger.py	/^def set_level(level):$/;"	kind:function	line:196
+set_state	../baselines/common/misc_util.py	/^    def set_state(self, state):$/;"	kind:member	line:218
+set_value	../baselines/common/tf_util.py	/^def set_value(v, val):$/;"	kind:function	line:256
+setup	../setup.py	/^from setuptools import setup, find_packages$/;"	kind:namespace	line:1
+setup.py	../setup.py	1;"	kind:file	line:1
+setup_actor_optimizer	../baselines/ddpg/ddpg.py	/^    def setup_actor_optimizer(self):$/;"	kind:member	line:162
+setup_critic_optimizer	../baselines/ddpg/ddpg.py	/^    def setup_critic_optimizer(self):$/;"	kind:member	line:173
+setup_param_noise	../baselines/ddpg/ddpg.py	/^    def setup_param_noise(self, normalized_obs0):$/;"	kind:member	line:145
+setup_popart	../baselines/ddpg/ddpg.py	/^    def setup_popart(self):$/;"	kind:member	line:195
+setup_stats	../baselines/ddpg/ddpg.py	/^    def setup_stats(self):$/;"	kind:member	line:213
+setup_target_network_updates	../baselines/ddpg/ddpg.py	/^    def setup_target_network_updates(self):$/;"	kind:member	line:139
+shape	../baselines/acktr/running_stat.py	/^    def shape(self):$/;"	kind:member	line:32
+shape_el	../baselines/common/distributions.py	/^def shape_el(v, i):$/;"	kind:function	line:244
+shuffle	../baselines/common/dataset.py	/^    def shuffle(self):$/;"	kind:member	line:12
+shutil	../baselines/logger.py	/^import shutil$/;"	kind:namespace	line:3
+signal	../baselines/common/math_util.py	/^import scipy.signal$/;"	kind:namespace	line:2
+simple.py	../baselines/deepq/simple.py	1;"	kind:file	line:1
+single_threaded_session	../baselines/common/tf_util.py	/^def single_threaded_session():$/;"	kind:function	line:232
+slack	../baselines/trpo_mpi/run_mujoco.py	/^import mujoco_py # Mujoco must come before other imports. https:\/\/openai.slack.com\/archives\/C1H6P3R7B\/p1492828680631850$/;"	kind:namespace	line:3
+spaces	../baselines/a2c/utils.py	/^from gym import spaces$/;"	kind:namespace	line:5
+spaces	../baselines/common/atari_wrappers.py	/^from gym import spaces$/;"	kind:namespace	line:5
+spaces	../baselines/common/atari_wrappers_deprecated.py	/^from gym import spaces$/;"	kind:namespace	line:6
+spaces	../baselines/common/distributions.py	/^    from gym import spaces$/;"	kind:namespace	line:231
+spaces	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^from gym import spaces$/;"	kind:namespace	line:8
+state	../baselines/deepq/experiments/atari/train.py	/^        state = maybe_load_model(savedir, container)$/;"	kind:variable	line:197
+state	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^        state = copy(state_next)$/;"	kind:variable	line:57
+state	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    state = env.reset()$/;"	kind:variable	line:38
+state_actions	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^state_actions = (n_states, n_states, n_states, n_states,n_traffic_phases, n_actions)$/;"	kind:variable	line:27
+std	../baselines/acktr/running_stat.py	/^    def std(self):$/;"	kind:member	line:29
+std	../baselines/acktr/utils.py	/^def std(x):$/;"	kind:function	line:11
+std	../baselines/common/tf_util.py	/^def std(x, axis=None, keepdims=False):$/;"	kind:function	line:32
+step	../baselines/a2c/policies.py	/^        def step(ob, *_args, **_kwargs):$/;"	kind:function	line:112
+step	../baselines/a2c/policies.py	/^        def step(ob, state, mask):$/;"	kind:function	line:34
+step	../baselines/a2c/policies.py	/^        def step(ob, state, mask):$/;"	kind:function	line:76
+step	../baselines/acktr/policies.py	/^        def step(ob, *_args, **_kwargs):$/;"	kind:function	line:29
+step	../baselines/bench/monitor.py	/^    def step(self, action):$/;"	kind:member	line:69
+step	../baselines/common/vec_env/__init__.py	/^    def step(self, vac):$/;"	kind:member	line:5
+step	../baselines/common/vec_env/subproc_vec_env.py	/^    def step(self, actions):$/;"	kind:member	line:54
+steps	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    steps = 0$/;"	kind:variable	line:41
+steps_per_iter	../baselines/deepq/experiments/atari/train.py	/^        steps_per_iter = RunningAvg(0.999)$/;"	kind:variable	line:203
+store_transition	../baselines/ddpg/ddpg.py	/^    def store_transition(self, obs0, action, reward, obs1, terminal1):$/;"	kind:member	line:268
+subproc_vec_env.py	../baselines/common/vec_env/subproc_vec_env.py	1;"	kind:file	line:1
+subprocess	../baselines/common/mpi_fork.py	/^import os, subprocess, sys$/;"	kind:namespace	line:1
+subprocess	../baselines/deepq/experiments/traci/embedded.py	/^import subprocess$/;"	kind:namespace	line:26
+subprocess	../baselines/deepq/experiments/traci/runner.py	/^import subprocess$/;"	kind:namespace	line:28
+subset	../baselines/common/dataset.py	/^    def subset(self, num_elements, deterministic=True):$/;"	kind:member	line:43
+sum	../baselines/common/segment_tree.py	/^    def sum(self, start=0, end=None):$/;"	kind:member	line:102
+sum	../baselines/common/tf_util.py	/^def sum(x, axis=None, keepdims=False):$/;"	kind:function	line:17
+summary_val	../baselines/logger.py	/^        def summary_val(k, v):$/;"	kind:function	line:111
+sumoBinary	../baselines/deepq/experiments/traci/embedded.py	/^        sumoBinary = runner.checkBinary('sumo')$/;"	kind:variable	line:42
+sumoBinary	../baselines/deepq/experiments/traci/embedded.py	/^        sumoBinary = runner.checkBinary('sumo-gui')$/;"	kind:variable	line:45
+sumoBinary	../baselines/deepq/experiments/traci/runner.py	/^        sumoBinary = checkBinary('sumo')$/;"	kind:variable	line:139
+sumoBinary	../baselines/deepq/experiments/traci/runner.py	/^        sumoBinary = checkBinary('sumo-gui')$/;"	kind:variable	line:141
+switch	../baselines/common/tf_util.py	/^def switch(condition, then_expression, else_expression):$/;"	kind:function	line:54
+sync	../baselines/common/mpi_adam.py	/^    def sync(self):$/;"	kind:member	line:37
+sys	../baselines/common/mpi_fork.py	/^import os, subprocess, sys$/;"	kind:namespace	line:1
+sys	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import sys$/;"	kind:namespace	line:3
+sys	../baselines/deepq/experiments/traci/embedded.py	/^import sys$/;"	kind:namespace	line:25
+sys	../baselines/deepq/experiments/traci/runner.py	/^import sys$/;"	kind:namespace	line:26
+sys	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^import sys$/;"	kind:namespace	line:1
+sys	../baselines/deepq/experiments/traci/utilities/utils.py	/^import sys$/;"	kind:namespace	line:1
+sys	../baselines/logger.py	/^import sys$/;"	kind:namespace	line:2
+sys	../baselines/ppo1/run_mujoco.py	/^import sys$/;"	kind:namespace	line:7
+sys	../baselines/trpo_mpi/run_atari.py	/^import sys$/;"	kind:namespace	line:8
+sys	../baselines/trpo_mpi/run_mujoco.py	/^import sys$/;"	kind:namespace	line:14
+sys	../setup.py	/^import sys$/;"	kind:namespace	line:2
+tc	../baselines/ddpg/ddpg.py	/^import tensorflow.contrib as tc$/;"	kind:namespace	line:6
+tc	../baselines/ddpg/models.py	/^import tensorflow.contrib as tc$/;"	kind:namespace	line:2
+tc	../baselines/deepq/experiments/traci/runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43
+tempfile	../baselines/common/azure_utils.py	/^import tempfile$/;"	kind:namespace	line:2
+tempfile	../baselines/common/misc_util.py	/^import tempfile$/;"	kind:namespace	line:6
+tempfile	../baselines/deepq/experiments/atari/train.py	/^import tempfile$/;"	kind:namespace	line:6
+tempfile	../baselines/deepq/simple.py	/^import tempfile$/;"	kind:namespace	line:4
+tempfile	../baselines/logger.py	/^import tempfile$/;"	kind:namespace	line:8
+tensorflow	../baselines/ddpg/ddpg.py	/^import tensorflow.contrib as tc$/;"	kind:namespace	line:6
+tensorflow	../baselines/ddpg/models.py	/^import tensorflow.contrib as tc$/;"	kind:namespace	line:2
+tensorflow	../baselines/deepq/experiments/atari/model.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+tensorflow	../baselines/deepq/experiments/custom_cartpole.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:5
+tensorflow	../baselines/deepq/models.py	/^import tensorflow.contrib.layers as layers$/;"	kind:namespace	line:2
+test_MpiAdam	../baselines/common/mpi_adam.py	/^def test_MpiAdam():$/;"	kind:function	line:53
+test_constant_schedule	../baselines/common/tests/test_schedules.py	/^def test_constant_schedule():$/;"	kind:function	line:23
+test_discount_with_boundaries	../baselines/common/math_util.py	/^def test_discount_with_boundaries():$/;"	kind:function	line:75
+test_dist	../baselines/common/mpi_running_mean_std.py	/^def test_dist():$/;"	kind:function	line:65
+test_function	../baselines/common/tests/test_tf_util.py	/^def test_function():$/;"	kind:function	line:30
+test_max_interval_tree	../baselines/common/tests/test_segment_tree.py	/^def test_max_interval_tree():$/;"	kind:function	line:63
+test_multikwargs	../baselines/common/tests/test_tf_util.py	/^def test_multikwargs():$/;"	kind:function	line:46
+test_piecewise_schedule	../baselines/common/tests/test_schedules.py	/^def test_piecewise_schedule():$/;"	kind:function	line:6
+test_prefixsum_idx	../baselines/common/tests/test_segment_tree.py	/^def test_prefixsum_idx():$/;"	kind:function	line:33
+test_prefixsum_idx2	../baselines/common/tests/test_segment_tree.py	/^def test_prefixsum_idx2():$/;"	kind:function	line:47
+test_probtypes	../baselines/common/distributions.py	/^def test_probtypes():$/;"	kind:function	line:252
+test_running_stat	../baselines/acktr/running_stat.py	/^def test_running_stat():$/;"	kind:function	line:35
+test_runningmeanstd	../baselines/common/mpi_moments.py	/^def test_runningmeanstd():$/;"	kind:function	line:27
+test_runningmeanstd	../baselines/common/mpi_running_mean_std.py	/^def test_runningmeanstd():$/;"	kind:function	line:46
+test_schedules.py	../baselines/common/tests/test_schedules.py	1;"	kind:file	line:1
+test_segment_tree.py	../baselines/common/tests/test_segment_tree.py	1;"	kind:file	line:1
+test_set_value	../baselines/common/tests/test_tf_util.py	/^def test_set_value():$/;"	kind:function	line:11
+test_tf_util.py	../baselines/common/tests/test_tf_util.py	1;"	kind:file	line:1
+test_tree_set	../baselines/common/tests/test_segment_tree.py	/^def test_tree_set():$/;"	kind:function	line:6
+test_tree_set_overlap	../baselines/common/tests/test_segment_tree.py	/^def test_tree_set_overlap():$/;"	kind:function	line:20
+tf	../baselines/a2c/a2c.py	/^import tensorflow as tf$/;"	kind:namespace	line:7
+tf	../baselines/a2c/policies.py	/^import tensorflow as tf$/;"	kind:namespace	line:2
+tf	../baselines/a2c/utils.py	/^import tensorflow as tf$/;"	kind:namespace	line:4
+tf	../baselines/acktr/acktr_cont.py	/^import tensorflow as tf$/;"	kind:namespace	line:2
+tf	../baselines/acktr/acktr_disc.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/acktr/kfac.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/acktr/kfac_utils.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/acktr/policies.py	/^import tensorflow as tf$/;"	kind:namespace	line:2
+tf	../baselines/acktr/run_mujoco.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/acktr/utils.py	/^import tensorflow as tf$/;"	kind:namespace	line:3
+tf	../baselines/acktr/value_functions.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/common/distributions.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/common/misc_util.py	/^        import tensorflow as tf$/;"	kind:namespace	line:72
+tf	../baselines/common/mpi_adam.py	/^import tensorflow as tf$/;"	kind:namespace	line:3
+tf	../baselines/common/mpi_running_mean_std.py	/^import tensorflow as tf, baselines.common.tf_util as U, numpy as np$/;"	kind:namespace	line:2
+tf	../baselines/common/tests/test_tf_util.py	/^import tensorflow as tf$/;"	kind:namespace	line:2
+tf	../baselines/common/tf_util.py	/^import tensorflow as tf  # pylint: ignore-module$/;"	kind:namespace	line:2
+tf	../baselines/ddpg/ddpg.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/ddpg/main.py	/^import tensorflow as tf$/;"	kind:namespace	line:16
+tf	../baselines/ddpg/models.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/ddpg/training.py	/^import tensorflow as tf$/;"	kind:namespace	line:12
+tf	../baselines/ddpg/util.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/deepq/build_graph.py	/^import tensorflow as tf$/;"	kind:namespace	line:96
+tf	../baselines/deepq/experiments/atari/model.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/deepq/experiments/atari/train.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/deepq/experiments/custom_cartpole.py	/^import tensorflow as tf$/;"	kind:namespace	line:4
+tf	../baselines/deepq/models.py	/^import tensorflow as tf$/;"	kind:namespace	line:1
+tf	../baselines/deepq/simple.py	/^import tensorflow as tf$/;"	kind:namespace	line:5
+tf	../baselines/logger.py	/^        import tensorflow as tf$/;"	kind:namespace	line:101
+tf	../baselines/ppo1/cnn_policy.py	/^import tensorflow as tf$/;"	kind:namespace	line:3
+tf	../baselines/ppo1/mlp_policy.py	/^import tensorflow as tf$/;"	kind:namespace	line:3
+tf	../baselines/ppo1/pposgd_simple.py	/^import tensorflow as tf, numpy as np$/;"	kind:namespace	line:4
+tf	../baselines/trpo_mpi/nosharing_cnn_policy.py	/^import tensorflow as tf$/;"	kind:namespace	line:3
+tf	../baselines/trpo_mpi/trpo_mpi.py	/^import tensorflow as tf, numpy as np$/;"	kind:namespace	line:4
+tf_util.py	../baselines/common/tf_util.py	1;"	kind:file	line:1
+time	../baselines/a2c/a2c.py	/^import time$/;"	kind:namespace	line:3
+time	../baselines/acktr/acktr_disc.py	/^import time$/;"	kind:namespace	line:2
+time	../baselines/bench/monitor.py	/^import time$/;"	kind:namespace	line:6
+time	../baselines/common/console_util.py	/^import time$/;"	kind:namespace	line:4
+time	../baselines/common/misc_util.py	/^import time$/;"	kind:namespace	line:7
+time	../baselines/ddpg/main.py	/^import time$/;"	kind:namespace	line:2
+time	../baselines/ddpg/training.py	/^import time$/;"	kind:namespace	line:2
+time	../baselines/ddpg/util.py	/^import time$/;"	kind:namespace	line:1
+time	../baselines/deepq/experiments/atari/train.py	/^import time$/;"	kind:namespace	line:7
+time	../baselines/logger.py	/^import time$/;"	kind:namespace	line:6
+time	../baselines/ppo1/pposgd_simple.py	/^import time$/;"	kind:namespace	line:5
+time	../baselines/trpo_mpi/trpo_mpi.py	/^import time$/;"	kind:namespace	line:5
+timed	../baselines/common/console_util.py	/^def timed(msg):$/;"	kind:function	line:47
+timed	../baselines/trpo_mpi/trpo_mpi.py	/^    def timed(msg):$/;"	kind:function	line:152
+topsorted	../baselines/common/tf_util.py	/^def topsorted(outputs):$/;"	kind:function	line:554
+totalReward	../baselines/deepq/experiments/traci/sarsa_lambda.py	/^    totalReward = 0$/;"	kind:variable	line:42
+traci	../baselines/deepq/experiments/traci/TraciSimpleEnv/TraciSimpleEnv.py	/^import traci$/;"	kind:namespace	line:24
+traci	../baselines/deepq/experiments/traci/runner.py	/^import traci$/;"	kind:namespace	line:42
+traci	../baselines/deepq/experiments/traci/runner.py	/^import traci.constants as tc$/;"	kind:namespace	line:43
+train	../baselines/a2c/a2c.py	/^        def train(obs, states, rewards, masks, actions, values):$/;"	kind:function	line:56
+train	../baselines/a2c/run_atari.py	/^def train(env_id, num_frames, seed, policy, lrschedule, num_cpu):$/;"	kind:function	line:11
+train	../baselines/acktr/acktr_disc.py	/^        def train(obs, states, rewards, masks, actions, values):$/;"	kind:function	line:68
+train	../baselines/acktr/run_atari.py	/^def train(env_id, num_frames, seed, num_cpu):$/;"	kind:function	line:11
+train	../baselines/acktr/run_mujoco.py	/^def train(env_id, num_timesteps, seed):$/;"	kind:function	line:14
+train	../baselines/ddpg/ddpg.py	/^    def train(self):$/;"	kind:member	line:274
+train	../baselines/ddpg/training.py	/^def train(env, nb_epochs, nb_epoch_cycles, render_eval, reward_scale, render, param_noise, actor, critic,$/;"	kind:function	line:16
+train	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^    def train(self, features, actions, rewards, new_features):$/;"	kind:member	line:43
+train	../baselines/ppo1/run_atari.py	/^def train(env_id, num_frames, seed):$/;"	kind:function	line:16
+train	../baselines/ppo1/run_mujoco.py	/^def train(env_id, num_timesteps, seed):$/;"	kind:function	line:9
+train	../baselines/trpo_mpi/run_atari.py	/^def train(env_id, num_frames, seed):$/;"	kind:function	line:16
+train	../baselines/trpo_mpi/run_mujoco.py	/^def train(env_id, num_timesteps, seed):$/;"	kind:function	line:16
+train.py	../baselines/deepq/experiments/atari/train.py	1;"	kind:file	line:1
+train_cartpole.py	../baselines/deepq/experiments/train_cartpole.py	1;"	kind:file	line:1
+train_every	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	/^train_every = 100$/;"	kind:variable	line:76
+train_mountaincar.py	../baselines/deepq/experiments/train_mountaincar.py	1;"	kind:file	line:1
+train_pong.py	../baselines/deepq/experiments/train_pong.py	1;"	kind:file	line:1
+train_traci_linear_sgd.py	../baselines/deepq/experiments/traci/train_traci_linear_sgd.py	1;"	kind:file	line:1
+train_traffic_deep.py	../baselines/deepq/experiments/traci/train_traffic_deep.py	1;"	kind:file	line:1
+trainable_variables	../baselines/common/tf_util.py	/^    def trainable_variables(self):$/;"	kind:member	line:523
+trainable_vars	../baselines/ddpg/models.py	/^    def trainable_vars(self):$/;"	kind:member	line:14
+training	../baselines/ddpg/main.py	/^import baselines.ddpg.training as training$/;"	kind:namespace	line:10
+training.py	../baselines/ddpg/training.py	1;"	kind:file	line:1
+traj_segment_generator	../baselines/ppo1/pposgd_simple.py	/^def traj_segment_generator(pi, env, horizon, stochastic):$/;"	kind:function	line:11
+traj_segment_generator	../baselines/trpo_mpi/trpo_mpi.py	/^def traj_segment_generator(pi, env, horizon, stochastic):$/;"	kind:function	line:13
+trpo_mpi	../baselines/trpo_mpi/run_atari.py	/^    from baselines.trpo_mpi import trpo_mpi$/;"	kind:namespace	line:18
+trpo_mpi	../baselines/trpo_mpi/run_mujoco.py	/^from baselines.trpo_mpi import trpo_mpi$/;"	kind:namespace	line:13
+trpo_mpi.py	../baselines/trpo_mpi/trpo_mpi.py	1;"	kind:file	line:1
+unflatten_vector	../baselines/common/math_util.py	/^def unflatten_vector(vec, shapes):$/;"	kind:function	line:53
+unpack	../baselines/common/misc_util.py	/^def unpack(seq, sizes):$/;"	kind:function	line:17
+unpack_archive	../baselines/common/azure_utils.py	/^from shutil import unpack_archive$/;"	kind:namespace	line:10
+update	../baselines/common/misc_util.py	/^    def update(self, new_val):$/;"	kind:member	line:139
+update	../baselines/common/mpi_adam.py	/^    def update(self, localg, stepsize):$/;"	kind:member	line:21
+update	../baselines/common/mpi_running_mean_std.py	/^    def update(self, x):$/;"	kind:member	line:37
+updateAccumStats	../baselines/acktr/kfac.py	/^        def updateAccumStats():$/;"	kind:function	line:442
+updateOptimOp	../baselines/acktr/kfac.py	/^                        def updateOptimOp():$/;"	kind:function	line:882
+updateRunningAvgStats	../baselines/acktr/kfac.py	/^        def updateRunningAvgStats(statsUpdates, fac_iter=1):$/;"	kind:function	line:448
+update_obs	../baselines/a2c/a2c.py	/^    def update_obs(self, obs):$/;"	kind:member	line:108
+update_obs	../baselines/acktr/acktr_disc.py	/^    def update_obs(self, obs):$/;"	kind:member	line:123
+update_priorities	../baselines/deepq/replay_buffer.py	/^    def update_priorities(self, idxes, priorities):$/;"	kind:member	line:168
+update_scale	../baselines/deepq/build_graph.py	/^        def update_scale():$/;"	kind:function	line:248
+update_target_net	../baselines/ddpg/ddpg.py	/^    def update_target_net(self):$/;"	kind:member	line:325
+url	../setup.py	/^      url='https:\/\/github.com\/openai\/baselines',$/;"	kind:variable	line:26
+useful	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+util.py	../baselines/ddpg/util.py	1;"	kind:file	line:1
+utils.py	../baselines/a2c/utils.py	1;"	kind:file	line:1
+utils.py	../baselines/acktr/utils.py	1;"	kind:file	line:1
+utils.py	../baselines/deepq/experiments/traci/utilities/utils.py	1;"	kind:file	line:1
+validate_probtype	../baselines/common/distributions.py	/^def validate_probtype(probtype, pdparam):$/;"	kind:function	line:268
+value	../baselines/a2c/policies.py	/^        def value(ob, *_args, **_kwargs):$/;"	kind:function	line:116
+value	../baselines/a2c/policies.py	/^        def value(ob, state, mask):$/;"	kind:function	line:38
+value	../baselines/a2c/policies.py	/^        def value(ob, state, mask):$/;"	kind:function	line:80
+value	../baselines/a2c/utils.py	/^    def value(self):$/;"	kind:member	line:178
+value	../baselines/acktr/policies.py	/^        def value(ob, *_args, **_kwargs):$/;"	kind:function	line:33
+value	../baselines/acktr/utils.py	/^    def value(self):$/;"	kind:member	line:158
+value	../baselines/common/schedules.py	/^    def value(self, t):$/;"	kind:member	line:13
+value	../baselines/common/schedules.py	/^    def value(self, t):$/;"	kind:member	line:29
+value	../baselines/common/schedules.py	/^    def value(self, t):$/;"	kind:member	line:64
+value	../baselines/common/schedules.py	/^    def value(self, t):$/;"	kind:member	line:96
+value_functions.py	../baselines/acktr/value_functions.py	1;"	kind:file	line:1
+value_steps	../baselines/a2c/utils.py	/^    def value_steps(self, steps):$/;"	kind:member	line:183
+value_steps	../baselines/acktr/utils.py	/^    def value_steps(self, steps):$/;"	kind:member	line:163
+var	../baselines/acktr/running_stat.py	/^    def var(self):$/;"	kind:member	line:26
+var	../baselines/common/tf_util.py	/^def var(x, axis=None, keepdims=False):$/;"	kind:function	line:27
+var_shape	../baselines/common/tf_util.py	/^def var_shape(x):$/;"	kind:function	line:595
+variables	../baselines/common/tf_util.py	/^    def variables(self):$/;"	kind:member	line:528
+vars	../baselines/ddpg/models.py	/^    def vars(self):$/;"	kind:member	line:10
+version	../setup.py	/^      version="0.1.4")$/;"	kind:variable	line:28
+very	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+wang2015_eval	../baselines/deepq/experiments/atari/wang2015_eval.py	/^def wang2015_eval(game_name, act, stochastic):$/;"	kind:function	line:32
+wang2015_eval.py	../baselines/deepq/experiments/atari/wang2015_eval.py	1;"	kind:file	line:1
+warmKFACstart	../baselines/acktr/kfac.py	/^        def warmKFACstart():$/;"	kind:function	line:917
+warn	../baselines/logger.py	/^def warn(*args):$/;"	kind:function	line:188
+white	../baselines/common/console_util.py	/^    white=37,$/;"	kind:variable	line:31
+wndense	../baselines/common/tf_util.py	/^def wndense(x, size, name, init_scale=1.0):$/;"	kind:function	line:335
+worker	../baselines/common/vec_env/subproc_vec_env.py	/^def worker(remote, env_fn_wrapper):$/;"	kind:function	line:5
+wrap_deepmind	../baselines/a2c/a2c.py	/^from baselines.common.atari_wrappers import wrap_deepmind$/;"	kind:namespace	line:12
+wrap_deepmind	../baselines/a2c/run_atari.py	/^from baselines.common.atari_wrappers import wrap_deepmind$/;"	kind:namespace	line:8
+wrap_deepmind	../baselines/acktr/run_atari.py	/^from baselines.common.atari_wrappers import wrap_deepmind$/;"	kind:namespace	line:8
+wrap_deepmind	../baselines/common/atari_wrappers.py	/^def wrap_deepmind(env, episode_life=True, clip_rewards=True):$/;"	kind:function	line:158
+wrap_deepmind	../baselines/ppo1/run_atari.py	/^    from baselines.common.atari_wrappers import (wrap_deepmind, FrameStack)$/;"	kind:namespace	line:11
+wrap_deepmind	../baselines/trpo_mpi/run_atari.py	/^    from baselines.common.atari_wrappers import (wrap_deepmind, FrameStack)$/;"	kind:namespace	line:11
+wrap_dqn	../baselines/common/atari_wrappers_deprecated.py	/^def wrap_dqn(env):$/;"	kind:function	line:209
+wrap_dqn	../baselines/deepq/experiments/atari/enjoy.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:14
+wrap_dqn	../baselines/deepq/experiments/atari/train.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:27
+wrap_dqn	../baselines/deepq/experiments/atari/wang2015_eval.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn$/;"	kind:namespace	line:10
+wrap_dqn	../baselines/deepq/experiments/enjoy_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+wrap_dqn	../baselines/deepq/experiments/train_pong.py	/^from baselines.common.atari_wrappers_deprecated import wrap_dqn, ScaledFloatFrame$/;"	kind:namespace	line:4
+wrap_train	../baselines/ppo1/run_atari.py	/^def wrap_train(env):$/;"	kind:function	line:10
+wrap_train	../baselines/trpo_mpi/run_atari.py	/^def wrap_train(env):$/;"	kind:function	line:10
+wrapper	../baselines/common/tf_util.py	/^    def wrapper(f):$/;"	kind:function	line:535
+writekvs	../baselines/bench/monitor.py	/^    def writekvs(self, kvs):$/;"	kind:member	line:105
+writekvs	../baselines/logger.py	/^    def writekvs(self, kvs):$/;"	kind:member	line:110
+writekvs	../baselines/logger.py	/^    def writekvs(self, kvs):$/;"	kind:member	line:20
+writekvs	../baselines/logger.py	/^    def writekvs(self, kvs):$/;"	kind:member	line:40
+writekvs	../baselines/logger.py	/^    def writekvs(self, kvs):$/;"	kind:member	line:83
+writeseq	../baselines/logger.py	/^    def writeseq(self, args):$/;"	kind:member	line:26
+writeseq	../baselines/logger.py	/^    def writeseq(self, args):$/;"	kind:member	line:73
+writing	../baselines/bench/monitor.py	/^    import ujson as json # Not necessary for monitor writing, but very useful for monitor loading$/;"	kind:namespace	line:10
+yellow	../baselines/common/console_util.py	/^    yellow=33,$/;"	kind:variable	line:27
+zipfile	../baselines/common/azure_utils.py	/^import zipfile$/;"	kind:namespace	line:3
+zipfile	../baselines/common/misc_util.py	/^import zipfile$/;"	kind:namespace	line:8
+zipfile	../baselines/deepq/simple.py	/^import zipfile$/;"	kind:namespace	line:6
+zipsame	../baselines/common/misc_util.py	/^def zipsame(*seqs):$/;"	kind:function	line:11
+zipsame	../baselines/common/mpi_moments.py	/^from baselines.common import zipsame$/;"	kind:namespace	line:3
+zipsame	../baselines/ppo1/pposgd_simple.py	/^from baselines.common import Dataset, explained_variance, fmt_row, zipsame$/;"	kind:namespace	line:1
+zipsame	../baselines/trpo_mpi/trpo_mpi.py	/^from baselines.common import explained_variance, zipsame, dataset$/;"	kind:namespace	line:1

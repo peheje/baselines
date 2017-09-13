@@ -59,4 +59,14 @@ baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE9_0_17\.txt
 
 baselines/deepq/experiments/traci/scenarios/2_cross/e1Detector_-gneE9_0_21\.txt
 
+baselines/deepq/experiments/traci/scenarios/2_cross/cross\.out
+
+baselines/deepq/experiments/traci/scenarios/2_cross/cross\.rou\.xml
+
+baselines/deepq/experiments/traci/agents/tripinfo\.xml
+
+baselines/deepq/experiments/traci/scenarios/1_cross/cross\.out
+
+baselines/deepq/experiments/traci/scenarios/1_cross/cross\.rou\.xml
+
 baselines/deepq/experiments/traci/traffic_model\.pkl

@@ -2,10 +2,11 @@
 import random
 
 import gym
-import TraciSimpleEnv.TraciSimpleEnv
+import Traci_1_cross_env.Traci_1_cross_env
 import numpy as np
 from collections import deque
 from sklearn.linear_model import SGDRegressor
+from baselines import logger, logger_utils
 
 
 class LinearQFunction:
@@ -58,8 +59,13 @@ class LinearQFunction:
                 self.models[action].partial_fit(x, y)
 
 
-env = gym.make('Traci_2_cross_env-v0')
+env = gym.make('Traci_1_cross_env-v0')
 print("made gym")
+
+print_timestep_freq = 100
+logger.reset()
+logger_path = logger_utils.path_with_date("/tmp/Traci_1_cross_env-v0", "Traci_1_cross_env-v0")
+logger.configure(logger_path, ["tensorboard", "stdout"])
 
 gamma = 0.99
 n_actions = env.action_space.n

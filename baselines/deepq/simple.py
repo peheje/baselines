@@ -11,6 +11,7 @@ from baselines import logger,logger_utils
 from baselines.common.schedules import LinearSchedule
 from baselines import deepq
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
+from collections import deque
 
 
 class ActWrapper(object):
@@ -208,6 +209,9 @@ def learn(env,
     U.initialize()
     update_target()
 
+    # Traci keep track of mean reward inside an episode (bc. long episodes)
+    mean_100timestep_reward = deque([], maxlen=100)
+
     episode_rewards = [0.0]
     saved_mean_reward = None
     obs = env.reset()
@@ -240,6 +244,8 @@ def learn(env,
             # Store transition in the replay buffer.
             replay_buffer.add(obs, action, rew, new_obs, float(done))
             obs = new_obs
+
+            mean_100timestep_reward.append(rew)
 
             episode_rewards[-1] += rew
             if done:
@@ -277,6 +283,7 @@ def learn(env,
             if t % print_timestep_freq == 0:
                 logger.record_tabular("steps_timestep", t)
                 logger.record_tabular("reward_timestep", rew)
+                logger.record_tabular("mean 100 timestep reward", np.mean(mean_100timestep_reward))
                 logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
                 logger.dump_tabular()
 
