@@ -1,7 +1,7 @@
 import gym
 import numpy as np
 from baselines import deepq
-import TraciSimpleEnv.TraciSimpleEnv
+import Traci_1_cross_env.Traci_1_cross_env
 from baselines import logger, logger_utils
 
 
@@ -29,7 +29,7 @@ def main():
     logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
 
-    env = gym.make('Traci_2_cross_env-v0')
+    env = gym.make('Traci_1_cross_env-v0')
     s = env.reset()
     a = 0
 
