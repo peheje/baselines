@@ -6,6 +6,7 @@ import TraciSimpleEnv.TraciSimpleEnv
 import numpy as np
 from collections import deque
 from sklearn.linear_model import SGDRegressor
+from baselines import logger, logger_utils
 
 
 class LinearQFunction:
@@ -60,6 +61,11 @@ class LinearQFunction:
 
 env = gym.make('Traci_2_cross_env-v0')
 print("made gym")
+
+print_timestep_freq = 100
+logger.reset()
+logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
+logger.configure(logger_path, ["tensorboard", "stdout"])
 
 gamma = 0.99
 n_actions = env.action_space.n
