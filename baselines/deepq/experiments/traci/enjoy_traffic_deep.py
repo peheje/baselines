@@ -1,7 +1,7 @@
 import gym
 
 from baselines import deepq
-import TraciSimpleEnv.TraciSimpleEnv
+import Traci_2_cross_env.Traci_2_cross_env
 
 def main():
     env = gym.make('Traci_2_cross_env-v0')
