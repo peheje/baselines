@@ -26,7 +26,7 @@ def longest_queue_action(state, old_action):
 def main():
     print_timestep_freq = 100
     logger.reset()
-    logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
+    logger_path = logger_utils.path_with_date("/tmp/Traci_1_cross_env-v0", "Traci_1_cross_env-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
 
     env = gym.make('Traci_1_cross_env-v0')

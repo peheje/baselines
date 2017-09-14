@@ -93,6 +93,9 @@ for episode in range(1, n_episodes):
     s = np.copy(sn)
     epsilon *= epsilon_decay
 
+    if done:
+        env.reset()
+
     if episode % print_every == 0:
         print("action taken {}".format(a))
         print("epsilon {}".format(epsilon))
