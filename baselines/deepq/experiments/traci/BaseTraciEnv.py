@@ -66,9 +66,11 @@ class BaseTraciEnv(gym.Env):
         else:
             return 0
 
-    def reward_total_in_queue(self, state):
-        raise NotImplementedError("state contains traffic lights, please implement this function")
-        return -sum(state)
+    def reward_total_in_queue(self):
+        num_waiting_cars = 0
+        for counter in self.unique_counters:
+            num_waiting_cars += counter.get_count()
+        return -num_waiting_cars
 
     @staticmethod
     def reward_squared_wait_sum():
