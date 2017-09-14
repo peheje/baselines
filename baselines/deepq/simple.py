@@ -272,18 +272,21 @@ def learn(env,
 
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
             num_episodes = len(episode_rewards)
-            if done and print_freq is not None and len(episode_rewards) % print_freq == 0:
-                logger.record_tabular("steps", t)
-                logger.record_tabular("episodes", num_episodes)
-                logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
-                logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
-                logger.dump_tabular()
+
+            #Most of this logging is done elsewhere
+
+            #if done and print_freq is not None and len(episode_rewards) % print_freq == 0:
+                #logger.record_tabular("steps", t)
+                #logger.record_tabular("episodes", num_episodes)
+                #logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
+                #logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
+                #logger.dump_tabular()
 
             # Print every timestep for traci (resets are sparse)
             if t % print_timestep_freq == 0:
-                logger.record_tabular("steps_timestep", t)
-                logger.record_tabular("reward_timestep", rew)
-                logger.record_tabular("mean 100 timestep reward", np.mean(mean_100timestep_reward))
+                #logger.record_tabular("steps_timestep", t)
+                #logger.record_tabular("reward_timestep", rew)
+                #logger.record_tabular("mean 100 timestep reward", np.mean(mean_100timestep_reward))
                 logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
                 logger.dump_tabular()
 

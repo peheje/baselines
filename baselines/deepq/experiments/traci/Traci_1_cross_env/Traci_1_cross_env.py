@@ -6,7 +6,7 @@ from threading import Thread
 import gym
 import numpy as np
 from BaseTraciEnv import BaseTraciEnv
-from experiments.traci.utilities.UniqueCounter import UniqueCounter
+from utilities.UniqueCounter import UniqueCounter
 from gym import spaces
 from gym.utils import seeding
 
@@ -71,6 +71,7 @@ class Traci_1_cross_env(BaseTraciEnv):
              "--quit-on-end"])
 
     def __init__(self):
+        BaseTraciEnv.__init__(self)
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
         self.num_state_scalars = 5
@@ -154,6 +155,7 @@ class Traci_1_cross_env(BaseTraciEnv):
         # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
+            BaseTraciEnv.reset()
             self.restart()
         return np.zeros(self.num_state_scalars)
 

@@ -14,18 +14,18 @@ def callback(lcl, glb):
 
 def main():
 
-    env = gym.make('Traci_1_cross_env-v0')
-    env.render()
+    env = gym.make('Traci_2_cross_env-v0')
+    #env.render()
 
     logger.reset()
-    logger_path = logger_utils.path_with_date("/tmp/Traci_1_cross_env-v0", "Traci_1_cross_env-v0")
+    logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
     model = deepq.models.mlp([64])
     act = deepq.learn(
         env,
         q_func=model,
         lr=1e-3,
-        max_timesteps=1000000,
+        max_timesteps=100000,
         buffer_size=50000,
         exploration_fraction=0.1,
         gamma=0.9,

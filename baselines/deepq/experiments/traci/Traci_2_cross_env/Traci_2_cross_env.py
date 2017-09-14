@@ -29,7 +29,7 @@ class Traci_2_cross_env(BaseTraciEnv):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 3000  # number of time steps
+        N = 100  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10
@@ -86,6 +86,9 @@ class Traci_2_cross_env(BaseTraciEnv):
              "--quit-on-end"])
 
     def __init__(self):
+        #Start by calling parent init
+        BaseTraciEnv.__init__(self)
+
         self.route_file_generated = False
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
@@ -178,12 +181,15 @@ class Traci_2_cross_env(BaseTraciEnv):
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
+        self.do_logging(reward, done)
+
         return np.hstack(self.state), reward, done, {}
 
     def _reset(self):
         # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
+            BaseTraciEnv._reset(self)
             self.restart()
         return np.hstack(self.state)
 
