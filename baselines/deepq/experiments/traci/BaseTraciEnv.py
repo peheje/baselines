@@ -33,8 +33,11 @@ class BaseTraciEnv(gym.Env):
         self.timestep=0
         self.episode=0
         self.traffic_light_changes=0
+        self.total_travel_time=0
+        self.departed_car_time={}
     def _reset(self):
         self.traffic_light_changes = 0
+        self.total_travel_time = 0
         #self.timestep = 0
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
@@ -120,11 +123,25 @@ class BaseTraciEnv(gym.Env):
                 self.fully_stopped_cars.add(veh_id)
             else:
                 self.has_driven_cars.add(veh_id)
+    def add_departed_cars(self):
+        vehs=traci.simulation.getDepartedIDList()
+        cur_time=traci.simulation.getCurrentTime()
+        for veh_id in vehs:
+            self.departed_car_time[veh_id]=cur_time
+
+    def add_arrived_cars_travel_time(self):
+        vehs=traci.simulation.getArrivedIDList()
+        cur_time=traci.simulation.getCurrentTime()
+        for veh_id in vehs:
+            self.total_travel_time+=cur_time-self.departed_car_time[veh_id]
+
     def log_end_step(self,reward):
         #Calculate different rewards for step
         emission_reward = self.reward_emission()
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
+        self.add_departed_cars()
+        self.add_arrived_cars_travel_time()
 
         self.episode_rewards[-1]+=reward
         self.step_rewards.append(reward)
@@ -152,6 +169,7 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
         logger.record_tabular("Total number of stopped cars for episode[Episode]", self.fully_stopped_cars.get_count())
+        logger.record_tabular("Total travel time for episode[Episode]", self.total_travel_time)
         #This cant be done here - logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
         logger.dump_tabular()
         self.episode_rewards.append(reward)
@@ -160,3 +178,4 @@ class BaseTraciEnv(gym.Env):
         self.log_end_step(reward)
         if done:
             self.log_end_episode(reward)
+
