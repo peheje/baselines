@@ -28,7 +28,7 @@ class Traci_1_cross_env(BaseTraciEnv):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 1000  # number of time steps
+        N = self.time_steps  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10

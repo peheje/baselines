@@ -29,7 +29,7 @@ class Traci_2_cross_env(BaseTraciEnv):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = 250  # number of time steps
+        N = self.time_steps  # number of time steps
         # demand per second from different directions
         p_w_e = 1 / 10
         p_e_w = 1 / 10
@@ -195,4 +195,5 @@ class Traci_2_cross_env(BaseTraciEnv):
 
     def _render(self, mode='human', close=False):
         self.shouldRender = True
+        self.restart()
         print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")

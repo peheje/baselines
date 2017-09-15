@@ -25,26 +25,31 @@ except ImportError:
 class BaseTraciEnv(gym.Env):
     def __init__(self):
         self.episode_rewards = deque([0.0], maxlen=100)
-        self.step_rewards=deque([], maxlen=100)
-        self.co2_step_rewards=[]
-        self.avg_speed_step_rewards = []
-        self.fully_stopped_cars=UniqueCounter()
-        self.has_driven_cars = UniqueCounter() #Necessary to figure out how many cars have stopped in simulation
-        self.timestep=0
-        self.episode=0
-        self.traffic_light_changes=0
-    def _reset(self):
-        self.traffic_light_changes = 0
-        #self.timestep = 0
+        self.step_rewards = deque([], maxlen=100)
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
-        self.fully_stopped_cars=UniqueCounter()#Reset cars in counter
+        self.fully_stopped_cars = UniqueCounter()
+        self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
+        self.timestep = 0
+        self.episode = 0
+        self.traffic_light_changes = 0
+        self.time_steps = 1000
+
+    def _reset(self):
+        self.traffic_light_changes = 0
+        # self.timestep = 0
+        self.co2_step_rewards = []
+        self.avg_speed_step_rewards = []
+        self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
         pass
 
     def _step(self, action):
         raise NotImplementedError()
         pass
+
+    def configure_traci(self, steps):
+        self.time_steps = steps
 
     @staticmethod
     def reward_total_waiting_vehicles():
@@ -61,7 +66,7 @@ class BaseTraciEnv(gym.Env):
         emissions = []
         for veh_id in vehs:
             emissions.append(traci.vehicle.getCO2Emission(veh_id))
-        if len(vehs)>0:
+        if len(vehs) > 0:
             return -np.mean(emissions)
         else:
             return 0
@@ -86,8 +91,8 @@ class BaseTraciEnv(gym.Env):
         speed_sum = 0
         for veh_id in vehs:
             speed_sum += traci.vehicle.getSpeed(veh_id)
-        if len(vehs)>0:
-            return speed_sum/len(vehs)
+        if len(vehs) > 0:
+            return speed_sum / len(vehs)
         else:
             return 0
 
@@ -97,12 +102,12 @@ class BaseTraciEnv(gym.Env):
         div_floor = action // num_actions
         return [mod_rest, div_floor]
 
-    def set_light_phase(self,light_id, action, cur_phase):
+    def set_light_phase(self, light_id, action, cur_phase):
         # Run action
         if action == 0:
             if cur_phase == 2:
                 traci.trafficlights.setPhase(light_id, 3)
-                self.traffic_light_changes+=1
+                self.traffic_light_changes += 1
             elif cur_phase == 0:
                 traci.trafficlights.setPhase(light_id, 0)
         elif action == 1:
@@ -113,27 +118,29 @@ class BaseTraciEnv(gym.Env):
                 traci.trafficlights.setPhase(light_id, 2)
         else:
             pass  # do nothing
+
     def add_fully_stopped_cars(self):
         vehs = traci.vehicle.getIDList()
         for veh_id in vehs:
-            speed=traci.vehicle.getSpeed(veh_id)
+            speed = traci.vehicle.getSpeed(veh_id)
             # this line can also be used for checking if car has breaklights on (8)stopped=traci.vehicle.getSignals(veh_id)
-            if speed==0 and self.has_driven_cars.contains(veh_id):
+            if speed == 0 and self.has_driven_cars.contains(veh_id):
                 self.fully_stopped_cars.add(veh_id)
             else:
                 self.has_driven_cars.add(veh_id)
-    def log_end_step(self,reward):
-        #Calculate different rewards for step
+
+    def log_end_step(self, reward):
+        # Calculate different rewards for step
         emission_reward = self.reward_emission()
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
 
-        self.episode_rewards[-1]+=reward
+        self.episode_rewards[-1] += reward
         self.step_rewards.append(reward)
         self.co2_step_rewards.append(emission_reward)
         self.avg_speed_step_rewards.append(avg_speed_reward)
         mean_100step_reward = round(np.mean(self.step_rewards), 1)
-        if False: # not logging this atm
+        if False:  # not logging this atm
             logger.record_tabular("Step[Timestep]", self.timestep)
             logger.record_tabular("Reward[Timestep]", reward)
             logger.record_tabular("Mean 100 step reward[Timestep]", mean_100step_reward)
@@ -142,8 +149,9 @@ class BaseTraciEnv(gym.Env):
             # This cant be done here - logger.record_tabular("% time spent exploring[Timestep]", int(100 * exploration.value(t)))
             logger.dump_tabular()
 
-        self.timestep+=1
-    def log_end_episode(self,reward):
+        self.timestep += 1
+
+    def log_end_episode(self, reward):
 
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
         logger.record_tabular("Steps[Episode]", self.timestep)
@@ -154,11 +162,12 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
         logger.record_tabular("Total number of stopped cars for episode[Episode]", self.fully_stopped_cars.get_count())
-        #This cant be done here - logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
+        # This cant be done here - logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
         logger.dump_tabular()
         self.episode_rewards.append(reward)
-        self.episode+=1
-    def do_logging(self,reward,done):
+        self.episode += 1
+
+    def do_logging(self, reward, done):
         self.log_end_step(reward)
         if done:
             self.log_end_episode(reward)

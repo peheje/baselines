@@ -258,6 +258,12 @@ def learn(env,
                 episode_rewards.append(0.0)
                 reset = True
 
+                # Log stuff each episode
+                q_vals = debug["q_values"](obs.__array__().reshape(1, 40))
+                logger.record_tabular("% time spent exploring[Episode]", int(100 * exploration.value(t)))
+                logger.record_tabular("max q[Episode]", np.max(q_vals))
+                logger.record_tabular("avg q[Episode]", np.mean(q_vals))
+
             if t > learning_starts and t % train_freq == 0:
                 # Minimize the error in Bellman's equation on a batch sampled from replay buffer.
                 if prioritized_replay:
@@ -267,6 +273,7 @@ def learn(env,
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
                 td_errors = train(obses_t, actions, rewards, obses_tp1, dones, weights)
+
                 if prioritized_replay:
                     new_priorities = np.abs(td_errors) + prioritized_replay_eps
                     replay_buffer.update_priorities(batch_idxes, new_priorities)
@@ -276,13 +283,6 @@ def learn(env,
                 update_target()
 
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
-
-            # Print every timestep for traci (resets are sparse)
-            # if t % print_timestep_freq == 0:
-            # logger.record_tabular("steps_timestep", t)
-            # logger.record_tabular("reward_timestep", rew)
-            # logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
-            # logger.dump_tabular()
 
             # Checkpointing (does not create save file, but creates a checkpoint if better mean reward)
             if t > learning_starts and t % checkpoint_freq == 0:
