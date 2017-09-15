@@ -70,3 +70,5 @@ baselines/deepq/experiments/traci/scenarios/1_cross/cross\.out
 baselines/deepq/experiments/traci/scenarios/1_cross/cross\.rou\.xml
 
 baselines/deepq/experiments/traci/traffic_model\.pkl
+
+*.pkl

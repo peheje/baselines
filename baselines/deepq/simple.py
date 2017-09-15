@@ -1,17 +1,34 @@
-import numpy as np
 import os
-import dill
+import sys
 import tempfile
-import tensorflow as tf
 import zipfile
+from datetime import datetime
 
 import baselines.common.tf_util as U
-
-from baselines import logger,logger_utils
-from baselines.common.schedules import LinearSchedule
+import dill
+import numpy as np
+import tensorflow as tf
 from baselines import deepq
+from baselines import logger
+from baselines.common.schedules import LinearSchedule
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
-from collections import deque
+
+
+def save_model(path, act_params):
+    """Save model to a pickle located at `path`"""
+    with tempfile.TemporaryDirectory() as td:
+        U.save_state(os.path.join(td, "model"))
+        arc_name = os.path.join(td, "packed.zip")
+        with zipfile.ZipFile(arc_name, 'w') as zipf:
+            for root, dirs, files in os.walk(td):
+                for fname in files:
+                    file_path = os.path.join(root, fname)
+                    if file_path != arc_name:
+                        zipf.write(file_path, os.path.relpath(file_path, td))
+        with open(arc_name, "rb") as f:
+            model_data = f.read()
+    with open(path, "wb") as f:
+        dill.dump((model_data, act_params), f)
 
 
 class ActWrapper(object):
@@ -40,20 +57,7 @@ class ActWrapper(object):
         return self._act(*args, **kwargs)
 
     def save(self, path):
-        """Save model to a pickle located at `path`"""
-        with tempfile.TemporaryDirectory() as td:
-            U.save_state(os.path.join(td, "model"))
-            arc_name = os.path.join(td, "packed.zip")
-            with zipfile.ZipFile(arc_name, 'w') as zipf:
-                for root, dirs, files in os.walk(td):
-                    for fname in files:
-                        file_path = os.path.join(root, fname)
-                        if file_path != arc_name:
-                            zipf.write(file_path, os.path.relpath(file_path, td))
-            with open(arc_name, "rb") as f:
-                model_data = f.read()
-        with open(path, "wb") as f:
-            dill.dump((model_data, self._act_params), f)
+        save_model(path, self._act_params)
 
 
 def load(path, num_cpu=16):
@@ -98,7 +102,8 @@ def learn(env,
           num_cpu=16,
           param_noise=False,
           callback=None,
-          log_path="/tmp/log"):
+          log_path="/tmp/log",
+          model_path=None):
     """Train a deepq model.
 
     Parameters
@@ -200,6 +205,7 @@ def learn(env,
     else:
         replay_buffer = ReplayBuffer(buffer_size)
         beta_schedule = None
+
     # Create the schedule for exploration starting from 1.
     exploration = LinearSchedule(schedule_timesteps=int(exploration_fraction * max_timesteps),
                                  initial_p=1.0,
@@ -209,13 +215,11 @@ def learn(env,
     U.initialize()
     update_target()
 
-    # Traci keep track of mean reward inside an episode (bc. long episodes)
-    mean_100timestep_reward = deque([], maxlen=100)
-
     episode_rewards = [0.0]
-    saved_mean_reward = None
+    saved_mean_reward = -sys.float_info.max
     obs = env.reset()
     reset = True
+    episode = 0
     with tempfile.TemporaryDirectory() as td:
         model_saved = False
         model_file = os.path.join(td, "model")
@@ -234,22 +238,23 @@ def learn(env,
                 # policy is comparable to eps-greedy exploration with eps = exploration.value(t).
                 # See Appendix C.1 in Parameter Space Noise for Exploration, Plappert et al., 2017
                 # for detailed explanation.
-                update_param_noise_threshold = -np.log(1. - exploration.value(t) + exploration.value(t) / float(env.action_space.n))
+                update_param_noise_threshold = -np.log(
+                    1. - exploration.value(t) + exploration.value(t) / float(env.action_space.n))
                 kwargs['reset'] = reset
                 kwargs['update_param_noise_threshold'] = update_param_noise_threshold
                 kwargs['update_param_noise_scale'] = True
             action = act(np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
             reset = False
             new_obs, rew, done, _ = env.step(action)
+
             # Store transition in the replay buffer.
             replay_buffer.add(obs, action, rew, new_obs, float(done))
             obs = new_obs
 
-            mean_100timestep_reward.append(rew)
-
             episode_rewards[-1] += rew
             if done:
                 obs = env.reset()
+                episode += 1
                 episode_rewards.append(0.0)
                 reset = True
 
@@ -271,34 +276,28 @@ def learn(env,
                 update_target()
 
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
-            num_episodes = len(episode_rewards)
-
-            #Most of this logging is done elsewhere
-
-            #if done and print_freq is not None and len(episode_rewards) % print_freq == 0:
-                #logger.record_tabular("steps", t)
-                #logger.record_tabular("episodes", num_episodes)
-                #logger.record_tabular("mean 100 episode reward", mean_100ep_reward)
-                #logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
-                #logger.dump_tabular()
 
             # Print every timestep for traci (resets are sparse)
-            if t % print_timestep_freq == 0:
-                #logger.record_tabular("steps_timestep", t)
-                #logger.record_tabular("reward_timestep", rew)
-                #logger.record_tabular("mean 100 timestep reward", np.mean(mean_100timestep_reward))
-                logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
-                logger.dump_tabular()
+            # if t % print_timestep_freq == 0:
+            # logger.record_tabular("steps_timestep", t)
+            # logger.record_tabular("reward_timestep", rew)
+            # logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
+            # logger.dump_tabular()
 
-            if (checkpoint_freq is not None and t > learning_starts and
-                    num_episodes > 100 and t % checkpoint_freq == 0):
-                if saved_mean_reward is None or mean_100ep_reward > saved_mean_reward:
+            # Checkpointing (does not create save file, but creates a checkpoint if better mean reward)
+            if t > learning_starts and t % checkpoint_freq == 0:
+                if mean_100ep_reward > saved_mean_reward:
                     if print_freq is not None:
-                        logger.log("Saving model due to mean reward increase: {} -> {}".format(
-                                   saved_mean_reward, mean_100ep_reward))
+                        logger.log("Saving model due to mean reward increase: {} -> {}".format(saved_mean_reward,
+                                                                                               mean_100ep_reward))
                     U.save_state(model_file)
+
+                    save_path = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + "-" + model_path
+                    logger.log("Saving model to {}".format(save_path))
+                    save_model(save_path, act_params)
                     model_saved = True
                     saved_mean_reward = mean_100ep_reward
+
         if model_saved:
             if print_freq is not None:
                 logger.log("Restored model with mean reward: {}".format(saved_mean_reward))

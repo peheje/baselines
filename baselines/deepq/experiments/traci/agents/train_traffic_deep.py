@@ -24,16 +24,19 @@ def main():
     act = deepq.learn(
         env,
         q_func=model,
+        callback=None,
         lr=1e-3,
         max_timesteps=100000,
         buffer_size=50000,
+        checkpoint_freq=100,
         exploration_fraction=0.1,
         gamma=0.9,
         exploration_final_eps=0.02,
         print_freq=1,
         print_timestep_freq=100,
-        callback=callback,
-        log_path="/tmp/traci"
+        log_path="/tmp/traci",
+        model_path="traffic_model.pkl",
+        num_cpu=4
     )
     print("Saving model to traffic_model.pkl")
     act.save("traffic_model.pkl")
