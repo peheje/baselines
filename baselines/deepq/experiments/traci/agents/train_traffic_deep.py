@@ -29,7 +29,8 @@ def main():
     # Create environment and initialize
     env = gym.make(log_dir[1])
     env.configure_traci(num_car_chances=1000,
-                        car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
+                        car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+                        reward_func=env.reward_average_speed)
     # env.render()
 
     # Initialize logger
@@ -43,14 +44,14 @@ def main():
         env=env,
         q_func=model,
         lr=1e-3,
-        max_timesteps=100000,
+        max_timesteps=300000,
         buffer_size=50000,
-        exploration_fraction=0.4,
+        exploration_fraction=0.6,
         exploration_final_eps=0.02,
-        train_freq=1,
+        train_freq=100,
         batch_size=32,
         print_freq=1,
-        checkpoint_freq=10000,
+        checkpoint_freq=5000,
         learning_starts=1000,
         gamma=0.9,
         target_network_update_freq=500,

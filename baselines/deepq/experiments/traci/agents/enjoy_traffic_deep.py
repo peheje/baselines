@@ -1,3 +1,10 @@
+import os, sys
+if 'SUMO_HOME' in os.environ:
+    tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(tools)
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
+
 import gym
 
 from baselines import deepq
@@ -5,8 +12,10 @@ import Traci_2_cross_env.Traci_2_cross_env
 
 def main():
     env = gym.make('Traci_2_cross_env-v0')
-    act = deepq.load("2017-09-15_16-11-30-traffic_model.pkl")
-    env.configure_traci(steps=10000)
+    act = deepq.load("/home/peter/Desktop/2017-09-18_15-40-58/model-2017-09-18_16-24-20.pkl")
+    env.configure_traci(num_car_chances=10000,
+                        car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+                        reward_func=env.reward_total_in_queue)
     env.render()
 
     while True:

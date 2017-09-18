@@ -37,10 +37,12 @@ class BaseTraciEnv(gym.Env):
         # configure_traci() must be called, leave uninitialized here
         self.num_car_chances = None
         self.car_props = None
+        self.reward_func = None
 
-    def configure_traci(self, num_car_chances, car_props):
+    def configure_traci(self, num_car_chances, car_props, reward_func):
         self.num_car_chances = num_car_chances
         self.car_props = car_props
+        self.reward_func = reward_func
         self.restart()
 
     def _reset(self):

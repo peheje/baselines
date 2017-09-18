@@ -174,7 +174,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         self.state.append(cur_state)
 
         # Build reward
-        reward = self.reward_total_waiting_vehicles()
+        reward = self.reward_func()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
