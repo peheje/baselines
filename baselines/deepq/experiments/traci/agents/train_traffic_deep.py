@@ -28,7 +28,8 @@ def main():
 
     # Create environment and initialize
     env = gym.make(log_dir[1])
-    # env.configure_traci(steps=500)
+    env.configure_traci(num_car_chances=1000,
+                        car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1])
     # env.render()
 
     # Initialize logger
