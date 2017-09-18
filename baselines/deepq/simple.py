@@ -89,7 +89,6 @@ def learn(env,
           train_freq=1,
           batch_size=32,
           print_freq=1,
-          print_timestep_freq=100,
           checkpoint_freq=10000,
           learning_starts=1000,
           gamma=1.0,
@@ -102,7 +101,6 @@ def learn(env,
           num_cpu=16,
           param_noise=False,
           callback=None,
-          log_path="/tmp/log",
           model_path=None):
     """Train a deepq model.
 

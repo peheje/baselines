@@ -49,7 +49,6 @@ def main():
         train_freq=1,
         batch_size=32,
         print_freq=1,
-        print_timestep_freq=100,
         checkpoint_freq=10000,
         learning_starts=1000,
         gamma=0.9,
@@ -62,8 +61,7 @@ def main():
         num_cpu=4,
         param_noise=False,
         callback=None,
-        log_path="/tmp/traci",
-        model_path="traffic_model.pkl"
+        model_path=log_dir[1] + ".pkl"
     )
     print("Saving model to {}.pkl".format(log_dir[1]))
     act.save(log_dir[1])
