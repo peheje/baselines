@@ -290,7 +290,7 @@ def learn(env,
                                                                                                mean_100ep_reward))
                     U.save_state(model_file)
 
-                    save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+                    save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".pkl"
                     logger.log("Saving model to {}".format(save_path))
                     save_model(save_path, act_params)
                     model_saved = True
