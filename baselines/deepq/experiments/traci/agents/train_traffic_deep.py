@@ -1,4 +1,6 @@
 import os, sys
+from shutil import copyfile
+
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
     sys.path.append(tools)
@@ -18,36 +20,53 @@ def callback(lcl, glb):
     is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
     return is_solved
 
+
 def main():
+    # Setup path of logging, name of environment and save the current arguments (this script)
+    log_dir = ["/tmp", "Traci_2_cross_env-v0"]
+    logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
 
-    env = gym.make('Traci_2_cross_env-v0')
-    env.configure_traci(steps=500)
-    #env.render()
+    # Create environment and initialize
+    env = gym.make(log_dir[1])
+    # env.configure_traci(steps=500)
+    # env.render()
 
+    # Initialize logger
     logger.reset()
-    logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")
     logger.configure(logger_path, ["tensorboard", "stdout"])
+    copyfile(__file__, logger_path + "/params.txt")
+
+    # Create the training model
     model = deepq.models.mlp([64])
     act = deepq.learn(
-        env,
+        env=env,
         q_func=model,
-        callback=None,
         lr=1e-3,
         max_timesteps=100000,
         buffer_size=50000,
-        checkpoint_freq=10000,
         exploration_fraction=0.4,
-        gamma=0.9,
         exploration_final_eps=0.02,
+        train_freq=1,
+        batch_size=32,
         print_freq=1,
         print_timestep_freq=100,
-        log_path="/tmp/traci",
-        model_path="traffic_model.pkl",
+        checkpoint_freq=10000,
+        learning_starts=1000,
+        gamma=0.9,
+        target_network_update_freq=500,
+        prioritized_replay=False,
+        prioritized_replay_alpha=0.6,
+        prioritized_replay_beta0=0.4,
+        prioritized_replay_beta_iters=None,
+        prioritized_replay_eps=1e-6,
         num_cpu=4,
-        prioritized_replay=True
+        param_noise=False,
+        callback=None,
+        log_path="/tmp/traci",
+        model_path="traffic_model.pkl"
     )
-    print("Saving model to traffic_model.pkl")
-    act.save("traffic_model.pkl")
+    print("Saving model to {}.pkl".format(log_dir[1]))
+    act.save(log_dir[1])
 
 
 if __name__ == '__main__':
