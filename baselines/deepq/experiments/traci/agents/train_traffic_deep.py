@@ -61,7 +61,7 @@ def main():
         num_cpu=4,
         param_noise=False,
         callback=None,
-        model_path=log_dir[1] + ".pkl"
+        model_path=logger_path
     )
     print("Saving model to {}.pkl".format(log_dir[1]))
     act.save(log_dir[1])

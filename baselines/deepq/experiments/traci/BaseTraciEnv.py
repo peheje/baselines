@@ -33,7 +33,7 @@ class BaseTraciEnv(gym.Env):
         self.timestep = 0
         self.episode = 0
         self.traffic_light_changes = 0
-        self.time_steps = 100
+        self.time_steps = 250
 
     def _reset(self):
         self.traffic_light_changes = 0
