@@ -1,0 +1,11 @@
+<additionals>
+<entryExitDetector id="ee1" freq="100" file="ee1.out.xml">
+      <detEntry lane="<LANE_ID1>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detEntry lane="<LANE_ID2>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detExit lane="<LANE_ID1>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+      <detExit lane="<LANE_ID3>" pos="<POSITION_ON_LANE>" friendlyPos="<BOOL>"/>
+
+      ... further entries ...
+
+   </entryExitDetector>
+</additionals>
