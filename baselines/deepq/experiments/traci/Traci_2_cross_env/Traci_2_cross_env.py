@@ -3,7 +3,7 @@ import os
 import sys
 from collections import deque
 from threading import Thread
-
+import tempfile
 import gym
 import numpy as np
 from BaseTraciEnv import BaseTraciEnv
@@ -37,7 +37,8 @@ class Traci_2_cross_env(BaseTraciEnv):
         p_s_n_a = self.car_props[3]
         p_n_s_b = self.car_props[4]
         p_s_n_b = self.car_props[5]
-        with open("scenarios/2_cross/cross.rou.xml", "w") as routes:
+        with tempfile.NamedTemporaryFile(mode="w",delete=False) as routes:
+            self.route_file_name=routes.name
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -78,18 +79,15 @@ class Traci_2_cross_env(BaseTraciEnv):
                         file=routes)
                     vehNr += 1
             print("</routes>", file=routes)
-        self.route_file_generated = True
 
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/2_cross/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
-             "--quit-on-end"])
+            [self.sumo_binary, "-c", "scenarios/2_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name, "--start",
+             "--quit-on-end","--route-files",self.route_file_name])
 
     def __init__(self):
         #Start by calling parent init
         BaseTraciEnv.__init__(self)
-
-        self.route_file_generated = False
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
         self.num_actions = 9
@@ -101,6 +99,8 @@ class Traci_2_cross_env(BaseTraciEnv):
         self.sumo_binary = None
         self.state = []
         self.unique_counters = []
+
+
 
     def restart(self):
         self.generate_routefile()

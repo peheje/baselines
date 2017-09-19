@@ -1,6 +1,7 @@
 import logging
 import os
 import sys
+import tempfile
 from threading import Thread
 
 import gym
@@ -34,7 +35,8 @@ class Traci_1_cross_env(BaseTraciEnv):
         p_e_w = 1 / 10
         p_n_s = 1 / 10
         p_s_n = 1 / 10
-        with open("scenarios/1_cross/cross.rou.xml", "w") as routes:
+        with tempfile.NamedTemporaryFile(mode="w",delete=False) as routes:
+            self.route_file_name=routes.name
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
             <vType id="typeNS" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -67,8 +69,8 @@ class Traci_1_cross_env(BaseTraciEnv):
 
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/1_cross/cross.sumocfg", "--tripinfo-output", "tripinfo.xml", "--start",
-             "--quit-on-end"])
+            [self.sumo_binary, "-c", "scenarios/1_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name, "--start",
+              "--quit-on-end","--route-files",self.route_file_name])
 
     def __init__(self):
         BaseTraciEnv.__init__(self)
