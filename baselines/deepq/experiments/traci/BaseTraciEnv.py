@@ -1,12 +1,14 @@
 import sys
 import os
 from collections import deque
+import xml.etree.ElementTree
 
 import gym
 
 import traci
 import numpy as np
 from baselines import logger
+import time
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 from utilities.UniqueCounter import UniqueCounter
@@ -28,6 +30,8 @@ class BaseTraciEnv(gym.Env):
         self.step_rewards = deque([], maxlen=100)
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
+        self.total_time_loss=0
+        self.total_travel_time=0
         self.fully_stopped_cars = UniqueCounter()
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
         self.timestep = 0
@@ -47,7 +51,9 @@ class BaseTraciEnv(gym.Env):
 
     def _reset(self):
         self.traffic_light_changes = 0
-        # self.timestep = 0
+        self.total_travel_time = 0
+        self.total_time_loss=0
+        #self.timestep = 0
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
         self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
@@ -133,14 +139,14 @@ class BaseTraciEnv(gym.Env):
         vehs = traci.vehicle.getIDList()
         for veh_id in vehs:
             speed = traci.vehicle.getSpeed(veh_id)
-            # this line can also be used for checking if car has breaklights on (8)stopped=traci.vehicle.getSignals(veh_id)
             if speed == 0 and self.has_driven_cars.contains(veh_id):
                 self.fully_stopped_cars.add(veh_id)
             else:
                 self.has_driven_cars.add(veh_id)
 
-    def log_end_step(self, reward):
-        # Calculate different rewards for step
+    def log_end_step(self,reward):
+        #print("Logging end step: ",self.timestep)
+        #Calculate different rewards for step
         emission_reward = self.reward_emission()
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
@@ -163,6 +169,23 @@ class BaseTraciEnv(gym.Env):
 
     def log_end_episode(self, reward):
 
+        #Read tripinfo file
+        retry=True
+        while retry:
+            try:
+                e = xml.etree.ElementTree.parse('tripinfo.xml').getroot()
+                for tripinfo in e.findall('tripinfo'):
+                    self.total_travel_time+= float(tripinfo.get('duration'))
+                    self.total_time_loss+= float(tripinfo.get('timeLoss'))
+                retry=False
+                logger.record_tabular("Total travel time for episode[Episode]", self.total_travel_time)
+                logger.record_tabular("Total time loss for episode[Episode]", self.total_time_loss)
+            except xml.etree.ElementTree.ParseError as err:
+                print("Couldn't read xml, skipping logging this iteration")
+                retry=False
+
+
+
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
         logger.record_tabular("Steps[Episode]", self.timestep)
         logger.record_tabular("Episodes[Episode]", self.episode)
@@ -172,7 +195,6 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
         logger.record_tabular("Total number of stopped cars for episode[Episode]", self.fully_stopped_cars.get_count())
-        # This cant be done here - logger.record_tabular("% time spent exploring", int(100 * exploration.value(t)))
         logger.dump_tabular()
         self.episode_rewards.append(reward)
         self.episode += 1
