@@ -93,6 +93,7 @@ class Traci_1_cross_env(BaseTraciEnv):
             self.sumo_binary = checkBinary('sumo-gui')
         else:
             self.sumo_binary = checkBinary('sumo')
+
         Thread(target=self.__traci_start__())
 
         high = np.array([self.max_cars_in_queue, self.max_cars_in_queue,
@@ -148,6 +149,7 @@ class Traci_1_cross_env(BaseTraciEnv):
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
+        self.log_end_step(reward)
 
         return np.array(self.state), reward, done, {}
 
@@ -155,6 +157,7 @@ class Traci_1_cross_env(BaseTraciEnv):
         # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
+            self.log_end_episode(0)
             BaseTraciEnv.reset()
             self.restart()
         return np.zeros(self.num_state_scalars)

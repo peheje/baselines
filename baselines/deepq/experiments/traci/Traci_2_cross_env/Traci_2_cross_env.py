@@ -110,6 +110,10 @@ class Traci_2_cross_env(BaseTraciEnv):
             self.sumo_binary = checkBinary('sumo-gui')
         else:
             self.sumo_binary = checkBinary('sumo')
+        try:
+            traci.close(wait=True)
+        except:
+            pass
         Thread(target=self.__traci_start__())
 
         self.action_space = spaces.Discrete(self.num_actions)
@@ -181,14 +185,15 @@ class Traci_2_cross_env(BaseTraciEnv):
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1
 
-        self.do_logging(reward, done)
+        self.log_end_step(reward)
 
         return np.hstack(self.state), reward, done, {}
 
     def _reset(self):
         # Check if actually done, might be initial reset call
         if traci.simulation.getMinExpectedNumber() < 1:
-            traci.close(wait=False)
+            traci.close(wait=True) # Wait for tripinfo to be written
+            self.log_end_episode(0)
             BaseTraciEnv._reset(self)
             self.restart()
         return np.hstack(self.state)
@@ -196,4 +201,4 @@ class Traci_2_cross_env(BaseTraciEnv):
     def _render(self, mode='human', close=False):
         self.shouldRender = True
         self.restart()
-        print("Render not implemented. Set sumo_binary = checkBinary('sumo-gui')")
+        print("Render not implemented! Set sumo_binary = checkBinary('sumo-gui')")

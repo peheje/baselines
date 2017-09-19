@@ -14,8 +14,7 @@ def callback(lcl, glb):
 def main():
 
     env = gym.make('Traci_2_cross_env-v0')
-    env.configure_traci(steps=500)
-    #env.render()
+    env.configure_traci(steps=1000)
 
     logger.reset()
     logger_path = logger_utils.path_with_date("/tmp/Traci_2_cross_env-v0", "Traci_2_cross_env-v0")

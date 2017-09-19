@@ -5,7 +5,7 @@ import Traci_2_cross_env.Traci_2_cross_env
 
 def main():
     env = gym.make('Traci_2_cross_env-v0')
-    act = deepq.load("2017-09-15_16-11-30-traffic_model.pkl")
+    act = deepq.load("2017-09-18_17-49-39-traffic_model.pkl")
     env.configure_traci(steps=10000)
     env.render()
 
