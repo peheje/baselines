@@ -98,8 +98,8 @@ class BaseTraciEnv(gym.Env):
         vehs = traci.vehicle.getIDList()
         wait_sum = 0
         for veh_id in vehs:
-            wait_sum += traci.vehicle.getWaitingTime(veh_id)
-        return -np.mean(np.square(wait_sum))
+            wait_sum += np.square(traci.vehicle.getWaitingTime(veh_id))
+        return -np.mean(wait_sum)
 
     @staticmethod
     def reward_average_speed():
