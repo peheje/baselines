@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 19 15:17:00 2017 by Netedit Version 0.30.0
+<!-- generated on Tue Sep 19 16:02:24 2017 by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="/Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/hasle_randers.net.xml"/>
+        <sumo-net-file value="hasle_randers.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/hasle_randers.net.xml"/>
+        <output-file value="hasle_randers.net.xml"/>
     </output>
 
     <processing>
@@ -37,8 +37,14 @@
         <lane id=":hr_junction_2_1" index="1" speed="13.89" length="36.08" shape="-804.95,817.95 -804.43,806.14 -803.30,796.99 -802.17,789.34 -801.65,782.05"/>
     </edge>
     <edge id=":hr_junction_4" function="internal">
-        <lane id=":hr_junction_4_0" index="0" speed="13.89" length="30.39" shape="-801.65,817.95 -800.63,807.93 -797.57,800.78 -792.48,796.48 -785.35,795.05"/>
-        <lane id=":hr_junction_4_1" index="1" speed="13.89" length="30.39" shape="-801.65,817.95 -800.63,809.38 -797.57,803.25 -792.48,799.58 -785.35,798.35"/>
+        <lane id=":hr_junction_4_0" index="0" speed="13.89" length="13.58" shape="-801.65,817.95 -800.63,807.93 -798.65,803.29"/>
+        <lane id=":hr_junction_4_1" index="1" speed="13.89" length="13.58" shape="-801.65,817.95 -800.63,809.38 -799.11,806.34"/>
+    </edge>
+    <edge id=":hr_junction_21" function="internal">
+        <lane id=":hr_junction_21_0" index="0" speed="13.89" length="16.67" shape="-798.65,803.29 -797.57,800.78 -792.48,796.48 -785.35,795.05"/>
+    </edge>
+    <edge id=":hr_junction_22" function="internal">
+        <lane id=":hr_junction_22_0" index="0" speed="13.89" length="16.96" shape="-799.11,806.34 -797.57,803.25 -792.48,799.58 -785.35,798.35"/>
     </edge>
     <edge id=":hr_junction_6" function="internal">
         <lane id=":hr_junction_6_0" index="0" speed="13.89" length="7.85" shape="-785.35,814.85 -788.15,815.04 -790.15,815.62 -791.35,816.59 -791.75,817.95"/>
@@ -51,36 +57,45 @@
         <lane id=":hr_junction_9_0" index="0" speed="13.89" length="15.85" shape="-785.35,804.95 -793.93,803.52 -800.05,799.23 -801.71,796.00"/>
         <lane id=":hr_junction_9_1" index="1" speed="13.89" length="15.85" shape="-785.35,801.65 -792.48,800.42 -796.26,797.70"/>
     </edge>
-    <edge id=":hr_junction_20" function="internal">
-        <lane id=":hr_junction_20_0" index="0" speed="13.89" length="14.51" shape="-801.71,796.00 -803.73,792.07 -804.95,782.05"/>
+    <edge id=":hr_junction_23" function="internal">
+        <lane id=":hr_junction_23_0" index="0" speed="13.89" length="14.51" shape="-801.71,796.00 -803.73,792.07 -804.95,782.05"/>
     </edge>
-    <edge id=":hr_junction_21" function="internal">
-        <lane id=":hr_junction_21_0" index="0" speed="13.89" length="17.10" shape="-796.26,797.70 -797.58,796.75 -800.63,790.62 -801.65,782.05"/>
+    <edge id=":hr_junction_24" function="internal">
+        <lane id=":hr_junction_24_0" index="0" speed="13.89" length="17.10" shape="-796.26,797.70 -797.58,796.75 -800.63,790.62 -801.65,782.05"/>
     </edge>
     <edge id=":hr_junction_11" function="internal">
         <lane id=":hr_junction_11_0" index="0" speed="13.89" length="14.00" shape="-788.45,782.05 -788.26,787.74 -787.68,791.80 -786.71,794.24 -785.35,795.05"/>
     </edge>
     <edge id=":hr_junction_12" function="internal">
-        <lane id=":hr_junction_12_0" index="0" speed="13.89" length="35.90" shape="-791.75,782.05 -791.75,817.95"/>
-        <lane id=":hr_junction_12_1" index="1" speed="13.89" length="35.90" shape="-795.05,782.05 -795.05,817.95"/>
-        <lane id=":hr_junction_12_2" index="2" speed="13.89" length="35.90" shape="-798.35,782.05 -798.35,817.95"/>
+        <lane id=":hr_junction_12_0" index="0" speed="13.89" length="36.09" shape="-791.75,782.05 -792.27,793.15 -793.40,801.13 -794.53,808.55 -795.05,817.95"/>
+        <lane id=":hr_junction_12_1" index="1" speed="13.89" length="36.09" shape="-795.05,782.05 -795.57,793.15 -796.70,801.13 -797.83,808.55 -798.35,817.95"/>
     </edge>
-    <edge id=":hr_junction_15" function="internal">
-        <lane id=":hr_junction_15_0" index="0" speed="13.89" length="14.00" shape="-817.95,785.15 -812.26,784.96 -808.20,784.38 -805.76,783.41 -804.95,782.05"/>
+    <edge id=":hr_junction_14" function="internal">
+        <lane id=":hr_junction_14_0" index="0" speed="13.89" length="13.00" shape="-798.35,782.05 -799.58,792.07 -801.51,795.84"/>
+        <lane id=":hr_junction_14_1" index="1" speed="13.89" length="13.00" shape="-798.35,782.05 -799.58,790.62 -801.12,793.20"/>
+    </edge>
+    <edge id=":hr_junction_25" function="internal">
+        <lane id=":hr_junction_25_0" index="0" speed="13.89" length="19.98" shape="-801.51,795.84 -803.25,799.22 -809.38,803.52 -817.95,804.95"/>
+    </edge>
+    <edge id=":hr_junction_26" function="internal">
+        <lane id=":hr_junction_26_0" index="0" speed="13.89" length="19.94" shape="-801.12,793.20 -803.25,796.75 -809.38,800.42 -817.95,801.65"/>
     </edge>
     <edge id=":hr_junction_16" function="internal">
-        <lane id=":hr_junction_16_0" index="0" speed="13.89" length="33.40" shape="-817.95,788.45 -807.25,789.48 -799.16,791.75 -792.32,794.02 -785.35,795.05"/>
-        <lane id=":hr_junction_16_1" index="1" speed="13.89" length="33.40" shape="-817.95,791.75 -807.25,792.78 -799.16,795.05 -792.32,797.32 -785.35,798.35"/>
+        <lane id=":hr_junction_16_0" index="0" speed="13.89" length="14.00" shape="-817.95,785.15 -812.26,784.96 -808.20,784.38 -805.76,783.41 -804.95,782.05"/>
     </edge>
-    <edge id=":hr_junction_18" function="internal">
-        <lane id=":hr_junction_18_0" index="0" speed="13.89" length="19.76" shape="-817.95,795.05 -807.93,796.48 -800.78,800.77 -798.28,804.93"/>
-        <lane id=":hr_junction_18_1" index="1" speed="13.89" length="19.76" shape="-817.95,798.35 -809.38,799.58 -803.25,803.25 -803.04,803.60"/>
+    <edge id=":hr_junction_17" function="internal">
+        <lane id=":hr_junction_17_0" index="0" speed="13.89" length="33.40" shape="-817.95,788.45 -807.25,789.48 -799.16,791.75 -792.32,794.02 -785.35,795.05"/>
+        <lane id=":hr_junction_17_1" index="1" speed="13.89" length="33.40" shape="-817.95,791.75 -807.25,792.78 -799.16,795.05 -792.32,797.32 -785.35,798.35"/>
     </edge>
-    <edge id=":hr_junction_22" function="internal">
-        <lane id=":hr_junction_22_0" index="0" speed="13.89" length="13.62" shape="-798.28,804.93 -796.48,807.93 -795.05,817.95"/>
+    <edge id=":hr_junction_19" function="internal">
+        <lane id=":hr_junction_19_0" index="0" speed="13.89" length="19.76" shape="-817.95,795.05 -807.93,796.48 -800.78,800.77 -798.28,804.93"/>
+        <lane id=":hr_junction_19_1" index="1" speed="13.89" length="19.76" shape="-817.95,798.35 -809.38,799.58 -803.25,803.25 -803.04,803.60"/>
     </edge>
-    <edge id=":hr_junction_23" function="internal">
-        <lane id=":hr_junction_23_0" index="0" speed="13.89" length="15.40" shape="-803.04,803.60 -799.58,809.38 -798.35,817.95"/>
+    <edge id=":hr_junction_27" function="internal">
+        <lane id=":hr_junction_27_0" index="0" speed="13.89" length="13.62" shape="-798.28,804.93 -796.48,807.93 -795.05,817.95"/>
+    </edge>
+    <edge id=":hr_junction_28" function="internal">
+        <lane id=":hr_junction_28_0" index="0" speed="13.89" length="15.40" shape="-803.04,803.60 -799.58,809.38 -798.35,817.95"/>
     </edge>
 
     <edge id="hr_east_in" from="hr_east" to="hr_junction" priority="1">
@@ -128,82 +143,104 @@
         <lane id="hr_west_out_1" index="1" speed="13.89" length="282.05" shape="-817.95,801.65 -1100.00,801.65"/>
     </edge>
 
+    <tlLogic id="hr_junction" type="static" programID="0" offset="0">
+        <phase duration="31" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="4" state="rrrrrryyyggrrrrryyygg"/>
+        <phase duration="6" state="rrrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="4" state="rrrrrrrrryyrrrrrrrryy"/>
+        <phase duration="31" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="4" state="yyyyggrrrrryyyggrrrrr"/>
+        <phase duration="6" state="rrrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="4" state="rrrryyrrrrrrrryyrrrrr"/>
+    </tlLogic>
+
     <junction id="hr_east" type="dead_end" x="-500.00" y="800.00" incLanes="hr_east_out_0 hr_east_out_1" intLanes="" shape="-500.00,800.05 -500.00,793.45 -500.00,799.95"/>
-    <junction id="hr_junction" type="traffic_light" x="-800.00" y="800.00" incLanes="hr_north_in_0 hr_north_in_1 hr_north_in_2 hr_north_in_3 hr_north_in_4 hr_east_in_0 hr_east_in_1 hr_east_in_2 hr_east_in_3 hr_east_in_4 hr_south_in_0 hr_south_in_1 hr_south_in_2 hr_south_in_3 hr_west_in_0 hr_west_in_1 hr_west_in_2 hr_west_in_3 hr_west_in_4" intLanes=":hr_junction_0_0 :hr_junction_0_1 :hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_20_0 :hr_junction_21_0 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_12_2 :hr_junction_15_0 :hr_junction_16_0 :hr_junction_16_1 :hr_junction_22_0 :hr_junction_23_0" shape="-816.45,817.95 -790.15,817.95 -785.35,816.45 -785.35,793.45 -786.85,782.05 -806.55,782.05 -817.95,783.55 -817.95,806.55">
-        <request index="0" response="00000000000110000000" foes="00000000000110000000" cont="0"/>
-        <request index="1" response="00000000000110000000" foes="00000000000110000000" cont="0"/>
-        <request index="2" response="11111000011110000000" foes="11111000011110000000" cont="0"/>
-        <request index="3" response="11111000011110000000" foes="11111000011110000000" cont="0"/>
-        <request index="4" response="11110111111110000000" foes="11110111111110000000" cont="0"/>
-        <request index="5" response="11110111111110000000" foes="11110111111110000000" cont="0"/>
-        <request index="6" response="00000000000000000000" foes="11000111000000000000" cont="0"/>
-        <request index="7" response="00000000000000000000" foes="11000111000000111111" cont="0"/>
-        <request index="8" response="00000000000000000000" foes="11000111000000111111" cont="0"/>
-        <request index="9" response="00111000000000000000" foes="00111111000000111100" cont="1"/>
-        <request index="10" response="00111000000000000000" foes="00111111000000111100" cont="1"/>
-        <request index="11" response="00110000000000000000" foes="00110000000000110000" cont="0"/>
-        <request index="12" response="11110000011111000000" foes="11110000011111110000" cont="0"/>
-        <request index="13" response="11110000011111000000" foes="11110000011111110000" cont="0"/>
-        <request index="14" response="11110000011111000000" foes="11110000011111110000" cont="0"/>
-        <request index="15" response="00000000000000000000" foes="00000000011000001100" cont="0"/>
-        <request index="16" response="00000000000000000000" foes="00000111111000111100" cont="0"/>
-        <request index="17" response="00000000000000000000" foes="00000111111000111100" cont="0"/>
-        <request index="18" response="00000000000111000000" foes="00000111000111111100" cont="1"/>
-        <request index="19" response="00000000000111000000" foes="00000111000111111100" cont="1"/>
+    <junction id="hr_junction" type="traffic_light" x="-800.00" y="800.00" incLanes="hr_north_in_0 hr_north_in_1 hr_north_in_2 hr_north_in_3 hr_north_in_4 hr_east_in_0 hr_east_in_1 hr_east_in_2 hr_east_in_3 hr_east_in_4 hr_south_in_0 hr_south_in_1 hr_south_in_2 hr_south_in_3 hr_west_in_0 hr_west_in_1 hr_west_in_2 hr_west_in_3 hr_west_in_4" intLanes=":hr_junction_0_0 :hr_junction_0_1 :hr_junction_2_0 :hr_junction_2_1 :hr_junction_21_0 :hr_junction_22_0 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_23_0 :hr_junction_24_0 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_25_0 :hr_junction_26_0 :hr_junction_16_0 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_27_0 :hr_junction_28_0" shape="-816.45,817.95 -790.15,817.95 -785.35,816.45 -785.35,793.45 -786.85,782.05 -806.55,782.05 -817.95,783.55 -817.95,806.55">
+        <request index="0" response="000000000000110000000" foes="000001100000110000000" cont="0"/>
+        <request index="1" response="000000000000110000000" foes="000001100000110000000" cont="0"/>
+        <request index="2" response="111110000011110000000" foes="111111100011110000000" cont="0"/>
+        <request index="3" response="111110000011110000000" foes="111111100011110000000" cont="0"/>
+        <request index="4" response="111100011111110000000" foes="111100011111110000000" cont="1"/>
+        <request index="5" response="111100011111110000000" foes="111100011111110000000" cont="1"/>
+        <request index="6" response="000000000000000000000" foes="110000011000000000000" cont="0"/>
+        <request index="7" response="000000000000000000000" foes="110001111000000111111" cont="0"/>
+        <request index="8" response="000000000000000000000" foes="110001111000000111111" cont="0"/>
+        <request index="9" response="001110000000000000000" foes="001111111000000111100" cont="1"/>
+        <request index="10" response="001110000000000000000" foes="001111111000000111100" cont="1"/>
+        <request index="11" response="001100000000000000000" foes="001100000000000110000" cont="0"/>
+        <request index="12" response="111100000011111000000" foes="111100000011111110000" cont="0"/>
+        <request index="13" response="111100000011111000000" foes="111100000011111110000" cont="0"/>
+        <request index="14" response="111100000011110001111" foes="111100000011110001111" cont="1"/>
+        <request index="15" response="111100000011110001111" foes="111100000011110001111" cont="1"/>
+        <request index="16" response="000000000000000000000" foes="000000000011000001100" cont="0"/>
+        <request index="17" response="000000000000000000000" foes="000001111111000111100" cont="0"/>
+        <request index="18" response="000000000000000000000" foes="000001111111000111100" cont="0"/>
+        <request index="19" response="000000000000111000000" foes="000001111000111111100" cont="1"/>
+        <request index="20" response="000000000000111000000" foes="000001111000111111100" cont="1"/>
     </junction>
     <junction id="hr_north" type="dead_end" x="-800.00" y="1000.00" incLanes="hr_north_out_0 hr_north_out_1 hr_north_out_2" intLanes="" shape="-800.05,1000.00 -790.15,1000.00 -799.95,1000.00"/>
     <junction id="hr_south" type="dead_end" x="-800.00" y="600.00" incLanes="hr_south_out_0 hr_south_out_1" intLanes="" shape="-799.95,600.00 -806.55,600.00 -800.05,600.00"/>
     <junction id="hr_west" type="dead_end" x="-1100.00" y="800.00" incLanes="hr_west_out_0 hr_west_out_1" intLanes="" shape="-1100.00,799.95 -1100.00,806.55 -1100.00,800.05"/>
 
-    <junction id=":hr_junction_20_0" type="internal" x="-801.71" y="796.00" incLanes=":hr_junction_9_0 hr_west_in_0 hr_west_in_1 hr_west_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_12_2 :hr_junction_15_0 :hr_junction_16_0 :hr_junction_16_1"/>
-    <junction id=":hr_junction_21_0" type="internal" x="-796.26" y="797.70" incLanes=":hr_junction_9_1 hr_west_in_0 hr_west_in_1 hr_west_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_12_2 :hr_junction_15_0 :hr_junction_16_0 :hr_junction_16_1"/>
-    <junction id=":hr_junction_22_0" type="internal" x="-798.28" y="804.93" incLanes=":hr_junction_18_0 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_12_2"/>
-    <junction id=":hr_junction_23_0" type="internal" x="-803.04" y="803.60" incLanes=":hr_junction_18_1 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_12_2"/>
+    <junction id=":hr_junction_21_0" type="internal" x="-798.65" y="803.29" incLanes=":hr_junction_4_0 hr_south_in_0 hr_south_in_1 hr_south_in_2" intLanes=":hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
+    <junction id=":hr_junction_22_0" type="internal" x="-799.11" y="806.34" incLanes=":hr_junction_4_1 hr_south_in_0 hr_south_in_1 hr_south_in_2" intLanes=":hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
+    <junction id=":hr_junction_23_0" type="internal" x="-801.71" y="796.00" incLanes=":hr_junction_9_0 hr_west_in_0 hr_west_in_1 hr_west_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1 :hr_junction_16_0 :hr_junction_17_0 :hr_junction_17_1"/>
+    <junction id=":hr_junction_24_0" type="internal" x="-796.26" y="797.70" incLanes=":hr_junction_9_1 hr_west_in_0 hr_west_in_1 hr_west_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1 :hr_junction_16_0 :hr_junction_17_0 :hr_junction_17_1"/>
+    <junction id=":hr_junction_25_0" type="internal" x="-801.51" y="795.84" incLanes=":hr_junction_14_0 hr_north_in_0 hr_north_in_1 hr_north_in_2 hr_north_in_3" intLanes=":hr_junction_0_0 :hr_junction_0_1 :hr_junction_2_0 :hr_junction_2_1 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
+    <junction id=":hr_junction_26_0" type="internal" x="-801.12" y="793.20" incLanes=":hr_junction_14_1 hr_north_in_0 hr_north_in_1 hr_north_in_2 hr_north_in_3" intLanes=":hr_junction_0_0 :hr_junction_0_1 :hr_junction_2_0 :hr_junction_2_1 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
+    <junction id=":hr_junction_27_0" type="internal" x="-798.28" y="804.93" incLanes=":hr_junction_19_0 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1"/>
+    <junction id=":hr_junction_28_0" type="internal" x="-803.04" y="803.60" incLanes=":hr_junction_19_1 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1"/>
 
-    <connection from="hr_east_in" to="hr_north_out" fromLane="0" toLane="0" via=":hr_junction_6_0" dir="r" state="M"/>
-    <connection from="hr_east_in" to="hr_west_out" fromLane="1" toLane="0" via=":hr_junction_7_0" dir="s" state="M"/>
-    <connection from="hr_east_in" to="hr_west_out" fromLane="2" toLane="1" via=":hr_junction_7_1" dir="s" state="M"/>
-    <connection from="hr_east_in" to="hr_south_out" fromLane="3" toLane="0" via=":hr_junction_9_0" dir="l" state="m"/>
-    <connection from="hr_east_in" to="hr_south_out" fromLane="4" toLane="1" via=":hr_junction_9_1" dir="l" state="m"/>
-    <connection from="hr_north_in" to="hr_west_out" fromLane="0" toLane="0" via=":hr_junction_0_0" dir="r" state="m"/>
-    <connection from="hr_north_in" to="hr_west_out" fromLane="1" toLane="1" via=":hr_junction_0_1" dir="r" state="m"/>
-    <connection from="hr_north_in" to="hr_south_out" fromLane="2" toLane="0" via=":hr_junction_2_0" dir="s" state="m"/>
-    <connection from="hr_north_in" to="hr_south_out" fromLane="3" toLane="1" via=":hr_junction_2_1" dir="s" state="m"/>
-    <connection from="hr_north_in" to="hr_east_out" fromLane="4" toLane="0" via=":hr_junction_4_0" dir="l" state="m"/>
-    <connection from="hr_north_in" to="hr_east_out" fromLane="4" toLane="1" via=":hr_junction_4_1" dir="l" state="m"/>
-    <connection from="hr_south_in" to="hr_east_out" fromLane="0" toLane="0" via=":hr_junction_11_0" dir="r" state="m"/>
-    <connection from="hr_south_in" to="hr_north_out" fromLane="1" toLane="0" via=":hr_junction_12_0" dir="s" state="m"/>
-    <connection from="hr_south_in" to="hr_north_out" fromLane="2" toLane="1" via=":hr_junction_12_1" dir="s" state="m"/>
-    <connection from="hr_south_in" to="hr_north_out" fromLane="3" toLane="2" via=":hr_junction_12_2" dir="s" state="m"/>
-    <connection from="hr_west_in" to="hr_south_out" fromLane="0" toLane="0" via=":hr_junction_15_0" dir="r" state="M"/>
-    <connection from="hr_west_in" to="hr_east_out" fromLane="1" toLane="0" via=":hr_junction_16_0" dir="s" state="M"/>
-    <connection from="hr_west_in" to="hr_east_out" fromLane="2" toLane="1" via=":hr_junction_16_1" dir="s" state="M"/>
-    <connection from="hr_west_in" to="hr_north_out" fromLane="3" toLane="1" via=":hr_junction_18_0" dir="l" state="m"/>
-    <connection from="hr_west_in" to="hr_north_out" fromLane="4" toLane="2" via=":hr_junction_18_1" dir="l" state="m"/>
+    <connection from="hr_east_in" to="hr_north_out" fromLane="0" toLane="0" via=":hr_junction_6_0" tl="hr_junction" linkIndex="6" dir="r" state="o"/>
+    <connection from="hr_east_in" to="hr_west_out" fromLane="1" toLane="0" via=":hr_junction_7_0" tl="hr_junction" linkIndex="7" dir="s" state="o"/>
+    <connection from="hr_east_in" to="hr_west_out" fromLane="2" toLane="1" via=":hr_junction_7_1" tl="hr_junction" linkIndex="8" dir="s" state="o"/>
+    <connection from="hr_east_in" to="hr_south_out" fromLane="3" toLane="0" via=":hr_junction_9_0" tl="hr_junction" linkIndex="9" dir="l" state="o"/>
+    <connection from="hr_east_in" to="hr_south_out" fromLane="4" toLane="1" via=":hr_junction_9_1" tl="hr_junction" linkIndex="10" dir="l" state="o"/>
+    <connection from="hr_north_in" to="hr_west_out" fromLane="0" toLane="0" via=":hr_junction_0_0" tl="hr_junction" linkIndex="0" dir="r" state="o"/>
+    <connection from="hr_north_in" to="hr_west_out" fromLane="1" toLane="1" via=":hr_junction_0_1" tl="hr_junction" linkIndex="1" dir="r" state="o"/>
+    <connection from="hr_north_in" to="hr_south_out" fromLane="2" toLane="0" via=":hr_junction_2_0" tl="hr_junction" linkIndex="2" dir="s" state="o"/>
+    <connection from="hr_north_in" to="hr_south_out" fromLane="3" toLane="1" via=":hr_junction_2_1" tl="hr_junction" linkIndex="3" dir="s" state="o"/>
+    <connection from="hr_north_in" to="hr_east_out" fromLane="4" toLane="0" via=":hr_junction_4_0" tl="hr_junction" linkIndex="4" dir="l" state="o"/>
+    <connection from="hr_north_in" to="hr_east_out" fromLane="4" toLane="1" via=":hr_junction_4_1" tl="hr_junction" linkIndex="5" dir="l" state="o"/>
+    <connection from="hr_south_in" to="hr_east_out" fromLane="0" toLane="0" via=":hr_junction_11_0" tl="hr_junction" linkIndex="11" dir="r" state="o"/>
+    <connection from="hr_south_in" to="hr_north_out" fromLane="1" toLane="1" via=":hr_junction_12_0" tl="hr_junction" linkIndex="12" dir="s" state="o"/>
+    <connection from="hr_south_in" to="hr_north_out" fromLane="2" toLane="2" via=":hr_junction_12_1" tl="hr_junction" linkIndex="13" dir="s" state="o"/>
+    <connection from="hr_south_in" to="hr_west_out" fromLane="3" toLane="0" via=":hr_junction_14_0" tl="hr_junction" linkIndex="14" dir="l" state="o"/>
+    <connection from="hr_south_in" to="hr_west_out" fromLane="3" toLane="1" via=":hr_junction_14_1" tl="hr_junction" linkIndex="15" dir="l" state="o"/>
+    <connection from="hr_west_in" to="hr_south_out" fromLane="0" toLane="0" via=":hr_junction_16_0" tl="hr_junction" linkIndex="16" dir="r" state="o"/>
+    <connection from="hr_west_in" to="hr_east_out" fromLane="1" toLane="0" via=":hr_junction_17_0" tl="hr_junction" linkIndex="17" dir="s" state="o"/>
+    <connection from="hr_west_in" to="hr_east_out" fromLane="2" toLane="1" via=":hr_junction_17_1" tl="hr_junction" linkIndex="18" dir="s" state="o"/>
+    <connection from="hr_west_in" to="hr_north_out" fromLane="3" toLane="1" via=":hr_junction_19_0" tl="hr_junction" linkIndex="19" dir="l" state="o"/>
+    <connection from="hr_west_in" to="hr_north_out" fromLane="4" toLane="2" via=":hr_junction_19_1" tl="hr_junction" linkIndex="20" dir="l" state="o"/>
 
     <connection from=":hr_junction_0" to="hr_west_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":hr_junction_0" to="hr_west_out" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_2" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":hr_junction_2" to="hr_south_out" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":hr_junction_4" to="hr_east_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_4" to="hr_east_out" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_4" to="hr_east_out" fromLane="0" toLane="0" via=":hr_junction_21_0" dir="s" state="m"/>
+    <connection from=":hr_junction_21" to="hr_east_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_junction_4" to="hr_east_out" fromLane="1" toLane="1" via=":hr_junction_22_0" dir="s" state="m"/>
+    <connection from=":hr_junction_22" to="hr_east_out" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_6" to="hr_north_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":hr_junction_7" to="hr_west_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":hr_junction_7" to="hr_west_out" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":hr_junction_9" to="hr_south_out" fromLane="0" toLane="0" via=":hr_junction_20_0" dir="s" state="m"/>
-    <connection from=":hr_junction_20" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_9" to="hr_south_out" fromLane="1" toLane="1" via=":hr_junction_21_0" dir="s" state="m"/>
-    <connection from=":hr_junction_21" to="hr_south_out" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_9" to="hr_south_out" fromLane="0" toLane="0" via=":hr_junction_23_0" dir="s" state="m"/>
+    <connection from=":hr_junction_23" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_junction_9" to="hr_south_out" fromLane="1" toLane="1" via=":hr_junction_24_0" dir="s" state="m"/>
+    <connection from=":hr_junction_24" to="hr_south_out" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_11" to="hr_east_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_12" to="hr_north_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_12" to="hr_north_out" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":hr_junction_12" to="hr_north_out" fromLane="2" toLane="2" dir="s" state="M"/>
-    <connection from=":hr_junction_15" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_16" to="hr_east_out" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":hr_junction_16" to="hr_east_out" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":hr_junction_18" to="hr_north_out" fromLane="0" toLane="1" via=":hr_junction_22_0" dir="s" state="m"/>
-    <connection from=":hr_junction_22" to="hr_north_out" fromLane="0" toLane="1" dir="s" state="M"/>
-    <connection from=":hr_junction_18" to="hr_north_out" fromLane="1" toLane="2" via=":hr_junction_23_0" dir="s" state="m"/>
-    <connection from=":hr_junction_23" to="hr_north_out" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":hr_junction_12" to="hr_north_out" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_12" to="hr_north_out" fromLane="1" toLane="2" dir="s" state="M"/>
+    <connection from=":hr_junction_14" to="hr_west_out" fromLane="0" toLane="0" via=":hr_junction_25_0" dir="s" state="m"/>
+    <connection from=":hr_junction_25" to="hr_west_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_junction_14" to="hr_west_out" fromLane="1" toLane="1" via=":hr_junction_26_0" dir="s" state="m"/>
+    <connection from=":hr_junction_26" to="hr_west_out" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_16" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_junction_17" to="hr_east_out" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_junction_17" to="hr_east_out" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_19" to="hr_north_out" fromLane="0" toLane="1" via=":hr_junction_27_0" dir="s" state="m"/>
+    <connection from=":hr_junction_27" to="hr_north_out" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_junction_19" to="hr_north_out" fromLane="1" toLane="2" via=":hr_junction_28_0" dir="s" state="m"/>
+    <connection from=":hr_junction_28" to="hr_north_out" fromLane="0" toLane="2" dir="s" state="M"/>
 
 </net>
