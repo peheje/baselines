@@ -1,5 +1,6 @@
 import sys
 import os
+import tempfile
 from collections import deque
 import xml.etree.ElementTree
 
@@ -37,6 +38,9 @@ class BaseTraciEnv(gym.Env):
         self.timestep = 0
         self.episode = 0
         self.traffic_light_changes = 0
+
+        # make temp file for tripinfo
+        self.tripinfo_file_name = tempfile.NamedTemporaryFile(mode="w", delete=False).name
 
         # configure_traci() must be called, leave uninitialized here
         self.num_car_chances = None
@@ -173,7 +177,7 @@ class BaseTraciEnv(gym.Env):
         retry=True
         while retry:
             try:
-                e = xml.etree.ElementTree.parse('tripinfo.xml').getroot()
+                e = xml.etree.ElementTree.parse(self.tripinfo_file_name).getroot()
                 for tripinfo in e.findall('tripinfo'):
                     self.total_travel_time+= float(tripinfo.get('duration'))
                     self.total_time_loss+= float(tripinfo.get('timeLoss'))

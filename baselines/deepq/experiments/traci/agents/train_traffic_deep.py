@@ -27,7 +27,7 @@ def callback(lcl, glb):
 
 def main():
     # Setup path of logging, name of environment and save the current arguments (this script)
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), "Traci_2_cross_env-v0"]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), "Traci_1_cross_env-v0"]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
 
     # Create environment and initialize
