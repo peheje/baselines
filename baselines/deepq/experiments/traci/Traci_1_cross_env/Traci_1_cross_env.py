@@ -65,7 +65,6 @@ class Traci_1_cross_env(BaseTraciEnv):
                         file=routes)
                     vehNr += 1
             print("</routes>", file=routes)
-        self.route_file_generated = True
 
     def __traci_start__(self):
         traci.start(
@@ -77,19 +76,15 @@ class Traci_1_cross_env(BaseTraciEnv):
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
         self.num_state_scalars = 5
-        self.route_file_generated = False
         self.traffic_phases = 4
         self.max_cars_in_queue = 20
         self.vehicle_ids = []
         self.unique_counters = []
         self.state = []
 
-        self.restart()
 
     def restart(self):
-
-        if not self.route_file_generated:
-            self.generate_routefile()
+        self.generate_routefile()
 
         if self.shouldRender:
             self.sumo_binary = checkBinary('sumo-gui')
