@@ -30,15 +30,25 @@ class BaseTraciEnv(gym.Env):
         self.step_rewards = deque([], maxlen=100)
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
-        self.fully_stopped_cars=UniqueCounter()
-        self.has_driven_cars = UniqueCounter() #Necessary to figure out how many cars have stopped in simulation
-        self.timestep=0
-        self.episode=0
-        self.traffic_light_changes=0
-        self.total_travel_time=0
         self.total_time_loss=0
-        self.departed_car_time={}
-        self.time_steps=1000
+        self.total_travel_time=0
+        self.fully_stopped_cars = UniqueCounter()
+        self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
+        self.timestep = 0
+        self.episode = 0
+        self.traffic_light_changes = 0
+
+        # configure_traci() must be called, leave uninitialized here
+        self.num_car_chances = None
+        self.car_props = None
+        self.reward_func = None
+
+    def configure_traci(self, num_car_chances, car_props, reward_func):
+        self.num_car_chances = num_car_chances
+        self.car_props = car_props
+        self.reward_func = reward_func
+        self.restart()
+
     def _reset(self):
         self.traffic_light_changes = 0
         self.total_travel_time = 0
@@ -48,15 +58,14 @@ class BaseTraciEnv(gym.Env):
         self.avg_speed_step_rewards = []
         self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
-        pass
 
     def _step(self, action):
+        """ Implement in child """
         raise NotImplementedError()
-        pass
 
-    def configure_traci(self, steps):
-        self.time_steps = steps
-        self.restart()
+    def restart(self):
+        """ Implement in child """
+        raise NotImplementedError()
 
     @staticmethod
     def reward_total_waiting_vehicles():

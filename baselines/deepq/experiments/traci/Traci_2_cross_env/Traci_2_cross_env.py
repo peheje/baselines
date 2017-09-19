@@ -29,14 +29,14 @@ class Traci_2_cross_env(BaseTraciEnv):
             Cars MUST HAVE UNIQUE ID
         """
 
-        N = self.time_steps  # number of time steps
+        N = self.num_car_chances  # number of time steps
         # demand per second from different directions
-        p_w_e = 1 / 10
-        p_e_w = 1 / 10
-        p_n_s_a = 1 / 10
-        p_s_n_a = 1 / 10
-        p_n_s_b = 1 / 10
-        p_s_n_b = 1 / 10
+        p_w_e = self.car_props[0]
+        p_e_w = self.car_props[1]
+        p_n_s_a = self.car_props[2]
+        p_s_n_a = self.car_props[3]
+        p_n_s_b = self.car_props[4]
+        p_s_n_b = self.car_props[5]
         with open("scenarios/2_cross/cross.rou.xml", "w") as routes:
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
@@ -101,8 +101,6 @@ class Traci_2_cross_env(BaseTraciEnv):
         self.sumo_binary = None
         self.state = []
         self.unique_counters = []
-
-        self.restart()
 
     def restart(self):
         self.generate_routefile()
@@ -180,7 +178,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         self.state.append(cur_state)
 
         # Build reward
-        reward = self.reward_total_waiting_vehicles()
+        reward = self.reward_func()
 
         # See if done
         done = traci.simulation.getMinExpectedNumber() < 1

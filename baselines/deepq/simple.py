@@ -89,7 +89,6 @@ def learn(env,
           train_freq=1,
           batch_size=32,
           print_freq=1,
-          print_timestep_freq=100,
           checkpoint_freq=10000,
           learning_starts=1000,
           gamma=1.0,
@@ -102,7 +101,6 @@ def learn(env,
           num_cpu=16,
           param_noise=False,
           callback=None,
-          log_path="/tmp/log",
           model_path=None):
     """Train a deepq model.
 
@@ -292,7 +290,7 @@ def learn(env,
                                                                                                mean_100ep_reward))
                     U.save_state(model_file)
 
-                    save_path = datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + "-" + model_path
+                    save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".pkl"
                     logger.log("Saving model to {}".format(save_path))
                     save_model(save_path, act_params)
                     model_saved = True
