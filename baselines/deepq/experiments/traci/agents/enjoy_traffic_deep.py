@@ -12,10 +12,10 @@ import Traci_2_cross_env.Traci_2_cross_env
 
 def main():
     env = gym.make('Traci_2_cross_env-v0')
-    act = deepq.load("/home/peter/Desktop/2017-09-18_15-40-58/model-2017-09-18_16-24-20.pkl")
+    act = deepq.load("/home/peter/Desktop/2017-09-18_17-38-05/model-2017-09-18_18-39-24.pkl")
     env.configure_traci(num_car_chances=10000,
                         car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                        reward_func=env.reward_total_in_queue)
+                        reward_func=env.reward_squared_wait_sum)
     env.render()
 
     while True:
