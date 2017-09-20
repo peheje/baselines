@@ -134,7 +134,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
         # convert action into two actions
-        action = self.discrete_to_multidiscrete(action=action, num_actions=3)
+        action = self.discrete_to_multidiscrete_2cross(action=action, num_actions=3)
         phase_a = traci.trafficlights.getPhase("a")
         phase_b = traci.trafficlights.getPhase("b")
         self.set_light_phase("a", action[0], phase_a)

@@ -117,10 +117,25 @@ class BaseTraciEnv(gym.Env):
             return 0
 
     @staticmethod
-    def discrete_to_multidiscrete(action, num_actions):
+    def reward_estimated_travel_time():
+        lanes=traci.lane.getIDList()
+        travel_reward_sum=0
+        for lane_id in lanes:
+            travel_reward_sum=+traci.lane.getTraveltime(lane_id)
+        return -travel_reward_sum
+
+    @staticmethod
+    def discrete_to_multidiscrete_2cross(action, num_actions):
         mod_rest = action % num_actions
         div_floor = action // num_actions
         return [mod_rest, div_floor]
+
+    #Assuming only 2 viable actions
+    @staticmethod
+    def discrete_to_multidiscrete_4cross(action):
+        return list(map(int, format(action, '04b')))
+
+
 
     def set_light_phase(self, light_id, action, cur_phase):
         # Run action
