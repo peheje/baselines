@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 20 10:09:14 2017 by Netedit Version 0.30.0
+<!-- generated on Tue Sep 19 16:02:24 2017 by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,7 +26,7 @@
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-1100.00,300.00,-500.00,1000.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-1100.00,600.00,-500.00,1000.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":hr_junction_0" function="internal">
         <lane id=":hr_junction_0_0" index="0" speed="13.89" length="16.50" shape="-814.85,817.95 -815.04,812.26 -815.62,808.20 -816.59,805.76 -817.95,804.95"/>
@@ -121,15 +121,15 @@
         <lane id="hr_north_out_1" index="1" speed="13.89" length="182.05" shape="-795.05,817.95 -795.05,1000.00"/>
         <lane id="hr_north_out_2" index="2" speed="13.89" length="182.05" shape="-798.35,817.95 -798.35,1000.00"/>
     </edge>
-    <edge id="hr_south_in" from="hr_south" to="hr_junction" priority="1" length="500.00">
-        <lane id="hr_south_in_0" index="0" speed="13.89" length="500.00" shape="-788.45,300.00 -788.45,782.05"/>
-        <lane id="hr_south_in_1" index="1" speed="13.89" length="500.00" shape="-791.75,300.00 -791.75,782.05"/>
-        <lane id="hr_south_in_2" index="2" speed="13.89" length="500.00" shape="-795.05,300.00 -795.05,782.05"/>
-        <lane id="hr_south_in_3" index="3" speed="13.89" length="500.00" shape="-798.35,300.00 -798.35,782.05"/>
+    <edge id="hr_south_in" from="hr_south" to="hr_junction" priority="1">
+        <lane id="hr_south_in_0" index="0" speed="13.89" length="182.05" shape="-788.45,600.00 -788.45,782.05"/>
+        <lane id="hr_south_in_1" index="1" speed="13.89" length="182.05" shape="-791.75,600.00 -791.75,782.05"/>
+        <lane id="hr_south_in_2" index="2" speed="13.89" length="182.05" shape="-795.05,600.00 -795.05,782.05"/>
+        <lane id="hr_south_in_3" index="3" speed="13.89" length="182.05" shape="-798.35,600.00 -798.35,782.05"/>
     </edge>
-    <edge id="hr_south_out" from="hr_junction" to="hr_south" priority="1" length="500.00">
-        <lane id="hr_south_out_0" index="0" speed="13.89" length="500.00" shape="-804.95,782.05 -804.95,300.00"/>
-        <lane id="hr_south_out_1" index="1" speed="13.89" length="500.00" shape="-801.65,782.05 -801.65,300.00"/>
+    <edge id="hr_south_out" from="hr_junction" to="hr_south" priority="1">
+        <lane id="hr_south_out_0" index="0" speed="13.89" length="182.05" shape="-804.95,782.05 -804.95,600.00"/>
+        <lane id="hr_south_out_1" index="1" speed="13.89" length="182.05" shape="-801.65,782.05 -801.65,600.00"/>
     </edge>
     <edge id="hr_west_in" from="hr_west" to="hr_junction" priority="1">
         <lane id="hr_west_in_0" index="0" speed="13.89" length="282.05" shape="-1100.00,785.15 -817.95,785.15"/>
@@ -179,7 +179,7 @@
         <request index="20" response="000000000000111000000" foes="000001111000111111100" cont="1"/>
     </junction>
     <junction id="hr_north" type="dead_end" x="-800.00" y="1000.00" incLanes="hr_north_out_0 hr_north_out_1 hr_north_out_2" intLanes="" shape="-800.05,1000.00 -790.15,1000.00 -799.95,1000.00"/>
-    <junction id="hr_south" type="dead_end" x="-800.00" y="300.00" incLanes="hr_south_out_0 hr_south_out_1" intLanes="" shape="-799.95,300.00 -806.55,300.00 -800.05,300.00"/>
+    <junction id="hr_south" type="dead_end" x="-800.00" y="600.00" incLanes="hr_south_out_0 hr_south_out_1" intLanes="" shape="-799.95,600.00 -806.55,600.00 -800.05,600.00"/>
     <junction id="hr_west" type="dead_end" x="-1100.00" y="800.00" incLanes="hr_west_out_0 hr_west_out_1" intLanes="" shape="-1100.00,799.95 -1100.00,806.55 -1100.00,800.05"/>
 
     <junction id=":hr_junction_21_0" type="internal" x="-798.65" y="803.29" incLanes=":hr_junction_4_0 hr_south_in_0 hr_south_in_1 hr_south_in_2" intLanes=":hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
