@@ -14,6 +14,7 @@ import gym
 from baselines import deepq
 import Traci_1_cross_env.Traci_1_cross_env
 import Traci_2_cross_env.Traci_2_cross_env
+import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
 from pathlib import Path
 
@@ -27,15 +28,15 @@ def callback(lcl, glb):
 
 def main():
     # Setup path of logging, name of environment and save the current arguments (this script)
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), "Traci_2_cross_env-v0"]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), "Traci_3_cross_env-v0"]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
 
     # Create environment and initialize
     env = gym.make(log_dir[1])
     env.configure_traci(num_car_chances=1000,
                         car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                        reward_func=env.reward_total_waiting_vehicles)
-    # env.render()
+                        reward_func=env.reward_squared_wait_sum)
+    env.render()
 
     # Initialize logger
     logger.reset()

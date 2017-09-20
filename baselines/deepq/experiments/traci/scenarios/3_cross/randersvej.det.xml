@@ -1,4 +1,7 @@
 <additionals>
+    <vType id="reroutingType">
+        <param key="has.rerouting.device" value="true"/>
+    </vType>
     <e3Detector id="hr_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="hr_east_in_0" pos="10.00"/>
         <detEntry lane="hr_east_in_1" pos="10.00"/>
