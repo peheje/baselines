@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 20 13:12:11 2017 by Netedit Version 0.30.0
+<!-- generated on Wed Sep 20 13:25:07 2017 by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -10,7 +10,7 @@
     </input>
 
     <output>
-        <output-file value="hasle_randers.net.xml"/>
+        <output-file value="/Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.net.xml"/>
     </output>
 
     <processing>
