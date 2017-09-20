@@ -46,6 +46,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 20
         self.sumo_binary = None
+        self.e3ids = None
         self.state = []
         self.unique_counters = []
 
@@ -79,24 +80,25 @@ class Traci_3_cross_env(BaseTraciEnv):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
         # convert action into two actions
-        action = self.discrete_to_multidiscrete(action=action, num_actions=3)
-        phase_a = traci.trafficlights.getPhase("a")
-        phase_b = traci.trafficlights.getPhase("b")
-        self.set_light_phase("a", action[0], phase_a)
-        self.set_light_phase("b", action[1], phase_b)
+        action = self.discrete_to_multidiscrete_4cross(action)
+        #self.set_light_phase("a", action[0], phase_a)
+        #self.set_light_phase("b", action[1], phase_b)
 
         # Run simulation step
         traci.simulationStep()
 
         # Build state
-        self.state = deque([], maxlen=self.num_history_states)
+        # self.state = deque([], maxlen=self.num_history_states)
         if self.e3ids is None:
-            self.e3ids = traci.MultiEntryExitDomain.getIDList()
+            self.e3ids = traci.multientryexit.getIDList()
         cur_state = []
         for id in self.e3ids:
-            cur_state.append(traci.MultiEntryExitDomain.getLastStepVehicleIDs(id))
+            cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
         cur_state = cur_state + self.get_traffic_states()
         self.state.append(cur_state)
+
+        print("STATE")
+        print(self.state)
 
         # Build reward
         reward = self.reward_func()
