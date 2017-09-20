@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep 19 16:02:24 2017 by Netedit Version 0.30.0
+<!-- generated on Wed Sep 20 10:40:18 2017 by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -26,8 +26,18 @@
 
 <net version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-1100.00,600.00,-500.00,1000.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-1100.00,289.49,-500.00,1000.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
+    <edge id=":gneJ5_0" function="internal">
+        <lane id=":gneJ5_0_0" index="0" speed="13.89" length="4.80" shape="-804.95,301.49 -811.55,298.46"/>
+        <lane id=":gneJ5_0_1" index="1" speed="13.89" length="4.80" shape="-804.95,301.49 -808.25,298.48"/>
+        <lane id=":gneJ5_0_2" index="2" speed="13.89" length="4.80" shape="-801.65,301.49 -804.95,298.49"/>
+        <lane id=":gneJ5_0_3" index="3" speed="13.89" length="4.80" shape="-801.65,301.49 -801.65,298.50"/>
+    </edge>
+    <edge id=":gneJ5_4" function="internal">
+        <lane id=":gneJ5_4_0" index="0" speed="13.89" length="2.98" shape="-795.05,298.52 -795.05,301.49"/>
+        <lane id=":gneJ5_4_1" index="1" speed="13.89" length="2.98" shape="-798.35,298.51 -798.35,301.49"/>
+    </edge>
     <edge id=":hr_junction_0" function="internal">
         <lane id=":hr_junction_0_0" index="0" speed="13.89" length="16.50" shape="-814.85,817.95 -815.04,812.26 -815.62,808.20 -816.59,805.76 -817.95,804.95"/>
         <lane id=":hr_junction_0_1" index="1" speed="13.89" length="16.50" shape="-811.55,817.95 -811.95,810.82 -813.15,805.73 -815.15,802.67 -817.95,801.65"/>
@@ -97,7 +107,35 @@
     <edge id=":hr_junction_28" function="internal">
         <lane id=":hr_junction_28_0" index="0" speed="13.89" length="15.40" shape="-803.04,803.60 -799.58,809.38 -798.35,817.95"/>
     </edge>
+    <edge id=":hr_south_0" function="internal">
+        <lane id=":hr_south_0_0" index="0" speed="13.89" length="3.00" shape="-804.95,701.50 -804.95,698.50"/>
+        <lane id=":hr_south_0_1" index="1" speed="13.89" length="3.00" shape="-801.65,701.50 -801.65,698.50"/>
+    </edge>
+    <edge id=":hr_south_2" function="internal">
+        <lane id=":hr_south_2_0" index="0" speed="13.89" length="4.79" shape="-795.05,698.50 -788.45,701.50"/>
+        <lane id=":hr_south_2_1" index="1" speed="13.89" length="4.79" shape="-795.05,698.50 -791.75,701.50"/>
+        <lane id=":hr_south_2_2" index="2" speed="13.89" length="4.79" shape="-798.35,698.50 -795.05,701.50"/>
+        <lane id=":hr_south_2_3" index="3" speed="13.89" length="4.79" shape="-798.35,698.50 -798.35,701.50"/>
+    </edge>
 
+    <edge id="-gneE3" from="gneJ5" to="hr_south" priority="1">
+        <lane id="-gneE3_0" index="0" speed="13.89" length="397.01" shape="-795.05,301.49 -795.05,698.50"/>
+        <lane id="-gneE3_1" index="1" speed="13.89" length="397.01" shape="-798.35,301.49 -798.35,698.50"/>
+    </edge>
+    <edge id="-gneE5" from="gneJ8" to="gneJ5" priority="1">
+        <lane id="-gneE5_0" index="0" speed="13.89" length="9.01" shape="-795.02,289.50 -795.05,298.52"/>
+        <lane id="-gneE5_1" index="1" speed="13.89" length="9.01" shape="-798.32,289.49 -798.35,298.51"/>
+    </edge>
+    <edge id="gneE3" from="hr_south" to="gneJ5" priority="1">
+        <lane id="gneE3_0" index="0" speed="13.89" length="397.01" shape="-804.95,698.50 -804.95,301.49"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="397.01" shape="-801.65,698.50 -801.65,301.49"/>
+    </edge>
+    <edge id="gneE5" from="gneJ5" to="gneJ8" priority="1">
+        <lane id="gneE5_0" index="0" speed="13.89" length="9.01" shape="-811.55,298.46 -811.52,289.45"/>
+        <lane id="gneE5_1" index="1" speed="13.89" length="9.01" shape="-808.25,298.48 -808.22,289.46"/>
+        <lane id="gneE5_2" index="2" speed="13.89" length="9.01" shape="-804.95,298.49 -804.92,289.47"/>
+        <lane id="gneE5_3" index="3" speed="13.89" length="9.01" shape="-801.65,298.50 -801.62,289.48"/>
+    </edge>
     <edge id="hr_east_in" from="hr_east" to="hr_junction" priority="1">
         <lane id="hr_east_in_0" index="0" speed="13.89" length="285.35" shape="-500.00,814.85 -785.35,814.85"/>
         <lane id="hr_east_in_1" index="1" speed="13.89" length="285.35" shape="-500.00,811.55 -785.35,811.55"/>
@@ -122,14 +160,14 @@
         <lane id="hr_north_out_2" index="2" speed="13.89" length="182.05" shape="-798.35,817.95 -798.35,1000.00"/>
     </edge>
     <edge id="hr_south_in" from="hr_south" to="hr_junction" priority="1">
-        <lane id="hr_south_in_0" index="0" speed="13.89" length="182.05" shape="-788.45,600.00 -788.45,782.05"/>
-        <lane id="hr_south_in_1" index="1" speed="13.89" length="182.05" shape="-791.75,600.00 -791.75,782.05"/>
-        <lane id="hr_south_in_2" index="2" speed="13.89" length="182.05" shape="-795.05,600.00 -795.05,782.05"/>
-        <lane id="hr_south_in_3" index="3" speed="13.89" length="182.05" shape="-798.35,600.00 -798.35,782.05"/>
+        <lane id="hr_south_in_0" index="0" speed="13.89" length="80.55" shape="-788.45,701.50 -788.45,782.05"/>
+        <lane id="hr_south_in_1" index="1" speed="13.89" length="80.55" shape="-791.75,701.50 -791.75,782.05"/>
+        <lane id="hr_south_in_2" index="2" speed="13.89" length="80.55" shape="-795.05,701.50 -795.05,782.05"/>
+        <lane id="hr_south_in_3" index="3" speed="13.89" length="80.55" shape="-798.35,701.50 -798.35,782.05"/>
     </edge>
     <edge id="hr_south_out" from="hr_junction" to="hr_south" priority="1">
-        <lane id="hr_south_out_0" index="0" speed="13.89" length="182.05" shape="-804.95,782.05 -804.95,600.00"/>
-        <lane id="hr_south_out_1" index="1" speed="13.89" length="182.05" shape="-801.65,782.05 -801.65,600.00"/>
+        <lane id="hr_south_out_0" index="0" speed="13.89" length="80.55" shape="-804.95,782.05 -804.95,701.50"/>
+        <lane id="hr_south_out_1" index="1" speed="13.89" length="80.55" shape="-801.65,782.05 -801.65,701.50"/>
     </edge>
     <edge id="hr_west_in" from="hr_west" to="hr_junction" priority="1">
         <lane id="hr_west_in_0" index="0" speed="13.89" length="282.05" shape="-1100.00,785.15 -817.95,785.15"/>
@@ -154,6 +192,16 @@
         <phase duration="4" state="rrrryyrrrrrrrryyrrrrr"/>
     </tlLogic>
 
+    <junction id="gneJ0" type="dead_end" x="-799.99" y="699.95" incLanes="" intLanes="" shape="-799.99,699.95"/>
+    <junction id="gneJ5" type="priority" x="-800.00" y="300.00" incLanes="gneE3_0 gneE3_1 -gneE5_0 -gneE5_1" intLanes=":gneJ5_0_0 :gneJ5_0_1 :gneJ5_0_2 :gneJ5_0_3 :gneJ5_4_0 :gneJ5_4_1" shape="-806.55,301.49 -793.45,301.49 -793.45,298.52 -813.15,298.46">
+        <request index="0" response="000000" foes="000000" cont="0"/>
+        <request index="1" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="000000" foes="000000" cont="0"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
+        <request index="4" response="000000" foes="000000" cont="0"/>
+        <request index="5" response="000000" foes="000000" cont="0"/>
+    </junction>
+    <junction id="gneJ8" type="dead_end" x="-799.97" y="289.49" incLanes="gneE5_0 gneE5_1 gneE5_2 gneE5_3" intLanes="" shape="-799.92,289.49 -813.12,289.45 -800.02,289.49"/>
     <junction id="hr_east" type="dead_end" x="-500.00" y="800.00" incLanes="hr_east_out_0 hr_east_out_1" intLanes="" shape="-500.00,800.05 -500.00,793.45 -500.00,799.95"/>
     <junction id="hr_junction" type="traffic_light" x="-800.00" y="800.00" incLanes="hr_north_in_0 hr_north_in_1 hr_north_in_2 hr_north_in_3 hr_north_in_4 hr_east_in_0 hr_east_in_1 hr_east_in_2 hr_east_in_3 hr_east_in_4 hr_south_in_0 hr_south_in_1 hr_south_in_2 hr_south_in_3 hr_west_in_0 hr_west_in_1 hr_west_in_2 hr_west_in_3 hr_west_in_4" intLanes=":hr_junction_0_0 :hr_junction_0_1 :hr_junction_2_0 :hr_junction_2_1 :hr_junction_21_0 :hr_junction_22_0 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_23_0 :hr_junction_24_0 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_25_0 :hr_junction_26_0 :hr_junction_16_0 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_27_0 :hr_junction_28_0" shape="-816.45,817.95 -790.15,817.95 -785.35,816.45 -785.35,793.45 -786.85,782.05 -806.55,782.05 -817.95,783.55 -817.95,806.55">
         <request index="0" response="000000000000110000000" foes="000001100000110000000" cont="0"/>
@@ -179,7 +227,14 @@
         <request index="20" response="000000000000111000000" foes="000001111000111111100" cont="1"/>
     </junction>
     <junction id="hr_north" type="dead_end" x="-800.00" y="1000.00" incLanes="hr_north_out_0 hr_north_out_1 hr_north_out_2" intLanes="" shape="-800.05,1000.00 -790.15,1000.00 -799.95,1000.00"/>
-    <junction id="hr_south" type="dead_end" x="-800.00" y="600.00" incLanes="hr_south_out_0 hr_south_out_1" intLanes="" shape="-799.95,600.00 -806.55,600.00 -800.05,600.00"/>
+    <junction id="hr_south" type="priority" x="-800.00" y="700.00" incLanes="hr_south_out_0 hr_south_out_1 -gneE3_0 -gneE3_1" intLanes=":hr_south_0_0 :hr_south_0_1 :hr_south_2_0 :hr_south_2_1 :hr_south_2_2 :hr_south_2_3" shape="-806.55,701.50 -786.85,701.50 -793.45,698.50 -806.55,698.50">
+        <request index="0" response="000000" foes="000000" cont="0"/>
+        <request index="1" response="000000" foes="000000" cont="0"/>
+        <request index="2" response="000000" foes="000000" cont="0"/>
+        <request index="3" response="000000" foes="000000" cont="0"/>
+        <request index="4" response="000000" foes="000000" cont="0"/>
+        <request index="5" response="000000" foes="000000" cont="0"/>
+    </junction>
     <junction id="hr_west" type="dead_end" x="-1100.00" y="800.00" incLanes="hr_west_out_0 hr_west_out_1" intLanes="" shape="-1100.00,799.95 -1100.00,806.55 -1100.00,800.05"/>
 
     <junction id=":hr_junction_21_0" type="internal" x="-798.65" y="803.29" incLanes=":hr_junction_4_0 hr_south_in_0 hr_south_in_1 hr_south_in_2" intLanes=":hr_junction_7_0 :hr_junction_7_1 :hr_junction_9_0 :hr_junction_9_1 :hr_junction_11_0 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_17_0 :hr_junction_17_1 :hr_junction_19_0 :hr_junction_19_1"/>
@@ -191,6 +246,16 @@
     <junction id=":hr_junction_27_0" type="internal" x="-798.28" y="804.93" incLanes=":hr_junction_19_0 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1"/>
     <junction id=":hr_junction_28_0" type="internal" x="-803.04" y="803.60" incLanes=":hr_junction_19_1 hr_east_in_0 hr_east_in_1 hr_east_in_2" intLanes=":hr_junction_2_0 :hr_junction_2_1 :hr_junction_4_0 :hr_junction_4_1 :hr_junction_6_0 :hr_junction_7_0 :hr_junction_7_1 :hr_junction_12_0 :hr_junction_12_1 :hr_junction_14_0 :hr_junction_14_1"/>
 
+    <connection from="-gneE3" to="hr_south_in" fromLane="0" toLane="0" via=":hr_south_2_0" dir="s" state="M"/>
+    <connection from="-gneE3" to="hr_south_in" fromLane="0" toLane="1" via=":hr_south_2_1" dir="s" state="M"/>
+    <connection from="-gneE3" to="hr_south_in" fromLane="1" toLane="2" via=":hr_south_2_2" dir="s" state="M"/>
+    <connection from="-gneE3" to="hr_south_in" fromLane="1" toLane="3" via=":hr_south_2_3" dir="s" state="M"/>
+    <connection from="-gneE5" to="-gneE3" fromLane="0" toLane="0" via=":gneJ5_4_0" dir="s" state="M"/>
+    <connection from="-gneE5" to="-gneE3" fromLane="1" toLane="1" via=":gneJ5_4_1" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE5" fromLane="0" toLane="0" via=":gneJ5_0_0" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE5" fromLane="0" toLane="1" via=":gneJ5_0_1" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE5" fromLane="1" toLane="2" via=":gneJ5_0_2" dir="s" state="M"/>
+    <connection from="gneE3" to="gneE5" fromLane="1" toLane="3" via=":gneJ5_0_3" dir="s" state="M"/>
     <connection from="hr_east_in" to="hr_north_out" fromLane="0" toLane="0" via=":hr_junction_6_0" tl="hr_junction" linkIndex="6" dir="r" state="o"/>
     <connection from="hr_east_in" to="hr_west_out" fromLane="1" toLane="0" via=":hr_junction_7_0" tl="hr_junction" linkIndex="7" dir="s" state="o"/>
     <connection from="hr_east_in" to="hr_west_out" fromLane="2" toLane="1" via=":hr_junction_7_1" tl="hr_junction" linkIndex="8" dir="s" state="o"/>
@@ -207,12 +272,20 @@
     <connection from="hr_south_in" to="hr_north_out" fromLane="2" toLane="2" via=":hr_junction_12_1" tl="hr_junction" linkIndex="13" dir="s" state="o"/>
     <connection from="hr_south_in" to="hr_west_out" fromLane="3" toLane="0" via=":hr_junction_14_0" tl="hr_junction" linkIndex="14" dir="l" state="o"/>
     <connection from="hr_south_in" to="hr_west_out" fromLane="3" toLane="1" via=":hr_junction_14_1" tl="hr_junction" linkIndex="15" dir="l" state="o"/>
+    <connection from="hr_south_out" to="gneE3" fromLane="0" toLane="0" via=":hr_south_0_0" dir="s" state="M"/>
+    <connection from="hr_south_out" to="gneE3" fromLane="1" toLane="1" via=":hr_south_0_1" dir="s" state="M"/>
     <connection from="hr_west_in" to="hr_south_out" fromLane="0" toLane="0" via=":hr_junction_16_0" tl="hr_junction" linkIndex="16" dir="r" state="o"/>
     <connection from="hr_west_in" to="hr_east_out" fromLane="1" toLane="0" via=":hr_junction_17_0" tl="hr_junction" linkIndex="17" dir="s" state="o"/>
     <connection from="hr_west_in" to="hr_east_out" fromLane="2" toLane="1" via=":hr_junction_17_1" tl="hr_junction" linkIndex="18" dir="s" state="o"/>
     <connection from="hr_west_in" to="hr_north_out" fromLane="3" toLane="1" via=":hr_junction_19_0" tl="hr_junction" linkIndex="19" dir="l" state="o"/>
     <connection from="hr_west_in" to="hr_north_out" fromLane="4" toLane="2" via=":hr_junction_19_1" tl="hr_junction" linkIndex="20" dir="l" state="o"/>
 
+    <connection from=":gneJ5_0" to="gneE5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ5_0" to="gneE5" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":gneJ5_0" to="gneE5" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":gneJ5_0" to="gneE5" fromLane="3" toLane="3" dir="s" state="M"/>
+    <connection from=":gneJ5_4" to="-gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ5_4" to="-gneE3" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_0" to="hr_west_out" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":hr_junction_0" to="hr_west_out" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_2" to="hr_south_out" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -242,5 +315,11 @@
     <connection from=":hr_junction_27" to="hr_north_out" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from=":hr_junction_19" to="hr_north_out" fromLane="1" toLane="2" via=":hr_junction_28_0" dir="s" state="m"/>
     <connection from=":hr_junction_28" to="hr_north_out" fromLane="0" toLane="2" dir="s" state="M"/>
+    <connection from=":hr_south_0" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_south_0" to="gneE3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_south_2" to="hr_south_in" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":hr_south_2" to="hr_south_in" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":hr_south_2" to="hr_south_in" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from=":hr_south_2" to="hr_south_in" fromLane="3" toLane="3" dir="s" state="M"/>
 
 </net>
