@@ -155,7 +155,7 @@ class Traci_1_cross_env(BaseTraciEnv):
         if traci.simulation.getMinExpectedNumber() < 1:
             traci.close(wait=False)
             self.log_end_episode(0)
-            BaseTraciEnv.reset()
+            BaseTraciEnv.reset(self)
             self.restart()
         return np.zeros(self.num_state_scalars)
 
