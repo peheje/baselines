@@ -1,4 +1,7 @@
 <additionals>
+
+    <!-- WATERTOWER CROSS -->
+
     <e3Detector id="hr_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="hr_east_in_0" pos="10.00"/>
         <detEntry lane="hr_east_in_1" pos="10.00"/>
@@ -47,6 +50,40 @@
         <detExit lane="hr_south_in_1" pos="80.00"/>
         <detExit lane="hr_south_in_2" pos="80.00"/>
         <detExit lane="hr_south_in_3" pos="80.00"/>
+    </e3Detector>
+
+    <!-- MCD CROSS -->
+
+    <e3Detector id="mc_south" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="mc_south_in_0" pos="5.00"/>
+        <detEntry lane="mc_south_in_1" pos="5.00"/>
+        <detEntry lane="mc_south_in_2" pos="5.00"/>
+        <detEntry lane="mc_south_in_3" pos="5.00"/>
+        <detExit lane="mc_south_in_0" pos="35.00"/>
+        <detExit lane="mc_south_in_1" pos="35.00"/>
+        <detExit lane="mc_south_in_2" pos="35.00"/>
+        <detExit lane="mc_south_in_3" pos="35.00"/>
+    </e3Detector>
+
+    <e3Detector id="mc_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="mc_east_in_0" pos="10.00"/>
+        <detExit lane="mc_east_in_0" pos="188.00"/>
+    </e3Detector>
+
+    <e3Detector id="mc_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="mc_west_in_0" pos="10.00"/>
+        <detExit lane="mc_west_in_0" pos="212.00"/>
+    </e3Detector>
+
+    <e3Detector id="mc_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="mc_north_in_0" pos="5.00"/>
+        <detEntry lane="mc_north_in_1" pos="5.00"/>
+        <detEntry lane="mc_north_in_2" pos="5.00"/>
+        <detEntry lane="mc_north_in_3" pos="5.00"/>
+        <detExit lane="mc_north_in_0" pos="51.00"/>
+        <detExit lane="mc_north_in_1" pos="51.00"/>
+        <detExit lane="mc_north_in_2" pos="51.00"/>
+        <detExit lane="mc_north_in_3" pos="51.00"/>
     </e3Detector>
 
 </additionals>
