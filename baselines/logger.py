@@ -97,7 +97,7 @@ class TensorBoardOutputFormat(OutputFormat):
         self.dir = dir
         self.step = 1
         prefix = 'events'
-        path = osp.join(osp.abspath(dir), prefix)
+        self.path = osp.join(osp.abspath(dir), prefix)
         import tensorflow as tf
         from tensorflow.python import pywrap_tensorflow        
         from tensorflow.core.util import event_pb2
@@ -105,7 +105,7 @@ class TensorBoardOutputFormat(OutputFormat):
         self.tf = tf
         self.event_pb2 = event_pb2
         self.pywrap_tensorflow = pywrap_tensorflow
-        self.writer = pywrap_tensorflow.EventsWriter(compat.as_bytes(path))
+        self.writer = pywrap_tensorflow.EventsWriter(compat.as_bytes(self.path))
 
     def writekvs(self, kvs):
         def summary_val(k, v):
@@ -117,6 +117,16 @@ class TensorBoardOutputFormat(OutputFormat):
         self.writer.WriteEvent(event)
         self.writer.Flush()
         self.step += 1
+
+    def logtxt(self,str_array):
+        text_tensor = self.tf.convert_to_tensor(str_array)
+        inner_summary = self.tf.summary.text('input', text_tensor)
+        summary_op = self.tf.summary.merge_all()
+        with self.tf.Session() as sess:
+            summary_writer = self.tf.summary.FileWriter(logdir=self.path.replace("/events",""))
+            result = sess.run(summary_op)
+            summary_writer.add_summary(result, global_step=0)
+            summary_writer.flush()
 
     def close(self):
         if self.writer:
@@ -142,7 +152,8 @@ def make_output_format(format, ev_dir):
 # ================================================================
 # API
 # ================================================================
-
+def logtxt(str):
+    Logger.CURRENT.logtxt(str)
 def logkv(key, val):
     """
     Log a value of some diagnostic
@@ -238,6 +249,10 @@ class Logger(object):
     def log(self, *args, level=INFO):
         if self.level <= level:
             self._do_log(args)
+    def logtxt(self,str):
+        for fmt in self.output_formats:
+            if isinstance(fmt,TensorBoardOutputFormat) :
+                fmt.logtxt(str)
 
     # Configuration
     # ----------------------------------------
