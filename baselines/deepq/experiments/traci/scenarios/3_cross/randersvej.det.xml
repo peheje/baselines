@@ -1,30 +1,27 @@
 <additionals>
-    <vType id="reroutingType">
-        <param key="has.rerouting.device" value="true"/>
-    </vType>
     <e3Detector id="hr_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="hr_east_in_0" pos="10.00"/>
-        <detEntry lane="hr_east_in_1" pos="10.00"/>
-        <detEntry lane="hr_east_in_2" pos="10.00"/>
-        <detEntry lane="hr_east_in_3" pos="10.00"/>
-        <detEntry lane="hr_east_in_4" pos="10.00"/>
-        <detExit lane="hr_east_in_0" pos="285.00"/>
-        <detExit lane="hr_east_in_1" pos="285.00"/>
-        <detExit lane="hr_east_in_2" pos="285.00"/>
-        <detExit lane="hr_east_in_3" pos="285.00"/>
-        <detExit lane="hr_east_in_4" pos="285.00"/>
+        <detEntry lane="Cs_0" pos="10.00"/>
+        <detEntry lane="Cs_1" pos="10.00"/>
+        <detEntry lane="Cs_2" pos="10.00"/>
+        <detEntry lane="Cs_3" pos="10.00"/>
+        <detEntry lane="Cs_4" pos="10.00"/>
+        <detExit lane="Cs_0" pos="285.00"/>
+        <detExit lane="Cs_1" pos="285.00"/>
+        <detExit lane="Cs_2" pos="285.00"/>
+        <detExit lane="Cs_3" pos="285.00"/>
+        <detExit lane="Cs_4" pos="285.00"/>
     </e3Detector>
     <e3Detector id="hr_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="hr_north_in_0" pos="10.00"/>
-        <detEntry lane="hr_north_in_1" pos="10.00"/>
-        <detEntry lane="hr_north_in_2" pos="10.00"/>
-        <detEntry lane="hr_north_in_3" pos="10.00"/>
-        <detEntry lane="hr_north_in_4" pos="10.00"/>
-        <detExit lane="hr_north_in_0" pos="180.00"/>
-        <detExit lane="hr_north_in_1" pos="180.00"/>
-        <detExit lane="hr_north_in_2" pos="180.00"/>
-        <detExit lane="hr_north_in_3" pos="180.00"/>
-        <detExit lane="hr_north_in_4" pos="180.00"/>
+        <detEntry lane="As_0" pos="10.00"/>
+        <detEntry lane="As_1" pos="10.00"/>
+        <detEntry lane="As_2" pos="10.00"/>
+        <detEntry lane="As_3" pos="10.00"/>
+        <detEntry lane="As_4" pos="10.00"/>
+        <detExit lane="As_0" pos="180.00"/>
+        <detExit lane="As_1" pos="180.00"/>
+        <detExit lane="As_2" pos="180.00"/>
+        <detExit lane="As_3" pos="180.00"/>
+        <detExit lane="As_4" pos="180.00"/>
     </e3Detector>
     <e3Detector id="hr_south" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="hr_south_in_0" pos="10.00"/>
@@ -37,20 +34,20 @@
         <detExit lane="hr_south_in_3" pos="80.00"/>
     </e3Detector>
     <e3Detector id="hr_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="hr_west_in_0" pos="10.00"/>
-        <detEntry lane="hr_west_in_1" pos="10.00"/>
-        <detEntry lane="hr_west_in_2" pos="10.00"/>
-        <detEntry lane="hr_west_in_3" pos="10.00"/>
-        <detEntry lane="hr_west_in_4" pos="10.00"/>
-        <detExit lane="hr_west_in_0" pos="280.00"/>
-        <detExit lane="hr_west_in_1" pos="280.00"/>
-        <detExit lane="hr_west_in_2" pos="280.00"/>
-        <detExit lane="hr_west_in_3" pos="280.00"/>
-        <detExit lane="hr_west_in_4" pos="280.00"/>
+        <detEntry lane="Bs_0" pos="10.00"/>
+        <detEntry lane="Bs_1" pos="10.00"/>
+        <detEntry lane="Bs_2" pos="10.00"/>
+        <detEntry lane="Bs_3" pos="10.00"/>
+        <detEntry lane="Bs_4" pos="10.00"/>
+        <detExit lane="Bs_0" pos="280.00"/>
+        <detExit lane="Bs_1" pos="280.00"/>
+        <detExit lane="Bs_2" pos="280.00"/>
+        <detExit lane="Bs_3" pos="280.00"/>
+        <detExit lane="Bs_4" pos="280.00"/>
     </e3Detector>
     <e3Detector id="mc_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="mc_east_in_0" pos="10.00"/>
-        <detExit lane="mc_east_in_0" pos="188.00"/>
+        <detEntry lane="Es_0" pos="10.00"/>
+        <detExit lane="Es_0" pos="188.00"/>
     </e3Detector>
     <e3Detector id="mc_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="mc_north_in_0" pos="5.00"/>
@@ -73,12 +70,60 @@
         <detExit lane="mc_south_in_3" pos="35.00"/>
     </e3Detector>
     <e3Detector id="mc_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="mc_west_in_0" pos="10.00"/>
-        <detExit lane="mc_west_in_0" pos="212.00"/>
+        <detEntry lane="Ds_0" pos="10.00"/>
+        <detExit lane="Ds_0" pos="212.00"/>
+    </e3Detector>
+    <e3Detector id="nd_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="Is_0" pos="5.00"/>
+        <detEntry lane="Is_1" pos="5.00"/>
+        <detEntry lane="Is_2" pos="5.00"/>
+        <detEntry lane="Is_3" pos="5.00"/>
+        <detEntry lane="Is_4" pos="5.00"/>
+        <detExit lane="Is_0" pos="44.00"/>
+        <detExit lane="Is_1" pos="44.00"/>
+        <detExit lane="Is_2" pos="44.00"/>
+        <detExit lane="Is_3" pos="44.00"/>
+        <detExit lane="Is_4" pos="44.00"/>
+    </e3Detector>
+    <e3Detector id="nd_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="nd_north_in_0" pos="10.00"/>
+        <detEntry lane="nd_north_in_1" pos="10.00"/>
+        <detEntry lane="nd_north_in_2" pos="10.00"/>
+        <detEntry lane="nd_north_in_3" pos="10.00"/>
+        <detEntry lane="nd_north_in_4" pos="10.00"/>
+        <detEntry lane="nd_north_in_5" pos="10.00"/>
+        <detExit lane="nd_north_in_0" pos="195.00"/>
+        <detExit lane="nd_north_in_1" pos="195.00"/>
+        <detExit lane="nd_north_in_2" pos="195.00"/>
+        <detExit lane="nd_north_in_3" pos="195.00"/>
+        <detExit lane="nd_north_in_4" pos="195.00"/>
+        <detExit lane="nd_north_in_5" pos="195.00"/>
+    </e3Detector>
+    <e3Detector id="nd_south" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="Js_0" pos="5.00"/>
+        <detEntry lane="Js_1" pos="5.00"/>
+        <detEntry lane="Js_2" pos="5.00"/>
+        <detEntry lane="Js_3" pos="5.00"/>
+        <detExit lane="Js_0" pos="67.00"/>
+        <detExit lane="Js_1" pos="67.00"/>
+        <detExit lane="Js_2" pos="67.00"/>
+        <detExit lane="Js_3" pos="67.00"/>
+    </e3Detector>
+    <e3Detector id="nd_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
+        <detEntry lane="Hs_0" pos="5.00"/>
+        <detEntry lane="Hs_1" pos="5.00"/>
+        <detEntry lane="Hs_2" pos="5.00"/>
+        <detEntry lane="Hs_3" pos="5.00"/>
+        <detEntry lane="Hs_4" pos="5.00"/>
+        <detExit lane="Hs_0" pos="97.00"/>
+        <detExit lane="Hs_1" pos="97.00"/>
+        <detExit lane="Hs_2" pos="97.00"/>
+        <detExit lane="Hs_3" pos="97.00"/>
+        <detExit lane="Hs_4" pos="97.00"/>
     </e3Detector>
     <e3Detector id="st_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="st_east_in_0" pos="10.00"/>
-        <detExit lane="st_east_in_0" pos="175.33"/>
+        <detEntry lane="Gs_0" pos="10.00"/>
+        <detExit lane="Gs_0" pos="175.33"/>
     </e3Detector>
     <e3Detector id="st_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="st_north_in_0" pos="5.00"/>
@@ -97,56 +142,7 @@
         <detExit lane="st_south_in_2" pos="73.75"/>
     </e3Detector>
     <e3Detector id="st_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="st_west_in_0" pos="10.00"/>
-        <detExit lane="st_west_in_0" pos="152.37"/>
-    </e3Detector>
-
-    <e3Detector id="nd_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="nd_east_in_0" pos="5.00"/>
-        <detEntry lane="nd_east_in_1" pos="5.00"/>
-        <detEntry lane="nd_east_in_2" pos="5.00"/>
-        <detEntry lane="nd_east_in_3" pos="5.00"/>
-        <detEntry lane="nd_east_in_4" pos="5.00"/>
-        <detExit lane="nd_east_in_0" pos="44.00"/>
-        <detExit lane="nd_east_in_1" pos="44.00"/>
-        <detExit lane="nd_east_in_2" pos="44.00"/>
-        <detExit lane="nd_east_in_3" pos="44.00"/>
-        <detExit lane="nd_east_in_4" pos="44.00"/>
-    </e3Detector>
-    <e3Detector id="nd_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="nd_north_in_0" pos="10.00"/>
-        <detEntry lane="nd_north_in_1" pos="10.00"/>
-        <detEntry lane="nd_north_in_2" pos="10.00"/>
-        <detEntry lane="nd_north_in_3" pos="10.00"/>
-        <detEntry lane="nd_north_in_4" pos="10.00"/>
-        <detEntry lane="nd_north_in_5" pos="10.00"/>
-        <detExit lane="nd_north_in_0" pos="195.00"/>
-        <detExit lane="nd_north_in_1" pos="195.00"/>
-        <detExit lane="nd_north_in_2" pos="195.00"/>
-        <detExit lane="nd_north_in_3" pos="195.00"/>
-        <detExit lane="nd_north_in_4" pos="195.00"/>
-        <detExit lane="nd_north_in_5" pos="195.00"/>
-    </e3Detector>
-    <e3Detector id="nd_south" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="nd_south_in_0" pos="5.00"/>
-        <detEntry lane="nd_south_in_1" pos="5.00"/>
-        <detEntry lane="nd_south_in_2" pos="5.00"/>
-        <detEntry lane="nd_south_in_3" pos="5.00"/>
-        <detExit lane="nd_south_in_0" pos="67.00"/>
-        <detExit lane="nd_south_in_1" pos="67.00"/>
-        <detExit lane="nd_south_in_2" pos="67.00"/>
-        <detExit lane="nd_south_in_3" pos="67.00"/>
-    </e3Detector>
-    <e3Detector id="nd_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
-        <detEntry lane="nd_west_in_0" pos="5.00"/>
-        <detEntry lane="nd_west_in_1" pos="5.00"/>
-        <detEntry lane="nd_west_in_2" pos="5.00"/>
-        <detEntry lane="nd_west_in_3" pos="5.00"/>
-        <detEntry lane="nd_west_in_4" pos="5.00"/>
-        <detExit lane="nd_west_in_0" pos="97.00"/>
-        <detExit lane="nd_west_in_1" pos="97.00"/>
-        <detExit lane="nd_west_in_2" pos="97.00"/>
-        <detExit lane="nd_west_in_3" pos="97.00"/>
-        <detExit lane="nd_west_in_4" pos="97.00"/>
+        <detEntry lane="Fs_0" pos="10.00"/>
+        <detExit lane="Fs_0" pos="152.37"/>
     </e3Detector>
 </additionals>

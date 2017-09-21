@@ -26,9 +26,10 @@ class Traci_3_cross_env(BaseTraciEnv):
 
     @staticmethod
     def spawn_cars():
-        traci.route.add("trip", ["hr_west_in", "hr_south_out"])
-        for i in range(1):
-            traci.vehicle.add("car1", "trip", typeID="reroutingType")
+        #traci.route.add("trip", ["hr_west_in", "gneE3"])
+        traci.route.add("trip", ["hr_west_in", "hr_south_out", "gneE3", "mc_north_in"])
+        for i in range(100):
+            traci.vehicle.add("car" + str(i), "trip", typeID="reroutingType")
 
     def __traci_start__(self):
         traci.start(
@@ -97,8 +98,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         cur_state = cur_state + self.get_traffic_states()
         self.state.append(cur_state)
 
-        print("STATE")
-        print(self.state)
+        print("STATE", self.state)
 
         # Build reward
         reward = self.reward_func()

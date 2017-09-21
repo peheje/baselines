@@ -44,7 +44,7 @@ def main():
     copyfile(__file__, logger_path + "/params.txt")
 
     # Create the training model
-    model = deepq.models.mlp([64,32])
+    model = deepq.models.mlp([64])
     act = deepq.learn(
         env=env,
         q_func=model,
