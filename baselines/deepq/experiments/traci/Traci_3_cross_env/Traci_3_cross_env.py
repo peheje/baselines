@@ -61,10 +61,6 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         print("have created spawn_cars at", self.route_file_name)
 
-        #traci.route.add("trip", ["Bs", "hr_south_out", "gneE3", "mc_north_in"])
-        #for i in range(100):
-        #    traci.vehicle.add("car" + str(i), "trip", typeID="reroutingType")
-
     def __traci_start__(self):
         traci.start(
             [self.sumo_binary, "-c", "scenarios/3_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name,
@@ -132,7 +128,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         for id in self.e3ids:
             cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
         cur_state = cur_state + self.get_traffic_states()
-        self.state.append(cur_state)
+        self.state.append(np.array(cur_state))
 
         print("STATE", self.state)
 
