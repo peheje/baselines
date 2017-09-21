@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 21 12:02:01 2017 by SUMO gui Version 0.30.0
+<!-- generated on Thu Sep 21 14:20:25 2017 by SUMO gui Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="scenarios/3_cross/randersvej.net.xml"/>
+        <route-files value="scenarios/3_cross/randersvej.rou.xml"/>
         <additional-files value="scenarios/3_cross/randersvej.det.xml"/>
     </input>
 
     <output>
-        <tripinfo-output value="/var/folders/6d/qwp3dfvx0r9d_kfqhfvbvl8m0000gn/T/tmp69iu85u0"/>
+        <tripinfo-output value="/var/folders/6d/qwp3dfvx0r9d_kfqhfvbvl8m0000gn/T/tmpiksx9f8e"/>
     </output>
 
     <time>
@@ -24,7 +25,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="51432"/>
+        <remote-port value="52269"/>
     </traci_server>
 
     <gui_only>
