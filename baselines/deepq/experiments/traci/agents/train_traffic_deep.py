@@ -15,6 +15,7 @@ import gym
 from baselines import deepq
 import Traci_1_cross_env.Traci_1_cross_env
 import Traci_2_cross_env.Traci_2_cross_env
+import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
 from BaseTraciEnv import BaseTraciEnv
 from pathlib import Path

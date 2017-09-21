@@ -72,3 +72,11 @@ baselines/deepq/experiments/traci/scenarios/1_cross/cross\.rou\.xml
 baselines/deepq/experiments/traci/traffic_model\.pkl
 
 *.pkl
+
+baselines/deepq/experiments/traci/scenarios/3_cross/test\.rou\.xml
+
+baselines/deepq/experiments/traci/scenarios/3_cross/output\.alt\.xml
+
+baselines/deepq/experiments/traci/scenarios/3_cross/output\.xml
+
+baselines/deepq/experiments/traci/scenarios/3_cross/randersvej\.rou\.alt\.xml

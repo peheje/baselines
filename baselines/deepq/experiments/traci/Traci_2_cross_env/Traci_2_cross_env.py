@@ -37,7 +37,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         p_s_n_a = self.car_props[3]
         p_n_s_b = self.car_props[4]
         p_s_n_b = self.car_props[5]
-        with tempfile.NamedTemporaryFile(mode="w",delete=False) as routes:
+        with tempfile.NamedTemporaryFile(mode="w", delete=False) as routes:
             self.route_file_name=routes.name
             print("""<routes>
             <vType id="typeWE" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>
