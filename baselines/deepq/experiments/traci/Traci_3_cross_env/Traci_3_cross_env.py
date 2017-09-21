@@ -10,6 +10,7 @@ from BaseTraciEnv import BaseTraciEnv
 from utilities.UniqueCounter import UniqueCounter
 from gym import spaces
 from gym.utils import seeding
+import subprocess
 
 import traci
 from sumolib import checkBinary
@@ -54,10 +55,22 @@ class Traci_3_cross_env(BaseTraciEnv):
 
             vehid = 0
             for i in range(self.num_car_chances):
-                print('<vehicle id="{}" type="carType" route="route{}" depart="{}"/>'.format(vehid, random_int(0, len(paths)), i), file=routes)
+                print('<vehicle id="{}" type="carType" route="route{}" depart="{}"/>'.format(vehid,
+                                                                                             random_int(0, len(paths)),
+                                                                                             i), file=routes)
                 vehid += 1
 
             print("</routes>", file=routes)
+
+        print(subprocess.check_output(["pwd"]))
+
+        status = subprocess.check_output("duarouter" +
+                                         " -n /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.net.xml" +
+                                         " -d /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.det.xml" +
+                                         " -t {}".format(self.route_file_name) +
+                                         " -o /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.rou.xml" +
+                                         " --repair", shell=True)
+        print(status)
 
         print("have created spawn_cars at", self.route_file_name)
 
@@ -114,8 +127,9 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # convert action into two actions
         action = self.discrete_to_multidiscrete_4cross(action)
-        # self.set_light_phase("a", action[0], phase_a)
-        # self.set_light_phase("b", action[1], phase_b)
+        for i, tlsid in enumerate(traci.trafficlights.getIDList()):
+            phase = traci.trafficlights.getPhase(tlsid)
+            self.set_light_phase_4_cross(tlsid, action[i], phase)
 
         # Run simulation step
         traci.simulationStep()

@@ -33,7 +33,7 @@ def main():
 
     # Create environment and initialize
     env = gym.make(log_dir[1])
-    env.configure_traci(num_car_chances=10000,
+    env.configure_traci(num_car_chances=100,
                         car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
                         reward_func=env.reward_squared_wait_sum)
     env.render()

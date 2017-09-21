@@ -135,7 +135,22 @@ class BaseTraciEnv(gym.Env):
     def discrete_to_multidiscrete_4cross(action):
         return list(map(int, format(action, '04b')))
 
-
+    def set_light_phase_4_cross(self, light_id, action, cur_phase):
+        # Run action
+        if action == 0:
+            if cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 5)
+                self.traffic_light_changes += 1
+            elif cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 0)
+        elif action == 1:
+            if cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 1)
+                self.traffic_light_changes += 1
+            elif cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 4)
+        else:
+            pass  # do nothing
 
     def set_light_phase(self, light_id, action, cur_phase):
         # Run action
