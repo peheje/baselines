@@ -62,21 +62,24 @@ class Traci_3_cross_env(BaseTraciEnv):
 
             print("</routes>", file=routes)
 
-        print(subprocess.check_output(["pwd"]))
-
+        # Call duarouter which calculates the complete node to node path
         status = subprocess.check_output("duarouter" +
                                          " -n scenarios/3_cross/randersvej.net.xml" +
                                          " -d scenarios/3_cross/randersvej.det.xml" +
                                          " -t {}".format(self.route_file_name) +
                                          " -o scenarios/3_cross/randersvej.rou.xml" +
+                                         " --no-warnings" +
                                          " --repair", shell=True)
         print(status)
 
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/3_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name,
+            [self.sumo_binary,
+             "-c", "scenarios/3_cross/cross.sumocfg",
+             "--tripinfo-output", self.tripinfo_file_name,
              "--start",
-             "--quit-on-end"])
+             "--quit-on-end",
+             "--time-to-teleport", "-1"])
 
     def __init__(self):
         # Start by calling parent init
@@ -171,6 +174,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         return np.hstack(self.state)
 
     def _render(self, mode='human', close=False):
-        self.should_render = True
-        self.restart()
-        print("Render not implemented! Set sumo_binary = checkBinary('sumo-gui')")
+        if not close:
+            self.should_render = True
+            self.restart()
