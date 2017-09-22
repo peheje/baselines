@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 22 12:27:10 2017 by SUMO jtrrouter Version 0.30.0
+<!-- generated on Fri Sep 22 12:31:02 2017 by SUMO jtrrouter Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/jtrrouterConfiguration.xsd">
 
     <input>
         <net-file value="scenarios/3_cross/randersvej.net.xml"/>
-        <flow-files value="/tmp/tmpmp27qlis"/>
+        <flow-files value="/tmp/tmp0ckpedij"/>
     </input>
 
     <output>

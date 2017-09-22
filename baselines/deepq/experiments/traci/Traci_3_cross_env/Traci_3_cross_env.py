@@ -44,9 +44,9 @@ class Traci_3_cross_env(BaseTraciEnv):
             for t in tos:
                 if not t.startswith(f[0]):
                     paths.append((f, t))
-        with tempfile.NamedTemporaryFile(mode="w", delete=False) as routes:
-            self.route_file_name=routes.name
-            print("<routes>", file=routes)
+        with tempfile.NamedTemporaryFile(mode="w", delete=False) as flows:
+            self.flow_file_name=flows.name
+            print("<routes>", file=flows)
             for iter,f in enumerate(froms):
                 #If spawning from big road
                 if any(bigroad in f for bigroad in big_roads):
@@ -54,16 +54,19 @@ class Traci_3_cross_env(BaseTraciEnv):
                 else:
                     spawn_prob=self.car_props[1]
 
-                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter,f,self.num_car_chances,spawn_prob),file=routes)
-            print("</routes>", file=routes)
+                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter,f,self.num_car_chances,spawn_prob),file=flows)
+            print("</routes>", file=flows)
 
-        "jtrrouter -n randersvej.net.xml -f flow_test --turn-defaults 20,70,10 -o test.routerino --accept-all-destinations"
+        #make temp file for routes
+        temp_route_file=tempfile.NamedTemporaryFile(mode="w",delete=False)
+        self.route_file_name=temp_route_file.name
 
         status=subprocess.check_output("jtrrouter" +
-                                         " -n scenarios/3_cross/randersvej.net.xml"+
-                                         " -f {}".format(self.route_file_name) +
-                                         " -o scenarios/3_cross/randersvej.rou.xml" +
-                                         " --turn-defaults 20,70,10"+
+                                         " -n scenarios/3_cross/randersvej.net.xml" +
+                                         " -f {}".format(self.flow_file_name) +
+                                         " -o {}".format(self.route_file_name) +
+                                         " --turn-ratio-files scenarios/3_cross/turn_probs"+
+                                         " --turn-defaults 20,70,10" +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
@@ -75,12 +78,13 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--tripinfo-output", self.tripinfo_file_name,
              "--start",
              "--quit-on-end",
-             "--time-to-teleport", "-1"])
+             "--time-to-teleport", "-1",
+             "--route-files",self.route_file_name])
 
     def __init__(self):
         # Start by calling parent init
         BaseTraciEnv.__init__(self)
-        self.route_file_name = None
+        self.flow_file_name = None
         self.should_render = False
         self.num_actions = 2 ** 4
         self.num_state_scalars = 4 * 4 + 4

@@ -66,7 +66,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function)
-    #env.render()
+    env.render()
 
     # Initialize logger
     logger.reset()
