@@ -27,8 +27,8 @@ def callback(lcl, glb):
     is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
     return is_solved
 
-def train_and_log(environment="Traci_2_cross_env-v0", car_chances=1000,
-                  car_probabilities=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+def train_and_log(environment="Traci_3_cross_env-v0", car_chances=1000,
+                  car_probabilities=[0.5, 0.05], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3, max_timesteps=1000000,
                   buffer_size=50000, exploration_fraction=0.8,
@@ -61,7 +61,7 @@ def train_and_log(environment="Traci_2_cross_env-v0", car_chances=1000,
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function)
-    # env.render()
+    env.render()
 
     # Initialize logger
     logger.reset()

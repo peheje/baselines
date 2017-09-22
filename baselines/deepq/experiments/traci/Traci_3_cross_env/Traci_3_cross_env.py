@@ -37,39 +37,35 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         froms = ["As", "Bs", "Cs", "Ds", "Es", "Fs", "Gs", "Hs", "Is", "Js"]
         tos = ["Ae", "Be", "Ce", "De", "Ee", "Ge", "He", "Ie", "Je"]
+        big_roads=["A","B","C","H","I","J"]
         paths = []
 
         for f in froms:
             for t in tos:
                 if not t.startswith(f[0]):
                     paths.append((f, t))
-
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as routes:
-            self.route_file_name = routes.name
+            self.route_file_name=routes.name
             print("<routes>", file=routes)
-            print(
-                '<vType id="carType" accel="0.8" decel="4.5" sigma="0.5" length="5" minGap="2.5" maxSpeed="16.67" guiShape="passenger"/>',
-                file=routes)
-            for i, p in enumerate(paths):
-                print('<route id="route{}" edges="{} {}" />'.format(i, p[0], p[1]), file=routes)
+            for iter,f in enumerate(froms):
+                #If spawning from big road
+                if any(bigroad in f for bigroad in big_roads):
+                    spawn_prob=self.car_props[0]
+                else:
+                    spawn_prob=self.car_props[1]
 
-            vehid = 0
-            for i in range(self.num_car_chances):
-                print('<vehicle id="{}" type="carType" route="route{}" depart="{}"/>'.format(vehid,
-                                                                                             random_int(0, len(paths)),
-                                                                                             i), file=routes)
-                vehid += 1
-
+                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter,f,self.num_car_chances,spawn_prob),file=routes)
             print("</routes>", file=routes)
 
-        print(subprocess.check_output(["pwd"]))
+        "jtrrouter -n randersvej.net.xml -f flow_test --turn-defaults 20,70,10 -o test.routerino --accept-all-destinations"
 
-        status = subprocess.check_output("duarouter" +
-                                         " -n /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.net.xml" +
-                                         " -d /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.det.xml" +
-                                         " -t {}".format(self.route_file_name) +
-                                         " -o /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.rou.xml" +
-                                         " --repair", shell=True)
+        status=subprocess.check_output("jtrrouter" +
+                                         " -n scenarios/3_cross/randersvej.net.xml"+
+                                         " -f {}".format(self.route_file_name) +
+                                         " -o scenarios/3_cross/randersvej.rou.xml" +
+                                         " --turn-defaults 20,70,10"+
+                                         " --accept-all-destinations", shell=True)
+
         print(status)
 
         print("have created spawn_cars at", self.route_file_name)
@@ -144,7 +140,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         cur_state = cur_state + self.get_traffic_states()
         self.state.append(np.array(cur_state))
 
-        print("STATE", self.state)
+        #print("STATE", self.state)
 
         # Build reward
         reward = self.reward_func()
