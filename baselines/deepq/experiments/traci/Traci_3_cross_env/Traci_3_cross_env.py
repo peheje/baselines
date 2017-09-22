@@ -60,6 +60,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         #make temp file for routes
         temp_route_file=tempfile.NamedTemporaryFile(mode="w",delete=False)
         self.route_file_name=temp_route_file.name
+        print("TMP ROUTE FILE PATH", self.route_file_name)
 
         status=subprocess.check_output("jtrrouter" +
                                          " -n scenarios/3_cross/randersvej.net.xml" +

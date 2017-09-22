@@ -28,7 +28,7 @@ def callback(lcl, glb):
 
 
 def train_and_log(environment="Traci_3_cross_env-v0",
-                  car_chances=1000,
+                  car_chances=3600,
                   reward_function=BaseTraciEnv.reward_total_in_queue_3cross,
                   lr=1e-3,
                   max_timesteps=1000000,
@@ -41,7 +41,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   learning_starts=1000,
                   gamma=0.9,
                   target_network_update_freq=500,
-                  car_probabilities=[0.5, 0.05], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
+                  car_probabilities=[0.25, 0.05], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
