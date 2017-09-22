@@ -65,14 +65,12 @@ class Traci_3_cross_env(BaseTraciEnv):
         print(subprocess.check_output(["pwd"]))
 
         status = subprocess.check_output("duarouter" +
-                                         " -n /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.net.xml" +
-                                         " -d /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.det.xml" +
+                                         " -n scenarios/3_cross/randersvej.net.xml" +
+                                         " -d scenarios/3_cross/randersvej.det.xml" +
                                          " -t {}".format(self.route_file_name) +
-                                         " -o /Users/phj/GitRepos/baselines_fork/baselines/deepq/experiments/traci/scenarios/3_cross/randersvej.rou.xml" +
+                                         " -o scenarios/3_cross/randersvej.rou.xml" +
                                          " --repair", shell=True)
         print(status)
-
-        print("have created spawn_cars at", self.route_file_name)
 
     def __traci_start__(self):
         traci.start(
@@ -125,7 +123,7 @@ class Traci_3_cross_env(BaseTraciEnv):
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
-        # convert action into two actions
+        # convert action into many actions
         action = self.discrete_to_multidiscrete_4cross(action)
         for i, tlsid in enumerate(traci.trafficlights.getIDList()):
             phase = traci.trafficlights.getPhase(tlsid)
@@ -144,7 +142,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         cur_state = cur_state + self.get_traffic_states()
         self.state.append(np.array(cur_state))
 
-        print("STATE", self.state)
+        # print("STATE", self.state)
 
         # Build reward
         reward = self.reward_func()
@@ -156,7 +154,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         return np.hstack(self.state), reward, done, {}
 
-    def get_traffic_states(self):
+    @staticmethod
+    def get_traffic_states():
         ids = []
         for tid in traci.trafficlights.getIDList():
             ids.append(traci.trafficlights.getPhase(tid))

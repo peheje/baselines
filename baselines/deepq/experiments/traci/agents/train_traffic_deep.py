@@ -21,36 +21,41 @@ from BaseTraciEnv import BaseTraciEnv
 from pathlib import Path
 
 
-
 def callback(lcl, glb):
     # stop training if reward exceeds 199
     is_solved = lcl['t'] > 100 and sum(lcl['episode_rewards'][-101:-1]) / 100 >= 199
     return is_solved
 
-def train_and_log(environment="Traci_2_cross_env-v0", car_chances=1000,
+
+def train_and_log(environment="Traci_3_cross_env-v0",
+                  car_chances=1000,
                   car_probabilities=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
-                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=1e-3, max_timesteps=1000000,
-                  buffer_size=50000, exploration_fraction=0.8,
-                  explore_final_eps=0.2, train_freq=100, batch_size=32,
-                  checkpoint_freq=5000, learning_starts=1000,
-                  gamma=0.9, target_network_update_freq=500,
+                  reward_function=BaseTraciEnv.reward_total_in_queue_3cross,
+                  lr=1e-3,
+                  max_timesteps=1000000,
+                  buffer_size=50000,
+                  exploration_fraction=0.8,
+                  explore_final_eps=0.2,
+                  train_freq=100,
+                  batch_size=32,
+                  checkpoint_freq=5000,
+                  learning_starts=1000,
+                  gamma=0.9,
+                  target_network_update_freq=500,
                   prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
-                  param_noise=False,):
-
-    #Print call values
+                  param_noise=False, ):
+    # Print call values
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
 
-    call_params_string_array=['function name "%s"' % inspect.getframeinfo(frame)[2]]
+    call_params_string_array = ['function name "%s"' % inspect.getframeinfo(frame)[2]]
     for i in args:
         call_params_string_array.append("    %s = %s" % (i, values[i]))
-
 
     # Setup path of logging, name of environment and save the current arguments (this script)
     log_dir = [os.path.join(str(Path.home()), "Desktop"), environment]
@@ -61,7 +66,7 @@ def train_and_log(environment="Traci_2_cross_env-v0", car_chances=1000,
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function)
-    # env.render()
+    #env.render()
 
     # Initialize logger
     logger.reset()
@@ -101,8 +106,10 @@ def train_and_log(environment="Traci_2_cross_env-v0", car_chances=1000,
     print("Saving model to {}".format(save_path))
     act.save(log_dir[1])
 
+
 def main():
-   train_and_log()
+    train_and_log()
+
 
 if __name__ == '__main__':
     main()

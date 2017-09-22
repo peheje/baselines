@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 21 16:04:20 2017 by SUMO gui Version 0.30.0
+<!-- generated on Fri 22 Sep 2017 10:42:26 AM CEST by SUMO gui Version 0.25.0
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumo-gui.exeConfiguration.xsd">
 
     <input>
         <net-file value="scenarios/3_cross/randersvej.net.xml"/>
@@ -12,7 +12,8 @@
     </input>
 
     <output>
-        <tripinfo-output value="/var/folders/6d/qwp3dfvx0r9d_kfqhfvbvl8m0000gn/T/tmpgerojoqu"/>
+        <tripinfo-output value="/tmp/tmph3xoy04i"/>
+        <save-state.prefix value="scenarios/3_cross/state"/>
     </output>
 
     <time>
@@ -24,8 +25,12 @@
         <no-step-log value="true"/>
     </report>
 
+    <emissions>
+        <phemlight-path value="scenarios/3_cross/./PHEMlight/"/>
+    </emissions>
+
     <traci_server>
-        <remote-port value="53272"/>
+        <remote-port value="59175"/>
     </traci_server>
 
     <gui_only>
@@ -37,5 +42,5 @@
 </configuration>
 -->
 
-<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+<e3Detector>
 </e3Detector>
