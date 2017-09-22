@@ -68,13 +68,14 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         print(status)
 
-        print("have created spawn_cars at", self.route_file_name)
-
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/3_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name,
+            [self.sumo_binary,
+             "-c", "scenarios/3_cross/cross.sumocfg",
+             "--tripinfo-output", self.tripinfo_file_name,
              "--start",
-             "--quit-on-end"])
+             "--quit-on-end",
+             "--time-to-teleport", "-1"])
 
     def __init__(self):
         # Start by calling parent init
@@ -121,7 +122,7 @@ class Traci_3_cross_env(BaseTraciEnv):
     def _step(self, action):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
-        # convert action into two actions
+        # convert action into many actions
         action = self.discrete_to_multidiscrete_4cross(action)
         for i, tlsid in enumerate(traci.trafficlights.getIDList()):
             phase = traci.trafficlights.getPhase(tlsid)
@@ -152,7 +153,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         return np.hstack(self.state), reward, done, {}
 
-    def get_traffic_states(self):
+    @staticmethod
+    def get_traffic_states():
         ids = []
         for tid in traci.trafficlights.getIDList():
             ids.append(traci.trafficlights.getPhase(tid))
@@ -168,6 +170,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         return np.hstack(self.state)
 
     def _render(self, mode='human', close=False):
-        self.should_render = True
-        self.restart()
-        print("Render not implemented! Set sumo_binary = checkBinary('sumo-gui')")
+        if not close:
+            self.should_render = True
+            self.restart()
