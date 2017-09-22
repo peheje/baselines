@@ -28,7 +28,7 @@ def callback(lcl, glb):
 
 
 def train_and_log(environment="Traci_3_cross_env-v0",
-                  car_chances=3600,
+                  car_chances=1000,
                   reward_function=BaseTraciEnv.reward_total_in_queue_3cross,
                   lr=1e-3,
                   max_timesteps=1000000,

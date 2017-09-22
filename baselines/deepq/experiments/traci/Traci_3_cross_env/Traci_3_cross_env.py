@@ -34,42 +34,49 @@ class Traci_3_cross_env(BaseTraciEnv):
     }
 
     def spawn_cars(self):
-
         froms = ["As", "Bs", "Cs", "Ds", "Es", "Fs", "Gs", "Hs", "Is", "Js"]
-        tos = ["Ae", "Be", "Ce", "De", "Ee", "Ge", "He", "Ie", "Je"]
-        big_roads=["A","B","C","H","I","J"]
-        paths = []
+        big_roads = ["A", "B", "C", "H", "I", "J"]
 
-        for f in froms:
-            for t in tos:
-                if not t.startswith(f[0]):
-                    paths.append((f, t))
+        # Flow files says for all incoming lanes the probability of spawning a car each timestep
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as flows:
-            self.flow_file_name=flows.name
+            self.flow_file_name = flows.name
             print("<routes>", file=flows)
-            for iter,f in enumerate(froms):
-                #If spawning from big road
+            for iter, f in enumerate(froms):
+                # If spawning from big road
                 if any(bigroad in f for bigroad in big_roads):
-                    spawn_prob=self.car_props[0]
+                    spawn_prob = self.car_props[0]
                 else:
-                    spawn_prob=self.car_props[1]
+                    spawn_prob = self.car_props[1]
 
-                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter,f,self.num_car_chances,spawn_prob),file=flows)
+                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter, f,
+                                                                                             self.num_car_chances,
+                                                                                             spawn_prob), file=flows)
             print("</routes>", file=flows)
 
-        #make temp file for routes
-        temp_route_file=tempfile.NamedTemporaryFile(mode="w",delete=False)
-        self.route_file_name=temp_route_file.name
+        # Make temp file for routes
+        temp_route_file = tempfile.NamedTemporaryFile(mode="w", delete=False)
+        self.route_file_name = temp_route_file.name
         print("TMP ROUTE FILE PATH", self.route_file_name)
 
-        status=subprocess.check_output("jtrrouter" +
+        # Creates routes from incoming cars from turn probabilities on the intersections
+        status = subprocess.check_output("jtrrouter" +
                                          " -n scenarios/3_cross/randersvej.net.xml" +
                                          " -f {}".format(self.flow_file_name) +
                                          " -o {}".format(self.route_file_name) +
-                                         " --turn-ratio-files scenarios/3_cross/turn_probs"+
+                                         " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
                                          " --accept-all-destinations", shell=True)
 
+        print(status)
+
+        # Run webster on route file (tls only used if not controlled)
+        status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
+                                         " -n scenarios/3_cross/randersvej.net.xml" +
+                                         " -r {}".format(self.route_file_name) +
+                                         " -o scenarios/3_cross/webster.tls.xml" +
+                                         " --program c" +
+                                         " --timestep {}".format(self.num_car_chances),
+                                         shell=True)
         print(status)
 
     def __traci_start__(self):
@@ -80,7 +87,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--start",
              "--quit-on-end",
              "--time-to-teleport", "-1",
-             "--route-files",self.route_file_name])
+             "--route-files", self.route_file_name])
 
     def __init__(self):
         # Start by calling parent init
@@ -97,6 +104,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.e3ids = None
         self.state = []
         self.unique_counters = []
+        self.route_file_name = None
 
     def restart(self):
         self.spawn_cars()
@@ -146,7 +154,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         cur_state = cur_state + self.get_traffic_states()
         self.state.append(np.array(cur_state))
 
-        #print("STATE", self.state)
+        # print("STATE", self.state)
 
         # Build reward
         reward = self.reward_func()

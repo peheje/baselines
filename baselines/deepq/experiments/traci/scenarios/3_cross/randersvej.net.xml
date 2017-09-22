@@ -529,9 +529,9 @@
     </edge>
 
         <tlLogic id="gneJ24" type="static" programID="a" offset="0">
-        <phase duration="14" state="GGgrrGGGrrr"/>
+        <phase duration="4" state="GGgrrGGGrrr"/>
         <phase duration="4" state="yygrryyyrrr"/>
-        <phase duration="17" state="rrGrrrrrrrr"/>
+        <phase duration="4" state="rrGrrrrrrrr"/>
         <phase duration="4" state="rryrrrrrrrr"/>
         <phase duration="4" state="rrrGgrrrGGg"/>
         <phase duration="4" state="rrrygrrryyg"/>
@@ -539,31 +539,31 @@
         <phase duration="4" state="rrrryrrrrry"/>
     </tlLogic>
     <tlLogic id="gneJ28" type="static" programID="a" offset="0">
-        <phase duration="12" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="4" state="GGGGggrrrrrGGGggrrrrr"/>
         <phase duration="4" state="yyyyggrrrrryyyggrrrrr"/>
         <phase duration="4" state="rrrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="4" state="rrrryyrrrrrrrryyrrrrr"/>
-        <phase duration="12" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="4" state="rrrrrrGGGggrrrrrGGGgg"/>
         <phase duration="4" state="rrrrrryyyggrrrrryyygg"/>
         <phase duration="4" state="rrrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrrrryyrrrrrrrryy"/>
     </tlLogic>
     <tlLogic id="hr_junction" type="static" programID="a" offset="0">
-        <phase duration="13" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="4" state="rrrrrrGGGggrrrrrGGGgg"/>
         <phase duration="4" state="rrrrrryyyggrrrrryyygg"/>
         <phase duration="4" state="rrrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="4" state="rrrrrrrrryyrrrrrrrryy"/>
-        <phase duration="9" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="4" state="GGGGggrrrrrGGGggrrrrr"/>
         <phase duration="4" state="yyyyggrrrrryyyggrrrrr"/>
         <phase duration="4" state="rrrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="4" state="rrrryyrrrrrrrryyrrrrr"/>
     </tlLogic>
     <tlLogic id="mc" type="static" programID="a" offset="0">
-        <phase duration="13" state="rrrGGGgrrrGGGg"/>
+        <phase duration="4" state="rrrGGGgrrrGGGg"/>
         <phase duration="4" state="rrryyygrrryyyg"/>
         <phase duration="4" state="rrrrrrGrrrrrrG"/>
         <phase duration="4" state="rrrrrryrrrrrry"/>
-        <phase duration="5" state="GGgrrrrGGgrrrr"/>
+        <phase duration="4" state="GGgrrrrGGgrrrr"/>
         <phase duration="4" state="yygrrrryygrrrr"/>
         <phase duration="4" state="rrGrrrrrrGrrrr"/>
         <phase duration="4" state="rryrrrrrryrrrr"/>
