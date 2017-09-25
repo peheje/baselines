@@ -28,12 +28,12 @@ def callback(lcl, glb):
 
 
 def train_and_log(environment="Traci_3_cross_env-v0",
-                  car_chances=1000,
+                  car_chances=100,
                   reward_function=BaseTraciEnv.reward_total_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=1000000,
+                  max_timesteps=100000,
                   buffer_size=50000,
-                  exploration_fraction=0.8,
+                  exploration_fraction=0.1,
                   explore_final_eps=0.01,
                   train_freq=100,
                   batch_size=32,
@@ -76,7 +76,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     copyfile(__file__, logger_path + "/params.txt")
 
     # Create the training model
-    models = [deepq.models.mlp([64]),deepq.models.mlp([64])]
+    models = [deepq.models.mlp([64]),deepq.models.mlp([64]),deepq.models.mlp([64]),deepq.models.mlp([64])]
     act = deepq.learn(
         env=env,
         q_funcs=models,

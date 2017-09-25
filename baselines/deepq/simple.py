@@ -187,7 +187,7 @@ def learn(env,
             act[i], train[i], update_target[i], debug[i] = deepq.build_train(
                 make_obs_ph=make_obs_ph,
                 q_func=q_func,
-                num_actions=int(np.math.pow(num_bits,2)),
+                num_actions=int(np.math.pow(2,num_bits)),
                 optimizer=tf.train.AdamOptimizer(learning_rate=lr),
                 gamma=gamma,
                 grad_norm_clipping=10,
