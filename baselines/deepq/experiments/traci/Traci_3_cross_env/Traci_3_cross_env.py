@@ -97,9 +97,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_actions = 2 ** 4
         self.num_state_scalars = 4 * 4 + 4
         self.num_history_states = 4
-        self.max_cars_in_queue = 20
         self.min_state_scalar_value = 0
-        self.max_state_scalar_value = 20
+        self.max_state_scalar_value = 1000
         self.sumo_binary = None
         self.e3ids = None
         self.state = []
