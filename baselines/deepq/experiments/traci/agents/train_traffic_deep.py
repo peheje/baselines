@@ -76,10 +76,10 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     copyfile(__file__, logger_path + "/params.txt")
 
     # Create the training model
-    model = deepq.models.mlp([64])
+    models = [deepq.models.mlp([64]),deepq.models.mlp([64])]
     act = deepq.learn(
         env=env,
-        q_func=model,
+        q_funcs=models,
         lr=lr,
         max_timesteps=max_timesteps,
         buffer_size=buffer_size,

@@ -80,7 +80,7 @@ def load(path, num_cpu=16):
 
 
 def learn(env,
-          q_func,
+          q_funcs,
           lr=5e-4,
           max_timesteps=100000,
           buffer_size=50000,
@@ -177,18 +177,25 @@ def learn(env,
     def make_obs_ph(name):
         return U.BatchInput(env.observation_space.shape, name=name)
 
-    act, train, update_target, debug = deepq.build_train(
-        make_obs_ph=make_obs_ph,
-        q_func=q_func,
-        num_actions=env.action_space.n,
-        optimizer=tf.train.AdamOptimizer(learning_rate=lr),
-        gamma=gamma,
-        grad_norm_clipping=10,
-        param_noise=param_noise
-    )
+    act=[None]*len(q_funcs)
+    train=[None]*len(q_funcs)
+    update_target=[None]*len(q_funcs)
+    debug=[None]*len(q_funcs)
+    num_bits=np.math.log(env.action_space.n, 2)/len(q_funcs)
+    for i,q_func in enumerate(q_funcs):
+        with tf.variable_scope("Num"+str(i)):
+            act[i], train[i], update_target[i], debug[i] = deepq.build_train(
+                make_obs_ph=make_obs_ph,
+                q_func=q_func,
+                num_actions=int(np.math.pow(num_bits,2)),
+                optimizer=tf.train.AdamOptimizer(learning_rate=lr),
+                gamma=gamma,
+                grad_norm_clipping=10,
+                param_noise=param_noise
+            )
     act_params = {
         'make_obs_ph': make_obs_ph,
-        'q_func': q_func,
+        'q_func': q_funcs,
         'num_actions': env.action_space.n,
     }
 
@@ -211,7 +218,8 @@ def learn(env,
 
     # Initialize the parameters and copy them to the target network.
     U.initialize()
-    update_target()
+    for i in range(len(q_funcs)):
+        update_target[i]()
 
     episode_rewards = [0.0]
     saved_mean_reward = -sys.float_info.max
@@ -241,12 +249,18 @@ def learn(env,
                 kwargs['reset'] = reset
                 kwargs['update_param_noise_threshold'] = update_param_noise_threshold
                 kwargs['update_param_noise_scale'] = True
-            action = act(np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
+            actions=[None]*len(q_funcs)
+            for i in range(len(q_funcs)):
+                actions[i] = act[i](np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
             reset = False
-            new_obs, rew, done, _ = env.step(action)
+            total_action=""
+            for a in actions:
+                total_action+=format(a,"0"+str(int(num_bits))+"b")
+            action_to_do=int(total_action,2)
+            new_obs, rew, done, _ = env.step(action_to_do)
 
             # Store transition in the replay buffer.
-            replay_buffer.add(obs, action, rew, new_obs, float(done))
+            replay_buffer.add(obs, actions, rew, new_obs, float(done))
             obs = new_obs
 
             episode_rewards[-1] += rew
@@ -257,10 +271,10 @@ def learn(env,
                 reset = True
 
                 # Log stuff each episode
-                q_vals = debug["q_values"](obs.__array__().reshape(1, 80))
+                #q_vals = debug["q_values"](obs.__array__().reshape(1, 80))
                 logger.record_tabular("% time spent exploring[Episode]", int(100 * exploration.value(t)))
-                logger.record_tabular("max q[Episode]", np.max(q_vals))
-                logger.record_tabular("avg q[Episode]", np.mean(q_vals))
+                #logger.record_tabular("max q[Episode]", np.max(q_vals))
+                #logger.record_tabular("avg q[Episode]", np.mean(q_vals))
 
             if t > learning_starts and t % train_freq == 0:
                 # Minimize the error in Bellman's equation on a batch sampled from replay buffer.
@@ -270,7 +284,10 @@ def learn(env,
                 else:
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
-                td_errors = train(obses_t, actions, rewards, obses_tp1, dones, weights)
+
+                for i in range(len(train)):
+                    single_action=[action[i] for action in actions]
+                    td_errors = train[i](obses_t, single_action, rewards, obses_tp1, dones, weights)
 
                 if prioritized_replay:
                     new_priorities = np.abs(td_errors) + prioritized_replay_eps
@@ -278,7 +295,8 @@ def learn(env,
 
             if t > learning_starts and t % target_network_update_freq == 0:
                 # Update target network periodically.
-                update_target()
+                for i in range(len(q_funcs)):
+                    update_target[i]()
 
             mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
 
