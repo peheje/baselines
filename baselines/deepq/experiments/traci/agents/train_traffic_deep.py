@@ -34,7 +34,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   max_timesteps=1000000,
                   buffer_size=50000,
                   exploration_fraction=0.8,
-                  explore_final_eps=0.2,
+                  explore_final_eps=0.01,
                   train_freq=100,
                   batch_size=32,
                   checkpoint_freq=5000,
@@ -48,7 +48,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   prioritized_replay_beta_iters=None,
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
-                  param_noise=False, ):
+                  param_noise=False):
     # Print call values
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
@@ -66,7 +66,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function)
-    env.render()
+    #env.render()
 
     # Initialize logger
     logger.reset()
