@@ -144,7 +144,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         traci.simulationStep()
 
         # Build state
-        # self.state = deque([], maxlen=self.num_history_states)
         if self.e3ids is None:
             self.e3ids = traci.multientryexit.getIDList()
         cur_state = []
