@@ -96,7 +96,7 @@ class BaseTraciEnv(gym.Env):
         s = 0
         for id in traci.multientryexit.getIDList():
             s += len(traci.multientryexit.getLastStepVehicleIDs(id))
-        return s
+        return -s
 
     def reward_total_in_queue(self):
         num_waiting_cars = 0
