@@ -82,8 +82,12 @@ class Traci_2_cross_env(BaseTraciEnv):
 
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/2_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name, "--start",
-             "--quit-on-end","--route-files",self.route_file_name])
+            [self.sumo_binary,
+             "-c", "scenarios/2_cross/cross.sumocfg",
+             "--tripinfo-output", self.tripinfo_file_name,
+             "--start",
+             "--quit-on-end",
+             "--route-files",self.route_file_name])
 
     def __init__(self):
         #Start by calling parent init
