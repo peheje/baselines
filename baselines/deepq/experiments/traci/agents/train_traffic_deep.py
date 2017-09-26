@@ -28,27 +28,29 @@ def callback(lcl, glb):
 
 
 def train_and_log(environment="Traci_2_cross_env-v0",
-                  car_chances=100,
+                  car_chances=1000,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
                   max_timesteps=int(1e5),
                   buffer_size=50000,
-                  exploration_fraction=0.8,
-                  explore_final_eps=0.01,
+                  exploration_fraction=0.5,
+                  explore_final_eps=0.02,
                   train_freq=100,
                   batch_size=32,
-                  checkpoint_freq=100000,
+                  checkpoint_freq=int(1e4),
                   learning_starts=1000,
                   gamma=0.9,
                   target_network_update_freq=500,
-                  car_probabilities=[0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
+                  # For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
+                  car_probabilities=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
                   prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
-                  param_noise=False):
+                  param_noise=False,
+                  hidden_layers=[64]):
     # Print call values
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
@@ -66,7 +68,7 @@ def train_and_log(environment="Traci_2_cross_env-v0",
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function)
-    #env.render()
+    # env.render()
 
     # Initialize logger
     logger.reset()
@@ -76,7 +78,7 @@ def train_and_log(environment="Traci_2_cross_env-v0",
     copyfile(__file__, logger_path + "/params.txt")
 
     # Create the training model
-    model = deepq.models.mlp([64])
+    model = deepq.models.mlp(hidden_layers)
     act = deepq.learn(
         env=env,
         q_func=model,
