@@ -257,7 +257,7 @@ def learn(env,
                 reset = True
 
                 # Log stuff each episode
-                q_vals = debug["q_values"](obs.__array__().reshape(1, 80))
+                q_vals = debug["q_values"](obs.__array__().reshape(1, len(obs)))
                 logger.record_tabular("% time spent exploring[Episode]", int(100 * exploration.value(t)))
                 logger.record_tabular("max q[Episode]", np.max(q_vals))
                 logger.record_tabular("avg q[Episode]", np.mean(q_vals))
