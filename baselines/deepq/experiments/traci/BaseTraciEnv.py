@@ -53,12 +53,14 @@ class BaseTraciEnv(gym.Env):
         self.num_actions_pr_trafficlight = None
         self.num_actions = None
         self.action_converter = None
+        self.perform_actions = None
         self.state_use_time_since_tl_change=None
         self.state_use_avg_speed_between_detectors_history=None
         self.state_use_num_cars_in_queue_history=None
 
     def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight,
                         num_history_states=4,
+                        perform_actions=True,
                         state_contain_avg_speed_between_detectors_history=False,
                         state_contain_time_since_tl_change=False,
                         state_contain_tl_state_history=True,
@@ -77,6 +79,7 @@ class BaseTraciEnv(gym.Env):
         self.num_car_chances = num_car_chances
         self.car_props = car_props
         self.reward_func = reward_func
+        self.perform_actions = perform_actions
         self.state_use_time_since_tl_change=state_contain_time_since_tl_change
         self.state_use_avg_speed_between_detectors_history=state_contain_avg_speed_between_detectors_history
         self.state_use_tl_state_history=state_contain_tl_state_history

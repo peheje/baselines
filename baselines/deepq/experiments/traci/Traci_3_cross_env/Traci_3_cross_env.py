@@ -2,6 +2,8 @@ import logging
 import os
 import sys
 from collections import deque, OrderedDict
+from pathlib import Path
+from shutil import copyfile
 from threading import Thread
 import tempfile
 import gym
@@ -65,6 +67,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " -o {}".format(self.route_file_name) +
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
+                                         " --random" +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
@@ -136,19 +139,21 @@ class Traci_3_cross_env(BaseTraciEnv):
         return [seed]
 
     def _step(self, action):
-        assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
-
-        # convert action into many actions
-        action = self.action_converter(action)
-        for i, tlsid in enumerate(traci.trafficlights.getIDList()):
-            phase = traci.trafficlights.getPhase(tlsid)
-            self.set_light_phase_4_cross(tlsid, action[i], phase)
+        if self.perform_actions:
+            assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
+            # convert action into many actions
+            action = self.action_converter(action)
+            for i, tlsid in enumerate(traci.trafficlights.getIDList()):
+                phase = traci.trafficlights.getPhase(tlsid)
+                self.set_light_phase_4_cross(tlsid, action[i], phase)
 
         # Run simulation step
         traci.simulationStep()
 
         # Build state
-        total_state = self.get_state_multientryexit()
+        total_state=0
+        if self.perform_actions:
+          total_state = self.get_state_multientryexit()
 
         # Build reward
         reward = self.reward_func()
