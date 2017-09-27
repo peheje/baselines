@@ -97,6 +97,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_actions = 2 ** 4
         self.num_history_state_scalars = None  # This gets calculated later
         self.num_nonhistory_state_scalars=None
+        self.num_trafficlights = 4
+        self.num_history_states = 4
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 1000
         self.sumo_binary = None
@@ -137,7 +139,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
         # convert action into many actions
-        action = self.discrete_to_multidiscrete_4cross(action)
+        action = self.action_converter(action)
         for i, tlsid in enumerate(traci.trafficlights.getIDList()):
             phase = traci.trafficlights.getPhase(tlsid)
             self.set_light_phase_4_cross(tlsid, action[i], phase)

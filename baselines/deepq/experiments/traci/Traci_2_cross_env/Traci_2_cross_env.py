@@ -94,12 +94,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         BaseTraciEnv.__init__(self)
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
-
-        self.num_actions_pr_trafficlight = 3
         self.num_trafficlights = 2
-
-        self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
-
         self.num_state_scalars = 10
         self.num_history_states = 4
         self.max_cars_in_queue = 20
@@ -109,9 +104,10 @@ class Traci_2_cross_env(BaseTraciEnv):
         self.state = []
         self.unique_counters = []
 
-
-
     def restart(self):
+        if self.num_actions_pr_trafficlight != 3:
+            raise Exception("Traci_2_cross requires num_actions_pr_trafficlight == 3")
+
         self.generate_routefile()
         if self.shouldRender:
             self.sumo_binary = checkBinary('sumo-gui')
