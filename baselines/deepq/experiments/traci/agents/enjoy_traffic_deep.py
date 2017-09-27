@@ -9,12 +9,14 @@ import gym
 
 from baselines import deepq
 import Traci_2_cross_env.Traci_2_cross_env
+import Traci_3_cross_env.Traci_3_cross_env
+
 
 def main():
-    env = gym.make('Traci_2_cross_env-v0')
-    act = deepq.load("/home/nikolaj/Desktop/Traci_2_cross_env-v0/2017-09-20_12-10-41/model-2017-09-20_13-04-51.pkl")
+    env = gym.make('Traci_3_cross_env-v0')
+    act = deepq.load("/home/nikolaj/Desktop/Traci_3_cross_env-v0/2017-09-26_16-49-42/model-2017-09-26_22-41-59.pkl")
     env.configure_traci(num_car_chances=10000,
-                        car_props=[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1],
+                        car_props=[0.25,0.05],
                         reward_func=env.reward_squared_wait_sum)
     env.render()
 

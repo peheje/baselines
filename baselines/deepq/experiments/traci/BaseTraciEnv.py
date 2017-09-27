@@ -98,11 +98,32 @@ class BaseTraciEnv(gym.Env):
             s += len(traci.multientryexit.getLastStepVehicleIDs(id))
         return -s
 
+    @staticmethod
+    def reward_halting_in_queue_3cross():
+        s = 0
+        for id in traci.multientryexit.getIDList():
+            s += traci.multientryexit.getLastStepHaltingNumber(id)
+        return -s
+
     def reward_total_in_queue(self):
         num_waiting_cars = 0
         for counter in self.unique_counters:
             num_waiting_cars += counter.get_count()
         return -num_waiting_cars
+
+    @staticmethod
+    def reward_halting_sum():
+        sum=0
+        for tl in traci.trafficlights.getIDList():
+            for link in traci.trafficlights.getControlledLinks(tl):
+                for lane in link[0]:
+                    sum+=traci.lane.getLastStepHaltingNumber(lane)
+
+        return -sum
+
+    @staticmethod
+    def reward_arrived_vehicles():
+        return traci.simulation.getArrivedNumber()
 
     @staticmethod
     def reward_squared_wait_sum():
@@ -143,17 +164,24 @@ class BaseTraciEnv(gym.Env):
         return list(map(int, format(action, '04b')))
 
     def set_light_phase_4_cross(self, light_id, action, cur_phase):
+
+        if light_id in self.time_since_tl_change:
+            self.time_since_tl_change[light_id]+=1
+        else:
+            self.time_since_tl_change[light_id]=1
         # Run action
         if action == 0:
             if cur_phase == 4:
                 traci.trafficlights.setPhase(light_id, 5)
                 self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
             elif cur_phase == 0:
                 traci.trafficlights.setPhase(light_id, 0)
         elif action == 1:
             if cur_phase == 0:
                 traci.trafficlights.setPhase(light_id, 1)
                 self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
             elif cur_phase == 4:
                 traci.trafficlights.setPhase(light_id, 4)
         else:
