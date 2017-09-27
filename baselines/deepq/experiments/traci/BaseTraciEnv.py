@@ -52,8 +52,9 @@ class BaseTraciEnv(gym.Env):
         self.num_actions_pr_trafficlight = None
         self.num_actions = None
         self.action_converter = None
+        self.perform_actions = None
 
-    def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight):
+    def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight, perform_actions=True):
         self.num_actions_pr_trafficlight = num_actions_pr_trafficlight
         self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
         if self.num_actions_pr_trafficlight == 2:
@@ -66,6 +67,7 @@ class BaseTraciEnv(gym.Env):
         self.num_car_chances = num_car_chances
         self.car_props = car_props
         self.reward_func = reward_func
+        self.perform_actions = perform_actions
         self.restart()
 
     def _reset(self):

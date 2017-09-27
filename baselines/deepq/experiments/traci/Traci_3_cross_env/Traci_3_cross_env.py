@@ -2,6 +2,8 @@ import logging
 import os
 import sys
 from collections import deque
+from pathlib import Path
+from shutil import copyfile
 from threading import Thread
 import tempfile
 import gym
@@ -65,6 +67,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " -o {}".format(self.route_file_name) +
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
+                                         " --random" +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
@@ -132,25 +135,26 @@ class Traci_3_cross_env(BaseTraciEnv):
         return [seed]
 
     def _step(self, action):
-        assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
-
-        # convert action into many actions
-        action = self.action_converter(action)
-        for i, tlsid in enumerate(traci.trafficlights.getIDList()):
-            phase = traci.trafficlights.getPhase(tlsid)
-            self.set_light_phase_4_cross(tlsid, action[i], phase)
+        if self.perform_actions:
+            assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
+            # convert action into many actions
+            action = self.action_converter(action)
+            for i, tlsid in enumerate(traci.trafficlights.getIDList()):
+                phase = traci.trafficlights.getPhase(tlsid)
+                self.set_light_phase_4_cross(tlsid, action[i], phase)
 
         # Run simulation step
         traci.simulationStep()
 
         # Build state
-        if self.e3ids is None:
-            self.e3ids = traci.multientryexit.getIDList()
-        cur_state = []
-        for id in self.e3ids:
-            cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
-        cur_state = cur_state + self.get_traffic_states()
-        self.state.append(np.array(cur_state))
+        if self.perform_actions:
+            if self.e3ids is None:
+                self.e3ids = traci.multientryexit.getIDList()
+            cur_state = []
+            for id in self.e3ids:
+                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
+            cur_state = cur_state + self.get_traffic_states()
+            self.state.append(np.array(cur_state))
 
         # print("STATE", self.state)
 
