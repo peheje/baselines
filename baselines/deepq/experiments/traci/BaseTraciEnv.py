@@ -42,12 +42,27 @@ class BaseTraciEnv(gym.Env):
         # make temp file for tripinfo
         self.tripinfo_file_name = tempfile.NamedTemporaryFile(mode="w", delete=False).name
 
+        # Must be configured in specific constructor
+        self.num_trafficlights = None
+
         # configure_traci() must be called, leave uninitialized here
         self.num_car_chances = None
         self.car_props = None
         self.reward_func = None
+        self.num_actions_pr_trafficlight = None
+        self.num_actions = None
+        self.action_converter = None
 
-    def configure_traci(self, num_car_chances, car_props, reward_func):
+    def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight):
+        self.num_actions_pr_trafficlight = num_actions_pr_trafficlight
+        self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
+        if self.num_actions_pr_trafficlight == 2:
+            self.action_converter = self.binary_action
+        elif self.num_actions_pr_trafficlight == 3:
+            self.action_converter = self.ternary_action
+        else:
+            raise Exception("Not supported other than 2 or 3 actions pr. traffic light.")
+
         self.num_car_chances = num_car_chances
         self.car_props = car_props
         self.reward_func = reward_func
@@ -139,8 +154,21 @@ class BaseTraciEnv(gym.Env):
 
     #Assuming only 2 viable actions
     @staticmethod
-    def discrete_to_multidiscrete_4cross(action):
+    def binary_action(action):
         return list(map(int, format(action, '04b')))
+
+    @staticmethod
+    def ternary_action(n):
+        """ https://stackoverflow.com/questions/34559663/convert-decimal-to-ternarybase3-in-python """
+        if n == 0:
+            return [0, 0, 0, 0]
+        nums = []
+        while n:
+            n, r = divmod(n, 3)
+            nums.append(r)
+        for i in range(4 - len(nums)):
+            nums.append(0)
+        return list(reversed(nums))
 
     def set_light_phase_4_cross(self, light_id, action, cur_phase):
         # Run action
