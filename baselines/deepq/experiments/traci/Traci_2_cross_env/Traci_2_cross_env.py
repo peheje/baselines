@@ -82,15 +82,24 @@ class Traci_2_cross_env(BaseTraciEnv):
 
     def __traci_start__(self):
         traci.start(
-            [self.sumo_binary, "-c", "scenarios/2_cross/cross.sumocfg", "--tripinfo-output", self.tripinfo_file_name, "--start",
-             "--quit-on-end","--route-files",self.route_file_name])
+            [self.sumo_binary,
+             "-c", "scenarios/2_cross/cross.sumocfg",
+             "--tripinfo-output", self.tripinfo_file_name,
+             "--start",
+             "--quit-on-end",
+             "--route-files",self.route_file_name])
 
     def __init__(self):
         #Start by calling parent init
         BaseTraciEnv.__init__(self)
         self.num_queues_pr_traffic = 4
         self.shouldRender = False
-        self.num_actions = 9
+
+        self.num_actions_pr_trafficlight = 3
+        self.num_trafficlights = 2
+
+        self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
+
         self.num_state_scalars = 10
         self.num_history_states = 4
         self.max_cars_in_queue = 20
@@ -134,7 +143,7 @@ class Traci_2_cross_env(BaseTraciEnv):
         assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
 
         # convert action into two actions
-        action = self.discrete_to_multidiscrete_2cross(action=action, num_actions=3)
+        action = self.discrete_to_multidiscrete_2cross(action=action, num_actions=self.num_actions_pr_trafficlight)
         phase_a = traci.trafficlights.getPhase("a")
         phase_b = traci.trafficlights.getPhase("b")
         self.set_light_phase("a", action[0], phase_a)
@@ -197,6 +206,6 @@ class Traci_2_cross_env(BaseTraciEnv):
         return np.hstack(self.state)
 
     def _render(self, mode='human', close=False):
-        self.shouldRender = True
-        self.restart()
-        print("Render not implemented! Set sumo_binary = checkBinary('sumo-gui')")
+        if not close:
+            self.shouldRender = True
+            self.restart()

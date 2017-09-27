@@ -30,7 +30,7 @@ def callback(lcl, glb):
 def train_and_log(environment="Traci_2_cross_env-v0",
                   car_chances=1000,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=1e-3,
+                  lr=1e-4,
                   max_timesteps=int(1e5),
                   buffer_size=50000,
                   exploration_fraction=0.5,
@@ -50,7 +50,7 @@ def train_and_log(environment="Traci_2_cross_env-v0",
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
                   param_noise=False,
-                  hidden_layers=[64]):
+                  hidden_layers=[64, 32, 32]):
     # Print call values
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
