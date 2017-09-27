@@ -7,7 +7,7 @@
       <fromEdge id="Fs">
          <toEdge id="st_north_out" probability="0.45"/>
          <toEdge id="st_south_out" probability="0.45"/>
-	 <toEdge id="Ge" probability="0.1"/>
+	     <toEdge id="Ge" probability="0.1"/>
       </fromEdge>
       <fromEdge id="Es">
          <toEdge id="mc_north_out" probability="0.45"/>
@@ -18,6 +18,14 @@
          <toEdge id="mc_north_out" probability="0.45"/>
          <toEdge id="mc_south_out" probability="0.45"/>
 	 <toEdge id="Ee" probability="0.1"/>
+      </fromEdge>
+      <fromEdge id="st_south_in">
+         <toEdge id="Ge" probability="0.1"/>
+         <toEdge id="st_north_out" probability="0.9"/>
+      </fromEdge>
+      <fromEdge id="st_north_in">
+         <toEdge id="Ge" probability="0.1"/>
+         <toEdge id="st_south_out" probability="0.9"/>
       </fromEdge>
    </interval>
 </turns>

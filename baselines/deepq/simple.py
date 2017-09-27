@@ -10,7 +10,7 @@ import numpy as np
 import tensorflow as tf
 from baselines import deepq
 from baselines import logger
-from baselines.common.schedules import LinearSchedule
+from baselines.common.schedules import LinearSchedule, PiecewiseSchedule
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
 
 
@@ -208,6 +208,11 @@ def learn(env,
     exploration = LinearSchedule(schedule_timesteps=int(exploration_fraction * max_timesteps),
                                  initial_p=1.0,
                                  final_p=exploration_final_eps)
+    exploration = PiecewiseSchedule([
+        (0, 1.0),
+        (max_timesteps / 50, 0.1),
+        (max_timesteps / 5, 0.01)
+    ], outside_value=0.01)
 
     # Initialize the parameters and copy them to the target network.
     U.initialize()
@@ -257,7 +262,7 @@ def learn(env,
                 reset = True
 
                 # Log stuff each episode
-                q_vals = debug["q_values"](obs.__array__().reshape(1, 80))
+                q_vals = debug["q_values"](obs.__array__().reshape(1, len(obs)))
                 logger.record_tabular("% time spent exploring[Episode]", int(100 * exploration.value(t)))
                 logger.record_tabular("max q[Episode]", np.max(q_vals))
                 logger.record_tabular("avg q[Episode]", np.mean(q_vals))
