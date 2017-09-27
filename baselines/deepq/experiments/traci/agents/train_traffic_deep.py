@@ -28,19 +28,19 @@ def callback(lcl, glb):
 
 
 def train_and_log(environment="Traci_3_cross_env-v0",
-                  car_chances=1000,
+                  car_chances=10,
                   reward_function=BaseTraciEnv.reward_halting_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=int(1e4),
+                  max_timesteps=int(5000),
                   buffer_size=50000,
                   exploration_fraction=0.1,
                   explore_final_eps=0.01,
                   train_freq=100,
                   batch_size=32,
-                  checkpoint_freq=int(2e4),
-                  learning_starts=1000,
+                  checkpoint_freq=int(10),
+                  learning_starts=100,
                   gamma=0.9,
-                  target_network_update_freq=500,
+                  target_network_update_freq=100,
                   car_probabilities=[0.25, 0.05],#[0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
@@ -114,8 +114,8 @@ def train_and_log(environment="Traci_3_cross_env-v0",
         model_path=logger_path
     )
     save_path = logger_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".pkl"
-    print("Saving model to {}".format(save_path))
-    act.save(log_dir[1])
+    print("Saving last model to {}".format(save_path))
+    act.save(save_path)
 
 
 def main():
