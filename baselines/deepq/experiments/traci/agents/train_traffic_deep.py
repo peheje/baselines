@@ -31,7 +31,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   car_chances=1000,
                   reward_function=BaseTraciEnv.reward_halting_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=int(1e5),
+                  max_timesteps=int(1e4),
                   buffer_size=50000,
                   exploration_fraction=0.1,
                   explore_final_eps=0.01,
@@ -39,7 +39,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   batch_size=32,
                   checkpoint_freq=int(2e4),
                   learning_starts=1000,
-                  gamma=0.8,
+                  gamma=0.9,
                   target_network_update_freq=500,
                   car_probabilities=[0.25, 0.05],#[0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   prioritized_replay=False,
@@ -53,7 +53,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   state_use_tl_state_history=True,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed_history=False,
-                  hidden_layers=[12, 6, 6],
+                  hidden_layers=[8, 8, 8],
                   num_actions_pr_trafficlight=3):
     # Print call values
     frame = inspect.currentframe()
@@ -119,7 +119,16 @@ def train_and_log(environment="Traci_3_cross_env-v0",
 
 
 def main():
-    train_and_log()
+
+    reward_functions = [BaseTraciEnv.reward_total_waiting_vehicles,
+                        BaseTraciEnv.reward_total_in_queue,
+                        BaseTraciEnv.reward_arrived_vehicles,
+                        BaseTraciEnv.reward_average_speed,
+                        BaseTraciEnv.reward_emission,
+                        BaseTraciEnv.reward_halting_in_queue_3cross]
+
+    for rf in reward_functions:
+        train_and_log(reward_function=rf)
 
 
 if __name__ == '__main__':

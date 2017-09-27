@@ -206,13 +206,13 @@ def learn(env,
 
     # Create the schedule for exploration starting from 1.
     exploration = LinearSchedule(schedule_timesteps=int(exploration_fraction * max_timesteps),
-                                 initial_p=1.0,
+                                 initial_p=0.5,
                                  final_p=exploration_final_eps)
-    exploration = PiecewiseSchedule([
-        (0, 1.0),
-        (max_timesteps / 50, 0.1),
-        (max_timesteps / 5, 0.01)
-    ], outside_value=0.01)
+    #exploration = PiecewiseSchedule([
+    #    (0, 1.0),
+    #    (max_timesteps / 50, 0.1),
+    #    (max_timesteps / 5, 0.01)
+    #], outside_value=0.01)
 
     # Initialize the parameters and copy them to the target network.
     U.initialize()
