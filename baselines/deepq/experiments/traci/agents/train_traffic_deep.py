@@ -33,8 +33,6 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   lr=1e-3,
                   max_timesteps=int(1e5),
                   buffer_size=50000,
-                  exploration_fraction=0.5,
-                  explore_final_eps=0.02,
                   exploration_fraction=0.1,
                   explore_final_eps=0.01,
                   train_freq=100,
@@ -51,7 +49,11 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
                   param_noise=False,
-                  hidden_layers=[64]):
+                  hidden_layers=[64],
+                  state_use_queue_length_history=True,
+                  state_use_tl_state_history=True,
+                  state_use_time_since_tl_change=True,
+                  state_use_avg_speed_history=False):
     # Print call values
     frame = inspect.currentframe()
     args, _, _, values = inspect.getargvalues(frame)
@@ -68,7 +70,11 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     env = gym.make(log_dir[1])
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
-                        reward_func=reward_function)
+                        reward_func=reward_function,
+                        state_contain_num_cars_in_queue_history=state_use_queue_length_history,
+                        state_contain_avg_speed_between_detectors_history=state_use_avg_speed_history,
+                        state_contain_time_since_tl_change=state_use_time_since_tl_change,
+                        state_contain_tl_state_history=state_use_tl_state_history)
     # env.render()
 
     # Initialize logger

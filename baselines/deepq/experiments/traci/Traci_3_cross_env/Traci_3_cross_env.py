@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-from collections import deque,OrderedDict
+from collections import deque, OrderedDict
 from threading import Thread
 import tempfile
 import gym
@@ -95,8 +95,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.flow_file_name = None
         self.should_render = False
         self.num_actions = 2 ** 4
-        self.num_state_scalars = 4 * 8 + 4
-        self.num_history_states = 4
+        self.num_history_state_scalars = None  # This gets calculated later
+        self.num_nonhistory_state_scalars=None
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 1000
         self.sumo_binary = None
@@ -104,7 +104,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.state = []
         self.unique_counters = []
         self.route_file_name = None
-        self.time_since_tl_change=OrderedDict()
 
     def restart(self):
         self.spawn_cars()
@@ -118,14 +117,16 @@ class Traci_3_cross_env(BaseTraciEnv):
             pass
         Thread(target=self.__traci_start__())
 
+        self.num_history_state_scalars = self.calculate_num_history_state_scalars()
+        self.num_nonhistory_state_scalars=self.calculate_num_nonhistory_state_scalars()
+        self.total_num_state_scalars=(self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
-                                            shape=((self.num_state_scalars * self.num_history_states)+4))
-        # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
+                                            shape=(self.total_num_state_scalars))
 
         self.state = deque([], maxlen=self.num_history_states)
         for i in range(self.num_history_states):
-            self.state.append(np.zeros(self.num_state_scalars))
+            self.state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
 
     def _seed(self, seed=None):
@@ -145,16 +146,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         traci.simulationStep()
 
         # Build state
-        if self.e3ids is None:
-            self.e3ids = traci.multientryexit.getIDList()
-        cur_state = []
-        for id in self.e3ids:
-            cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id))) #num cars
-            cur_state.append(traci.multientryexit.getLastStepMeanSpeed(id))
-        cur_state = cur_state + self.get_traffic_states()
-        self.state.append(np.array(cur_state))
-
-        # print("STATE", self.state)
+        total_state = self.get_state_multientryexit()
 
         # Build reward
         reward = self.reward_func()
@@ -164,7 +156,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         self.log_end_step(reward)
 
-        return np.concatenate([np.hstack(self.state),list(self.time_since_tl_change.values())]), reward, done, {}
+        return total_state, reward, done, {}
 
     @staticmethod
     def get_traffic_states():
@@ -180,7 +172,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             self.log_end_episode(0)
             BaseTraciEnv._reset(self)
             self.restart()
-        return np.concatenate([np.hstack(self.state),[0, 0, 0, 0]])
+        return np.zeros(self.total_num_state_scalars)
 
     def _render(self, mode='human', close=False):
         if not close:

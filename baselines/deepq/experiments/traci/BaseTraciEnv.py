@@ -1,7 +1,7 @@
 import sys
 import os
 import tempfile
-from collections import deque
+from collections import deque, OrderedDict
 import xml.etree.ElementTree
 
 import gym
@@ -38,6 +38,7 @@ class BaseTraciEnv(gym.Env):
         self.timestep = 0
         self.episode = 0
         self.traffic_light_changes = 0
+        self.time_since_tl_change = OrderedDict()
 
         # make temp file for tripinfo
         self.tripinfo_file_name = tempfile.NamedTemporaryFile(mode="w", delete=False).name
@@ -46,11 +47,27 @@ class BaseTraciEnv(gym.Env):
         self.num_car_chances = None
         self.car_props = None
         self.reward_func = None
+        self.state_use_time_since_tl_change=None
+        self.state_use_avg_speed_between_detectors_history=None
+        self.state_use_num_cars_in_queue_history=None
 
-    def configure_traci(self, num_car_chances, car_props, reward_func):
+
+    def configure_traci(self, num_car_chances, car_props,
+                        reward_func,
+                        num_history_states=4,
+                        state_contain_time_since_tl_change=False,
+                        state_contain_avg_speed_between_detectors_history=False,
+                        state_contain_tl_state_history=True,
+                        state_contain_num_cars_in_queue_history=True):
         self.num_car_chances = num_car_chances
         self.car_props = car_props
         self.reward_func = reward_func
+        self.state_use_time_since_tl_change=state_contain_time_since_tl_change
+        self.state_use_avg_speed_between_detectors_history=state_contain_avg_speed_between_detectors_history
+        self.state_use_tl_state_history=state_contain_tl_state_history
+        self.state_use_num_cars_in_queue_history=state_contain_num_cars_in_queue_history
+        self.num_history_states=num_history_states
+
         self.restart()
 
     def _reset(self):
@@ -70,6 +87,47 @@ class BaseTraciEnv(gym.Env):
     def restart(self):
         """ Implement in child """
         raise NotImplementedError()
+    def get_state_multientryexit(self):
+
+
+        ### Handle historical state data
+        if self.e3ids is None:
+            self.e3ids = traci.multientryexit.getIDList()
+        cur_state = []
+        for id in self.e3ids:
+            if self.state_use_num_cars_in_queue_history:
+                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id))) #num cars
+            if self.state_use_avg_speed_between_detectors_history:
+                cur_state.append(traci.multientryexit.getLastStepMeanSpeed(id))
+        if self.state_use_tl_state_history:
+            cur_state = cur_state + self.get_traffic_states()
+        self.state.append(np.array(cur_state))
+
+        ### Add non historical state data
+        state_to_return=np.hstack(self.state)
+        if self.state_use_time_since_tl_change:
+            state_to_return=np.concatenate([state_to_return,list(self.time_since_tl_change.values())])
+
+
+        return state_to_return
+    def calculate_num_history_state_scalars(self):
+        num=0
+        num_traffic_lights=len(traci.trafficlights.getIDList())
+        if self.state_use_tl_state_history:
+            num+=num_traffic_lights
+        if self.state_use_num_cars_in_queue_history:
+            num+=num_traffic_lights*4
+        if self.state_use_avg_speed_between_detectors_history:
+            num+=num_traffic_lights*4
+        return num
+
+    def calculate_num_nonhistory_state_scalars(self):
+        num = 0
+        num_traffic_lights = len(traci.trafficlights.getIDList())
+        if self.state_use_time_since_tl_change:
+            num+=num_traffic_lights
+        return num
+
 
     @staticmethod
     def reward_total_waiting_vehicles():
