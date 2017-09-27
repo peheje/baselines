@@ -24,7 +24,7 @@ def main():
     env = gym.make(env_name)
 
     env.configure_traci(num_car_chances=1000,
-                        car_props=[0.5, 0.05],
+                        car_props=[0.25, 0.05],
                         reward_func=env.reward_total_waiting_vehicles,
                         num_actions_pr_trafficlight=2,
                         perform_actions=False)

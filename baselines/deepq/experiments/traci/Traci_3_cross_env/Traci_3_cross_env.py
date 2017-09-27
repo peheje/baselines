@@ -1,7 +1,7 @@
 import logging
 import os
 import sys
-from collections import deque
+from collections import deque, OrderedDict
 from pathlib import Path
 from shutil import copyfile
 from threading import Thread
@@ -97,8 +97,10 @@ class Traci_3_cross_env(BaseTraciEnv):
         BaseTraciEnv.__init__(self)
         self.flow_file_name = None
         self.should_render = False
+        self.num_actions = 2 ** 4
+        self.num_history_state_scalars = None  # This gets calculated later
+        self.num_nonhistory_state_scalars=None
         self.num_trafficlights = 4
-        self.num_state_scalars = 4 * 4 + 4
         self.num_history_states = 4
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 1000
@@ -120,14 +122,16 @@ class Traci_3_cross_env(BaseTraciEnv):
             pass
         Thread(target=self.__traci_start__())
 
+        self.num_history_state_scalars = self.calculate_num_history_state_scalars()
+        self.num_nonhistory_state_scalars=self.calculate_num_nonhistory_state_scalars()
+        self.total_num_state_scalars=(self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
-                                            shape=(self.num_state_scalars * self.num_history_states))
-        # self.reward_range = (-4*max_cars_in_queue, 4*max_cars_in_queue)
+                                            shape=(self.total_num_state_scalars))
 
         self.state = deque([], maxlen=self.num_history_states)
         for i in range(self.num_history_states):
-            self.state.append(np.zeros(self.num_state_scalars))
+            self.state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
 
     def _seed(self, seed=None):
@@ -147,16 +151,9 @@ class Traci_3_cross_env(BaseTraciEnv):
         traci.simulationStep()
 
         # Build state
+        total_state=0
         if self.perform_actions:
-            if self.e3ids is None:
-                self.e3ids = traci.multientryexit.getIDList()
-            cur_state = []
-            for id in self.e3ids:
-                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
-            cur_state = cur_state + self.get_traffic_states()
-            self.state.append(np.array(cur_state))
-
-        # print("STATE", self.state)
+          total_state = self.get_state_multientryexit()
 
         # Build reward
         reward = self.reward_func()
@@ -166,7 +163,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         self.log_end_step(reward)
 
-        return np.hstack(self.state), reward, done, {}
+        return total_state, reward, done, {}
 
     @staticmethod
     def get_traffic_states():
@@ -182,7 +179,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             self.log_end_episode(0)
             BaseTraciEnv._reset(self)
             self.restart()
-        return np.hstack(self.state)
+        return np.zeros(self.total_num_state_scalars)
 
     def _render(self, mode='human', close=False):
         if not close:
