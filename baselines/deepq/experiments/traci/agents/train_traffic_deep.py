@@ -49,7 +49,6 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
                   param_noise=False,
-                  hidden_layers=[64],
                   state_use_queue_length_history=True,
                   state_use_tl_state_history=True,
                   state_use_time_since_tl_change=True,
@@ -77,7 +76,6 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                         state_contain_avg_speed_between_detectors_history=state_use_avg_speed_history,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state_history,
-                        reward_func=reward_function,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
     # env.render()
 

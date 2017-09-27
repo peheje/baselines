@@ -69,9 +69,10 @@ class BaseTraciEnv(gym.Env):
         if self.num_actions_pr_trafficlight == 2:
             self.action_converter = self.binary_action
         elif self.num_actions_pr_trafficlight == 3:
-        else:
             self.action_converter = self.ternary_action
+        else:
             raise Exception("Not supported other than 2 or 3 actions pr. traffic light.")
+
 
         self.num_car_chances = num_car_chances
         self.car_props = car_props
