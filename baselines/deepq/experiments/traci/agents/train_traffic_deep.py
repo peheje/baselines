@@ -3,6 +3,7 @@ from shutil import copyfile
 
 from datetime import datetime
 import inspect
+import tensorflow as tf
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -31,7 +32,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   car_chances=1000,
                   reward_function=BaseTraciEnv.reward_halting_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=int(1e4),
+                  max_timesteps=int(1e1),
                   buffer_size=50000,
                   exploration_fraction=0.1,
                   explore_final_eps=0.01,
@@ -121,14 +122,18 @@ def train_and_log(environment="Traci_3_cross_env-v0",
 def main():
 
     reward_functions = [BaseTraciEnv.reward_total_waiting_vehicles,
-                        BaseTraciEnv.reward_total_in_queue,
+                        BaseTraciEnv.reward_total_in_queue_3cross,
                         BaseTraciEnv.reward_arrived_vehicles,
                         BaseTraciEnv.reward_average_speed,
                         BaseTraciEnv.reward_emission,
                         BaseTraciEnv.reward_halting_in_queue_3cross]
 
-    for rf in reward_functions:
-        train_and_log(reward_function=rf)
+    for rf in reversed(reward_functions):
+        print("Now reward function is:",rf)
+        g = tf.Graph()
+        sess = tf.InteractiveSession(graph=g)
+        with g.as_default():
+            train_and_log(reward_function=rf)
 
 
 if __name__ == '__main__':
