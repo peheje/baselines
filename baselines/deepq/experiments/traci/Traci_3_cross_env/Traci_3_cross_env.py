@@ -89,7 +89,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--tripinfo-output", self.tripinfo_file_name,
              "--start",
              "--quit-on-end",
-             "--time-to-teleport", "-1",
+             "--time-to-teleport", "300",
              "--route-files", self.route_file_name])
 
     def __init__(self):
