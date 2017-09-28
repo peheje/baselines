@@ -25,6 +25,7 @@ class BaseTraciEnv(gym.Env):
     def __init__(self):
         self.episode_rewards = deque([0.0], maxlen=100)
         self.step_rewards = deque([], maxlen=100)
+        self.mean_episode_rewards = deque([], maxlen=100)
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
         self.total_time_loss=0
@@ -342,13 +343,16 @@ class BaseTraciEnv(gym.Env):
                 retry=False
 
 
+        self.mean_episode_rewards.append(self.episode_rewards[-1] / self.timestep_this_episode)
+        mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards))
 
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
         logger.record_tabular("Steps[Episode]", self.timestep)
         logger.record_tabular("Episodes[Episode]", self.episode)
         logger.record_tabular("Mean 100 episode reward[Episode]", mean_100ep_reward)
+        logger.record_tabular("Mean 100 episode mean reward[Episode]", mean_100ep_mean_reward)
         logger.record_tabular("Episode Reward[Episode]", self.episode_rewards[-1])
-        logger.record_tabular("Episode Reward mean[Episode]", self.episode_rewards[-1]/self.timestep_this_episode)
+        logger.record_tabular("Episode Reward mean[Episode]", self.mean_episode_rewards[-1])
         logger.record_tabular("Number of traffic light changes[Episode]", self.traffic_light_changes)
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
