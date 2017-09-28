@@ -29,7 +29,7 @@ def main():
                         num_actions_pr_trafficlight=2,
                         perform_actions=False)
 
-    env.render()
+    #env.render()
     s = env.reset()
 
     for episode in range(1, n_episodes):

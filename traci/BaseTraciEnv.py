@@ -32,6 +32,7 @@ class BaseTraciEnv(gym.Env):
         self.fully_stopped_cars = UniqueCounter()
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
         self.timestep = 0
+        self.timestep_this_episode = 0
         self.episode = 0
         self.traffic_light_changes = 0
         self.time_since_tl_change = OrderedDict()
@@ -93,6 +94,7 @@ class BaseTraciEnv(gym.Env):
         self.avg_speed_step_rewards = []
         self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
+        self.timestep_this_episode = 0
 
     def _step(self, action):
         """ Implement in child """
@@ -319,6 +321,7 @@ class BaseTraciEnv(gym.Env):
             # This cant be done here - logger.record_tabular("% time spent exploring[Timestep]", int(100 * exploration.value(t)))
             logger.dump_tabular()
 
+        self.timestep_this_episode += 1
         self.timestep += 1
 
     def log_end_episode(self, reward):
@@ -345,6 +348,7 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Episodes[Episode]", self.episode)
         logger.record_tabular("Mean 100 episode reward[Episode]", mean_100ep_reward)
         logger.record_tabular("Episode Reward[Episode]", self.episode_rewards[-1])
+        logger.record_tabular("Episode Reward mean[Episode]", self.episode_rewards[-1]/self.timestep_this_episode)
         logger.record_tabular("Number of traffic light changes[Episode]", self.traffic_light_changes)
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
