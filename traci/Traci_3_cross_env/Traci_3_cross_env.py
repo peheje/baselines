@@ -67,10 +67,11 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " -o {}".format(self.route_file_name) +
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
-                                         " --random" +
+                                         " --seed " +str(self.jtrroute_seed)+
                                          " --accept-all-destinations", shell=True)
 
         print(status)
+        self.jtrroute_seed+=1
 
         # Run webster on route file (tls only used if not controlled)
         status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
@@ -109,6 +110,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.state = []
         self.unique_counters = []
         self.route_file_name = None
+        self.jtrroute_seed=0
 
     def restart(self):
         self.spawn_cars()

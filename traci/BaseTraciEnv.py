@@ -26,6 +26,8 @@ class BaseTraciEnv(gym.Env):
         self.episode_rewards = deque([0.0], maxlen=100)
         self.step_rewards = deque([], maxlen=100)
         self.mean_episode_rewards = deque([], maxlen=100)
+        self.episode_travel_times=[]
+        self.episode_time_losses=[]
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
         self.total_time_loss=0
@@ -338,6 +340,8 @@ class BaseTraciEnv(gym.Env):
                 retry=False
                 logger.record_tabular("Total travel time for episode[Episode]", self.total_travel_time)
                 logger.record_tabular("Total time loss for episode[Episode]", self.total_time_loss)
+                self.episode_travel_times.append(self.total_travel_time)
+                self.episode_time_losses.append(self.total_time_loss)
             except xml.etree.ElementTree.ParseError as err:
                 print("Couldn't read xml, skipping logging this iteration")
                 retry=False
@@ -365,3 +369,8 @@ class BaseTraciEnv(gym.Env):
         self.log_end_step(reward)
         if done:
             self.log_end_episode(reward)
+    def log_travel_time_table(self):
+        string_array_to_log=[["Episode","Travel time","Time loss"]]
+        for i in range(len(self.episode_travel_times)):
+            string_array_to_log.append([str(i+1),str(self.episode_travel_times[i]),str(self.episode_time_losses[i])])
+        logger.logtxt(string_array_to_log,"Travel time and time loss")
