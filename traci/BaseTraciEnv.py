@@ -355,7 +355,7 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Episode Reward mean[Episode]", self.mean_episode_rewards[-1])
         logger.record_tabular("Number of traffic light changes[Episode]", self.traffic_light_changes)
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
-        logger.record_tabular("Total Avg-speed reward for episode[Episode]", sum(self.avg_speed_step_rewards))
+        logger.record_tabular("Mean Avg-speed reward for episode[Episode]", np.mean(self.avg_speed_step_rewards))
         logger.record_tabular("Total number of stopped cars for episode[Episode]", self.fully_stopped_cars.get_count())
         logger.dump_tabular()
         self.episode_rewards.append(reward)
