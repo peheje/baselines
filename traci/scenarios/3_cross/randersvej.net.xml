@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 29 Sep 2017 02:48:55 PM CEST by Netedit Version 0.30.0
+<!-- generated on Fri 29 Sep 2017 03:39:19 PM CEST by Netedit Version 0.30.0
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="randersvej.net.xml"/>
+        <sumo-net-file value="/home/nikolaj/baselinesfork/traci/scenarios/3_cross/randersvej.net.xml"/>
     </input>
 
     <output>
-        <output-file value="randersvej.net.xml"/>
+        <output-file value="/home/nikolaj/baselinesfork/traci/scenarios/3_cross/randersvej.net.xml"/>
     </output>
 
     <processing>
