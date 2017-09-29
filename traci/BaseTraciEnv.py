@@ -344,7 +344,7 @@ class BaseTraciEnv(gym.Env):
 
 
         self.mean_episode_rewards.append(self.episode_rewards[-1] / self.timestep_this_episode)
-        mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards))
+        mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards), 1)
 
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
         logger.record_tabular("Steps[Episode]", self.timestep)
