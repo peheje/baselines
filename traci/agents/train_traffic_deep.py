@@ -78,7 +78,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state_history,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
-    env.render()
+    #env.render()
 
     # Initialize logger
     logger.reset()
@@ -124,7 +124,6 @@ def main():
     reward_functions = [BaseTraciEnv.reward_total_waiting_vehicles,
                         BaseTraciEnv.reward_total_in_queue_3cross,
                         BaseTraciEnv.reward_arrived_vehicles,
-                        BaseTraciEnv.reward_emission,
                         BaseTraciEnv.reward_average_speed,
                         BaseTraciEnv.reward_halting_in_queue_3cross]
 
