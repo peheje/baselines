@@ -118,13 +118,13 @@ class TensorBoardOutputFormat(OutputFormat):
         self.writer.Flush()
         self.step += 1
 
-    def logtxt(self,str_array):
+    def logtxt(self,str_array,tag):
         text_tensor = self.tf.convert_to_tensor(str_array)
-        inner_summary = self.tf.summary.text('input', text_tensor)
+        inner_summary = self.tf.summary.text(tag, text_tensor)
         summary_op = self.tf.summary.merge_all()
         with self.tf.Session() as sess:
             summary_writer = self.tf.summary.FileWriter(logdir=self.path.replace("/events",""))
-            result = sess.run(summary_op)
+            result = sess.run(inner_summary)
             summary_writer.add_summary(result, global_step=0)
             summary_writer.flush()
 
@@ -152,8 +152,8 @@ def make_output_format(format, ev_dir):
 # ================================================================
 # API
 # ================================================================
-def logtxt(str):
-    Logger.CURRENT.logtxt(str)
+def logtxt(str,tag="Input"):
+    Logger.CURRENT.logtxt(str,tag)
 def logkv(key, val):
     """
     Log a value of some diagnostic
@@ -249,10 +249,10 @@ class Logger(object):
     def log(self, *args, level=INFO):
         if self.level <= level:
             self._do_log(args)
-    def logtxt(self,str):
+    def logtxt(self,str,tag):
         for fmt in self.output_formats:
             if isinstance(fmt,TensorBoardOutputFormat) :
-                fmt.logtxt(str)
+                fmt.logtxt(str,tag)
 
     # Configuration
     # ----------------------------------------
