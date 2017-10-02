@@ -11,20 +11,21 @@ from baselines import deepq,logger,logger_utils
 from pathlib import Path
 import Traci_2_cross_env.Traci_2_cross_env
 import Traci_3_cross_env.Traci_3_cross_env
+import tensorflow as tf
 
 
-def main():
+def main(path_to_model):
     environment='Traci_3_cross_env-v0'
     path_to_model="/home/nikolaj/Desktop/Traci_3_cross_env-v0/2017-09-26_22-58-37/model-2017-09-27_11-57-00.pkl"
     env = gym.make(environment)
     act = deepq.load(path_to_model)
     env.configure_traci(num_car_chances=1000,
-                        car_props=[0.25,0.05],
-                        reward_func=env.reward_squared_wait_sum,
+                        car_props=[0.25, 0.05],
+                        reward_func=env.reward_total_waiting_vehicles,
                         state_contain_num_cars_in_queue_history=True,
-                        state_contain_avg_speed_between_detectors_history=True,
                         state_contain_time_since_tl_change=True,
                         state_contain_tl_state_history=True,
+                        state_contain_avg_speed_between_detectors_history=False,
                         num_actions_pr_trafficlight=3)
 
     # Setup path of logging, name of environment and save the current arguments (this script)
@@ -49,4 +50,12 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    paths_to_model=["/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-29_16-16-41/model-2017-09-29_23-09-50.pkl",
+                    ""]
+    for path in paths_to_model:
+        g = tf.Graph()
+        sess = tf.InteractiveSession(graph=g)
+        with g.as_default():
+            main(path_to_model=path)
+
+
