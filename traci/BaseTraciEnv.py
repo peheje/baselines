@@ -373,4 +373,11 @@ class BaseTraciEnv(gym.Env):
         string_array_to_log=[["Episode","Travel time","Time loss"]]
         for i in range(len(self.episode_travel_times)):
             string_array_to_log.append([str(i+1),str(self.episode_travel_times[i]),str(self.episode_time_losses[i])])
+
+        # Means
+        string_array_to_log.append(["Means", np.mean(self.episode_travel_times), np.mean(self.episode_time_losses)])
+
+        # Sums/totals
+        string_array_to_log.append(["Sums", np.sum(self.episode_travel_times), np.sum(self.episode_time_losses)])
+
         logger.logtxt(string_array_to_log,"Travel time and time loss")
