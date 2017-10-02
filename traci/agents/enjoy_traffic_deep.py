@@ -15,7 +15,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 
 def main():
     environment='Traci_3_cross_env-v0'
-    path_to_model="/home/nikolaj/Desktop/model-2017-09-26_22-41-59.pkl"
+    path_to_model="/home/nikolaj/Desktop/Traci_3_cross_env-v0/2017-09-26_22-58-37/model-2017-09-27_11-57-00.pkl"
     env = gym.make(environment)
     act = deepq.load(path_to_model)
     env.configure_traci(num_car_chances=1000,

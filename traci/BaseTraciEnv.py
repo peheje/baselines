@@ -300,7 +300,7 @@ class BaseTraciEnv(gym.Env):
             speed = traci.vehicle.getSpeed(veh_id)
             if speed == 0 and self.has_driven_cars.contains(veh_id):
                 self.fully_stopped_cars.add(veh_id)
-            else:
+            elif speed >0:
                 self.has_driven_cars.add(veh_id)
 
     def log_end_step(self,reward):
