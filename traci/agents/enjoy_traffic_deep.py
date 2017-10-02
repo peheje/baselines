@@ -18,7 +18,7 @@ def main():
     path_to_model="/home/nikolaj/Desktop/model-2017-09-26_22-41-59.pkl"
     env = gym.make(environment)
     act = deepq.load(path_to_model)
-    env.configure_traci(num_car_chances=10,
+    env.configure_traci(num_car_chances=1000,
                         car_props=[0.25,0.05],
                         reward_func=env.reward_squared_wait_sum,
                         state_contain_num_cars_in_queue_history=True,

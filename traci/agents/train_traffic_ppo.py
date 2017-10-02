@@ -9,21 +9,31 @@ import BaseTraciEnv
 import Traci_1_cross_env.Traci_1_cross_env
 import Traci_2_cross_env.Traci_2_cross_env
 import Traci_3_cross_env.Traci_3_cross_env
+from pathlib import Path
+from baselines import logger, logger_utils
+import os
 
 def train(env_id, num_timesteps, seed):
     from baselines.ppo1 import mlp_policy, pposgd_simple
-    U.make_session(num_cpu=1).__enter__()
+    U.make_session(num_cpu=4).__enter__()
     set_global_seeds(seed)
     env = gym.make(env_id)
 
     env.configure_traci(num_car_chances=1000,
                         car_props=[0.25, 0.05],
-                        reward_func=BaseTraciEnv.BaseTraciEnv.reward_total_waiting_vehicles,
+                        reward_func=BaseTraciEnv.BaseTraciEnv.reward_average_speed,
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
                         state_contain_time_since_tl_change=True,
                         state_contain_tl_state_history=True,
                         num_actions_pr_trafficlight=3)
+    # Initialize logger
+    # Setup path of logging, name of environment and save the current arguments (this script)
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo']
+    logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
+
+    logger.reset()
+    logger.configure(logger_path, ["tensorboard", "stdout"])
 
     def policy_fn(name, ob_space, ac_space):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
