@@ -13,6 +13,7 @@ from pathlib import Path
 from baselines import logger, logger_utils
 import os
 import tensorflow as tf
+from shutil import copyfile
 
 def train(env_id, num_timesteps, seed):
     from baselines.ppo1 import mlp_policy, pposgd_simple
@@ -22,7 +23,7 @@ def train(env_id, num_timesteps, seed):
 
     env.configure_traci(num_car_chances=1000,
                         car_props=[1.0, 0.1],
-                        reward_func=BaseTraciEnv.BaseTraciEnv.reward_average_speed,
+                        reward_func=lambda : BaseTraciEnv.BaseTraciEnv.reward_arrived_vehicles(),
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
                         state_contain_time_since_tl_change=True,
@@ -35,6 +36,7 @@ def train(env_id, num_timesteps, seed):
 
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
+    copyfile(__file__, logger_path + "/params.txt")
 
     def policy_fn(name, ob_space, ac_space):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
