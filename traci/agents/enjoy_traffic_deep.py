@@ -50,11 +50,11 @@ def main(path_to_model):
 
 
 if __name__ == '__main__':
-    paths_to_model=["/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-29_16-16-41/model-2017-09-29_19-22-11.pkl",
-                    "/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-29_23-09-50/model-2017-09-30_00-42-05.pkl",
-                    "/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_05-04-36/model-2017-09-30_05-16-49.pkl",
-                    "/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_11-18-52/model-2017-09-30_11-26-42.pkl",
-                    "/Users/phj/GitRepos/baselines_fork2/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_18-53-29/model-2017-09-30_20-06-00.pkl"]
+    paths_to_model=["/home/peter/gitrepos/baselines_fork/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-29_16-16-41/model-2017-09-29_19-22-11.pkl",
+                    "/home/peter/gitrepos/baselines_fork/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-29_23-09-50/model-2017-09-30_00-42-05.pkl",
+                    "/home/peter/gitrepos/baselines_fork/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_05-04-36/model-2017-09-30_05-16-49.pkl",
+                    "/home/peter/gitrepos/baselines_fork/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_11-18-52/model-2017-09-30_11-26-42.pkl",
+                    "/home/peter/gitrepos/baselines_fork/traci/tensorboard_logs/weekend_train__larac_1oct_rewards/2017-09-30_18-53-29/model-2017-09-30_20-06-00.pkl"]
     for path in paths_to_model:
         g = tf.Graph()
         sess = tf.InteractiveSession(graph=g)
