@@ -90,3 +90,6 @@ baselines/deepq/experiments/traci/scenarios/3_cross/webster\.tls\.xml
 traci/scenarios/3_cross/webster\.tls\.xml
 
 traci/scenarios/3_cross/e3\.out\.xml
+
+**/e3.out.xml
+**/webster.tls.xml
