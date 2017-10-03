@@ -21,17 +21,18 @@ else:
 
 import traci
 
+
 class BaseTraciEnv(gym.Env):
     def __init__(self):
         self.episode_rewards = deque([0.0], maxlen=100)
         self.step_rewards = deque([], maxlen=100)
         self.mean_episode_rewards = deque([], maxlen=100)
-        self.episode_travel_times=[]
-        self.episode_time_losses=[]
+        self.episode_travel_times = []
+        self.episode_time_losses = []
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
-        self.total_time_loss=0
-        self.total_travel_time=0
+        self.total_time_loss = 0
+        self.total_travel_time = 0
         self.fully_stopped_cars = UniqueCounter()
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
         self.timestep = 0
@@ -54,9 +55,9 @@ class BaseTraciEnv(gym.Env):
         self.num_actions = None
         self.action_converter = None
         self.perform_actions = None
-        self.state_use_time_since_tl_change=None
-        self.state_use_avg_speed_between_detectors_history=None
-        self.state_use_num_cars_in_queue_history=None
+        self.state_use_time_since_tl_change = None
+        self.state_use_avg_speed_between_detectors_history = None
+        self.state_use_num_cars_in_queue_history = None
 
     def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight,
                         num_history_states=4,
@@ -65,7 +66,7 @@ class BaseTraciEnv(gym.Env):
                         state_contain_time_since_tl_change=False,
                         state_contain_tl_state_history=True,
                         state_contain_num_cars_in_queue_history=True):
-                          
+
         self.num_actions_pr_trafficlight = num_actions_pr_trafficlight
         self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
         if self.num_actions_pr_trafficlight == 2:
@@ -75,24 +76,23 @@ class BaseTraciEnv(gym.Env):
         else:
             raise Exception("Not supported other than 2 or 3 actions pr. traffic light.")
 
-
         self.num_car_chances = num_car_chances
         self.car_props = car_props
         self.reward_func = reward_func
         self.perform_actions = perform_actions
-        self.state_use_time_since_tl_change=state_contain_time_since_tl_change
-        self.state_use_avg_speed_between_detectors_history=state_contain_avg_speed_between_detectors_history
-        self.state_use_tl_state_history=state_contain_tl_state_history
-        self.state_use_num_cars_in_queue_history=state_contain_num_cars_in_queue_history
-        self.num_history_states=num_history_states
+        self.state_use_time_since_tl_change = state_contain_time_since_tl_change
+        self.state_use_avg_speed_between_detectors_history = state_contain_avg_speed_between_detectors_history
+        self.state_use_tl_state_history = state_contain_tl_state_history
+        self.state_use_num_cars_in_queue_history = state_contain_num_cars_in_queue_history
+        self.num_history_states = num_history_states
 
         self.restart()
 
     def _reset(self):
         self.traffic_light_changes = 0
         self.total_travel_time = 0
-        self.total_time_loss=0
-        #self.timestep = 0
+        self.total_time_loss = 0
+        # self.timestep = 0
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
         self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
@@ -106,16 +106,15 @@ class BaseTraciEnv(gym.Env):
     def restart(self):
         """ Implement in child """
         raise NotImplementedError()
+
     def get_state_multientryexit(self):
-
-
         ### Handle historical state data
         if self.e3ids is None:
             self.e3ids = traci.multientryexit.getIDList()
         cur_state = []
         for id in self.e3ids:
             if self.state_use_num_cars_in_queue_history:
-                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id))) #num cars
+                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))  # num cars
             if self.state_use_avg_speed_between_detectors_history:
                 cur_state.append(traci.multientryexit.getLastStepMeanSpeed(id))
         if self.state_use_tl_state_history:
@@ -123,30 +122,29 @@ class BaseTraciEnv(gym.Env):
         self.state.append(np.array(cur_state))
 
         ### Add non historical state data
-        state_to_return=np.hstack(self.state)
+        state_to_return = np.hstack(self.state)
         if self.state_use_time_since_tl_change:
-            state_to_return=np.concatenate([state_to_return,list(self.time_since_tl_change.values())])
-
+            state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
 
         return state_to_return
+
     def calculate_num_history_state_scalars(self):
-        num=0
-        num_traffic_lights=len(traci.trafficlights.getIDList())
+        num = 0
+        num_traffic_lights = len(traci.trafficlights.getIDList())
         if self.state_use_tl_state_history:
-            num+=num_traffic_lights
+            num += num_traffic_lights
         if self.state_use_num_cars_in_queue_history:
-            num+=num_traffic_lights*4
+            num += num_traffic_lights * 4
         if self.state_use_avg_speed_between_detectors_history:
-            num+=num_traffic_lights*4
+            num += num_traffic_lights * 4
         return num
 
     def calculate_num_nonhistory_state_scalars(self):
         num = 0
         num_traffic_lights = len(traci.trafficlights.getIDList())
         if self.state_use_time_since_tl_change:
-            num+=num_traffic_lights
+            num += num_traffic_lights
         return num
-
 
     @staticmethod
     def reward_total_waiting_vehicles():
@@ -190,11 +188,11 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_halting_sum():
-        sum=0
+        sum = 0
         for tl in traci.trafficlights.getIDList():
             for link in traci.trafficlights.getControlledLinks(tl):
                 for lane in link[0]:
-                    sum+=traci.lane.getLastStepHaltingNumber(lane)
+                    sum += traci.lane.getLastStepHaltingNumber(lane)
 
         return -sum
 
@@ -223,10 +221,10 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_estimated_travel_time():
-        lanes=traci.lane.getIDList()
-        travel_reward_sum=0
+        lanes = traci.lane.getIDList()
+        travel_reward_sum = 0
         for lane_id in lanes:
-            travel_reward_sum=+traci.lane.getTraveltime(lane_id)
+            travel_reward_sum = +traci.lane.getTraveltime(lane_id)
         return -travel_reward_sum
 
     @staticmethod
@@ -235,7 +233,7 @@ class BaseTraciEnv(gym.Env):
         div_floor = action // num_actions
         return [mod_rest, div_floor]
 
-    #Assuming only 2 viable actions
+    # Assuming only 2 viable actions
     @staticmethod
     def binary_action(action):
         return list(map(int, format(action, '04b')))
@@ -256,9 +254,9 @@ class BaseTraciEnv(gym.Env):
     def set_light_phase_4_cross(self, light_id, action, cur_phase):
 
         if light_id in self.time_since_tl_change:
-            self.time_since_tl_change[light_id]+=1
+            self.time_since_tl_change[light_id] += 1
         else:
-            self.time_since_tl_change[light_id]=1
+            self.time_since_tl_change[light_id] = 1
         # Run action
         if action == 0:
             if cur_phase == 4:
@@ -300,12 +298,12 @@ class BaseTraciEnv(gym.Env):
             speed = traci.vehicle.getSpeed(veh_id)
             if speed == 0 and self.has_driven_cars.contains(veh_id):
                 self.fully_stopped_cars.add(veh_id)
-            elif speed >0:
+            elif speed > 0:
                 self.has_driven_cars.add(veh_id)
 
-    def log_end_step(self,reward):
-        #print("Logging end step: ",self.timestep)
-        #Calculate different rewards for step
+    def log_end_step(self, reward):
+        # print("Logging end step: ",self.timestep)
+        # Calculate different rewards for step
         emission_reward = self.reward_emission()
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
@@ -329,23 +327,22 @@ class BaseTraciEnv(gym.Env):
 
     def log_end_episode(self, reward):
 
-        #Read tripinfo file
-        retry=True
+        # Read tripinfo file
+        retry = True
         while retry:
             try:
                 e = xml.etree.ElementTree.parse(self.tripinfo_file_name).getroot()
                 for tripinfo in e.findall('tripinfo'):
-                    self.total_travel_time+= float(tripinfo.get('duration'))
-                    self.total_time_loss+= float(tripinfo.get('timeLoss'))
-                retry=False
+                    self.total_travel_time += float(tripinfo.get('duration'))
+                    self.total_time_loss += float(tripinfo.get('timeLoss'))
+                retry = False
                 logger.record_tabular("Total travel time for episode[Episode]", self.total_travel_time)
                 logger.record_tabular("Total time loss for episode[Episode]", self.total_time_loss)
                 self.episode_travel_times.append(self.total_travel_time)
                 self.episode_time_losses.append(self.total_time_loss)
             except xml.etree.ElementTree.ParseError as err:
                 print("Couldn't read xml, skipping logging this iteration")
-                retry=False
-
+                retry = False
 
         self.mean_episode_rewards.append(self.episode_rewards[-1] / self.timestep_this_episode)
         mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards), 1)
@@ -369,15 +366,19 @@ class BaseTraciEnv(gym.Env):
         self.log_end_step(reward)
         if done:
             self.log_end_episode(reward)
+
     def log_travel_time_table(self):
-        string_array_to_log=[["Episode","Travel time","Time loss"]]
+        string_array_to_log = [["Episode", "Travel time", "Time loss"]]
         for i in range(len(self.episode_travel_times)):
-            string_array_to_log.append([str(i+1),str(self.episode_travel_times[i]),str(self.episode_time_losses[i])])
+            string_array_to_log.append(
+                [str(i + 1), str(self.episode_travel_times[i]), str(self.episode_time_losses[i])])
 
         # Means
-        string_array_to_log.append(["Means", str(np.mean(self.episode_travel_times)), str(np.mean(self.episode_time_losses))])
+        string_array_to_log.append(
+            ["Means", str(np.mean(self.episode_travel_times)), str(np.mean(self.episode_time_losses))])
 
         # Sums/totals
-        string_array_to_log.append(["Sums", str(np.sum(self.episode_travel_times)), str(np.sum(self.episode_time_losses))])
+        string_array_to_log.append(
+            ["Sums", str(np.sum(self.episode_travel_times)), str(np.sum(self.episode_time_losses))])
 
-        logger.logtxt(string_array_to_log,"Travel time and time loss")
+        logger.logtxt(string_array_to_log, "Travel time and time loss")
