@@ -42,7 +42,7 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   learning_starts=1000,
                   gamma=0.95,
                   target_network_update_freq=5000,
-                  car_probabilities=[0.25, 0.05], # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
+                  car_probabilities=[0.25, 0.05],  # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   prioritized_replay=True,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
@@ -50,10 +50,10 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   prioritized_replay_eps=1e-6,
                   num_cpu=4,
                   param_noise=False,
-                  state_use_queue_length_history=True,
-                  state_use_tl_state_history=True,
+                  state_use_queue_length=True,
+                  state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
-                  state_use_avg_speed_history=False,
+                  state_use_avg_speed=False,
                   hidden_layers=[8, 8, 8],
                   num_actions_pr_trafficlight=3):
     # Print call values
@@ -73,10 +73,10 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     env.configure_traci(num_car_chances=car_chances,
                         car_props=car_probabilities,
                         reward_func=reward_function,
-                        state_contain_num_cars_in_queue_history=state_use_queue_length_history,
-                        state_contain_avg_speed_between_detectors_history=state_use_avg_speed_history,
+                        state_contain_num_cars_in_queue_history=state_use_queue_length,
+                        state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
-                        state_contain_tl_state_history=state_use_tl_state_history,
+                        state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
     #env.render()
 
