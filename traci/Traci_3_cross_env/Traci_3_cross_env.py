@@ -43,16 +43,49 @@ class Traci_3_cross_env(BaseTraciEnv):
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as flows:
             self.flow_file_name = flows.name
             print("<routes>", file=flows)
-            for iter, f in enumerate(froms):
-                # If spawning from big road
-                if any(bigroad in f for bigroad in big_roads):
-                    spawn_prob = self.car_props[0]
-                else:
-                    spawn_prob = self.car_props[1]
 
-                print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter, f,
-                                                                                             self.num_car_chances,
-                                                                                             spawn_prob), file=flows)
+            if self.enjoy_car_probs:
+                hard_coded_bigroad_probs=[0.25,
+                                          0.50,
+                                          1.0,
+                                          0.75,
+                                          0.25,
+                                          0.50,
+                                          1.0,
+                                          0.50,
+                                          0.25,
+                                          0.25]
+                increment_every_interval=self.num_car_chances//len(hard_coded_bigroad_probs)
+
+                flow_id=0
+                cur_interval_start = 0
+                for interval in range(len(hard_coded_bigroad_probs)):
+                    for iter, f in enumerate(froms):
+                        # If spawning from big road
+                        if any(bigroad in f for bigroad in big_roads):
+                            spawn_prob = hard_coded_bigroad_probs[interval]
+                        else:
+                            spawn_prob = hard_coded_bigroad_probs[interval]/10
+
+                        print('<flow id="{}" from="{}" begin="{}" end="{}" probability="{}"/>'.format(flow_id, f,
+                                                                                                      cur_interval_start,
+                                                                                                      cur_interval_start+increment_every_interval,
+                                                                                                 spawn_prob),
+                          file=flows)
+                        flow_id+=1
+                    cur_interval_start+=increment_every_interval
+
+            else:
+                for iter, f in enumerate(froms):
+                    # If spawning from big road
+                    if any(bigroad in f for bigroad in big_roads):
+                        spawn_prob = self.car_probabilities[0]
+                    else:
+                        spawn_prob = self.car_probabilities[1]
+
+                    print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter, f,
+                                                                                                 self.num_car_chances,
+                                                                                                 spawn_prob), file=flows)
             print("</routes>", file=flows)
 
         # Make temp file for routes

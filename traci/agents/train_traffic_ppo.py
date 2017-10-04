@@ -21,7 +21,8 @@ def train(env_id, num_timesteps, seed):
     env = gym.make(env_id)
 
     env.configure_traci(num_car_chances=1000,
-                        car_props=[1.0, 0.1],
+                        start_car_probabilities=[1.0, 0.1],
+                        end_car_probabilities=[1.0, 0.1],
                         reward_func=BaseTraciEnv.BaseTraciEnv.reward_average_speed,
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
