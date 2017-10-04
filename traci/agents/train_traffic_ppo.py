@@ -13,6 +13,7 @@ from pathlib import Path
 from baselines import logger, logger_utils
 import os
 import tensorflow as tf
+from shutil import copyfile
 
 def train(env_id, num_timesteps, seed):
     from baselines.ppo1 import mlp_policy, pposgd_simple
@@ -36,6 +37,7 @@ def train(env_id, num_timesteps, seed):
 
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
+    copyfile(__file__, logger_path + "/params.txt")
 
     def policy_fn(name, ob_space, ac_space):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
