@@ -30,7 +30,7 @@ def callback(lcl, glb):
 
 def train_and_log(environment="Traci_3_cross_env-v0",
                   car_chances=1000,
-                  reward_function=BaseTraciEnv.reward_halting_in_queue_3cross,
+                  reward_function=BaseTraciEnv.reward_average_accumulated_wait_time,
                   lr=1e-3,
                   max_timesteps=int(1e5),
                   buffer_size=10000,
@@ -125,7 +125,9 @@ def train_and_log(environment="Traci_3_cross_env-v0",
 
 def main():
 
-    reward_functions = [BaseTraciEnv.reward_total_waiting_vehicles,
+    reward_functions = [BaseTraciEnv.reward_average_accumulated_wait_time,
+                        BaseTraciEnv.reward_rms_accumulated_wait_time,
+                        BaseTraciEnv.reward_total_waiting_vehicles,
                         BaseTraciEnv.reward_total_in_queue_3cross,
                         BaseTraciEnv.reward_arrived_vehicles,
                         BaseTraciEnv.reward_average_speed,

@@ -3,6 +3,7 @@ import os
 import tempfile
 from collections import deque, OrderedDict
 import xml.etree.ElementTree
+import math
 
 import gym
 
@@ -240,6 +241,26 @@ class BaseTraciEnv(gym.Env):
         else:
             return 0
 
+    @staticmethod
+    def reward_average_accumulated_wait_time():
+        vehs = traci.vehicle.getIDList()
+        accu_sum = 0
+        for veh_id in vehs:
+            accu_sum += traci.vehicle.getAccumulatedWaitingTime(veh_id)
+        if len(vehs) > 0:
+            return -(accu_sum / len(vehs))
+        else:
+            return 0
+    @staticmethod
+    def reward_rms_accumulated_wait_time():
+        vehs = traci.vehicle.getIDList()
+        square_sum = 0
+        for veh_id in vehs:
+            square_sum += traci.vehicle.getAccumulatedWaitingTime(veh_id)**2
+        if len(vehs) > 0:
+            return -math.sqrt(square_sum / len(vehs))
+        else:
+            return 0
     @staticmethod
     def reward_estimated_travel_time():
         lanes = traci.lane.getIDList()
