@@ -29,8 +29,8 @@ class BaseTraciEnv(gym.Env):
         self.episode_rewards = deque([0.0], maxlen=100)
         self.step_rewards = deque([], maxlen=100)
         self.mean_episode_rewards = deque([], maxlen=100)
-        self.episode_travel_times = []
-        self.episode_time_losses = []
+        self.episode_mean_travel_times = []
+        self.episode_mean_time_losses = []
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
         self.total_time_loss = 0
@@ -374,14 +374,16 @@ class BaseTraciEnv(gym.Env):
         while retry:
             try:
                 e = xml.etree.ElementTree.parse(self.tripinfo_file_name).getroot()
-                for tripinfo in e.findall('tripinfo'):
+                tripinfos = e.findall('tripinfo')
+                num_tripinfos = len(tripinfos)
+                for tripinfo in tripinfos:
                     self.total_travel_time += float(tripinfo.get('duration'))
                     self.total_time_loss += float(tripinfo.get('timeLoss'))
                 retry = False
                 logger.record_tabular("Total travel time for episode[Episode]", self.total_travel_time)
                 logger.record_tabular("Total time loss for episode[Episode]", self.total_time_loss)
-                self.episode_travel_times.append(self.total_travel_time)
-                self.episode_time_losses.append(self.total_time_loss)
+                self.episode_mean_travel_times.append(self.total_travel_time / num_tripinfos)
+                self.episode_mean_time_losses.append(self.total_time_loss / num_tripinfos)
             except xml.etree.ElementTree.ParseError as err:
                 print("Couldn't read xml, skipping logging this iteration")
                 retry = False
@@ -410,19 +412,19 @@ class BaseTraciEnv(gym.Env):
             self.log_end_episode(reward)
 
     def log_travel_time_table(self):
-        string_array_to_log = [["Episode", "Travel time", "Time loss"]]
-        for i in range(len(self.episode_travel_times)):
+        string_array_to_log = [["Episode", "Mean travel time", "Mean time loss"]]
+        for i in range(len(self.episode_mean_travel_times)):
             string_array_to_log.append(
-                [str(i + 1), str(self.episode_travel_times[i]), str(self.episode_time_losses[i])])
+                [str(i + 1), str(self.episode_mean_travel_times[i]), str(self.episode_mean_time_losses[i])])
 
         # Means
         string_array_to_log.append(
-            ["Means", str(np.mean(self.episode_travel_times)), str(np.mean(self.episode_time_losses))])
+            ["Means", str(np.mean(self.episode_mean_travel_times)), str(np.mean(self.episode_mean_time_losses))])
 
         # Sums/totals
         string_array_to_log.append(
-            ["Sums", str(np.sum(self.episode_travel_times)), str(np.sum(self.episode_time_losses))])
+            ["Sums", str(np.sum(self.episode_mean_travel_times)), str(np.sum(self.episode_mean_time_losses))])
 
-        logger.logtxt(string_array_to_log, "Travel time and time loss")
+        logger.logtxt(string_array_to_log, "travel_time_and_time_loss")
 
 
