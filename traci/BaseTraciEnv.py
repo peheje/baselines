@@ -12,6 +12,7 @@ import time
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 from utilities.UniqueCounter import UniqueCounter
+from baselines.common.schedules import LinearSchedule
 
 if 'SUMO_HOME' in os.environ:
     tools = os.path.join(os.environ['SUMO_HOME'], 'tools')
@@ -49,7 +50,7 @@ class BaseTraciEnv(gym.Env):
 
         # configure_traci() must be called, leave uninitialized here
         self.num_car_chances = None
-        self.car_props = None
+        self.car_probabilities = None
         self.reward_func = None
         self.num_actions_pr_trafficlight = None
         self.num_actions = None
@@ -59,8 +60,15 @@ class BaseTraciEnv(gym.Env):
         self.state_use_avg_speed_between_detectors_history = None
         self.state_use_num_cars_in_queue_history = None
 
-    def configure_traci(self, num_car_chances, car_props, reward_func, num_actions_pr_trafficlight,
+    def configure_traci(self,
+                        num_car_chances,
+                        start_car_probabilities,
+                        reward_func,
+                        num_actions_pr_trafficlight,
+                        num_steps_from_start_car_probs_to_end_car_probs=1e5,
                         num_history_states=4,
+                        end_car_probabilities=None,
+                        enjoy_car_probs=False,
                         perform_actions=True,
                         state_contain_avg_speed_between_detectors_history=False,
                         state_contain_time_since_tl_change=False,
@@ -76,8 +84,12 @@ class BaseTraciEnv(gym.Env):
         else:
             raise Exception("Not supported other than 2 or 3 actions pr. traffic light.")
 
+        self.enjoy_car_probs=enjoy_car_probs
         self.num_car_chances = num_car_chances
-        self.car_props = car_props
+        self.car_probabilities = start_car_probabilities
+        self.start_car_probabilities = start_car_probabilities
+        self.end_car_probabilities = end_car_probabilities
+        self.num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs
         self.reward_func = reward_func
         self.perform_actions = perform_actions
         self.state_use_time_since_tl_change = state_contain_time_since_tl_change
@@ -98,7 +110,16 @@ class BaseTraciEnv(gym.Env):
         self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
         self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
         self.timestep_this_episode = 0
+        self.set_new_car_probabilities()
 
+    def set_new_car_probabilities(self):
+        if self.end_car_probabilities is None or self.enjoy_car_probs:
+            return
+        else:
+            for i in range(len(self.car_probabilities)):
+                self.car_probabilities[i]=LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
+                                       initial_p=self.start_car_probabilities[i],
+                                       final_p=self.end_car_probabilities[i]).value(self.timestep)
     def _step(self, action):
         """ Implement in child """
         raise NotImplementedError()
@@ -382,3 +403,5 @@ class BaseTraciEnv(gym.Env):
             ["Sums", str(np.sum(self.episode_travel_times)), str(np.sum(self.episode_time_losses))])
 
         logger.logtxt(string_array_to_log, "Travel time and time loss")
+
+

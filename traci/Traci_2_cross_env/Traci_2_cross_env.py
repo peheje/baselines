@@ -31,12 +31,12 @@ class Traci_2_cross_env(BaseTraciEnv):
 
         N = self.num_car_chances  # number of time steps
         # demand per second from different directions
-        p_w_e = self.car_props[0]
-        p_e_w = self.car_props[1]
-        p_n_s_a = self.car_props[2]
-        p_s_n_a = self.car_props[3]
-        p_n_s_b = self.car_props[4]
-        p_s_n_b = self.car_props[5]
+        p_w_e = self.car_probabilities[0]
+        p_e_w = self.car_probabilities[1]
+        p_n_s_a = self.car_probabilities[2]
+        p_s_n_a = self.car_probabilities[3]
+        p_n_s_b = self.car_probabilities[4]
+        p_s_n_b = self.car_probabilities[5]
         with tempfile.NamedTemporaryFile(mode="w", delete=False) as routes:
             self.route_file_name=routes.name
             print("""<routes>
