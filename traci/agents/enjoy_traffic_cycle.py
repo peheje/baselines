@@ -1,48 +1,40 @@
 import os
 import gym
-import numpy as np
-from baselines import deepq
 import Traci_2_cross_env.Traci_2_cross_env
 import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
 from pathlib import Path
 
-from utilities.profiler import Profiler
-
-n_episodes = 10000000
-
 
 def main():
+    # Setup logging
     env_name = "Traci_3_cross_env-v0"
-    print_timestep_freq = 100
     logger.reset()
-
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), env_name]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), env_name + "enjoy_cycle"]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
     logger.configure(logger_path, ["tensorboard", "stdout"])
 
+    # Make the environment and configure it for enjoying
     env = gym.make(env_name)
-
-    env.configure_traci(num_car_chances=1000,
+    env.configure_traci(perform_actions=False,
+                        num_car_chances=1000,
                         start_car_probabilities=[1.0, 0.1],
+                        enjoy_car_probs=False,
                         reward_func=env.reward_total_waiting_vehicles,
-                        num_actions_pr_trafficlight=2,
-                        perform_actions=False)
+                        state_contain_num_cars_in_queue_history=True,
+                        state_contain_time_since_tl_change=True,
+                        state_contain_tl_state_history=True,
+                        state_contain_avg_speed_between_detectors_history=False,
+                        num_actions_pr_trafficlight=3)
 
     #env.render()
-    s = env.reset()
+    _, done = env.reset(), False
+    for episode in range(10):
+        while not done:
+            _, _, done, _ = env.step(-1)
+        _, done = env.reset(), False
 
-    for episode in range(1, n_episodes):
-        # noop
-        s, r, done, _ = env.step(-1)
-        #if episode % print_timestep_freq == 0:
-        #    logger.record_tabular("steps_timestep", episode)
-        #    logger.record_tabular("reward_timestep", r)
-        #    # logger.record_tabular("mean 100 timestep reward", np.mean(mean_100timestep_reward))
-        #    # logger.record_tabular("% time spent exploring_timestep", int(100 * exploration.value(t)))
-        #    logger.dump_tabular()
-        if done:
-            env.reset()
+    env.log_travel_time_table()
 
 
 if __name__ == '__main__':

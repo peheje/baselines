@@ -29,8 +29,9 @@ def main(path_to_model):
                         num_actions_pr_trafficlight=3)
 
     # Setup path of logging, name of environment and save the current arguments (this script)
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment+"enjoy"]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment+"enjoy_deep"]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
+
     # Initialize logger
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
@@ -41,7 +42,6 @@ def main(path_to_model):
     for i in range(10):
         episode_rew = 0
         while not done:
-
             obs, rew, done, _ = env.step(act(obs[None])[0])
             episode_rew += rew
         print("Episode reward", episode_rew)

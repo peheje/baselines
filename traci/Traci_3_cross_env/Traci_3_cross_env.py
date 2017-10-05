@@ -131,7 +131,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         BaseTraciEnv.__init__(self)
         self.flow_file_name = None
         self.should_render = False
-        self.num_actions = 2 ** 4
+        self.num_actions = None
         self.num_history_state_scalars = None  # This gets calculated later
         self.num_nonhistory_state_scalars=None
         self.num_trafficlights = 4
@@ -175,7 +175,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
     def _step(self, action):
         if self.perform_actions:
-            assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
+            # assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
             # convert action into many actions
             action = self.action_converter(action)
             for i, tlsid in enumerate(traci.trafficlights.getIDList()):
