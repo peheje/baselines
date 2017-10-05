@@ -135,7 +135,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_history_state_scalars = None  # This gets calculated later
         self.num_nonhistory_state_scalars=None
         self.num_trafficlights = 4
-        self.num_history_states = 2
+        self.num_history_states = None
         self.min_state_scalar_value = 0
         self.max_state_scalar_value = 1000
         self.sumo_binary = None
