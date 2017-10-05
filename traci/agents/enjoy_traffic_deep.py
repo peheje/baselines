@@ -18,7 +18,7 @@ def main(path_to_model):
     environment='Traci_3_cross_env-v0'
     env = gym.make(environment)
     act = deepq.load(path_to_model)
-    env.configure_traci(num_car_chances=10,
+    env.configure_traci(num_car_chances=1000,
                         start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
                         reward_func=env.reward_total_waiting_vehicles,
@@ -38,7 +38,7 @@ def main(path_to_model):
 
     #env.render()
     obs, done = env.reset(), False
-    for i in range(2):
+    for i in range(10):
         episode_rew = 0
         while not done:
 
