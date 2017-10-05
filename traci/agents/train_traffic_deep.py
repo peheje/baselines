@@ -1,3 +1,4 @@
+import json
 import os, sys
 from shutil import copyfile
 
@@ -89,7 +90,9 @@ def train_and_log(environment="Traci_3_cross_env-v0",
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(call_params_string_array)
 
-    copyfile(__file__, logger_path + "/params.txt")
+    with open(logger_path + "/params.txt", 'w') as file:
+        file.write(json.dumps(call_params_string_array, indent=4))
+    copyfile(__file__, logger_path + "/script.txt")
 
     # Create the training model
     model = deepq.models.mlp(hidden_layers)
