@@ -1,3 +1,4 @@
+import json
 import os, sys
 from shutil import copyfile
 
@@ -32,18 +33,19 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                   car_chances=1000,
                   reward_function=BaseTraciEnv.reward_halting_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=int(1e5),
-                  buffer_size=10000,
+                  max_timesteps=500000,
+                  buffer_size=50000,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
-                  train_freq=100,
+                  train_freq=10,
                   batch_size=32,
                   checkpoint_freq=int(10000),
-                  learning_starts=1000,
-                  gamma=0.95,
-                  target_network_update_freq=5000,
-                  car_probabilities=[0.25, 0.05],  # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
-                  prioritized_replay=True,
+                  learning_starts=10000,
+                  gamma=0.9,
+                  target_network_update_freq=500,
+                  car_probabilities=[1.0, 0.1],
+                  # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
+                  prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -78,14 +80,16 @@ def train_and_log(environment="Traci_3_cross_env-v0",
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
-    #env.render()
+    # env.render()
 
     # Initialize logger
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(call_params_string_array)
 
-    copyfile(__file__, logger_path + "/params.txt")
+    with open(logger_path + "/params.txt", 'w') as file:
+        file.write(json.dumps(call_params_string_array, indent=4))
+    copyfile(__file__, logger_path + "/script.txt")
 
     # Create the training model
     model = deepq.models.mlp(hidden_layers)
@@ -120,12 +124,11 @@ def train_and_log(environment="Traci_3_cross_env-v0",
 
 
 def main():
-
-    reward_functions = [BaseTraciEnv.reward_total_waiting_vehicles,
-                        BaseTraciEnv.reward_total_in_queue_3cross,
-                        BaseTraciEnv.reward_arrived_vehicles,
-                        BaseTraciEnv.reward_average_speed,
-                        BaseTraciEnv.reward_halting_in_queue_3cross]
+    reward_functions = [
+        BaseTraciEnv.reward_halting_in_queue_3cross,
+        BaseTraciEnv.reward_average_speed,
+        BaseTraciEnv.reward_arrived_vehicles
+    ]
 
     for rf in reward_functions:
         print("Now reward function is:", rf)
