@@ -84,7 +84,7 @@ class BaseTraciEnv(gym.Env):
         :param num_actions_pr_trafficlight: 2 (Switch, Nothing) or 3 (Green-NS, Green-WE, Nothing). Only used for training.
         :param num_steps_from_start_car_probs_to_end_car_probs: Number of steps to anneal from start_car_probabilities to end_car_probabilities.
         :param num_history_states: How many history states to include in the state. Only used for training.
-        :param end_car_probabilities: The end probability for spawning cars when annealed num_steps_from_start_car_probs_to_end_car_probs steps.
+        :param end_car_probabilities: The end probability for spawning cars when annealed num_steps_from_start_car_probs_to_end_car_probs steps. If set to None, do not anneal.
         :param enjoy_car_probs: Whether to change car probabilities to something hardcoded for enjoy (test) over the episode.
         :param perform_actions: Whether to perform actions based upon some model, for cycle set to False.
         :param state_contain_avg_speed_between_detectors_history:
