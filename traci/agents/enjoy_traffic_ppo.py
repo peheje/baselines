@@ -19,10 +19,10 @@ def main():
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment='Traci_3_cross_env-v0'
-    path_to_model="/home/nikolaj/Desktop/Traci_3_cross_env-v0-ppo/2017-10-01_11-56-54/saved_model"
+    path_to_model="/home/nikolaj/Desktop/Traci_3_cross_env-v0-ppo/2017-10-04_16-01-50/saved_model"
     env = gym.make(environment)
     env.configure_traci(num_car_chances=10000,
-                        start_car_probabilities=[1, 0.05],
+                        start_car_probabilities=[1, 0.1],
                         reward_func=env.reward_squared_wait_sum,
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
