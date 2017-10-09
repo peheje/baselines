@@ -60,6 +60,7 @@ class BaseTraciEnv(gym.Env):
         self.state_use_time_since_tl_change = None
         self.state_use_avg_speed_between_detectors_history = None
         self.state_use_num_cars_in_queue_history = None
+        self.e3ids = None
 
     def configure_traci(self,
                         num_car_chances,
@@ -67,7 +68,7 @@ class BaseTraciEnv(gym.Env):
                         reward_func,
                         num_actions_pr_trafficlight,
                         num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                        num_history_states=4,
+                        num_history_states=2,
                         end_car_probabilities=None,
                         enjoy_car_probs=False,
                         perform_actions=True,
@@ -145,22 +146,24 @@ class BaseTraciEnv(gym.Env):
         """ Implement in child """
         raise NotImplementedError()
 
-    def get_state_multientryexit(self):
-        ### Handle historical state data
+    def get_state_multientryexit_old(self):
+        # Handle historical state data
         if self.e3ids is None:
             self.e3ids = traci.multientryexit.getIDList()
         cur_state = []
-        for id in self.e3ids:
-            if self.state_use_num_cars_in_queue_history:
-                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))  # num cars
-            if self.state_use_avg_speed_between_detectors_history:
+
+        if self.state_use_num_cars_in_queue_history:
+            for id in self.e3ids:
+                cur_state.append(len(traci.multientryexit.getLastStepVehicleIDs(id)))
+        if self.state_use_avg_speed_between_detectors_history:
+            for id in self.e3ids:
                 cur_state.append(traci.multientryexit.getLastStepMeanSpeed(id))
         if self.state_use_tl_state_history:
             cur_state = cur_state + self.get_traffic_states()
-        self.state.append(np.array(cur_state))
+        self.old_state.append(np.array(cur_state, dtype=float))
 
         ### Add non historical state data
-        state_to_return = np.hstack(self.state)
+        state_to_return = np.hstack(self.old_state)
         if self.state_use_time_since_tl_change:
             state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
 
@@ -248,12 +251,26 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_average_speed():
+
+        for veh_id in traci.simulation.getDepartedIDList():
+            traci.vehicle.subscribe(veh_id, [traci.constants.VAR_SPEED])
+        speed_map = traci.vehicle.getSubscriptionResults()
+        speeds = [next(iter(d.values())) for d in speed_map.values()]
+        if len(speeds) < 1:
+            speeds.append(0.0)
+
+        #print("speeds", speeds)
+        a_mean = np.mean(speeds)
+        #print("a_mean", a_mean)
+
         vehs = traci.vehicle.getIDList()
         speed_sum = 0
         for veh_id in vehs:
             speed_sum += traci.vehicle.getSpeed(veh_id)
         if len(vehs) > 0:
-            return speed_sum / len(vehs)
+            b_mean = speed_sum / len(vehs)
+            assert abs(a_mean - b_mean) < 0.01
+            return b_mean
         else:
             return 0
 
@@ -295,6 +312,12 @@ class BaseTraciEnv(gym.Env):
     @staticmethod
     def binary_action(action):
         return list(map(int, format(action, '04b')))
+
+    @staticmethod
+    def extract_list(m, subscription_id):
+        """ Extracts list from traci subscription result m """
+        values = [m[id][subscription_id] for id in sorted(m)]
+        return values
 
     @staticmethod
     def ternary_action(n):

@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import sys
@@ -145,6 +146,59 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.route_file_name = None
         self.jtrroute_seed=0
 
+    def get_state_multientryexit(self):
+
+        old = self.get_state_multientryexit_old()
+
+        if not self.subscribed_to_multientryexit and len(self.multientryexit_subscriptions_ids) > 0:
+            for mee_id in traci.multientryexit.getIDList():
+                traci.multientryexit.subscribe(mee_id, self.multientryexit_subscriptions_ids)
+            self.subscribed_to_multientryexit = True
+
+        raw_mee_state = traci.multientryexit.getSubscriptionResults()
+
+        subscription_state = []
+        if self.state_use_num_cars_in_queue_history:
+            subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        if self.state_use_avg_speed_between_detectors_history:
+            subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_MEAN_SPEED)
+        if self.state_use_tl_state_history:
+            subscription_state += self.get_traffic_states()
+
+        self.state.append(np.array(subscription_state, dtype=float))
+
+        state_to_return = np.hstack(self.state)
+        if self.state_use_time_since_tl_change:
+            state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
+
+        print("old")
+        old_json = json.dumps(old.tolist())
+        print(old_json)
+        print("new")
+        new_json = json.dumps(state_to_return.tolist())
+        print(new_json)
+
+        assert old_json == new_json
+
+        return state_to_return
+
+    def get_traffic_states(self):
+
+        if not self.subscribed_to_trafficlights and len(self.trafficlights_subscriptions_ids) > 0:
+            for tid in traci.trafficlights.getIDList():
+                traci.trafficlights.subscribe(tid, self.trafficlights_subscriptions_ids)
+            self.subscribed_to_trafficlights = True
+
+        raw_til_state = traci.trafficlights.getSubscriptionResults()
+        phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
+
+        ids = []
+        for tid in traci.trafficlights.getIDList():
+            ids.append(traci.trafficlights.getPhase(tid))
+
+        assert ids == phases
+        return ids
+
     def restart(self):
         self.spawn_cars()
         if self.should_render:
@@ -165,9 +219,25 @@ class Traci_3_cross_env(BaseTraciEnv):
                                             shape=(self.total_num_state_scalars))
 
         self.state = deque([], maxlen=self.num_history_states)
+        self.old_state = deque([], maxlen=self.num_history_states)
         for i in range(self.num_history_states):
             self.state.append(np.zeros(self.num_history_state_scalars))
+            self.old_state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
+
+        # Subscriptions
+        self.subscribed_to_multientryexit = False
+        self.subscribed_to_trafficlights = False
+
+        self.multientryexit_subscriptions_ids = []
+        if self.state_use_num_cars_in_queue_history:
+            self.multientryexit_subscriptions_ids.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        if self.state_use_avg_speed_between_detectors_history:
+            self.multientryexit_subscriptions_ids.append(traci.constants.LAST_STEP_MEAN_SPEED)
+
+        self.trafficlights_subscriptions_ids = []
+        if self.state_use_tl_state_history:
+            self.trafficlights_subscriptions_ids.append(traci.constants.TL_CURRENT_PHASE)
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -199,13 +269,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.log_end_step(reward)
 
         return total_state, reward, done, {}
-
-    @staticmethod
-    def get_traffic_states():
-        ids = []
-        for tid in traci.trafficlights.getIDList():
-            ids.append(traci.trafficlights.getPhase(tid))
-        return ids
 
     def _reset(self):
         # Check if actually done, might be initial reset call

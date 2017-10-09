@@ -26,7 +26,7 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=1000,
+                  num_car_chances=100,
                   reward_function=BaseTraciEnv.reward_average_accumulated_wait_time,
                   lr=1e-3,
                   max_timesteps=int(1e6),
@@ -52,7 +52,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_queue_length=True,
                   state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
-                  state_use_avg_speed=False,
+                  state_use_avg_speed=True,
                   hidden_layers=[8, 8, 8],
                   num_actions_pr_trafficlight=3):
     print("RUNNING train_and_log")
