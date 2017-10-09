@@ -1,3 +1,4 @@
+import json
 import sys
 import os
 import tempfile
@@ -255,24 +256,25 @@ class BaseTraciEnv(gym.Env):
         for veh_id in traci.simulation.getDepartedIDList():
             traci.vehicle.subscribe(veh_id, [traci.constants.VAR_SPEED])
         speed_map = traci.vehicle.getSubscriptionResults()
-        speeds = [next(iter(d.values())) for d in speed_map.values()]
+        speeds = BaseTraciEnv.extract_list(speed_map, traci.constants.VAR_SPEED)
+
         if len(speeds) < 1:
             speeds.append(0.0)
 
-        #print("speeds", speeds)
         a_mean = np.mean(speeds)
-        #print("a_mean", a_mean)
+        return a_mean
 
-        vehs = traci.vehicle.getIDList()
-        speed_sum = 0
-        for veh_id in vehs:
-            speed_sum += traci.vehicle.getSpeed(veh_id)
-        if len(vehs) > 0:
-            b_mean = speed_sum / len(vehs)
-            assert abs(a_mean - b_mean) < 0.01
-            return b_mean
-        else:
-            return 0
+        # Compare
+        # vehs = traci.vehicle.getIDList()
+        # speed_sum = 0
+        # for veh_id in vehs:
+        #     speed_sum += traci.vehicle.getSpeed(veh_id)
+        # if len(vehs) > 0:
+        #     b_mean = speed_sum / len(vehs)
+        #     assert abs(a_mean - b_mean) < 0.01
+        #     return b_mean
+        # else:
+        #     return 0
 
     @staticmethod
     def reward_average_accumulated_wait_time():
