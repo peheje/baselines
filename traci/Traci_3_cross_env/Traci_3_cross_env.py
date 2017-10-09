@@ -148,8 +148,6 @@ class Traci_3_cross_env(BaseTraciEnv):
 
     def get_state_multientryexit(self):
 
-        old = self.get_state_multientryexit_old()
-
         if not self.subscribed_to_multientryexit and len(self.multientryexit_subscriptions_ids) > 0:
             for mee_id in traci.multientryexit.getIDList():
                 traci.multientryexit.subscribe(mee_id, self.multientryexit_subscriptions_ids)
@@ -171,19 +169,16 @@ class Traci_3_cross_env(BaseTraciEnv):
         if self.state_use_time_since_tl_change:
             state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
 
-        print("old")
-        old_json = json.dumps(old.tolist())
-        print(old_json)
-        print("new")
-        new_json = json.dumps(state_to_return.tolist())
-        print(new_json)
-
-        assert old_json == new_json
+        # old = self.get_state_multientryexit_old()
+        # old_json = json.dumps(old.tolist())
+        # new_json = json.dumps(state_to_return.tolist())
+        # print("old", old_json)
+        # print("new", new_json)
+        # assert old_json == new_json
 
         return state_to_return
 
     def get_traffic_states(self):
-
         if not self.subscribed_to_trafficlights and len(self.trafficlights_subscriptions_ids) > 0:
             for tid in traci.trafficlights.getIDList():
                 traci.trafficlights.subscribe(tid, self.trafficlights_subscriptions_ids)
@@ -191,13 +186,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         raw_til_state = traci.trafficlights.getSubscriptionResults()
         phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
-
-        ids = []
-        for tid in traci.trafficlights.getIDList():
-            ids.append(traci.trafficlights.getPhase(tid))
-
-        assert ids == phases
-        return ids
+        return phases
 
     def restart(self):
         self.spawn_cars()
