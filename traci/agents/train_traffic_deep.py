@@ -26,7 +26,7 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=100,
+                  num_car_chances=1000,
                   reward_function=BaseTraciEnv.reward_average_accumulated_wait_time,
                   lr=1e-3,
                   max_timesteps=int(1e6),
@@ -151,12 +151,11 @@ def main():
                         BaseTraciEnv.reward_arrived_vehicles,
                         BaseTraciEnv.reward_halting_in_queue_3cross]
 
-    probabilities = [[0.25, 0.05], [1.0, 0.10]]
+    # probabilities = [[0.25, 0.05], [1.0, 0.10]]
+    probabilities = [[1.0, 0.10]]
 
     for rf in reward_functions:
         for pr in probabilities:
-          
-
             print("Now reward function is:", rf, "and props:", pr)
             g = tf.Graph()
             config = tf.ConfigProto()
