@@ -17,6 +17,7 @@ import subprocess
 
 import traci
 from sumolib import checkBinary
+from utilities.profiler import Profiler
 
 logger = logging.getLogger(__name__)
 
@@ -148,12 +149,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.jtrroute_seed = 0
 
     def get_state_multientryexit(self):
-
-        if not self.subscribed_to_multientryexit and len(self.multientryexit_subscriptions_ids) > 0:
-            for mee_id in traci.multientryexit.getIDList():
-                traci.multientryexit.subscribe(mee_id, self.multientryexit_subscriptions_ids)
-            self.subscribed_to_multientryexit = True
-
         raw_mee_state = traci.multientryexit.getSubscriptionResults()
 
         subscription_state = []
@@ -180,11 +175,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         return state_to_return
 
     def get_traffic_states(self):
-        if not self.subscribed_to_trafficlights and len(self.trafficlights_subscriptions_ids) > 0:
-            for tid in traci.trafficlights.getIDList():
-                traci.trafficlights.subscribe(tid, self.trafficlights_subscriptions_ids)
-            self.subscribed_to_trafficlights = True
-
         raw_til_state = traci.trafficlights.getSubscriptionResults()
         phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
         return phases
@@ -216,22 +206,39 @@ class Traci_3_cross_env(BaseTraciEnv):
             self.old_state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
 
-        # Getting IDS for static content
+        # Get constant ids
         self.trafficlights_ids = traci.trafficlights.getIDList()
 
         # Subscriptions
-        self.subscribed_to_multientryexit = False
-        self.subscribed_to_trafficlights = False
-
-        self.multientryexit_subscriptions_ids = []
+        # Subscribe to multi entry exit
+        multientryexit_subs = []
         if self.state_use_num_cars_in_queue_history:
-            self.multientryexit_subscriptions_ids.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
+            multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
         if self.state_use_avg_speed_between_detectors_history:
-            self.multientryexit_subscriptions_ids.append(traci.constants.LAST_STEP_MEAN_SPEED)
+            multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
 
-        self.trafficlights_subscriptions_ids = []
+        if len(multientryexit_subs) > 0:
+            for mee_id in traci.multientryexit.getIDList():
+                traci.multientryexit.subscribe(mee_id, multientryexit_subs)
+
+        # Subscribe to trafficlights
+        trafficlights_subs = []
         if self.state_use_tl_state_history:
-            self.trafficlights_subscriptions_ids.append(traci.constants.TL_CURRENT_PHASE)
+            trafficlights_subs.append(traci.constants.TL_CURRENT_PHASE)
+
+        if len(trafficlights_subs) > 0:
+            for tid in self.trafficlights_ids:
+                traci.trafficlights.subscribe(tid, trafficlights_subs)
+
+        # Subscribe to simulation
+        simulation_subs = [traci.constants.VAR_MIN_EXPECTED_VEHICLES,
+                           traci.constants.VAR_DEPARTED_VEHICLES_IDS]
+        traci.simulation.subscribe(simulation_subs)
+
+        # Subscribe to cars (lined to setup_subscriptions_for_departed in base)
+        self.vehicle_subs = [traci.constants.VAR_CO2EMISSION,
+                             traci.constants.VAR_SPEED,
+                             traci.constants.ID_LIST]
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -252,6 +259,9 @@ class Traci_3_cross_env(BaseTraciEnv):
         # Run simulation step
         traci.simulationStep()
 
+        # Setup subscriptions for departed vehicles in this step
+        self.setup_subscriptions_for_departed()
+
         # Build state
         total_state = 0
         if self.perform_actions:
@@ -261,7 +271,10 @@ class Traci_3_cross_env(BaseTraciEnv):
         reward = self.reward_func()
 
         # See if done
-        done = traci.simulation.getMinExpectedNumber() < 1
+        raw_sim = traci.simulation.getSubscriptionResults()
+        done = raw_sim[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
+        # done2 = traci.simulation.getMinExpectedNumber() < 1
+        # assert done == done2
 
         self.log_end_step(reward)
 
