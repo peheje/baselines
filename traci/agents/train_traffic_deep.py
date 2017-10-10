@@ -155,10 +155,13 @@ def main():
 
     for rf in reward_functions:
         for pr in probabilities:
+          
 
             print("Now reward function is:", rf, "and props:", pr)
             g = tf.Graph()
-            sess = tf.InteractiveSession(graph=g)
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g,config=config)
             with g.as_default():
                 train_and_log(reward_function=rf,
                               start_car_probabilities=pr)
