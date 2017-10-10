@@ -237,8 +237,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # Subscribe to cars (lined to setup_subscriptions_for_departed in base)
         self.vehicle_subs = [traci.constants.VAR_CO2EMISSION,
-                             traci.constants.VAR_SPEED,
-                             traci.constants.ID_LIST]
+                             traci.constants.VAR_SPEED]
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
