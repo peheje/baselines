@@ -46,19 +46,19 @@ class Traci_3_cross_env(BaseTraciEnv):
             print("<routes>", file=flows)
 
             if self.enjoy_car_probs:
-                hard_coded_bigroad_probs=[0.25,
-                                          0.50,
-                                          1.0,
-                                          0.75,
-                                          0.25,
-                                          0.50,
-                                          1.0,
-                                          0.50,
-                                          0.25,
-                                          0.25]
-                increment_every_interval=self.num_car_chances//len(hard_coded_bigroad_probs)
+                hard_coded_bigroad_probs = [0.25,
+                                            0.50,
+                                            1.0,
+                                            0.75,
+                                            0.25,
+                                            0.50,
+                                            1.0,
+                                            0.50,
+                                            0.25,
+                                            0.25]
+                increment_every_interval = self.num_car_chances // len(hard_coded_bigroad_probs)
 
-                flow_id=0
+                flow_id = 0
                 cur_interval_start = 0
                 for interval in range(len(hard_coded_bigroad_probs)):
                     for iter, f in enumerate(froms):
@@ -66,15 +66,15 @@ class Traci_3_cross_env(BaseTraciEnv):
                         if any(bigroad in f for bigroad in big_roads):
                             spawn_prob = hard_coded_bigroad_probs[interval]
                         else:
-                            spawn_prob = hard_coded_bigroad_probs[interval]/10
+                            spawn_prob = hard_coded_bigroad_probs[interval] / 10
 
                         print('<flow id="{}" from="{}" begin="{}" end="{}" probability="{}"/>'.format(flow_id, f,
                                                                                                       cur_interval_start,
-                                                                                                      cur_interval_start+increment_every_interval,
-                                                                                                 spawn_prob),
-                          file=flows)
-                        flow_id+=1
-                    cur_interval_start+=increment_every_interval
+                                                                                                      cur_interval_start + increment_every_interval,
+                                                                                                      spawn_prob),
+                              file=flows)
+                        flow_id += 1
+                    cur_interval_start += increment_every_interval
 
             else:
                 for iter, f in enumerate(froms):
@@ -86,7 +86,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
                     print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter, f,
                                                                                                  self.num_car_chances,
-                                                                                                 spawn_prob), file=flows)
+                                                                                                 spawn_prob),
+                          file=flows)
             print("</routes>", file=flows)
 
         # Make temp file for routes
@@ -101,11 +102,11 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " -o {}".format(self.route_file_name) +
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
-                                         " --seed " +str(self.jtrroute_seed)+
+                                         " --seed " + str(self.jtrroute_seed) +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
-        self.jtrroute_seed+=1
+        self.jtrroute_seed += 1
 
         # Run webster on route file (tls only used if not controlled)
         status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
@@ -134,7 +135,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.should_render = False
         self.num_actions = None
         self.num_history_state_scalars = None  # This gets calculated later
-        self.num_nonhistory_state_scalars=None
+        self.num_nonhistory_state_scalars = None
         self.num_trafficlights = 4
         self.num_history_states = None
         self.min_state_scalar_value = 0
@@ -144,7 +145,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.state = []
         self.unique_counters = []
         self.route_file_name = None
-        self.jtrroute_seed=0
+        self.jtrroute_seed = 0
 
     def get_state_multientryexit(self):
 
@@ -201,8 +202,9 @@ class Traci_3_cross_env(BaseTraciEnv):
         Thread(target=self.__traci_start__())
 
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
-        self.num_nonhistory_state_scalars=self.calculate_num_nonhistory_state_scalars()
-        self.total_num_state_scalars=(self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+        self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
+        self.total_num_state_scalars = (
+                                       self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
@@ -213,6 +215,9 @@ class Traci_3_cross_env(BaseTraciEnv):
             self.state.append(np.zeros(self.num_history_state_scalars))
             self.old_state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
+
+        # Getting IDS for static content
+        self.trafficlights_ids = traci.trafficlights.getIDList()
 
         # Subscriptions
         self.subscribed_to_multientryexit = False
@@ -237,17 +242,20 @@ class Traci_3_cross_env(BaseTraciEnv):
             # assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
             # convert action into many actions
             action = self.action_converter(action)
-            for i, tlsid in enumerate(traci.trafficlights.getIDList()):
-                phase = traci.trafficlights.getPhase(tlsid)
-                self.set_light_phase_4_cross(tlsid, action[i], phase)
+
+            phases = self.get_traffic_states()
+            for i, tlsid in enumerate(self.trafficlights_ids):
+                # phase = traci.trafficlights.getPhase(tlsid)
+                # assert phases[i] == phase
+                self.set_light_phase_4_cross(tlsid, action[i], phases[i])
 
         # Run simulation step
         traci.simulationStep()
 
         # Build state
-        total_state=0
+        total_state = 0
         if self.perform_actions:
-          total_state = self.get_state_multientryexit()
+            total_state = self.get_state_multientryexit()
 
         # Build reward
         reward = self.reward_func()
