@@ -251,8 +251,6 @@ class Traci_3_cross_env(BaseTraciEnv):
 
             phases = self.get_traffic_states()
             for i, tlsid in enumerate(self.trafficlights_ids):
-                # phase = traci.trafficlights.getPhase(tlsid)
-                # assert phases[i] == phase
                 self.set_light_phase_4_cross(tlsid, action[i], phases[i])
 
         # Run simulation step
@@ -270,10 +268,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         reward = self.reward_func()
 
         # See if done
-        raw_sim = traci.simulation.getSubscriptionResults()
-        done = raw_sim[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
-        # done2 = traci.simulation.getMinExpectedNumber() < 1
-        # assert done == done2
+        done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
 
         self.log_end_step(reward)
 
@@ -281,7 +276,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
     def _reset(self):
         # Check if actually done, might be initial reset call
-        if traci.simulation.getMinExpectedNumber() < 1:
+        if traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             traci.close(wait=True)  # Wait for tripinfo to be written
             self.log_end_episode(0)
             BaseTraciEnv._reset(self)

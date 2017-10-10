@@ -37,12 +37,8 @@ class BaseTraciEnv(gym.Env):
         self.avg_speed_step_rewards = []
         self.total_time_loss = 0
         self.total_travel_time = 0
-
         self.fully_stopped_cars_map = {}
         self.has_driven_cars_map = {}
-        self.fully_stopped_cars = UniqueCounter()
-        self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
-
         self.timestep = 0
         self.timestep_this_episode = 0
         self.episode = 0
@@ -131,14 +127,8 @@ class BaseTraciEnv(gym.Env):
         # self.timestep = 0
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
-
         self.fully_stopped_cars_map = {}
         self.has_driven_cars_map = {}
-
-        self.fully_stopped_cars = UniqueCounter()  # Reset cars in counter
-        self.has_driven_cars = UniqueCounter()  # Necessary to figure out how many cars have stopped in simulation
-
-
         self.timestep_this_episode = 0
         self.set_new_car_probabilities()
 
@@ -224,17 +214,8 @@ class BaseTraciEnv(gym.Env):
             a_mean = -np.mean(co2s)
         else:
             a_mean = 0.0
-        return a_mean
 
-        # vehs = traci.vehicle.getIDList()
-        # emissions = []
-        # for veh_id in vehs:
-        #     emissions.append(traci.vehicle.getCO2Emission(veh_id))
-        # if len(vehs) > 0:
-        #     b_mean = -np.mean(emissions)
-        #     assert a_mean == b_mean
-        # else:
-        #     return 0
+        return a_mean
 
     @staticmethod
     def reward_total_in_queue_3cross():
@@ -291,18 +272,6 @@ class BaseTraciEnv(gym.Env):
 
         a_mean = np.mean(speeds)
         return a_mean
-
-        # Compare
-        # vehs = traci.vehicle.getIDList()
-        # speed_sum = 0
-        # for veh_id in vehs:
-        #     speed_sum += traci.vehicle.getSpeed(veh_id)
-        # if len(vehs) > 0:
-        #     b_mean = speed_sum / len(vehs)
-        #     assert abs(a_mean - b_mean) < 0.01
-        #     return b_mean
-        # else:
-        #     return 0
 
     @staticmethod
     def reward_average_accumulated_wait_time():
@@ -404,7 +373,6 @@ class BaseTraciEnv(gym.Env):
             pass  # do nothing
 
     def add_fully_stopped_cars(self):
-
         # Subscriptions and map
         raw_vehicle = traci.vehicle.getSubscriptionResults()
         speeds = self.extract_list(raw_vehicle, traci.constants.VAR_SPEED)
@@ -415,15 +383,6 @@ class BaseTraciEnv(gym.Env):
                 self.fully_stopped_cars_map[veh_id] = True
             elif s > 0.0:
                 self.has_driven_cars_map[veh_id] = True
-
-        # Old, assert
-        # vehs = traci.vehicle.getIDList()
-        # for veh_id in vehs:
-        #     speed = traci.vehicle.getSpeed(veh_id)
-        #     if speed == 0 and self.has_driven_cars.contains(veh_id):
-        #         self.fully_stopped_cars.add(veh_id)
-        #     elif speed > 0:
-        #         self.has_driven_cars.add(veh_id)
 
     def log_end_step(self, reward):
         # print("Logging end step: ",self.timestep)
@@ -486,8 +445,6 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Mean Avg-speed reward for episode[Episode]", np.mean(self.avg_speed_step_rewards))
 
         fully_stopped = len(self.fully_stopped_cars_map)
-        # fully_stopped_old = self.fully_stopped_cars.get_count()
-        # assert fully_stopped_old == fully_stopped
         logger.record_tabular("Total number of stopped cars for episode[Episode]", fully_stopped)
         logger.dump_tabular()
         self.episode_rewards.append(reward)
