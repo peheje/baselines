@@ -1,0 +1,5 @@
+
+setInterval( () => {
+    console.log("fitting domains to data")
+    document.querySelectorAll('[title="Fit domain to data"]').forEach(el => { el.click() })
+}, 30*1000)

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 29 Sep 2017 02:39:45 PM CEST by SUMO gui Version 0.30.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="randersvej.net.xml"/>
+        <route-files value="randersvej.rou.xml"/>
+        <additional-files value="randersvej.det.xml,webster.tls.xml"/>
+    </input>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <report>
+        <verbose value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="gui.settings.xml"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<e3Detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e3_file.xsd">
+   <interval begin="0.00" end="100.00" id="hest" meanTravelTime="-60.97" meanOverlapTravelTime="33.24" meanSpeed="11.89" meanHaltsPerVehicle="0.00" meanTimeLoss="0.81" vehicleSum="1" meanSpeedWithin="11.79" meanHaltsPerVehicleWithin="4.33" meanDurationWithin="24.28" vehicleSumWithin="9" meanIntervalSpeedWithin="11.79" meanIntervalHaltsPerVehicleWithin="4.33" meanIntervalDurationWithin="24.28" meanTimeLossWithin="6.15"/>
+   <interval begin="100.00" end="127.00" id="hest" meanTravelTime="-101.34" meanOverlapTravelTime="37.08" meanSpeed="10.85" meanHaltsPerVehicle="0.00" meanTimeLoss="1.15" vehicleSum="4" meanSpeedWithin="10.60" meanHaltsPerVehicleWithin="7.00" meanDurationWithin="30.22" vehicleSumWithin="11" meanIntervalSpeedWithin="10.06" meanIntervalHaltsPerVehicleWithin="5.73" meanIntervalDurationWithin="19.12" meanTimeLossWithin="6.88"/>
+</e3Detector>

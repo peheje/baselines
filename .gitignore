@@ -84,3 +84,12 @@ baselines/deepq/experiments/traci/scenarios/3_cross/randersvej\.rou\.alt\.xml
 baselines/deepq/experiments/traci/scenarios/3_cross/e3\.out\.xml
 
 baselines/deepq/experiments/traci/scenarios/3_cross/randersvej\.rou\.xml
+
+baselines/deepq/experiments/traci/scenarios/3_cross/webster\.tls\.xml
+
+traci/scenarios/3_cross/webster\.tls\.xml
+
+traci/scenarios/3_cross/e3\.out\.xml
+
+**/e3.out.xml
+**/webster.tls.xml

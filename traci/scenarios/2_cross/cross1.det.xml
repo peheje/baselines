@@ -1,0 +1,18 @@
+<additionals>
+    <e1Detector id="i0_a" lane="1i_a_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i0_b" lane="2o_0" pos="5.00" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i1_a" lane="3i_a_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i1_b" lane="3i_b_0" pos="310.00" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i2_a" lane="2i_0" pos="5.00" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i2_b" lane="1i_b_0" pos="89.98" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i3_a" lane="4i_a_0" pos="300.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="i3_b" lane="4i_b_0" pos="302.87" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o0_a" lane="1i_a_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o0_b" lane="2o_0" pos="235.00" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o1_a" lane="3i_a_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o1_b" lane="3i_b_0" pos="502.49" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o2_a" lane="2i_0" pos="235.00" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o2_b" lane="1i_b_0" pos="242.51" freq="100.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o3_a" lane="4i_a_0" pos="490.00" freq="30.00" file="cross.out" splitByType="0"/>
+    <e1Detector id="o3_b" lane="4i_b_0" pos="493.14" freq="100.00" file="cross.out" splitByType="0"/>
+</additionals>
