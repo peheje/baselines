@@ -5,6 +5,7 @@ import tempfile
 from collections import deque, OrderedDict
 import xml.etree.ElementTree
 import math
+import copy
 
 import gym
 
@@ -106,8 +107,8 @@ class BaseTraciEnv(gym.Env):
 
         self.enjoy_car_probs=enjoy_car_probs
         self.num_car_chances = num_car_chances
-        self.car_probabilities = start_car_probabilities
-        self.start_car_probabilities = start_car_probabilities
+        self.car_probabilities = copy.deepcopy(start_car_probabilities)
+        self.start_car_probabilities = copy.deepcopy(start_car_probabilities)
         self.end_car_probabilities = end_car_probabilities
         self.num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs
         self.reward_func = reward_func
@@ -137,9 +138,11 @@ class BaseTraciEnv(gym.Env):
             return
         else:
             for i in range(len(self.car_probabilities)):
-                self.car_probabilities[i]=LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
+                new_prop = LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
                                        initial_p=self.start_car_probabilities[i],
                                        final_p=self.end_car_probabilities[i]).value(self.timestep)
+                # print("new_prop", new_prop)
+                self.car_probabilities[i]=new_prop
 
     def _step(self, action):
         """ Implement in child """
