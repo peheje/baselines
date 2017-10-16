@@ -36,7 +36,7 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     # Run episodes acting greedily
     env.render()
     obs, done = env.reset(), False
-    for i in range(2):
+    for i in range(4):
         episode_rew = 0
         while not done:
             obs, rew, done, _ = env.step(act(obs[None])[0])
@@ -48,11 +48,11 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
 
 if __name__ == '__main__':
     # If run as main
-    paths_to_model=["/home/peter/Dropbox/School/University/masterDropboxVideoLog/log3_back_to_basics/2017-10-16_12-09-18/model-2017-10-16_12-27-56.pkl"]
+    paths_to_model=["/home/peter/Dropbox/School/University/masterDropboxVideoLog/log8_back_to_basics2/2017-10-16_17-04-25/model-2017-10-16_17-41-28.pkl"]
 
     environment_name = 'Traci_3_cross_env-v0'
     env = gym.make(environment_name)
-    env.configure_traci(num_car_chances=10000,
+    env.configure_traci(num_car_chances=2000,
                         start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
                         reward_func=BaseTraciEnv.reward_total_in_queue_3cross,

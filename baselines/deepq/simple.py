@@ -291,8 +291,7 @@ def learn(env,
             if t > learning_starts and t % checkpoint_freq == 0:
                 #if mean_100ep_reward > saved_mean_reward:
                 if print_freq is not None:
-                    logger.log("Saving model due to mean reward increase: {} -> {}".format(saved_mean_reward,
-                                                                                           mean_100ep_reward))
+                    logger.log("Saving model at timestep", t)
                 U.save_state(model_file)
 
                 save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".pkl"
@@ -301,6 +300,7 @@ def learn(env,
                 model_saved = True
                 saved_mean_reward = mean_100ep_reward
 
+        print("timestep is:", t, "when done with training")
         #if model_saved:
         #    if print_freq is not None:
         #        logger.log("Restored model with mean reward: {}".format(saved_mean_reward))

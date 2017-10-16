@@ -17,7 +17,7 @@ def main():
     # Make the environment and configure it for enjoying
     env = gym.make(env_name)
     env.configure_traci(perform_actions=False,
-                        num_car_chances=10000,
+                        num_car_chances=2000,
                         start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
                         reward_func=env.reward_total_waiting_vehicles,
