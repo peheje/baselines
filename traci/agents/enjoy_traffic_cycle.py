@@ -17,17 +17,17 @@ def main():
     # Make the environment and configure it for enjoying
     env = gym.make(env_name)
     env.configure_traci(perform_actions=False,
-                        num_car_chances=1000,
-                        start_car_probabilities=[1.0, 0.1],
+                        num_car_chances=10000,
+                        start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
                         reward_func=env.reward_total_waiting_vehicles,
                         state_contain_num_cars_in_queue_history=True,
-                        state_contain_time_since_tl_change=True,
-                        state_contain_tl_state_history=True,
+                        state_contain_time_since_tl_change=False,
+                        state_contain_tl_state_history=False,
                         state_contain_avg_speed_between_detectors_history=False,
-                        num_actions_pr_trafficlight=3)
+                        num_actions_pr_trafficlight=2)
 
-    #env.render()
+    env.render()
     _, done = env.reset(), False
     for episode in range(10):
         while not done:

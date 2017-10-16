@@ -34,9 +34,9 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     logger.logtxt(path_to_model,"model_path")
 
     # Run episodes acting greedily
-    #env.render()
+    env.render()
     obs, done = env.reset(), False
-    for i in range(10):
+    for i in range(2):
         episode_rew = 0
         while not done:
             obs, rew, done, _ = env.step(act(obs[None])[0])
@@ -48,19 +48,20 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
 
 if __name__ == '__main__':
     # If run as main
-    paths_to_model=["/Users/phj/Desktop/Traci_3_cross_env-v0/2017-10-05_13-41-06/model-2017-10-05_13-41-26.pkl"]
+    paths_to_model=["/home/peter/Dropbox/School/University/masterDropboxVideoLog/log3_back_to_basics/2017-10-16_12-09-18/model-2017-10-16_12-27-56.pkl"]
 
     environment_name = 'Traci_3_cross_env-v0'
     env = gym.make(environment_name)
-    env.configure_traci(num_car_chances=1000,
+    env.configure_traci(num_car_chances=10000,
                         start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
-                        reward_func=BaseTraciEnv.reward_average_speed,
+                        reward_func=BaseTraciEnv.reward_total_in_queue_3cross,
                         state_contain_num_cars_in_queue_history=True,
-                        state_contain_time_since_tl_change=True,
-                        state_contain_tl_state_history=True,
+                        state_contain_time_since_tl_change=False,
+                        state_contain_tl_state_history=False,
                         state_contain_avg_speed_between_detectors_history=False,
-                        num_actions_pr_trafficlight=3)
+                        num_actions_pr_trafficlight=2,
+                        num_history_states=1)
 
     for path in paths_to_model:
         test(environment_name=environment_name,

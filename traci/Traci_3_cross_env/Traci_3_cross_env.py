@@ -126,7 +126,8 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--tripinfo-output", self.tripinfo_file_name,
              "--start",
              "--quit-on-end",
-             "--time-to-teleport", "300",
+             "--time-to-teleport", "0",
+             "--max-num-vehicles", "400",
              "--route-files", self.route_file_name])
 
     def __init__(self):
@@ -140,7 +141,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_trafficlights = 4
         self.num_history_states = None
         self.min_state_scalar_value = 0
-        self.max_state_scalar_value = 1000
+        self.max_state_scalar_value = 100
         self.sumo_binary = None
         self.e3ids = None
         self.state = []
@@ -164,6 +165,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         state_to_return = np.hstack(self.state)
         if self.state_use_time_since_tl_change:
             state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
+
+        state_to_return = np.clip(state_to_return, self.min_state_scalar_value, self.max_state_scalar_value)
 
         # old = self.get_state_multientryexit_old()
         # old_json = json.dumps(old.tolist())
@@ -212,19 +215,19 @@ class Traci_3_cross_env(BaseTraciEnv):
         # Subscriptions
         # Subscribe to multi entry exit
         multientryexit_subs = []
-        if self.state_use_num_cars_in_queue_history:
+        if self.state_use_num_cars_in_queue_history or self.reward_func == BaseTraciEnv.reward_total_in_queue_3cross:
             multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
         if self.state_use_avg_speed_between_detectors_history:
             multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
+        if self.reward_func == BaseTraciEnv.reward_halting_in_queue_3cross:
+            multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_HALTING_NUMBER)
 
         if len(multientryexit_subs) > 0:
             for mee_id in traci.multientryexit.getIDList():
                 traci.multientryexit.subscribe(mee_id, multientryexit_subs)
 
         # Subscribe to trafficlights
-        trafficlights_subs = []
-        if self.state_use_tl_state_history:
-            trafficlights_subs.append(traci.constants.TL_CURRENT_PHASE)
+        trafficlights_subs = [traci.constants.TL_CURRENT_PHASE]
 
         if len(trafficlights_subs) > 0:
             for tid in self.trafficlights_ids:

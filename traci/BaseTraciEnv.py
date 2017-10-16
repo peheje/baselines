@@ -222,17 +222,17 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_total_in_queue_3cross():
-        s = 0
-        for id in traci.multientryexit.getIDList():
-            s += len(traci.multientryexit.getLastStepVehicleIDs(id))
-        return -s
+        raw_mme = traci.multientryexit.getSubscriptionResults()
+        in_queue = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        s2 = -np.sum(in_queue)
+        return s2
 
     @staticmethod
     def reward_halting_in_queue_3cross():
-        s = 0
-        for id in traci.multientryexit.getIDList():
-            s += traci.multientryexit.getLastStepHaltingNumber(id)
-        return -s
+        raw_mme = traci.multientryexit.getSubscriptionResults()
+        halting_numbers = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_VEHICLE_HALTING_NUMBER)
+        s2 = -np.sum(halting_numbers)
+        return s2
 
     def reward_total_in_queue(self):
         num_waiting_cars = 0

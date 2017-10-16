@@ -26,20 +26,20 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=1000,
-                  reward_function=BaseTraciEnv.reward_arrived_vehicles,
+                  num_car_chances=2000,
+                  reward_function=BaseTraciEnv.reward_total_in_queue_3cross,
                   lr=1e-3,
-                  max_timesteps=int(1e6),
-                  buffer_size=50000,
+                  max_timesteps=int(1e5),
+                  buffer_size=int(1e5),
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
-                  train_freq=100,
+                  train_freq=1,
                   batch_size=32,
                   checkpoint_freq=10000,
                   learning_starts=10000,
                   gamma=0.9,
                   target_network_update_freq=500,
-                  start_car_probabilities=[1.0, 0.1],
+                  start_car_probabilities=[0.25, 0.05],
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
@@ -51,11 +51,12 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_cpu=8,
                   param_noise=False,
                   state_use_queue_length=True,
-                  state_use_tl_state=True,
-                  state_use_time_since_tl_change=True,
+                  state_use_tl_state=False,
+                  state_use_time_since_tl_change=False,
                   state_use_avg_speed=False,
                   hidden_layers=[8, 8, 8],
-                  num_actions_pr_trafficlight=2):
+                  num_actions_pr_trafficlight=2,
+                  num_history_states=1):
     print("RUNNING train_and_log")
 
     # Print call values
@@ -81,7 +82,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
-                        num_actions_pr_trafficlight=num_actions_pr_trafficlight)
+                        num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                        num_history_states=num_history_states)
     # env.render()
 
     # Initialize logger
@@ -134,7 +136,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                                      state_contain_time_since_tl_change=state_use_time_since_tl_change,
                                      state_contain_tl_state_history=state_use_tl_state,
                                      state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
-                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight)
+                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                                     num_history_states=num_history_states)
     test_traffic_deep.test(environment_name=environment_name,
                            path_to_model=save_path,
                            configured_environment=test_environment,
@@ -143,24 +146,12 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    mlps = [
-        [16],
-        [32],
-        [64],
-        [16, 8],
-        [16, 8, 4],
-        [8, 8, 8, 4, 2],
-        [8, 8, 8],
-    ]
-
-    for m in mlps:
-        print("Now architecture is: ", m)
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            train_and_log(hidden_layers=m)
+    g = tf.Graph()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.InteractiveSession(graph=g, config=config)
+    with g.as_default():
+        train_and_log()
 
 
 if __name__ == '__main__':
