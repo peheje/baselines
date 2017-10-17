@@ -143,24 +143,26 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    mlps = [
-        [16],
-        [32],
-        [64],
-        [16, 8],
-        [16, 8, 4],
-        [8, 8, 8, 4, 2],
-        [8, 8, 8],
-    ]
+    reward_functions = [BaseTraciEnv.reward_average_speed,
+                        BaseTraciEnv.reward_average_accumulated_wait_time,
+                        BaseTraciEnv.reward_rms_accumulated_wait_time,
+                        BaseTraciEnv.reward_total_waiting_vehicles,
+                        BaseTraciEnv.reward_total_in_queue_3cross,
+                        BaseTraciEnv.reward_arrived_vehicles,
+                        BaseTraciEnv.reward_halting_in_queue_3cross]
 
-    for m in mlps:
-        print("Now architecture is: ", m)
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            train_and_log(hidden_layers=m)
+    probabilities = [[0.25, 0.05], [1.0, 0.10]]
+
+    for rf in reward_functions:
+        for pr in probabilities:
+            print("Now reward function is:", rf, "and props:", pr)
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                train_and_log(reward_function=rf,
+                              start_car_probabilities=pr)
 
 
 if __name__ == '__main__':
