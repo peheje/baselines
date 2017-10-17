@@ -54,7 +54,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
-                  hidden_layers=[8, 8, 8],
+                  hidden_layers=[64],
                   num_actions_pr_trafficlight=2):
     print("RUNNING train_and_log")
 
