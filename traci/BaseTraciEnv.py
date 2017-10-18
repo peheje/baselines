@@ -165,7 +165,7 @@ class BaseTraciEnv(gym.Env):
             for id in self.e3ids:
                 cur_state.append(traci.multientryexit.getLastStepMeanSpeed(id))
         if self.state_use_tl_state_history:
-            cur_state = cur_state + self.get_traffic_states()
+            cur_state = cur_state + self.get_traffic_states_onehot()
         self.old_state.append(np.array(cur_state, dtype=float))
 
         ### Add non historical state data
@@ -179,7 +179,7 @@ class BaseTraciEnv(gym.Env):
         num = 0
         num_traffic_lights = len(traci.trafficlights.getIDList())
         if self.state_use_tl_state_history:
-            num += num_traffic_lights
+            num += num_traffic_lights * 8
         if self.state_use_num_cars_in_queue_history:
             num += num_traffic_lights * 4
         if self.state_use_avg_speed_between_detectors_history:

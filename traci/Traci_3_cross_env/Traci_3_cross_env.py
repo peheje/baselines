@@ -157,7 +157,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         if self.state_use_avg_speed_between_detectors_history:
             subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_MEAN_SPEED)
         if self.state_use_tl_state_history:
-            subscription_state += self.get_traffic_states()
+            subscription_state += self.get_traffic_states_onehot()
 
         self.state.append(np.array(subscription_state, dtype=float))
 
@@ -178,6 +178,16 @@ class Traci_3_cross_env(BaseTraciEnv):
         raw_til_state = traci.trafficlights.getSubscriptionResults()
         phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
         return phases
+
+    def get_traffic_states_onehot(self):
+        raw_til_state = traci.trafficlights.getSubscriptionResults()
+        phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
+        arr = []
+        for p in phases:
+            a = [0 for _ in range(8)]
+            a[p] = 1
+            arr += a
+        return arr
 
     def restart(self):
         self.spawn_cars()
