@@ -17,7 +17,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 import tensorflow as tf
 
 
-def test(environment_name, path_to_model, configured_environment, act=None, log_dir=""):
+def test(environment_name, path_to_model, configured_environment, act=None, log_dir="", render=False):
     print("RUNNING TEST")
     env = configured_environment
     if act is None:
@@ -34,7 +34,9 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     logger.logtxt(path_to_model,"model_path")
 
     # Run episodes acting greedily
-    env.render()
+    if render:
+        env.render()
+
     obs, done = env.reset(), False
     for i in range(4):
         episode_rew = 0
@@ -48,12 +50,12 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
 
 if __name__ == '__main__':
     # If run as main
-    paths_to_model=["/home/peter/Dropbox/School/University/masterDropboxVideoLog/log8_back_to_basics2/2017-10-16_17-04-25/model-2017-10-16_17-41-28.pkl"]
+    paths_to_model=["/home/peter/Desktop/Traci_3_cross_env-v0deep_q/2017-10-18_11-11-17/model-2017-10-18_13-15-49_reward_timesteps.pkl"]
 
     environment_name = 'Traci_3_cross_env-v0'
     env = gym.make(environment_name)
     env.configure_traci(num_car_chances=2000,
-                        start_car_probabilities=[0.25, 0.05],
+                        start_car_probabilities=[1.0, 0.1],
                         enjoy_car_probs=False,
                         reward_func=BaseTraciEnv.reward_total_in_queue_3cross,
                         state_contain_num_cars_in_queue_history=True,
@@ -66,6 +68,7 @@ if __name__ == '__main__':
     for path in paths_to_model:
         test(environment_name=environment_name,
              path_to_model=path,
-             configured_environment=env)
+             configured_environment=env,
+             render=True)
 
 
