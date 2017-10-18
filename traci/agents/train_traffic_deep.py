@@ -39,7 +39,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   learning_starts=1000,
                   gamma=0.9,
                   target_network_update_freq=500,
-                  start_car_probabilities=[0.25, 0.05],
+                  start_car_probabilities=[1.0, 0.1],
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
