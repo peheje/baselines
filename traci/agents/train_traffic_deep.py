@@ -26,7 +26,7 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=2000,
+                  num_car_chances=10000,
                   reward_function=BaseTraciEnv.reward_average_speed,
                   lr=1e-3,
                   max_timesteps=int(1e5),
