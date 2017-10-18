@@ -127,7 +127,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--start",
              "--quit-on-end",
              "--time-to-teleport", "0",
-             "--max-num-vehicles", "400",
+             "--max-num-vehicles", "500",
              "--route-files", self.route_file_name])
 
     def __init__(self):
