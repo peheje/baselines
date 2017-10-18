@@ -339,6 +339,29 @@ class BaseTraciEnv(gym.Env):
             self.time_since_tl_change[light_id] += 1
         else:
             self.time_since_tl_change[light_id] = 1
+
+        if action == 0:
+            # Green NS
+            if cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 0)
+            if cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 5)
+                self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
+        else:
+            # Green WE
+            if cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 4)
+            if cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 1)
+                self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
+
+    def set_light_phase_4_cross_old(self, light_id, action, cur_phase):
+        if light_id in self.time_since_tl_change:
+            self.time_since_tl_change[light_id] += 1
+        else:
+            self.time_since_tl_change[light_id] = 1
         # Run action
         if action == 0:
             if cur_phase == 0:
