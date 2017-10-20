@@ -84,7 +84,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
-    env.render()
+    #env.render()
 
     # Initialize logger
     logger.reset()
@@ -131,7 +131,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
     test_environment.configure_traci(num_car_chances=num_car_chances,
                                      start_car_probabilities=start_car_probabilities,
                                      enjoy_car_probs=False,
-                                     reward_func=BaseTraciEnv.reward_average_speed,
+                                     reward_func=reward_function,
                                      action_func=action_function,
                                      state_contain_num_cars_in_queue_history=state_use_queue_length,
                                      state_contain_time_since_tl_change=state_use_time_since_tl_change,
@@ -147,15 +147,19 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 def main():
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
+    action_functions=[BaseTraciEnv.set_light_phase_4_cross_extend,
+                      BaseTraciEnv.set_light_phase_4_cross_green_dir]
 
     for pr in probabilities:
-        print("Now props:", pr)
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            train_and_log(start_car_probabilities=pr)
+        for action in action_functions:
+            print("Now props:", pr)
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                train_and_log(start_car_probabilities=pr,
+                              action_function=action)
 
 
 if __name__ == '__main__':
