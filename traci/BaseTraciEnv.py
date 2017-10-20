@@ -69,6 +69,7 @@ class BaseTraciEnv(gym.Env):
                         num_car_chances,
                         start_car_probabilities,
                         reward_func,
+                        action_func,
                         num_actions_pr_trafficlight,
                         num_steps_from_start_car_probs_to_end_car_probs=1e5,
                         num_history_states=2,
@@ -112,6 +113,7 @@ class BaseTraciEnv(gym.Env):
         self.end_car_probabilities = end_car_probabilities
         self.num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs
         self.reward_func = reward_func
+        self.action_func=action_func
         self.perform_actions = perform_actions
         self.state_use_time_since_tl_change = state_contain_time_since_tl_change
         self.state_use_avg_speed_between_detectors_history = state_contain_avg_speed_between_detectors_history
@@ -334,7 +336,7 @@ class BaseTraciEnv(gym.Env):
             nums.append(0)
         return list(reversed(nums))
 
-    def set_light_phase_4_cross(self, light_id, action, cur_phase):
+    def set_light_phase_4_cross_extend(self, light_id, action, cur_phase):
         if light_id in self.time_since_tl_change:
             self.time_since_tl_change[light_id] += 1
         else:
@@ -354,6 +356,28 @@ class BaseTraciEnv(gym.Env):
                 traci.trafficlights.setPhase(light_id, 1)
                 self.traffic_light_changes += 1
                 self.time_since_tl_change[light_id] = 0
+        else:
+            pass  # do nothing
+    def set_light_phase_4_cross_green_dir(self, light_id, action, cur_phase):
+        if light_id in self.time_since_tl_change:
+            self.time_since_tl_change[light_id] += 1
+        else:
+            self.time_since_tl_change[light_id] = 1
+        # Run action
+        if action == 0:
+            if cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 5)
+                self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
+            elif cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 0)
+        elif action == 1:
+            if cur_phase == 0:
+                traci.trafficlights.setPhase(light_id, 1)
+                self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
+            elif cur_phase == 4:
+                traci.trafficlights.setPhase(light_id, 4)
         else:
             pass  # do nothing
 

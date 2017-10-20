@@ -261,7 +261,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
             phases = self.get_traffic_states()
             for i, tlsid in enumerate(self.trafficlights_ids):
-                self.set_light_phase_4_cross(tlsid, action[i], phases[i])
+                self.action_func(self,tlsid, action[i], phases[i])
 
         # Run simulation step
         traci.simulationStep()

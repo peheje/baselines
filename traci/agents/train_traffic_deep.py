@@ -28,6 +28,7 @@ from pathlib import Path
 def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
                   reward_function=BaseTraciEnv.reward_arrived_vehicles,
+                  action_function=BaseTraciEnv.set_light_phase_4_cross_extend,
                   lr=1e-3,
                   max_timesteps=int(1e6),
                   buffer_size=50000,
@@ -77,12 +78,13 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         end_car_probabilities=end_car_probabilities,
                         num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs,
                         reward_func=reward_function,
+                        action_func=action_function,
                         state_contain_num_cars_in_queue_history=state_use_queue_length,
                         state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight)
-    # env.render()
+    env.render()
 
     # Initialize logger
     logger.reset()
@@ -130,6 +132,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                                      start_car_probabilities=start_car_probabilities,
                                      enjoy_car_probs=False,
                                      reward_func=BaseTraciEnv.reward_average_speed,
+                                     action_func=action_function,
                                      state_contain_num_cars_in_queue_history=state_use_queue_length,
                                      state_contain_time_since_tl_change=state_use_time_since_tl_change,
                                      state_contain_tl_state_history=state_use_tl_state,
@@ -162,7 +165,8 @@ def main():
             sess = tf.InteractiveSession(graph=g, config=config)
             with g.as_default():
                 train_and_log(reward_function=rf,
-                              start_car_probabilities=pr)
+                              start_car_probabilities=pr,
+                              action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir)
 
 
 if __name__ == '__main__':
