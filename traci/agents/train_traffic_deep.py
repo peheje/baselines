@@ -27,8 +27,8 @@ from pathlib import Path
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
-                  reward_function=BaseTraciEnv.reward_arrived_vehicles,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_extend,
+                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
                   max_timesteps=int(1e6),
                   buffer_size=50000,
@@ -146,27 +146,16 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    reward_functions = [BaseTraciEnv.reward_average_speed,
-                        BaseTraciEnv.reward_average_accumulated_wait_time,
-                        BaseTraciEnv.reward_rms_accumulated_wait_time,
-                        BaseTraciEnv.reward_total_waiting_vehicles,
-                        BaseTraciEnv.reward_total_in_queue_3cross,
-                        BaseTraciEnv.reward_arrived_vehicles,
-                        BaseTraciEnv.reward_halting_in_queue_3cross]
-
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
 
-    for rf in reward_functions:
-        for pr in probabilities:
-            print("Now reward function is:", rf, "and props:", pr)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(reward_function=rf,
-                              start_car_probabilities=pr,
-                              action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir)
+    for pr in probabilities:
+        print("Now props:", pr)
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            train_and_log(start_car_probabilities=pr)
 
 
 if __name__ == '__main__':
