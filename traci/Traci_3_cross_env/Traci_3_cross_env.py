@@ -232,9 +232,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                 traci.multientryexit.subscribe(mee_id, multientryexit_subs)
 
         # Subscribe to trafficlights
-        trafficlights_subs = []
-        if self.state_use_tl_state_history:
-            trafficlights_subs.append(traci.constants.TL_CURRENT_PHASE)
+        trafficlights_subs = [traci.constants.TL_CURRENT_PHASE]
 
         if len(trafficlights_subs) > 0:
             for tid in self.trafficlights_ids:

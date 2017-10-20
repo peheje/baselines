@@ -195,12 +195,13 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_total_waiting_vehicles():
-        vehs = traci.vehicle.getIDList()
-        total_wait_time = 0.0
-        for veh_id in vehs:
-            if traci.vehicle.getSpeed(veh_id) < 1:
-                total_wait_time += 1.0
-        return -total_wait_time
+        total_wait = 0.0
+        vehicle_subs = traci.vehicle.getSubscriptionResults()
+        speeds = BaseTraciEnv.extract_list(vehicle_subs, traci.constants.VAR_SPEED)
+        for s in speeds:
+            if s < 1.0:
+                total_wait -= 1.0
+        return total_wait
 
     def setup_subscriptions_for_departed(self):
         raw_sim = traci.simulation.getSubscriptionResults()
@@ -264,9 +265,6 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_average_speed():
-
-        for veh_id in traci.simulation.getDepartedIDList():
-            traci.vehicle.subscribe(veh_id, [traci.constants.VAR_SPEED])
         speed_map = traci.vehicle.getSubscriptionResults()
         speeds = BaseTraciEnv.extract_list(speed_map, traci.constants.VAR_SPEED)
 
