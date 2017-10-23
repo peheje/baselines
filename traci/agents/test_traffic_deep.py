@@ -98,13 +98,14 @@ if __name__ == '__main__':
                             num_actions_pr_trafficlight=2,
                             num_history_states=2)
 
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            test(environment_name=environment_name,
-                 path_to_model=path,
-                 configured_environment=env)
+        with tf.device("/cpu:0"):
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                test(environment_name=environment_name,
+                     path_to_model=path,
+                     configured_environment=env)
 
 
