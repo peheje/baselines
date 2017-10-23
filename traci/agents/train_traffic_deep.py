@@ -158,16 +158,17 @@ def main():
     probabilities = [[0.25, 0.05],
                      [1.0, 0.10]]
 
-    for m in mlps:
-        for pr in probabilities:
-            print("Now props:", pr, "and hiddens:", m)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(start_car_probabilities=pr,
-                              hidden_layers=m)
+    with tf.device("/gpu:1"):
+        for m in mlps:
+            for pr in probabilities:
+                print("Now props:", pr, "and hiddens:", m)
+                g = tf.Graph()
+                config = tf.ConfigProto()
+                config.gpu_options.allow_growth = True
+                sess = tf.InteractiveSession(graph=g, config=config)
+                with g.as_default():
+                    train_and_log(start_car_probabilities=pr,
+                                  hidden_layers=m)
 
 
 if __name__ == '__main__':
