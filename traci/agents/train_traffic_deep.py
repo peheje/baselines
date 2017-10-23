@@ -149,20 +149,25 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    probabilities = [[0.25, 0.05], [1.0, 0.10]]
-    action_functions=[BaseTraciEnv.set_light_phase_4_cross_extend,
-                      BaseTraciEnv.set_light_phase_4_cross_green_dir]
+    mlps = [
+        [16],
+        [256],
+        [128, 128],
+        [64, 64, 64]
+    ]
+    probabilities = [[0.25, 0.05],
+                     [1.0, 0.10]]
 
-    for pr in probabilities:
-        for action in action_functions:
-            print("Now props:", pr)
+    for m in mlps:
+        for pr in probabilities:
+            print("Now props:", pr, "and hiddens:", m)
             g = tf.Graph()
             config = tf.ConfigProto()
             config.gpu_options.allow_growth = True
             sess = tf.InteractiveSession(graph=g, config=config)
             with g.as_default():
                 train_and_log(start_car_probabilities=pr,
-                              action_function=action)
+                              hidden_layers=m)
 
 
 if __name__ == '__main__':
