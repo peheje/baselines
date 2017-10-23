@@ -98,7 +98,7 @@ if __name__ == '__main__':
                             num_actions_pr_trafficlight=2,
                             num_history_states=2)
 
-        with tf.device("/cpu:0"):
+        with tf.device("/gpu:1"):
             g = tf.Graph()
             config = tf.ConfigProto()
             config.gpu_options.allow_growth = True
