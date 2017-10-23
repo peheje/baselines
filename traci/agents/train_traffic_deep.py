@@ -34,7 +34,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   buffer_size=50000,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
-                  train_freq=100,
+                  train_freq=10,
                   batch_size=32,
                   checkpoint_freq=10000,
                   learning_starts=10000,
@@ -151,16 +151,17 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 def main():
     mlps = [
         [16],
-        [256],
-        [128, 128],
-        [64, 64, 64]
+        [64],
+        [1024],
+        [512, 512],
+        [256, 256, 256]
     ]
     probabilities = [[0.25, 0.05],
                      [1.0, 0.10]]
 
     with tf.device("/gpu:1"):
-        for m in mlps:
-            for pr in probabilities:
+        for pr in probabilities:
+            for m in mlps:
                 print("Now props:", pr, "and hiddens:", m)
                 g = tf.Graph()
                 config = tf.ConfigProto()
