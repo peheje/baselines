@@ -39,7 +39,7 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     for i in range(10):
         episode_rew = 0
         while not done:
-            obs, rew, done, _ = env.step(act(obs[None])[0])
+            obs, rew, done, _ = env.step(act(obs[None], update_eps=0)[0])
             episode_rew += rew
         print("Episode reward", episode_rew)
         obs, done = env.reset(), False # Done afterwards to ensure logging
@@ -48,23 +48,56 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
 
 if __name__ == '__main__':
     # If run as main
-    paths_to_model=["/Users/phj/Desktop/Traci_3_cross_env-v0/2017-10-05_13-41-06/model-2017-10-05_13-41-26.pkl"]
 
-    environment_name = 'Traci_3_cross_env-v0'
-    env = gym.make(environment_name)
-    env.configure_traci(num_car_chances=1000,
-                        start_car_probabilities=[0.25, 0.05],
-                        enjoy_car_probs=False,
-                        reward_func=BaseTraciEnv.reward_average_speed,
-                        action_func=BaseTraciEnv.reward_total_waiting_vehicles,
-                        state_contain_num_cars_in_queue_history=True,
-                        state_contain_time_since_tl_change=True,
-                        state_contain_tl_state_history=True,
-                        state_contain_avg_speed_between_detectors_history=False,
-                        num_actions_pr_trafficlight=2,
-                        num_history_states=2)
+    path_props = [
+        {
+            "path": "LOW_EXTEND",
+            "info": "LOW_EXTEND",
+            "props": [0.25, 0.05],
+            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
+        },
+        {
+            "path": "LOW_DIR",
+            "info": "LOW_DIR",
+            "props": [0.25, 0.05],
+            "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
+        },
+        {
+            "path": "HIGH_EXTEND",
+            "info": "HIGH_EXTEND",
+            "props": [1.0, 0.10],
+            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
+        },
+        {
+            "path": "HIGH_DIR",
+            "info": "HIGH_DIR",
+            "props": [1.0, 0.10],
+            "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
+        }
+    ]
 
-    for path in paths_to_model:
+    for setup in path_props:
+        path = setup["path"]
+        props = setup["props"]
+        action_func = setup["action_func"]
+        info = setup["info"]
+        print("Running test for: ", info)
+        print(path, props, action_func)
+
+        environment_name = 'Traci_3_cross_env-v0'
+        env = gym.make(environment_name)
+        env.configure_traci(num_car_chances=1000,
+                            start_car_probabilities=props,
+                            enjoy_car_probs=False,
+                            reward_func=BaseTraciEnv.reward_total_waiting_vehicles,
+                            action_func=action_func,
+                            state_contain_num_cars_in_queue_history=True,
+                            state_contain_time_since_tl_change=True,
+                            state_contain_tl_state_history=True,
+                            state_contain_avg_speed_between_detectors_history=False,
+                            num_actions_pr_trafficlight=2,
+                            num_history_states=2)
+
         test(environment_name=environment_name,
              path_to_model=path,
              configured_environment=env)
