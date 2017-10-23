@@ -56,7 +56,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
                   hidden_layers=[64],
-                  num_actions_pr_trafficlight=2):
+                  num_actions_pr_trafficlight=2,
+                  num_history_states=2):
     print("RUNNING train_and_log")
 
     # Print call values
@@ -83,7 +84,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
-                        num_actions_pr_trafficlight=num_actions_pr_trafficlight)
+                        num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                        num_history_states=num_history_states)
     #env.render()
 
     # Initialize logger
@@ -137,7 +139,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                                      state_contain_time_since_tl_change=state_use_time_since_tl_change,
                                      state_contain_tl_state_history=state_use_tl_state,
                                      state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
-                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight)
+                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                                     num_history_states=num_history_states)
     test_traffic_deep.test(environment_name=environment_name,
                            path_to_model=save_path,
                            configured_environment=test_environment,
