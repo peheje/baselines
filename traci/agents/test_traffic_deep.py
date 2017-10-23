@@ -56,11 +56,13 @@ if __name__ == '__main__':
                         start_car_probabilities=[0.25, 0.05],
                         enjoy_car_probs=False,
                         reward_func=BaseTraciEnv.reward_average_speed,
+                        action_func=BaseTraciEnv.reward_total_waiting_vehicles,
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_time_since_tl_change=True,
                         state_contain_tl_state_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
-                        num_actions_pr_trafficlight=3)
+                        num_actions_pr_trafficlight=2,
+                        num_history_states=2)
 
     for path in paths_to_model:
         test(environment_name=environment_name,
