@@ -36,7 +36,7 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     # Run episodes acting greedily
     #env.render()
     obs, done = env.reset(), False
-    for i in range(10):
+    for i in range(5):
         episode_rew = 0
         while not done:
             obs, rew, done, _ = env.step(act(obs[None], update_eps=0)[0])
@@ -51,25 +51,25 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "LOW_EXTEND",
+            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_20-40-50/model-2017-10-21_22-24-14.pkl",
             "info": "LOW_EXTEND",
             "props": [0.25, 0.05],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
         },
         {
-            "path": "LOW_DIR",
+            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_22-25-36/model-2017-10-22_00-03-55.pkl",
             "info": "LOW_DIR",
             "props": [0.25, 0.05],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
         },
         {
-            "path": "HIGH_EXTEND",
+            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_00-05-19/model-2017-10-22_03-30-04.pkl",
             "info": "HIGH_EXTEND",
             "props": [1.0, 0.10],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
         },
         {
-            "path": "HIGH_DIR",
+            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_03-39-08/model-2017-10-22_07-24-23.pkl",
             "info": "HIGH_DIR",
             "props": [1.0, 0.10],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
