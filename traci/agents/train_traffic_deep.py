@@ -27,7 +27,7 @@ from pathlib import Path
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
-                  action_function=BaseTraciEnv.set_light_phase_4_cross_extend,
+                  action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
                   max_timesteps=int(1e6),
