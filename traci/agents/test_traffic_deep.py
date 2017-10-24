@@ -17,7 +17,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 import tensorflow as tf
 
 
-def test(environment_name, path_to_model, configured_environment, act=None, log_dir=""):
+def test(environment_name, path_to_model, configured_environment, act=None, log_dir="", no_explore=False):
     print("RUNNING TEST")
     env = configured_environment
     if act is None:
@@ -34,12 +34,15 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     logger.logtxt(path_to_model,"model_path")
 
     # Run episodes acting greedily
-    #env.render()
+    # env.render()
     obs, done = env.reset(), False
     for i in range(5):
         episode_rew = 0
         while not done:
-            obs, rew, done, _ = env.step(act(obs[None], update_eps=0)[0])
+            if no_explore:
+                obs, rew, done, _ = env.step(act(obs[None], update_eps=0)[0])
+            else:
+                obs, rew, done, _ = env.step(act(obs[None])[0])
             episode_rew += rew
         print("Episode reward", episode_rew)
         obs, done = env.reset(), False # Done afterwards to ensure logging
@@ -51,28 +54,54 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_20-40-50/model-2017-10-21_22-24-14.pkl",
-            "info": "LOW_EXTEND",
-            "props": [0.25, 0.05],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
+            "path": "",
+            "info": "[16]_LOW",
+            "props": [0.25, 0.05]
         },
         {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_22-25-36/model-2017-10-22_00-03-55.pkl",
-            "info": "LOW_DIR",
-            "props": [0.25, 0.05],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
+            "path": "",
+            "info": "[16]_HIGH",
+            "props": [1.0, 0.10]
         },
         {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_00-05-19/model-2017-10-22_03-30-04.pkl",
-            "info": "HIGH_EXTEND",
-            "props": [1.0, 0.10],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
+            "path": "",
+            "info": "[64]_LOW",
+            "props": [0.25, 0.05]
         },
         {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_03-39-08/model-2017-10-22_07-24-23.pkl",
-            "info": "HIGH_DIR",
-            "props": [1.0, 0.10],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
+            "path": "",
+            "info": "[64]_HIGH",
+            "props": [1.0, 0.10]
+        },
+        {
+            "path": "",
+            "info": "[1024]_LOW",
+            "props": [0.25, 0.05]
+        },
+        {
+            "path": "",
+            "info": "[1024]_HIGH",
+            "props": [1.0, 0.10]
+        },
+        {
+            "path": "",
+            "info": "[512, 512]_LOW",
+            "props": [0.25, 0.05]
+        },
+        {
+            "path": "",
+            "info": "[512, 512]_HIGH",
+            "props": [1.0, 0.10]
+        },
+        {
+            "path": "",
+            "info": "[256, 256, 256]_LOW",
+            "props": [0.25, 0.05]
+        },
+        {
+            "path": "",
+            "info": "[256, 256, 256]_HIGH",
+            "props": [1.0, 0.10]
         }
     ]
 
