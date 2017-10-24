@@ -89,7 +89,7 @@ def learn(env,
           train_freq=1,
           batch_size=32,
           print_freq=1,
-          checkpoint_freq=10000,
+          checkpoint_freq=100000,
           learning_starts=1000,
           gamma=1.0,
           target_network_update_freq=500,
@@ -228,6 +228,9 @@ def learn(env,
 
     episode_rewards = [0.0]
     saved_mean_reward = -sys.float_info.max
+    fewest_timesteps_in_episode = sys.maxsize
+    timesteps_this_episode = sys.maxsize
+
     obs = env.reset()
     reset = True
     episode = 0
@@ -270,6 +273,7 @@ def learn(env,
 
             episode_rewards[-1] += rew
             if done:
+                timesteps_this_episode = env.timestep_this_episode
                 obs = env.reset()
                 episode += 1
                 episode_rewards.append(0.0)
@@ -303,25 +307,35 @@ def learn(env,
                 for i in range(len(q_funcs)):
                     update_target[i]()
 
-            mean_100ep_reward = round(np.mean(episode_rewards[-101:-1]), 1)
+            mean_10ep_reward = np.mean(episode_rewards[-11:-1])
 
-            # Checkpointing (does not create save file, but creates a checkpoint if better mean reward)
+            # Checkpointing
             if t > learning_starts and t % checkpoint_freq == 0:
-                if mean_100ep_reward > saved_mean_reward:
+                # Save because of checkpoint
+                save_reason = ""
+                if mean_10ep_reward > saved_mean_reward:
+                    # Save because of better reward
                     if print_freq is not None:
                         logger.log("Saving model due to mean reward increase: {} -> {}".format(saved_mean_reward,
-                                                                                               mean_100ep_reward))
-                    U.save_state(model_file)
+                                                                                               mean_10ep_reward))
+                    save_reason += "_reward"
+                    saved_mean_reward = mean_10ep_reward
+                if timesteps_this_episode < fewest_timesteps_in_episode:
+                    # Save because of fewer timesteps
+                    if print_freq is not None:
+                        logger.log("Saving model due to timestep decrease: {} -> {}".format(fewest_timesteps_in_episode,
+                                                                                            timesteps_this_episode))
+                    save_reason += "_timesteps"
+                    fewest_timesteps_in_episode = timesteps_this_episode
 
-                    save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + ".pkl"
-                    logger.log("Saving model to {}".format(save_path))
-                    save_model(save_path, act_params)
-                    model_saved = True
-                    saved_mean_reward = mean_100ep_reward
+                save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + save_reason + ".pkl"
+                logger.log("Saving model to {}".format(save_path))
+                save_model(save_path, act_params)
+                model_saved = True
 
-        if model_saved:
-            if print_freq is not None:
-                logger.log("Restored model with mean reward: {}".format(saved_mean_reward))
-            U.load_state(model_file)
+        #if model_saved:
+        #    if print_freq is not None:
+        #        logger.log("Restored model with mean reward: {}".format(saved_mean_reward))
+        #    U.load_state(model_file)
 
     return ActWrapper(act, act_params)

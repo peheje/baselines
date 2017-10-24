@@ -1,3 +1,4 @@
+import json
 import logging
 import os
 import sys
@@ -16,6 +17,7 @@ import subprocess
 
 import traci
 from sumolib import checkBinary
+from utilities.profiler import Profiler
 
 logger = logging.getLogger(__name__)
 
@@ -45,19 +47,19 @@ class Traci_3_cross_env(BaseTraciEnv):
             print("<routes>", file=flows)
 
             if self.enjoy_car_probs:
-                hard_coded_bigroad_probs=[0.25,
-                                          0.50,
-                                          1.0,
-                                          0.75,
-                                          0.25,
-                                          0.50,
-                                          1.0,
-                                          0.50,
-                                          0.25,
-                                          0.25]
-                increment_every_interval=self.num_car_chances//len(hard_coded_bigroad_probs)
+                hard_coded_bigroad_probs = [0.25,
+                                            0.50,
+                                            1.0,
+                                            0.75,
+                                            0.25,
+                                            0.50,
+                                            1.0,
+                                            0.50,
+                                            0.25,
+                                            0.25]
+                increment_every_interval = self.num_car_chances // len(hard_coded_bigroad_probs)
 
-                flow_id=0
+                flow_id = 0
                 cur_interval_start = 0
                 for interval in range(len(hard_coded_bigroad_probs)):
                     for iter, f in enumerate(froms):
@@ -65,15 +67,15 @@ class Traci_3_cross_env(BaseTraciEnv):
                         if any(bigroad in f for bigroad in big_roads):
                             spawn_prob = hard_coded_bigroad_probs[interval]
                         else:
-                            spawn_prob = hard_coded_bigroad_probs[interval]/10
+                            spawn_prob = hard_coded_bigroad_probs[interval] / 10
 
                         print('<flow id="{}" from="{}" begin="{}" end="{}" probability="{}"/>'.format(flow_id, f,
                                                                                                       cur_interval_start,
-                                                                                                      cur_interval_start+increment_every_interval,
-                                                                                                 spawn_prob),
-                          file=flows)
-                        flow_id+=1
-                    cur_interval_start+=increment_every_interval
+                                                                                                      cur_interval_start + increment_every_interval,
+                                                                                                      spawn_prob),
+                              file=flows)
+                        flow_id += 1
+                    cur_interval_start += increment_every_interval
 
             else:
                 for iter, f in enumerate(froms):
@@ -85,7 +87,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
                     print('<flow id="{}" from="{}" begin="0" end="{}" probability="{}"/>'.format(iter, f,
                                                                                                  self.num_car_chances,
-                                                                                                 spawn_prob), file=flows)
+                                                                                                 spawn_prob),
+                          file=flows)
             print("</routes>", file=flows)
 
         # Make temp file for routes
@@ -100,11 +103,11 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " -o {}".format(self.route_file_name) +
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
-                                         " --seed " +str(self.jtrroute_seed)+
+                                         " --seed " + str(self.jtrroute_seed) +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
-        self.jtrroute_seed+=1
+        self.jtrroute_seed += 1
 
         # Run webster on route file (tls only used if not controlled)
         status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
@@ -133,7 +136,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.should_render = False
         self.num_actions = None
         self.num_history_state_scalars = None  # This gets calculated later
-        self.num_nonhistory_state_scalars=None
+        self.num_nonhistory_state_scalars = None
         self.num_trafficlights = 4
         self.num_history_states = None
         self.min_state_scalar_value = 0
@@ -143,7 +146,48 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.state = []
         self.unique_counters = []
         self.route_file_name = None
-        self.jtrroute_seed=0
+        self.jtrroute_seed = 0
+
+    def get_state_multientryexit(self):
+        raw_mee_state = traci.multientryexit.getSubscriptionResults()
+
+        subscription_state = []
+        if self.state_use_num_cars_in_queue_history:
+            subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        if self.state_use_avg_speed_between_detectors_history:
+            subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_MEAN_SPEED)
+        if self.state_use_tl_state_history:
+            subscription_state += self.get_traffic_states_onehot()
+
+        self.state.append(np.array(subscription_state, dtype=float))
+
+        state_to_return = np.hstack(self.state)
+        if self.state_use_time_since_tl_change:
+            state_to_return = np.concatenate([state_to_return, list(self.time_since_tl_change.values())])
+
+        # old = self.get_state_multientryexit_old()
+        # old_json = json.dumps(old.tolist())
+        # new_json = json.dumps(state_to_return.tolist())
+        # print("old", old_json)
+        # print("new", new_json)
+        # assert old_json == new_json
+
+        return state_to_return
+
+    def get_traffic_states(self):
+        raw_til_state = traci.trafficlights.getSubscriptionResults()
+        phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
+        return phases
+
+    def get_traffic_states_onehot(self):
+        raw_til_state = traci.trafficlights.getSubscriptionResults()
+        phases = self.extract_list(raw_til_state, traci.constants.TL_CURRENT_PHASE)
+        arr = []
+        for p in phases:
+            a = [0 for _ in range(8)]
+            a[p] = 1
+            arr += a
+        return arr
 
     def restart(self):
         self.spawn_cars()
@@ -158,16 +202,50 @@ class Traci_3_cross_env(BaseTraciEnv):
         Thread(target=self.__traci_start__())
 
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
-        self.num_nonhistory_state_scalars=self.calculate_num_nonhistory_state_scalars()
-        self.total_num_state_scalars=(self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+        self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
+        self.total_num_state_scalars = (
+                                       self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
 
         self.state = deque([], maxlen=self.num_history_states)
+        self.old_state = deque([], maxlen=self.num_history_states)
         for i in range(self.num_history_states):
             self.state.append(np.zeros(self.num_history_state_scalars))
+            self.old_state.append(np.zeros(self.num_history_state_scalars))
         self._seed()
+
+        # Get constant ids
+        self.trafficlights_ids = traci.trafficlights.getIDList()
+
+        # Subscriptions
+        # Subscribe to multi entry exit
+        multientryexit_subs = []
+        if self.state_use_num_cars_in_queue_history:
+            multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        if self.state_use_avg_speed_between_detectors_history:
+            multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
+
+        if len(multientryexit_subs) > 0:
+            for mee_id in traci.multientryexit.getIDList():
+                traci.multientryexit.subscribe(mee_id, multientryexit_subs)
+
+        # Subscribe to trafficlights
+        trafficlights_subs = [traci.constants.TL_CURRENT_PHASE]
+
+        if len(trafficlights_subs) > 0:
+            for tid in self.trafficlights_ids:
+                traci.trafficlights.subscribe(tid, trafficlights_subs)
+
+        # Subscribe to simulation
+        simulation_subs = [traci.constants.VAR_MIN_EXPECTED_VEHICLES,
+                           traci.constants.VAR_DEPARTED_VEHICLES_IDS]
+        traci.simulation.subscribe(simulation_subs)
+
+        # Subscribe to cars (lined to setup_subscriptions_for_departed in base)
+        self.vehicle_subs = [traci.constants.VAR_CO2EMISSION,
+                             traci.constants.VAR_SPEED]
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -178,38 +256,35 @@ class Traci_3_cross_env(BaseTraciEnv):
             # assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
             # convert action into many actions
             action = self.action_converter(action)
-            for i, tlsid in enumerate(traci.trafficlights.getIDList()):
-                phase = traci.trafficlights.getPhase(tlsid)
-                self.set_light_phase_4_cross(tlsid, action[i], phase)
+
+            phases = self.get_traffic_states()
+            for i, tlsid in enumerate(self.trafficlights_ids):
+                self.action_func(self,tlsid, action[i], phases[i])
 
         # Run simulation step
         traci.simulationStep()
 
+        # Setup subscriptions for departed vehicles in this step
+        self.setup_subscriptions_for_departed()
+
         # Build state
-        total_state=0
+        total_state = 0
         if self.perform_actions:
-          total_state = self.get_state_multientryexit()
+            total_state = self.get_state_multientryexit()
 
         # Build reward
         reward = self.reward_func()
 
         # See if done
-        done = traci.simulation.getMinExpectedNumber() < 1
+        done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
 
         self.log_end_step(reward)
 
         return total_state, reward, done, {}
 
-    @staticmethod
-    def get_traffic_states():
-        ids = []
-        for tid in traci.trafficlights.getIDList():
-            ids.append(traci.trafficlights.getPhase(tid))
-        return ids
-
     def _reset(self):
         # Check if actually done, might be initial reset call
-        if traci.simulation.getMinExpectedNumber() < 1:
+        if traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             traci.close(wait=True)  # Wait for tripinfo to be written
             self.log_end_episode(0)
             BaseTraciEnv._reset(self)
