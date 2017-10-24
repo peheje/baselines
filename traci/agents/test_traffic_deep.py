@@ -108,10 +108,9 @@ if __name__ == '__main__':
     for setup in path_props:
         path = setup["path"]
         props = setup["props"]
-        action_func = setup["action_func"]
         info = setup["info"]
         print("Running test for: ", info)
-        print(path, props, action_func)
+        print(props, path)
 
         environment_name = 'Traci_3_cross_env-v0'
         env = gym.make(environment_name)
@@ -119,7 +118,7 @@ if __name__ == '__main__':
                             start_car_probabilities=props,
                             enjoy_car_probs=False,
                             reward_func=BaseTraciEnv.reward_total_waiting_vehicles,
-                            action_func=action_func,
+                            action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                             state_contain_num_cars_in_queue_history=True,
                             state_contain_time_since_tl_change=True,
                             state_contain_tl_state_history=True,
