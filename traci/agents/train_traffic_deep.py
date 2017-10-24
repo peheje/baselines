@@ -26,7 +26,7 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=1000,
+                  num_car_chances=100,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
@@ -37,7 +37,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   train_freq=10,
                   batch_size=32,
                   checkpoint_freq=10000,
-                  learning_starts=10000,
+                  learning_starts=1000,
                   gamma=0.9,
                   target_network_update_freq=500,
                   start_car_probabilities=[1.0, 0.1],
@@ -169,7 +169,8 @@ def main():
                 sess = tf.InteractiveSession(graph=g, config=config)
                 with g.as_default():
                     train_and_log(start_car_probabilities=pr,
-                                  hidden_layers=m)
+                                  hidden_layers=m,
+                                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles_split)
 
 
 if __name__ == '__main__':

@@ -217,7 +217,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         self._seed()
 
         # Get constant ids
-        self.trafficlights_ids = traci.trafficlights.getIDList()
+        self.trafficlights_ids = sorted(traci.trafficlights.getIDList())
+        self.trafficlights_controlled_lanes=[traci.trafficlights.getControlledLanes(tl) for tl in self.trafficlights_ids]
 
         # Subscriptions
         # Subscribe to multi entry exit
@@ -245,7 +246,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # Subscribe to cars (lined to setup_subscriptions_for_departed in base)
         self.vehicle_subs = [traci.constants.VAR_CO2EMISSION,
-                             traci.constants.VAR_SPEED]
+                             traci.constants.VAR_SPEED,
+                             traci.constants.VAR_LANE_ID]
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -273,7 +275,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             total_state = self.get_state_multientryexit()
 
         # Build reward
-        reward = self.reward_func()
+        reward = self.reward_func(self)
 
         # See if done
         done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
@@ -286,7 +288,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         # Check if actually done, might be initial reset call
         if traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             traci.close(wait=True)  # Wait for tripinfo to be written
-            self.log_end_episode(0)
+            self.log_end_episode(self.reward_func(self))
             BaseTraciEnv._reset(self)
             self.restart()
         return np.zeros(self.total_num_state_scalars)

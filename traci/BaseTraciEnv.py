@@ -8,7 +8,7 @@ import math
 import copy
 
 import gym
-
+from operator import add
 import numpy as np
 from baselines import logger
 import time
@@ -29,7 +29,7 @@ import traci
 
 class BaseTraciEnv(gym.Env):
     def __init__(self):
-        self.episode_rewards = deque([0.0], maxlen=100)
+        self.episode_rewards = deque([], maxlen=100)
         self.step_rewards = deque([], maxlen=100)
         self.mean_episode_rewards = deque([], maxlen=100)
         self.episode_mean_travel_times = []
@@ -203,6 +203,21 @@ class BaseTraciEnv(gym.Env):
         for s in speeds:
             if s < 1.0:
                 total_wait -= 1.0
+        return total_wait
+
+    def reward_total_waiting_vehicles_split(self):
+        total_wait = [0.0 for _ in range(self.num_trafficlights)]
+        vehicle_subs = traci.vehicle.getSubscriptionResults()
+        speeds = BaseTraciEnv.extract_list(vehicle_subs, traci.constants.VAR_SPEED)
+        lanes = BaseTraciEnv.extract_list(vehicle_subs, traci.constants.VAR_LANE_ID)
+
+        for i,s in enumerate(speeds):
+            if s < 1.0:
+                #Figure out which traffic light this car is located at
+                for j,clanes in enumerate(self.trafficlights_controlled_lanes):
+                    if lanes[i] in clanes:
+                        total_wait[j] -= 1.0
+                        break
         return total_wait
 
     def setup_subscriptions_for_departed(self):
@@ -415,7 +430,10 @@ class BaseTraciEnv(gym.Env):
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
 
-        self.episode_rewards[-1] += reward
+        if len(self.episode_rewards) ==0:
+            self.episode_rewards.append(reward)
+        else:
+            self.episode_rewards[-1] = list(map(add, self.episode_rewards[-1],reward))
         self.step_rewards.append(reward)
         self.co2_step_rewards.append(emission_reward)
         self.avg_speed_step_rewards.append(avg_speed_reward)
@@ -454,7 +472,7 @@ class BaseTraciEnv(gym.Env):
                 print("Couldn't read xml, skipping logging this iteration")
                 retry = False
 
-        self.mean_episode_rewards.append(self.episode_rewards[-1] / self.timestep_this_episode)
+        self.mean_episode_rewards.append(np.sum(self.episode_rewards[-1]) / self.timestep_this_episode)
         mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards), 1)
 
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
@@ -462,8 +480,8 @@ class BaseTraciEnv(gym.Env):
         logger.record_tabular("Episodes[Episode]", self.episode)
         logger.record_tabular("Mean 100 episode reward[Episode]", mean_100ep_reward)
         logger.record_tabular("Mean 100 episode mean reward[Episode]", mean_100ep_mean_reward)
-        logger.record_tabular("Episode Reward[Episode]", self.episode_rewards[-1])
-        logger.record_tabular("Episode Reward mean[Episode]", self.mean_episode_rewards[-1])
+        logger.record_tabular("Episode Reward[Episode]", np.sum(self.episode_rewards[-1]))
+        logger.record_tabular("Episode Reward mean[Episode]", np.sum(self.mean_episode_rewards[-1]))
         logger.record_tabular("Number of traffic light changes[Episode]", self.traffic_light_changes)
         logger.record_tabular("Total CO2 reward for episode[Episode]", sum(self.co2_step_rewards))
         logger.record_tabular("Mean Avg-speed reward for episode[Episode]", np.mean(self.avg_speed_step_rewards))

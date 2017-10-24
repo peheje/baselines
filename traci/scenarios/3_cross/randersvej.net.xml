@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 06 Oct 2017 11:07:09 AM CEST by Netedit Version dev-SVN-r26021
+<!-- generated on Tue 24 Oct 2017 11:03:52 AM CEST by Netedit Version dev-SVN-r26021
 <?xml version="1.0" encoding="UTF-8"?>
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -549,34 +549,14 @@
         <lane id="st_south_out_1" index="1" speed="13.89" length="100.00" shape="-801.66,-204.76 -801.76,-282.93"/>
     </edge>
 
-    <tlLogic id="gneJ24" type="static" programID="a" offset="0">
-        <phase duration="3" state="GGgrrGGGrrr"/>
-        <phase duration="3" state="yygrryyyrrr"/>
-        <phase duration="3" state="rrGrrrrrrrr"/>
-        <phase duration="3" state="rryrrrrrrrr"/>
-        <phase duration="3" state="rrrGgrrrGGg"/>
-        <phase duration="3" state="rrrygrrryyg"/>
-        <phase duration="3" state="rrrrGrrrrrG"/>
-        <phase duration="3" state="rrrryrrrrry"/>
-    </tlLogic>
-    <tlLogic id="gneJ28" type="static" programID="a" offset="0">
-        <phase duration="3" state="GGGGggrrrrrGGGggrrrrr"/>
-        <phase duration="3" state="yyyyggrrrrryyyggrrrrr"/>
-        <phase duration="3" state="rrrrGGrrrrrrrrGGrrrrr"/>
-        <phase duration="3" state="rrrryyrrrrrrrryyrrrrr"/>
-        <phase duration="3" state="rrrrrrGGGggrrrrrGGGgg"/>
+    <tlLogic id="hr" type="static" programID="0" offset="0">
+        <phase duration="33" state="rrrrrrGGGggrrrrrGGGgg"/>
         <phase duration="3" state="rrrrrryyyggrrrrryyygg"/>
-        <phase duration="3" state="rrrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="6" state="rrrrrrrrrGGrrrrrrrrGG"/>
         <phase duration="3" state="rrrrrrrrryyrrrrrrrryy"/>
-    </tlLogic>
-    <tlLogic id="hr_junction" type="static" programID="a" offset="0">
-        <phase duration="3" state="rrrrrrGGGggrrrrrGGGgg"/>
-        <phase duration="3" state="rrrrrryyyggrrrrryyygg"/>
-        <phase duration="3" state="rrrrrrrrrGGrrrrrrrrGG"/>
-        <phase duration="3" state="rrrrrrrrryyrrrrrrrryy"/>
-        <phase duration="3" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="33" state="GGGGggrrrrrGGGggrrrrr"/>
         <phase duration="3" state="yyyyggrrrrryyyggrrrrr"/>
-        <phase duration="3" state="rrrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="6" state="rrrrGGrrrrrrrrGGrrrrr"/>
         <phase duration="3" state="rrrryyrrrrrrrryyrrrrr"/>
     </tlLogic>
     <tlLogic id="mc" type="static" programID="a" offset="0">
@@ -588,6 +568,26 @@
         <phase duration="3" state="yygrrrryygrrrr"/>
         <phase duration="3" state="rrGrrrrrrGrrrr"/>
         <phase duration="3" state="rryrrrrrryrrrr"/>
+    </tlLogic>
+    <tlLogic id="nd" type="static" programID="0" offset="0">
+        <phase duration="33" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3" state="yyyyggrrrrryyyggrrrrr"/>
+        <phase duration="6" state="rrrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3" state="rrrryyrrrrrrrryyrrrrr"/>
+        <phase duration="33" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3" state="rrrrrryyyggrrrrryyygg"/>
+        <phase duration="6" state="rrrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3" state="rrrrrrrrryyrrrrrrrryy"/>
+    </tlLogic>
+    <tlLogic id="st" type="static" programID="0" offset="0">
+        <phase duration="33" state="GGgrrGGGrrr"/>
+        <phase duration="3" state="yygrryyyrrr"/>
+        <phase duration="6" state="rrGrrrrrrrr"/>
+        <phase duration="3" state="rryrrrrrrrr"/>
+        <phase duration="33" state="rrrGgrrrGGg"/>
+        <phase duration="3" state="rrrygrrryyg"/>
+        <phase duration="6" state="rrrrGrrrrrG"/>
+        <phase duration="3" state="rrrryrrrrry"/>
     </tlLogic>
 
     <junction id="gneJ0" type="dead_end" x="-799.99" y="699.95" incLanes="" intLanes="" shape="-799.99,699.95"/>
@@ -777,33 +777,33 @@
     <connection from="-gneE3" to="hr_south_in" fromLane="0" toLane="1" via=":hr_south_2_1" dir="s" state="M"/>
     <connection from="-gneE3" to="hr_south_in" fromLane="1" toLane="2" via=":hr_south_2_2" dir="s" state="M"/>
     <connection from="-gneE3" to="hr_south_in" fromLane="1" toLane="3" via=":hr_south_2_3" dir="s" state="M"/>
-    <connection from="As" to="Be" fromLane="0" toLane="0" via=":hr_0_0" tl="hr_junction" linkIndex="0" dir="r" state="o"/>
-    <connection from="As" to="Be" fromLane="1" toLane="1" via=":hr_1_0" tl="hr_junction" linkIndex="1" dir="r" state="o"/>
-    <connection from="As" to="hr_south_out" fromLane="2" toLane="0" via=":hr_2_0" tl="hr_junction" linkIndex="2" dir="s" state="o"/>
-    <connection from="As" to="hr_south_out" fromLane="3" toLane="1" via=":hr_2_1" tl="hr_junction" linkIndex="3" dir="s" state="o"/>
-    <connection from="As" to="Ce" fromLane="4" toLane="0" via=":hr_4_0" tl="hr_junction" linkIndex="4" dir="l" state="o"/>
-    <connection from="As" to="Ce" fromLane="4" toLane="1" via=":hr_5_0" tl="hr_junction" linkIndex="5" dir="l" state="o"/>
-    <connection from="Bs" to="hr_south_out" fromLane="0" toLane="0" via=":hr_16_0" tl="hr_junction" linkIndex="16" dir="r" state="o"/>
-    <connection from="Bs" to="Ce" fromLane="1" toLane="0" via=":hr_17_0" tl="hr_junction" linkIndex="17" dir="s" state="o"/>
-    <connection from="Bs" to="Ce" fromLane="2" toLane="1" via=":hr_17_1" tl="hr_junction" linkIndex="18" dir="s" state="o"/>
-    <connection from="Bs" to="Ae" fromLane="3" toLane="1" via=":hr_19_0" tl="hr_junction" linkIndex="19" dir="l" state="o"/>
-    <connection from="Bs" to="Ae" fromLane="4" toLane="2" via=":hr_20_0" tl="hr_junction" linkIndex="20" dir="l" state="o"/>
-    <connection from="Cs" to="Ae" fromLane="0" toLane="0" via=":hr_6_0" tl="hr_junction" linkIndex="6" dir="r" state="o"/>
-    <connection from="Cs" to="Be" fromLane="1" toLane="0" via=":hr_7_0" tl="hr_junction" linkIndex="7" dir="s" state="o"/>
-    <connection from="Cs" to="Be" fromLane="2" toLane="1" via=":hr_7_1" tl="hr_junction" linkIndex="8" dir="s" state="o"/>
-    <connection from="Cs" to="hr_south_out" fromLane="3" toLane="0" via=":hr_9_0" tl="hr_junction" linkIndex="9" dir="l" state="o"/>
-    <connection from="Cs" to="hr_south_out" fromLane="4" toLane="1" via=":hr_10_0" tl="hr_junction" linkIndex="10" dir="l" state="o"/>
+    <connection from="As" to="Be" fromLane="0" toLane="0" via=":hr_0_0" tl="hr" linkIndex="0" dir="r" state="o"/>
+    <connection from="As" to="Be" fromLane="1" toLane="1" via=":hr_1_0" tl="hr" linkIndex="1" dir="r" state="o"/>
+    <connection from="As" to="hr_south_out" fromLane="2" toLane="0" via=":hr_2_0" tl="hr" linkIndex="2" dir="s" state="o"/>
+    <connection from="As" to="hr_south_out" fromLane="3" toLane="1" via=":hr_2_1" tl="hr" linkIndex="3" dir="s" state="o"/>
+    <connection from="As" to="Ce" fromLane="4" toLane="0" via=":hr_4_0" tl="hr" linkIndex="4" dir="l" state="o"/>
+    <connection from="As" to="Ce" fromLane="4" toLane="1" via=":hr_5_0" tl="hr" linkIndex="5" dir="l" state="o"/>
+    <connection from="Bs" to="hr_south_out" fromLane="0" toLane="0" via=":hr_16_0" tl="hr" linkIndex="16" dir="r" state="o"/>
+    <connection from="Bs" to="Ce" fromLane="1" toLane="0" via=":hr_17_0" tl="hr" linkIndex="17" dir="s" state="o"/>
+    <connection from="Bs" to="Ce" fromLane="2" toLane="1" via=":hr_17_1" tl="hr" linkIndex="18" dir="s" state="o"/>
+    <connection from="Bs" to="Ae" fromLane="3" toLane="1" via=":hr_19_0" tl="hr" linkIndex="19" dir="l" state="o"/>
+    <connection from="Bs" to="Ae" fromLane="4" toLane="2" via=":hr_20_0" tl="hr" linkIndex="20" dir="l" state="o"/>
+    <connection from="Cs" to="Ae" fromLane="0" toLane="0" via=":hr_6_0" tl="hr" linkIndex="6" dir="r" state="o"/>
+    <connection from="Cs" to="Be" fromLane="1" toLane="0" via=":hr_7_0" tl="hr" linkIndex="7" dir="s" state="o"/>
+    <connection from="Cs" to="Be" fromLane="2" toLane="1" via=":hr_7_1" tl="hr" linkIndex="8" dir="s" state="o"/>
+    <connection from="Cs" to="hr_south_out" fromLane="3" toLane="0" via=":hr_9_0" tl="hr" linkIndex="9" dir="l" state="o"/>
+    <connection from="Cs" to="hr_south_out" fromLane="4" toLane="1" via=":hr_10_0" tl="hr" linkIndex="10" dir="l" state="o"/>
     <connection from="Ds" to="mc_south_out" fromLane="0" toLane="0" via=":mc_7_0" tl="mc" linkIndex="7" dir="r" state="o"/>
     <connection from="Ds" to="Ee" fromLane="0" toLane="0" via=":mc_8_0" tl="mc" linkIndex="8" dir="s" state="o"/>
     <connection from="Ds" to="mc_north_out" fromLane="0" toLane="0" via=":mc_9_0" tl="mc" linkIndex="9" dir="l" state="o"/>
     <connection from="Es" to="mc_north_out" fromLane="0" toLane="0" via=":mc_0_0" tl="mc" linkIndex="0" dir="r" state="o"/>
     <connection from="Es" to="De" fromLane="0" toLane="0" via=":mc_1_0" tl="mc" linkIndex="1" dir="s" state="o"/>
     <connection from="Es" to="mc_south_out" fromLane="0" toLane="0" via=":mc_2_0" tl="mc" linkIndex="2" dir="l" state="o"/>
-    <connection from="Fs" to="st_south_out" fromLane="0" toLane="0" via=":st_8_0" tl="gneJ24" linkIndex="8" dir="r" state="o"/>
-    <connection from="Fs" to="Ge" fromLane="0" toLane="0" via=":st_9_0" tl="gneJ24" linkIndex="9" dir="s" state="o"/>
-    <connection from="Fs" to="st_north_out" fromLane="0" toLane="1" via=":st_10_0" tl="gneJ24" linkIndex="10" dir="l" state="o"/>
-    <connection from="Gs" to="st_north_out" fromLane="0" toLane="0" via=":st_3_0" tl="gneJ24" linkIndex="3" dir="r" state="o"/>
-    <connection from="Gs" to="st_south_out" fromLane="0" toLane="1" via=":st_4_0" tl="gneJ24" linkIndex="4" dir="l" state="o"/>
+    <connection from="Fs" to="st_south_out" fromLane="0" toLane="0" via=":st_8_0" tl="st" linkIndex="8" dir="r" state="o"/>
+    <connection from="Fs" to="Ge" fromLane="0" toLane="0" via=":st_9_0" tl="st" linkIndex="9" dir="s" state="o"/>
+    <connection from="Fs" to="st_north_out" fromLane="0" toLane="1" via=":st_10_0" tl="st" linkIndex="10" dir="l" state="o"/>
+    <connection from="Gs" to="st_north_out" fromLane="0" toLane="0" via=":st_3_0" tl="st" linkIndex="3" dir="r" state="o"/>
+    <connection from="Gs" to="st_south_out" fromLane="0" toLane="1" via=":st_4_0" tl="st" linkIndex="4" dir="l" state="o"/>
     <connection from="Hs" to="nd_west_in" fromLane="0" toLane="0" via=":gneJ37_3_0" dir="s" state="M"/>
     <connection from="Hs" to="nd_west_in" fromLane="0" toLane="1" via=":gneJ37_3_1" dir="s" state="M"/>
     <connection from="Hs" to="nd_west_in" fromLane="1" toLane="2" via=":gneJ37_3_2" dir="s" state="M"/>
@@ -825,11 +825,11 @@
     <connection from="gneE3" to="mc_north_in" fromLane="0" toLane="1" via=":gneJ5_0_1" dir="s" state="M"/>
     <connection from="gneE3" to="mc_north_in" fromLane="1" toLane="2" via=":gneJ5_0_2" dir="s" state="M"/>
     <connection from="gneE3" to="mc_north_in" fromLane="1" toLane="3" via=":gneJ5_0_3" dir="s" state="M"/>
-    <connection from="hr_south_in" to="Ce" fromLane="0" toLane="0" via=":hr_11_0" tl="hr_junction" linkIndex="11" dir="r" state="o"/>
-    <connection from="hr_south_in" to="Ae" fromLane="1" toLane="1" via=":hr_12_0" tl="hr_junction" linkIndex="12" dir="s" state="o"/>
-    <connection from="hr_south_in" to="Ae" fromLane="2" toLane="2" via=":hr_12_1" tl="hr_junction" linkIndex="13" dir="s" state="o"/>
-    <connection from="hr_south_in" to="Be" fromLane="3" toLane="0" via=":hr_14_0" tl="hr_junction" linkIndex="14" dir="l" state="o"/>
-    <connection from="hr_south_in" to="Be" fromLane="3" toLane="1" via=":hr_15_0" tl="hr_junction" linkIndex="15" dir="l" state="o"/>
+    <connection from="hr_south_in" to="Ce" fromLane="0" toLane="0" via=":hr_11_0" tl="hr" linkIndex="11" dir="r" state="o"/>
+    <connection from="hr_south_in" to="Ae" fromLane="1" toLane="1" via=":hr_12_0" tl="hr" linkIndex="12" dir="s" state="o"/>
+    <connection from="hr_south_in" to="Ae" fromLane="2" toLane="2" via=":hr_12_1" tl="hr" linkIndex="13" dir="s" state="o"/>
+    <connection from="hr_south_in" to="Be" fromLane="3" toLane="0" via=":hr_14_0" tl="hr" linkIndex="14" dir="l" state="o"/>
+    <connection from="hr_south_in" to="Be" fromLane="3" toLane="1" via=":hr_15_0" tl="hr" linkIndex="15" dir="l" state="o"/>
     <connection from="hr_south_out" to="gneE3" fromLane="0" toLane="0" via=":hr_south_0_0" dir="s" state="M"/>
     <connection from="hr_south_out" to="gneE3" fromLane="1" toLane="1" via=":hr_south_0_1" dir="s" state="M"/>
     <connection from="mc_north_in" to="De" fromLane="0" toLane="0" via=":mc_10_0" tl="mc" linkIndex="10" dir="r" state="o"/>
@@ -844,45 +844,45 @@
     <connection from="mc_south_in" to="De" fromLane="3" toLane="0" via=":mc_6_0" tl="mc" linkIndex="6" dir="l" state="o"/>
     <connection from="mc_south_out" to="gneE12" fromLane="0" toLane="0" via=":gneJ11_0_0" dir="s" state="M"/>
     <connection from="mc_south_out" to="gneE12" fromLane="1" toLane="1" via=":gneJ11_0_1" dir="s" state="M"/>
-    <connection from="nd_east_in" to="nd_north_out" fromLane="0" toLane="0" via=":nd_6_0" tl="gneJ28" linkIndex="6" dir="r" state="o"/>
-    <connection from="nd_east_in" to="nd_west_out" fromLane="1" toLane="0" via=":nd_7_0" tl="gneJ28" linkIndex="7" dir="s" state="o"/>
-    <connection from="nd_east_in" to="nd_west_out" fromLane="2" toLane="1" via=":nd_7_1" tl="gneJ28" linkIndex="8" dir="s" state="o"/>
-    <connection from="nd_east_in" to="nd_south_out" fromLane="3" toLane="0" via=":nd_9_0" tl="gneJ28" linkIndex="9" dir="l" state="o"/>
-    <connection from="nd_east_in" to="nd_south_out" fromLane="4" toLane="1" via=":nd_10_0" tl="gneJ28" linkIndex="10" dir="l" state="o"/>
+    <connection from="nd_east_in" to="nd_north_out" fromLane="0" toLane="0" via=":nd_6_0" tl="nd" linkIndex="6" dir="r" state="o"/>
+    <connection from="nd_east_in" to="nd_west_out" fromLane="1" toLane="0" via=":nd_7_0" tl="nd" linkIndex="7" dir="s" state="o"/>
+    <connection from="nd_east_in" to="nd_west_out" fromLane="2" toLane="1" via=":nd_7_1" tl="nd" linkIndex="8" dir="s" state="o"/>
+    <connection from="nd_east_in" to="nd_south_out" fromLane="3" toLane="0" via=":nd_9_0" tl="nd" linkIndex="9" dir="l" state="o"/>
+    <connection from="nd_east_in" to="nd_south_out" fromLane="4" toLane="1" via=":nd_10_0" tl="nd" linkIndex="10" dir="l" state="o"/>
     <connection from="nd_east_out" to="Ie" fromLane="0" toLane="0" via=":gneJ38_5_0" dir="s" state="M"/>
     <connection from="nd_east_out" to="Ie" fromLane="1" toLane="1" via=":gneJ38_5_1" dir="s" state="M"/>
-    <connection from="nd_north_in" to="nd_west_out" fromLane="0" toLane="0" via=":nd_0_0" tl="gneJ28" linkIndex="0" dir="r" state="o"/>
-    <connection from="nd_north_in" to="nd_west_out" fromLane="1" toLane="1" via=":nd_1_0" tl="gneJ28" linkIndex="1" dir="r" state="o"/>
-    <connection from="nd_north_in" to="nd_south_out" fromLane="2" toLane="0" via=":nd_2_0" tl="gneJ28" linkIndex="2" dir="s" state="o"/>
-    <connection from="nd_north_in" to="nd_south_out" fromLane="3" toLane="1" via=":nd_2_1" tl="gneJ28" linkIndex="3" dir="s" state="o"/>
-    <connection from="nd_north_in" to="nd_east_out" fromLane="4" toLane="0" via=":nd_4_0" tl="gneJ28" linkIndex="4" dir="l" state="o"/>
-    <connection from="nd_north_in" to="nd_east_out" fromLane="5" toLane="1" via=":nd_5_0" tl="gneJ28" linkIndex="5" dir="l" state="o"/>
+    <connection from="nd_north_in" to="nd_west_out" fromLane="0" toLane="0" via=":nd_0_0" tl="nd" linkIndex="0" dir="r" state="o"/>
+    <connection from="nd_north_in" to="nd_west_out" fromLane="1" toLane="1" via=":nd_1_0" tl="nd" linkIndex="1" dir="r" state="o"/>
+    <connection from="nd_north_in" to="nd_south_out" fromLane="2" toLane="0" via=":nd_2_0" tl="nd" linkIndex="2" dir="s" state="o"/>
+    <connection from="nd_north_in" to="nd_south_out" fromLane="3" toLane="1" via=":nd_2_1" tl="nd" linkIndex="3" dir="s" state="o"/>
+    <connection from="nd_north_in" to="nd_east_out" fromLane="4" toLane="0" via=":nd_4_0" tl="nd" linkIndex="4" dir="l" state="o"/>
+    <connection from="nd_north_in" to="nd_east_out" fromLane="5" toLane="1" via=":nd_5_0" tl="nd" linkIndex="5" dir="l" state="o"/>
     <connection from="nd_north_out" to="st_south_in" fromLane="0" toLane="0" via=":gneJ27_6_0" dir="s" state="M"/>
     <connection from="nd_north_out" to="st_south_in" fromLane="1" toLane="1" via=":gneJ27_6_1" dir="s" state="M"/>
     <connection from="nd_north_out" to="st_south_in" fromLane="1" toLane="2" via=":gneJ27_6_2" dir="s" state="M"/>
-    <connection from="nd_south_in" to="nd_east_out" fromLane="0" toLane="0" via=":nd_11_0" tl="gneJ28" linkIndex="11" dir="r" state="o"/>
-    <connection from="nd_south_in" to="nd_north_out" fromLane="1" toLane="0" via=":nd_12_0" tl="gneJ28" linkIndex="12" dir="s" state="o"/>
-    <connection from="nd_south_in" to="nd_north_out" fromLane="2" toLane="1" via=":nd_12_1" tl="gneJ28" linkIndex="13" dir="s" state="o"/>
-    <connection from="nd_south_in" to="nd_west_out" fromLane="3" toLane="0" via=":nd_14_0" tl="gneJ28" linkIndex="14" dir="l" state="o"/>
-    <connection from="nd_south_in" to="nd_west_out" fromLane="3" toLane="1" via=":nd_15_0" tl="gneJ28" linkIndex="15" dir="l" state="o"/>
+    <connection from="nd_south_in" to="nd_east_out" fromLane="0" toLane="0" via=":nd_11_0" tl="nd" linkIndex="11" dir="r" state="o"/>
+    <connection from="nd_south_in" to="nd_north_out" fromLane="1" toLane="0" via=":nd_12_0" tl="nd" linkIndex="12" dir="s" state="o"/>
+    <connection from="nd_south_in" to="nd_north_out" fromLane="2" toLane="1" via=":nd_12_1" tl="nd" linkIndex="13" dir="s" state="o"/>
+    <connection from="nd_south_in" to="nd_west_out" fromLane="3" toLane="0" via=":nd_14_0" tl="nd" linkIndex="14" dir="l" state="o"/>
+    <connection from="nd_south_in" to="nd_west_out" fromLane="3" toLane="1" via=":nd_15_0" tl="nd" linkIndex="15" dir="l" state="o"/>
     <connection from="nd_south_out" to="Je" fromLane="0" toLane="0" via=":gneJ36_0_0" dir="s" state="M"/>
     <connection from="nd_south_out" to="Je" fromLane="1" toLane="1" via=":gneJ36_0_1" dir="s" state="M"/>
-    <connection from="nd_west_in" to="nd_south_out" fromLane="0" toLane="0" via=":nd_16_0" tl="gneJ28" linkIndex="16" dir="r" state="o"/>
-    <connection from="nd_west_in" to="nd_east_out" fromLane="1" toLane="0" via=":nd_17_0" tl="gneJ28" linkIndex="17" dir="s" state="o"/>
-    <connection from="nd_west_in" to="nd_east_out" fromLane="2" toLane="1" via=":nd_17_1" tl="gneJ28" linkIndex="18" dir="s" state="o"/>
-    <connection from="nd_west_in" to="nd_north_out" fromLane="3" toLane="0" via=":nd_19_0" tl="gneJ28" linkIndex="19" dir="l" state="o"/>
-    <connection from="nd_west_in" to="nd_north_out" fromLane="4" toLane="1" via=":nd_20_0" tl="gneJ28" linkIndex="20" dir="l" state="o"/>
+    <connection from="nd_west_in" to="nd_south_out" fromLane="0" toLane="0" via=":nd_16_0" tl="nd" linkIndex="16" dir="r" state="o"/>
+    <connection from="nd_west_in" to="nd_east_out" fromLane="1" toLane="0" via=":nd_17_0" tl="nd" linkIndex="17" dir="s" state="o"/>
+    <connection from="nd_west_in" to="nd_east_out" fromLane="2" toLane="1" via=":nd_17_1" tl="nd" linkIndex="18" dir="s" state="o"/>
+    <connection from="nd_west_in" to="nd_north_out" fromLane="3" toLane="0" via=":nd_19_0" tl="nd" linkIndex="19" dir="l" state="o"/>
+    <connection from="nd_west_in" to="nd_north_out" fromLane="4" toLane="1" via=":nd_20_0" tl="nd" linkIndex="20" dir="l" state="o"/>
     <connection from="nd_west_out" to="He" fromLane="0" toLane="0" via=":gneJ37_0_0" dir="s" state="M"/>
     <connection from="nd_west_out" to="He" fromLane="0" toLane="1" via=":gneJ37_0_1" dir="s" state="M"/>
     <connection from="nd_west_out" to="He" fromLane="1" toLane="2" via=":gneJ37_0_2" dir="s" state="M"/>
-    <connection from="st_north_in" to="st_south_out" fromLane="0" toLane="0" via=":st_0_0" tl="gneJ24" linkIndex="0" dir="s" state="o"/>
-    <connection from="st_north_in" to="st_south_out" fromLane="1" toLane="1" via=":st_0_1" tl="gneJ24" linkIndex="1" dir="s" state="o"/>
-    <connection from="st_north_in" to="Ge" fromLane="2" toLane="0" via=":st_2_0" tl="gneJ24" linkIndex="2" dir="l" state="o"/>
+    <connection from="st_north_in" to="st_south_out" fromLane="0" toLane="0" via=":st_0_0" tl="st" linkIndex="0" dir="s" state="o"/>
+    <connection from="st_north_in" to="st_south_out" fromLane="1" toLane="1" via=":st_0_1" tl="st" linkIndex="1" dir="s" state="o"/>
+    <connection from="st_north_in" to="Ge" fromLane="2" toLane="0" via=":st_2_0" tl="st" linkIndex="2" dir="l" state="o"/>
     <connection from="st_north_out" to="-gneE12" fromLane="0" toLane="0" via=":gneJ18_3_0" dir="s" state="M"/>
     <connection from="st_north_out" to="-gneE12" fromLane="1" toLane="1" via=":gneJ18_3_1" dir="s" state="M"/>
-    <connection from="st_south_in" to="Ge" fromLane="0" toLane="0" via=":st_5_0" tl="gneJ24" linkIndex="5" dir="r" state="o"/>
-    <connection from="st_south_in" to="st_north_out" fromLane="1" toLane="0" via=":st_6_0" tl="gneJ24" linkIndex="6" dir="s" state="o"/>
-    <connection from="st_south_in" to="st_north_out" fromLane="2" toLane="1" via=":st_6_1" tl="gneJ24" linkIndex="7" dir="s" state="o"/>
+    <connection from="st_south_in" to="Ge" fromLane="0" toLane="0" via=":st_5_0" tl="st" linkIndex="5" dir="r" state="o"/>
+    <connection from="st_south_in" to="st_north_out" fromLane="1" toLane="0" via=":st_6_0" tl="st" linkIndex="6" dir="s" state="o"/>
+    <connection from="st_south_in" to="st_north_out" fromLane="2" toLane="1" via=":st_6_1" tl="st" linkIndex="7" dir="s" state="o"/>
     <connection from="st_south_out" to="nd_north_in" fromLane="0" toLane="0" via=":gneJ27_0_0" dir="s" state="M"/>
     <connection from="st_south_out" to="nd_north_in" fromLane="1" toLane="1" via=":gneJ27_0_1" dir="s" state="M"/>
     <connection from="st_south_out" to="nd_north_in" fromLane="1" toLane="2" via=":gneJ27_0_2" dir="s" state="M"/>

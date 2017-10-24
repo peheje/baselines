@@ -12,7 +12,7 @@ from baselines import deepq
 from baselines import logger
 from baselines.common.schedules import LinearSchedule, PiecewiseSchedule
 from baselines.deepq.replay_buffer import ReplayBuffer, PrioritizedReplayBuffer
-
+from operator import add
 
 def save_model(path, act_params):
     """Save model to a pickle located at `path`"""
@@ -226,7 +226,7 @@ def learn(env,
     for i in range(len(q_funcs)):
         update_target[i]()
 
-    episode_rewards = [0.0]
+    episode_rewards = []
     saved_mean_reward = -sys.float_info.max
     fewest_timesteps_in_episode = sys.maxsize
     timesteps_this_episode = sys.maxsize
@@ -260,7 +260,7 @@ def learn(env,
             actions=[None]*len(q_funcs)
             for i in range(len(q_funcs)):
                 actions[i] = act[i](np.array(obs)[None], update_eps=update_eps, **kwargs)[0]
-            reset = False
+
             total_action=""
             for a in actions:
                 total_action+=format(a,"0"+str(int(num_bits))+"b")
@@ -270,13 +270,15 @@ def learn(env,
             # Store transition in the replay buffer.
             replay_buffer.add(obs, actions, rew, new_obs, float(done))
             obs = new_obs
-
-            episode_rewards[-1] += rew
+            if reset:
+                episode_rewards.append(rew)
+            else:
+                episode_rewards[-1] = list(map(add,episode_rewards[-1],rew))
+            reset = False
             if done:
                 timesteps_this_episode = env.timestep_this_episode
                 obs = env.reset()
                 episode += 1
-                episode_rewards.append(0.0)
                 reset = True
 
                 # Log stuff each episode
@@ -290,13 +292,17 @@ def learn(env,
                 if prioritized_replay:
                     experience = replay_buffer.sample(batch_size, beta=beta_schedule.value(t))
                     (obses_t, actions, rewards, obses_tp1, dones, weights, batch_idxes) = experience
+                    raise NotImplementedError('Prioritized replay with multiple q networks not implemented!! - nho')
                 else:
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
 
                 for i in range(len(train)):
-                    single_action=[action[i] for action in actions]
-                    td_errors = train[i](obses_t, single_action, rewards, obses_tp1, dones, weights)
+                    single_actions=[action[i] for action in actions]
+                    single_rewards=[reward[i] for reward in rewards]
+                    weights=np.ones_like(single_rewards)
+                    
+                    td_errors = train[i](obses_t, single_actions, single_rewards, obses_tp1, dones, weights)
 
                 if prioritized_replay:
                     new_priorities = np.abs(td_errors) + prioritized_replay_eps
