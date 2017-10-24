@@ -98,7 +98,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
     copyfile(__file__, logger_path + "/script.txt")
 
     # Create the training model
-    model = [deepq.models.mlp(hidden_layers),deepq.models.mlp(hidden_layers)]
+    model = [deepq.models.mlp(hidden_layers),deepq.models.mlp(hidden_layers),deepq.models.mlp(hidden_layers),deepq.models.mlp(hidden_layers)]
     act = deepq.learn(
         env=env,
         q_funcs=model,
