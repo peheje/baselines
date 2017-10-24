@@ -40,7 +40,10 @@ class ActWrapper(object):
     def load(path, num_cpu=16):
         with open(path, "rb") as f:
             model_data, act_params = dill.load(f)
-        act = deepq.build_act(**act_params)
+        act=[None for _ in range(len(act_params['q_func']))]
+        for i in range(len(act_params['q_func'])):
+            with tf.variable_scope("Num" + str(i)):
+                act[i] = deepq.build_act(act_params['make_obs_ph'],act_params['q_func'][i],2) #make_obs_ph, q_func, num_actions,
         sess = U.make_session(num_cpu=num_cpu)
         sess.__enter__()
         with tempfile.TemporaryDirectory() as td:
@@ -55,6 +58,8 @@ class ActWrapper(object):
 
     def __call__(self, *args, **kwargs):
         return self._act(*args, **kwargs)
+    def get_act(self):
+        return self._act
 
     def save(self, path):
         save_model(path, self._act_params)

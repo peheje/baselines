@@ -34,13 +34,24 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     logger.logtxt(path_to_model,"model_path")
 
     # Run episodes acting greedily
-    #env.render()
+    env.render()
+
+    num_bits=1
+    multi_act=act.get_act()
+    actions=[0 for _ in range(len(multi_act))]
+
     obs, done = env.reset(), False
     for i in range(5):
         episode_rew = 0
         while not done:
-            obs, rew, done, _ = env.step(act(obs[None], update_eps=0)[0])
-            episode_rew += rew
+            for i in range(len(multi_act)):
+                actions[i]=multi_act[i](obs[None])[0]
+            total_action = ""
+            for a in actions:
+                total_action += format(a, "0" + str(int(num_bits)) + "b")
+            action_to_do = int(total_action, 2)
+            obs, rew, done, _ = env.step(action_to_do)
+            episode_rew += sum(rew)
         print("Episode reward", episode_rew)
         obs, done = env.reset(), False # Done afterwards to ensure logging
     env.log_travel_time_table()
@@ -51,29 +62,12 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_20-40-50/model-2017-10-21_22-24-14.pkl",
-            "info": "LOW_EXTEND",
-            "props": [0.25, 0.05],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
-        },
-        {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-21_22-25-36/model-2017-10-22_00-03-55.pkl",
+            "path": "/home/nikolaj/Desktop/Traci_3_cross_env-v0deep_q/2017-10-24_13-59-02/model-2017-10-24_14-53-56.pkl",
             "info": "LOW_DIR",
             "props": [0.25, 0.05],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
         },
-        {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_00-05-19/model-2017-10-22_03-30-04.pkl",
-            "info": "HIGH_EXTEND",
-            "props": [1.0, 0.10],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
-        },
-        {
-            "path": "/home/phj-nh/Desktop/Traci_3_cross_env-v0deep_q/2017-10-22_03-39-08/model-2017-10-22_07-24-23.pkl",
-            "info": "HIGH_DIR",
-            "props": [1.0, 0.10],
-            "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
-        }
+
     ]
 
     for setup in path_props:
@@ -86,10 +80,10 @@ if __name__ == '__main__':
 
         environment_name = 'Traci_3_cross_env-v0'
         env = gym.make(environment_name)
-        env.configure_traci(num_car_chances=1000,
+        env.configure_traci(num_car_chances=100,
                             start_car_probabilities=props,
                             enjoy_car_probs=False,
-                            reward_func=BaseTraciEnv.reward_total_waiting_vehicles,
+                            reward_func=BaseTraciEnv.reward_total_waiting_vehicles_split,
                             action_func=action_func,
                             state_contain_num_cars_in_queue_history=True,
                             state_contain_time_since_tl_change=True,
