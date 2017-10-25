@@ -150,14 +150,10 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 def main():
     mlps = [
-        [16],
-        [64],
-        [1024],
         [512, 512],
         [256, 256, 256]
     ]
-    probabilities = [[0.25, 0.05],
-                     [1.0, 0.10]]
+    probabilities = [[1.0, 0.10]]
 
     with tf.device("/gpu:1"):
         for pr in probabilities:
