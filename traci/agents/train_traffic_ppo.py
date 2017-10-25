@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import inspect
 
+from agents import test_traffic_ppo
 from baselines.common import set_global_seeds, tf_util as U
 from baselines import bench
 import os.path as osp
@@ -88,16 +89,37 @@ def train_and_log(env_id,
         osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
-    pposgd_simple.learn(env, policy_fn,
+    act=pposgd_simple.learn(env, policy_fn,
                         max_timesteps=max_timesteps,
                         timesteps_per_batch=timesteps_per_batch,
                         clip_param=clip_param, entcoeff=entcoeff,
                         optim_epochs=optim_epochs, optim_stepsize=optim_stepsize, optim_batchsize=optim_batchsize,
                         gamma=gamma, lam=lam, schedule=schedule, checkpoint_freq=checkpoint_freq,logger_path=logger_path
                         )
-    U.save_state(logger_path+"/ckpt/saved_model")
+    save_path=logger_path+"/ckpt/saved_model"
+    U.save_state(save_path)
 
     env.close()
+
+
+    # Run test
+    test_environment = gym.make(env_id)
+    test_environment.configure_traci(num_car_chances=num_car_chances,
+                                     start_car_probabilities=start_car_probabilities,
+                                     enjoy_car_probs=False,
+                                     reward_func=reward_function,
+                                     action_func=action_function,
+                                     state_contain_num_cars_in_queue_history=state_use_queue_length,
+                                     state_contain_time_since_tl_change=state_use_time_since_tl_change,
+                                     state_contain_tl_state_history=state_use_tl_state,
+                                     state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
+                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                                     num_history_states=num_history_states)
+    test_traffic_ppo.test(environment_name=env_id,
+                           path_to_model=save_path,
+                           configured_environment=test_environment,
+                           act=act,
+                           log_dir=logger_path)
 
 def main():
     import argparse
@@ -105,7 +127,7 @@ def main():
     parser.add_argument('--env', help='environment ID', default='Traci_3_cross_env-v0')
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     args = parser.parse_args()
-    train_and_log(args.env, max_timesteps=1e6, seed=args.seed,checkpoint_freq=100,num_car_chances=100)
+    train_and_log(args.env, max_timesteps=1e3, seed=args.seed,checkpoint_freq=10000,num_car_chances=1000)
 
 
 if __name__ == '__main__':

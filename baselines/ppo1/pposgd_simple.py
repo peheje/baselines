@@ -242,7 +242,7 @@ def learn(env, policy_func, *,
 
         if MPI.COMM_WORLD.Get_rank()==0:
             logger.dump_tabular()
-    
+    return pi
 
 def flatten_lists(listoflists):
     return [el for list_ in listoflists for el in list_]
