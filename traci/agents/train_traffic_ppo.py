@@ -127,7 +127,31 @@ def main():
     parser.add_argument('--env', help='environment ID', default='Traci_3_cross_env-v0')
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     args = parser.parse_args()
-    train_and_log(args.env, max_timesteps=1e3, seed=args.seed,checkpoint_freq=10000,num_car_chances=1000)
+
+    reward_functions = [BaseTraciEnv.reward_average_speed,
+                        BaseTraciEnv.reward_average_accumulated_wait_time,
+                        BaseTraciEnv.reward_rms_accumulated_wait_time,
+                        BaseTraciEnv.reward_total_waiting_vehicles,
+                        BaseTraciEnv.reward_total_in_queue_3cross,
+                        BaseTraciEnv.reward_arrived_vehicles,
+                        BaseTraciEnv.reward_halting_in_queue_3cross]
+
+    probabilities = [[0.25, 0.05], [1.0, 0.10]]
+
+    with tf.device("/gpu:1"):
+        for rf in reward_functions:
+            for pr in probabilities:
+                print("Now reward function is:", rf, "and props:", pr)
+                g = tf.Graph()
+                config = tf.ConfigProto()
+                config.gpu_options.allow_growth = True
+                sess = tf.InteractiveSession(graph=g, config=config)
+                with g.as_default():
+                    train_and_log(reward_function=rf,
+                                  start_car_probabilities=pr)
+
+
+
 
 
 if __name__ == '__main__':
