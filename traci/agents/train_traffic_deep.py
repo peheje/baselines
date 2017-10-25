@@ -23,6 +23,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
 from BaseTraciEnv import BaseTraciEnv
 from pathlib import Path
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
