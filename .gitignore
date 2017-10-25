@@ -4,6 +4,8 @@
 .DS_Store
 .idea
 
+__MACOSX
+
 # Setuptools distribution and build folders.
 /dist/
 /build
