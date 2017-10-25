@@ -110,13 +110,15 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.jtrroute_seed += 1
 
         # Run webster on route file (tls only used if not controlled)
-        status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
-                                         " -n scenarios/3_cross/randersvej.net.xml" +
-                                         " -r {}".format(self.route_file_name) +
-                                         " -o scenarios/3_cross/webster.tls.xml" +
-                                         " --program c" +
-                                         " --timestep {}".format(self.num_car_chances),
-                                         shell=True)
+        with tempfile.NamedTemporaryFile(mode="w", delete=False) as webster_tmp:
+            self.temp_webster = webster_tmp.name
+            status = subprocess.check_output("python3 utilities/tlsCycleAdaptation_timestep_fix.py" +
+                                             " -n scenarios/3_cross/randersvej.net.xml" +
+                                             " -r {}".format(self.route_file_name) +
+                                             " -o {}".format(self.temp_webster) +
+                                             " --program c" +
+                                             " --timestep {}".format(self.num_car_chances),
+                                             shell=True)
         print(status)
 
     def __traci_start__(self):
@@ -127,6 +129,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--start",
              "--quit-on-end",
              "--time-to-teleport", "300",
+             "--additional-files", "scenarios/3_cross/randersvej.det.xml,"+self.temp_webster,
              "--route-files", self.route_file_name])
 
     def __init__(self):
