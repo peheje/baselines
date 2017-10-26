@@ -54,52 +54,52 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_15-44-50_[16]_low/model-2017-10-23_17-40-58.pkl",
             "info": "[16]_LOW",
             "props": [0.25, 0.05]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_01-29-43_[16]_high/model-2017-10-24_05-07-15.pkl",
             "info": "[16]_HIGH",
             "props": [1.0, 0.10]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_17-41-41_[64]_low/model-2017-10-23_19-29-50.pkl",
             "info": "[64]_LOW",
             "props": [0.25, 0.05]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_05-11-10_[64]_high/model-2017-10-24_08-33-51.pkl",
             "info": "[64]_HIGH",
             "props": [1.0, 0.10]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_19-30-38_[1024]_low/model-2017-10-23_21-22-29.pkl",
             "info": "[1024]_LOW",
             "props": [0.25, 0.05]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_10-13-56_[1024]_high/model-2017-10-24_14-43-40.pkl",
             "info": "[1024]_HIGH",
             "props": [1.0, 0.10]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_21-23-12_[512,512]_low/model-2017-10-23_23-13-41.pkl",
             "info": "[512, 512]_LOW",
             "props": [0.25, 0.05]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-25_11-27-22_[512,512]_high/model-2017-10-25_15-43-35.pkl",
             "info": "[512, 512]_HIGH",
             "props": [1.0, 0.10]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_23-14-37_[256,256,256]_low/model-2017-10-24_01-28-21.pkl",
             "info": "[256, 256, 256]_LOW",
             "props": [0.25, 0.05]
         },
         {
-            "path": "",
+            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-25_16-10-25_[256,256,256]_high/model-2017-10-25_20-32-03.pkl",
             "info": "[256, 256, 256]_HIGH",
             "props": [1.0, 0.10]
         }
