@@ -23,6 +23,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
 from BaseTraciEnv import BaseTraciEnv
 from pathlib import Path
+
 os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 
@@ -45,7 +46,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=False,
+                  prioritized_replay=True,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -87,7 +88,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
                         num_history_states=num_history_states)
-    #env.render()
+    # env.render()
 
     # Initialize logger
     logger.reset()
@@ -150,23 +151,27 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    mlps = [
-        [512, 512],
-        [256, 256, 256]
+    probabilities = [
+        [0.25, 0.05],
+        [1.0, 0.10]
     ]
-    probabilities = [[1.0, 0.10]]
 
-    with tf.device("/gpu:1"):
-        for pr in probabilities:
-            for m in mlps:
-                print("Now props:", pr, "and hiddens:", m)
-                g = tf.Graph()
-                config = tf.ConfigProto()
-                config.gpu_options.allow_growth = True
-                sess = tf.InteractiveSession(graph=g, config=config)
-                with g.as_default():
-                    train_and_log(start_car_probabilities=pr,
-                                  hidden_layers=m)
+    # Divide learning rate by four as described in paper (Tom Schaul 2016)
+    learning_rate = 1e-3 / 4.0
+
+    # Change by hand
+    prioritized_replay_alpha = 0.2
+
+    for pr in probabilities:
+        print("Now props:", pr, "and prioritized_replay_alpha", prioritized_replay_alpha)
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            train_and_log(start_car_probabilities=pr,
+                          prioritized_replay_alpha=prioritized_replay_alpha,
+                          lr=learning_rate)
 
 
 if __name__ == '__main__':
