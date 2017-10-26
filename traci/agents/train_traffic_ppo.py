@@ -44,7 +44,8 @@ def train_and_log(env_id,
                   optim_batchsize=64,
                   gamma=0.99,
                   lam=0.95,
-                  schedule='linear'
+                  schedule='linear',
+                  process_id=0
                   ):
     from baselines.ppo1 import mlp_policy, pposgd_simple
     # Obtain call params
@@ -76,7 +77,7 @@ def train_and_log(env_id,
 
     log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
-
+    logger_path=logger_path+"_pid_"+str(process_id)
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(call_params_string_array)
@@ -121,6 +122,15 @@ def train_and_log(env_id,
                            act=act,
                            log_dir=logger_path)
 
+def setup_thread_and_run(**kwargs):
+    g = tf.Graph()
+    config = tf.ConfigProto()
+    config.gpu_options.allow_growth = True
+    sess = tf.InteractiveSession(graph=g, config=config)
+    with g.as_default():
+        train_and_log(**kwargs)
+
+
 def main():
     import argparse
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -148,7 +158,9 @@ def main():
                 sess = tf.InteractiveSession(graph=g, config=config)
                 with g.as_default():
                     train_and_log(reward_function=rf,
-                                  start_car_probabilities=pr)
+                                  start_car_probabilities=pr,
+                                  env_id=args.env,
+                                  seed=args.seed)
 
 
 
