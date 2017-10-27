@@ -33,7 +33,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
                   max_timesteps=int(1e6),
-                  buffer_size=50000,
+                  buffer_size=200000,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
                   train_freq=10,
@@ -59,7 +59,8 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_avg_speed=False,
                   hidden_layers=[64],
                   num_actions_pr_trafficlight=2,
-                  num_history_states=2):
+                  num_history_states=2,
+                  experiment_name=""):
     print("RUNNING train_and_log")
 
     # Print call values
@@ -71,7 +72,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
         call_params_string_array.append("    %s = %s" % (i, values[i]))
 
     # Setup path of logging, name of environment and save the current arguments (this script)
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment_name + "deep_q"]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment_name + "deep_q_" + experiment_name]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
 
     # Create environment and initialize
@@ -171,7 +172,8 @@ def main():
         with g.as_default():
             train_and_log(start_car_probabilities=pr,
                           prioritized_replay_alpha=prioritized_replay_alpha,
-                          lr=learning_rate)
+                          lr=learning_rate,
+                          experiment_name="big_buf")
 
 
 if __name__ == '__main__':
