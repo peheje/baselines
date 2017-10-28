@@ -26,7 +26,7 @@ from pathlib import Path
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=100,
+                  num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
@@ -150,14 +150,9 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 def main():
     mlps = [
-        [16],
-        [64],
-        [1024],
-        [512, 512],
-        [256, 256, 256]
+        [64]
     ]
-    probabilities = [[0.25, 0.05],
-                     [1.0, 0.10]]
+    probabilities = [[1.0, 0.10]]
 
     with tf.device("/gpu:1"):
         for pr in probabilities:
