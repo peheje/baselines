@@ -31,7 +31,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=1e-3,
+                  lr=(1e-3 / 4.0),     # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
                   max_timesteps=int(1e6),
                   buffer_size=200000,
                   exploration_fraction=0.5,
@@ -158,14 +158,8 @@ def main():
         [1.0, 0.10]
     ]
 
-    # Divide learning rate by four as described in paper (Tom Schaul 2016) when using prioritised exp. repl.
-    # learning_rate = 1e-3 / 4.0
-
     # Set this by hand!
     experiment_name = "paramnoise"
-
-    # Set this by hand
-
 
     for pr in probabilities:
         print("Now props:", pr)
