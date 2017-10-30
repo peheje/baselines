@@ -84,6 +84,7 @@ def learn(env,
           lr=5e-4,
           max_timesteps=100000,
           buffer_size=50000,
+          exploration_initial_p=0.2,
           exploration_fraction=0.1,
           exploration_final_eps=0.02,
           train_freq=1,
@@ -206,7 +207,7 @@ def learn(env,
 
     # Create the schedule for exploration starting from 1.
     exploration = LinearSchedule(schedule_timesteps=int(exploration_fraction * max_timesteps),
-                                 initial_p=0.2,
+                                 initial_p=exploration_initial_p,
                                  final_p=exploration_final_eps)
     #exploration = PiecewiseSchedule([
     #    (0, 1.0),

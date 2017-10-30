@@ -31,9 +31,10 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=(1e-3 / 4.0),     # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
+                  lr=(1e-3 / 4.0),  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
                   max_timesteps=int(1e6),
                   buffer_size=200000,
+                  exploration_initial_p=0.2,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
                   train_freq=10,
@@ -109,6 +110,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
         lr=lr,
         max_timesteps=max_timesteps,
         buffer_size=buffer_size,
+        exploration_initial_p=exploration_initial_p,
         exploration_fraction=exploration_fraction,
         exploration_final_eps=explore_final_eps,
         train_freq=train_freq,
@@ -161,6 +163,9 @@ def main():
     # Set this by hand!
     experiment_name = "paramnoise"
 
+    exp_start = 0.8
+    exp_end = 0.01
+
     for pr in probabilities:
         print("Now props:", pr)
         g = tf.Graph()
@@ -171,7 +176,9 @@ def main():
             train_and_log(start_car_probabilities=pr,
                           experiment_name=experiment_name,
                           layer_norm=True,
-                          param_noise=True)
+                          param_noise=True,
+                          exploration_initial_p=exp_start,
+                          explore_final_eps=exp_end)
 
 
 if __name__ == '__main__':
