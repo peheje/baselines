@@ -130,6 +130,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--quit-on-end",
              "--time-to-teleport", "300",
              "--additional-files", "scenarios/3_cross/randersvej.det.xml,"+self.temp_webster,
+             "--xml-validation", "never",
              "--route-files", self.route_file_name])
 
     def __init__(self):

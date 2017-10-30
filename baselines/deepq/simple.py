@@ -310,7 +310,7 @@ def learn(env,
                     save_reason += "_timesteps"
                     fewest_timesteps_in_episode = timesteps_this_episode
 
-                save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + save_reason + ".pkl"
+                save_path = model_path + "/model" + save_reason + ".pkl"
                 logger.log("Saving model to {}".format(save_path))
                 save_model(save_path, act_params)
                 model_saved = True
