@@ -33,7 +33,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
                   lr=1e-3,
                   max_timesteps=int(1e6),
-                  buffer_size=200000,
+                  buffer_size=50000,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
                   train_freq=10,
@@ -46,7 +46,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=True,
+                  prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -157,23 +157,21 @@ def main():
         [1.0, 0.10]
     ]
 
-    # Divide learning rate by four as described in paper (Tom Schaul 2016)
-    learning_rate = 1e-3 / 4.0
+    # Divide learning rate by four as described in paper (Tom Schaul 2016) when using prioritised exp. repl.
+    # learning_rate = 1e-3 / 4.0
 
-    # Change by hand
-    prioritized_replay_alpha = 0.2
+    # Set this by hand!
+    experiment_name = ""
 
     for pr in probabilities:
-        print("Now props:", pr, "and prioritized_replay_alpha", prioritized_replay_alpha)
+        print("Now props:", pr)
         g = tf.Graph()
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
         sess = tf.InteractiveSession(graph=g, config=config)
         with g.as_default():
             train_and_log(start_car_probabilities=pr,
-                          prioritized_replay_alpha=prioritized_replay_alpha,
-                          lr=learning_rate,
-                          experiment_name="big_buf")
+                          experiment_name=experiment_name)
 
 
 if __name__ == '__main__':
