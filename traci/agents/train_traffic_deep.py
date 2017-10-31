@@ -161,9 +161,9 @@ def main():
     ]
 
     # Set this by hand!
-    experiment_name = "paramnoise"
+    experiment_name = "paramnoise_reset"
 
-    exp_start = 0.8
+    exp_start = 0.2
     exp_end = 0.01
 
     for pr in probabilities:
