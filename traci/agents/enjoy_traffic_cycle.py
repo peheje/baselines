@@ -20,8 +20,8 @@ def main():
     env = gym.make(env_name)
     env.configure_traci(perform_actions=False,
                         num_car_chances=1000,
-                        start_car_probabilities=[1.0, 0.1],
-                        enjoy_car_probs=False,
+                        start_car_probabilities=[0.25, 0.05],
+                        enjoy_car_probs=True,
                         reward_func=env.reward_total_waiting_vehicles,
                         action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                         state_contain_num_cars_in_queue_history=True,
@@ -30,7 +30,7 @@ def main():
                         state_contain_avg_speed_between_detectors_history=False,
                         num_actions_pr_trafficlight=2)
 
-    #env.render()
+    env.render()
     _, done = env.reset(), False
     for episode in range(10):
         while not done:
@@ -41,5 +41,5 @@ def main():
 
 
 if __name__ == '__main__':
-    #with Profiler():
+    # with Profiler():
     main()

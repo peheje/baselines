@@ -1,23 +1,17 @@
-import json
 import logging
-import os
-import sys
-from collections import deque, OrderedDict
-from pathlib import Path
-from shutil import copyfile
-from threading import Thread
+import math
+import subprocess
 import tempfile
-import gym
+from collections import deque
+from threading import Thread
+
 import numpy as np
-from BaseTraciEnv import BaseTraciEnv
-from utilities.UniqueCounter import UniqueCounter
 from gym import spaces
 from gym.utils import seeding
-import subprocess
 
 import traci
+from BaseTraciEnv import BaseTraciEnv
 from sumolib import checkBinary
-from utilities.profiler import Profiler
 
 logger = logging.getLogger(__name__)
 
@@ -28,6 +22,17 @@ def random():
 
 def random_int(low, high):
     return np.random.randint(low, high)
+
+
+def cosinus(n):
+    enjoying_props = []
+    x = 0
+    end = 2 * math.pi
+    while x < end:
+        c = (math.cos(x) + 1) / 2
+        enjoying_props.append(max([c, 0.0001]))
+        x += end / n
+    return enjoying_props
 
 
 class Traci_3_cross_env(BaseTraciEnv):
@@ -47,16 +52,17 @@ class Traci_3_cross_env(BaseTraciEnv):
             print("<routes>", file=flows)
 
             if self.enjoy_car_probs:
-                hard_coded_bigroad_probs = [0.25,
-                                            0.50,
-                                            1.0,
-                                            0.75,
-                                            0.25,
-                                            0.50,
-                                            1.0,
-                                            0.50,
-                                            0.25,
-                                            0.25]
+                hard_coded_bigroad_probs = [1.000,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            0.001,
+                                            1.000]
+                # hard_coded_bigroad_probs = cosinus(100)
                 increment_every_interval = self.num_car_chances // len(hard_coded_bigroad_probs)
 
                 flow_id = 0
@@ -97,6 +103,10 @@ class Traci_3_cross_env(BaseTraciEnv):
         print("TMP ROUTE FILE PATH", self.route_file_name)
 
         # Creates routes from incoming cars from turn probabilities on the intersections
+        random_depart = ""
+        if self.enjoy_car_probs:
+            # When enjoying, allow random departlane to allow many cars to spawn
+            random_depart = " --departlane random"
         status = subprocess.check_output("jtrrouter" +
                                          " -n scenarios/3_cross/randersvej.net.xml" +
                                          " -f {}".format(self.flow_file_name) +
@@ -104,6 +114,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                                          " --turn-ratio-files scenarios/3_cross/turn_probs" +
                                          " --turn-defaults 20,70,10" +
                                          " --seed " + str(self.jtrroute_seed) +
+                                         random_depart +
                                          " --accept-all-destinations", shell=True)
 
         print(status)
@@ -129,7 +140,7 @@ class Traci_3_cross_env(BaseTraciEnv):
              "--start",
              "--quit-on-end",
              "--time-to-teleport", "300",
-             "--additional-files", "scenarios/3_cross/randersvej.det.xml,"+self.temp_webster,
+             "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
              "--xml-validation", "never",
              "--route-files", self.route_file_name])
 
@@ -208,7 +219,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
         self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
         self.total_num_state_scalars = (
-                                       self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+                                           self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
@@ -263,7 +274,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
             phases = self.get_traffic_states()
             for i, tlsid in enumerate(self.trafficlights_ids):
-                self.action_func(self,tlsid, action[i], phases[i])
+                self.action_func(self, tlsid, action[i], phases[i])
 
         # Run simulation step
         traci.simulationStep()
