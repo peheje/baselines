@@ -434,7 +434,7 @@ class BaseTraciEnv(gym.Env):
             # This cant be done here - logger.record_tabular("% time spent exploring[Timestep]", int(100 * exploration.value(t)))
             logger.dump_tabular()
 
-    def log_end_episode(self, reward, force=False):
+    def log_end_episode(self, reward):
 
         # Read tripinfo file
         retry = True
@@ -458,7 +458,7 @@ class BaseTraciEnv(gym.Env):
         self.mean_episode_rewards.append(self.episode_rewards[-1] / self.timestep_this_episode)
         mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards), 1)
         mean_100ep_reward = round(np.mean(self.episode_rewards), 1)
-        logger.record_tabular("Valid", 0 if force else 1)
+        logger.record_tabular("Valid", 0 if self.force else 1)
         logger.record_tabular("Steps[Episode]", self.timestep)
         logger.record_tabular("Episodes[Episode]", self.episode)
         logger.record_tabular("Mean 100 episode reward[Episode]", mean_100ep_reward)

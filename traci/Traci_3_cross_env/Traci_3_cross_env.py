@@ -295,7 +295,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         if self.force or traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             self.force = False
             traci.close(wait=True)  # Wait for tripinfo to be written
-            self.log_end_episode(0, force=self.force)
+            self.log_end_episode(0)
             BaseTraciEnv._reset(self)
             self.restart()
         return np.zeros(self.total_num_state_scalars)
