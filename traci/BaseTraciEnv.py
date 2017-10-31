@@ -45,6 +45,7 @@ class BaseTraciEnv(gym.Env):
         self.episode = 0
         self.traffic_light_changes = 0
         self.time_since_tl_change = OrderedDict()
+        self.force = False
 
         # make temp file for tripinfo
         self.tripinfo_file_name = tempfile.NamedTemporaryFile(mode="w", delete=False).name
