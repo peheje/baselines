@@ -28,10 +28,10 @@ os.environ["CUDA_VISIBLE_DEVICES"] = "1"
 
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
-                  num_car_chances=100,
+                  num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
-                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=(1e-3 / 4.0),  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
+                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles_split,
+                  lr=1e-3,  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
                   max_timesteps=int(1e6),
                   buffer_size=200000,
                   exploration_initial_p=0.2,
@@ -47,7 +47,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=True,
+                  prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -159,26 +159,25 @@ def main():
         [0.25, 0.05],
         [1.0, 0.10]
     ]
+    buffer_sizes=[
+        50000,
+        200000
+    ]
 
     # Set this by hand!
-    experiment_name = "paramnoise"
+    experiment_name = "multiple_q_networks"
 
-    exp_start = 0.8
-    exp_end = 0.01
-
-    for pr in probabilities:
-        print("Now props:", pr)
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            train_and_log(start_car_probabilities=pr,
-                          experiment_name=experiment_name,
-                          layer_norm=True,
-                          param_noise=True,
-                          exploration_initial_p=exp_start,
-                          explore_final_eps=exp_end)
+    for bs in buffer_sizes:
+        for pr in probabilities:
+            print("Now props:", pr)
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                train_and_log(start_car_probabilities=pr,
+                              experiment_name=experiment_name,
+                              buffer_size=bs)
 
 
 if __name__ == '__main__':
