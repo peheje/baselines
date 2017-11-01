@@ -207,7 +207,9 @@ def learn(env,
 
     # Create the replay buffer
     if prioritized_replay:
-        replay_buffer = PrioritizedReplayBuffer(buffer_size, alpha=prioritized_replay_alpha)
+        replay_buffer = [None] * len(q_funcs)
+        for i in range(len(q_funcs)):
+            replay_buffer[i] = PrioritizedReplayBuffer(buffer_size, alpha=prioritized_replay_alpha)
         if prioritized_replay_beta_iters is None:
             prioritized_replay_beta_iters = max_timesteps
         beta_schedule = LinearSchedule(prioritized_replay_beta_iters,
@@ -274,7 +276,11 @@ def learn(env,
             new_obs, rew, done, _ = env.step(action_to_do)
 
             # Store transition in the replay buffer.
-            replay_buffer.add(obs, actions, rew, new_obs, float(done))
+            if prioritized_replay:
+                for i in range(len(q_funcs)):
+                    replay_buffer[i].add(obs, actions[i], rew[i], new_obs, float(done))
+            else:
+                replay_buffer.add(obs, actions, rew, new_obs, float(done))
             obs = new_obs
             if reset:
                 episode_rewards.append(rew)
@@ -295,24 +301,32 @@ def learn(env,
 
             if t > learning_starts and t % train_freq == 0:
                 # Minimize the error in Bellman's equation on a batch sampled from replay buffer.
+                experience = [None] * len(q_funcs)
                 if prioritized_replay:
-                    experience = replay_buffer.sample(batch_size, beta=beta_schedule.value(t))
-                    (obses_t, actions, rewards, obses_tp1, dones, weights, batch_idxes) = experience
-                    raise NotImplementedError('Prioritized replay with multiple q networks not implemented!! - nho')
+                    for i in range(len(q_funcs)):
+                        experience[i] = replay_buffer[i].sample(batch_size, beta=beta_schedule.value(t))
+                    #raise NotImplementedError('Prioritized replay with multiple q networks not implemented!! - nho')
                 else:
                     obses_t, actions, rewards, obses_tp1, dones = replay_buffer.sample(batch_size)
                     weights, batch_idxes = np.ones_like(rewards), None
 
+                td_errors = [None] * len(q_funcs)
                 for i in range(len(train)):
-                    single_actions=[action[i] for action in actions]
-                    single_rewards=[reward[i] for reward in rewards]
-                    weights=np.ones_like(single_rewards)
-                    
-                    td_errors = train[i](obses_t, single_actions, single_rewards, obses_tp1, dones, weights)
+                    if prioritized_replay:
+                        for i in range(len(q_funcs)):
+                            (obses_t, actions, rewards, obses_tp1, dones, weights, batch_idxes) = experience[i]
+                            td_errors[i] = train[i](obses_t, actions, rewards, obses_tp1, dones, weights)
+                    else:
+                        single_actions=[action[i] for action in actions]
+                        single_rewards=[reward[i] for reward in rewards]
+                        weights=np.ones_like(single_rewards)
+
+                        td_errors = train[i](obses_t, single_actions, single_rewards, obses_tp1, dones, weights)
 
                 if prioritized_replay:
-                    new_priorities = np.abs(td_errors) + prioritized_replay_eps
-                    replay_buffer.update_priorities(batch_idxes, new_priorities)
+                    for i in range(len(q_funcs)):
+                        new_priorities = np.abs(td_errors[i]) + prioritized_replay_eps
+                        replay_buffer[i].update_priorities(batch_idxes, new_priorities)
 
             if t > learning_starts and t % target_network_update_freq == 0:
                 # Update target network periodically.
