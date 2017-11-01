@@ -24,14 +24,17 @@ from baselines import logger, logger_utils
 from BaseTraciEnv import BaseTraciEnv
 from pathlib import Path
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+
 
 def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=100,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=1e-3,
+                  lr=(1e-3 / 4.0),  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
                   max_timesteps=int(1e6),
-                  buffer_size=50000,
+                  buffer_size=200000,
+                  exploration_initial_p=0.2,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
                   train_freq=10,
@@ -44,7 +47,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=False,
+                  prioritized_replay=True,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -57,7 +60,9 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_avg_speed=False,
                   hidden_layers=[64],
                   num_actions_pr_trafficlight=2,
-                  num_history_states=2):
+                  num_history_states=2,
+                  experiment_name="",
+                  layer_norm=False):
     print("RUNNING train_and_log")
 
     # Print call values
@@ -69,7 +74,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
         call_params_string_array.append("    %s = %s" % (i, values[i]))
 
     # Setup path of logging, name of environment and save the current arguments (this script)
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment_name + "deep_q"]
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), environment_name + "deep_q_" + experiment_name]
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
 
     # Create environment and initialize
@@ -86,7 +91,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
                         num_history_states=num_history_states)
-    #env.render()
+    # env.render()
 
     # Initialize logger
     logger.reset()
@@ -105,6 +110,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
         lr=lr,
         max_timesteps=max_timesteps,
         buffer_size=buffer_size,
+        exploration_initial_p=exploration_initial_p,
         exploration_fraction=exploration_fraction,
         exploration_final_eps=explore_final_eps,
         train_freq=train_freq,
@@ -149,28 +155,30 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
 
 
 def main():
-    mlps = [
-        [16],
-        [64],
-        [1024],
-        [512, 512],
-        [256, 256, 256]
+    probabilities = [
+        [0.25, 0.05],
+        [1.0, 0.10]
     ]
-    probabilities = [[0.25, 0.05],
-                     [1.0, 0.10]]
 
-    with tf.device("/gpu:1"):
-        for pr in probabilities:
-            for m in mlps:
-                print("Now props:", pr, "and hiddens:", m)
-                g = tf.Graph()
-                config = tf.ConfigProto()
-                config.gpu_options.allow_growth = True
-                sess = tf.InteractiveSession(graph=g, config=config)
-                with g.as_default():
-                    train_and_log(start_car_probabilities=pr,
-                                  hidden_layers=m,
-                                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles_split)
+    # Set this by hand!
+    experiment_name = "paramnoise"
+
+    exp_start = 0.8
+    exp_end = 0.01
+
+    for pr in probabilities:
+        print("Now props:", pr)
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            train_and_log(start_car_probabilities=pr,
+                          experiment_name=experiment_name,
+                          layer_norm=True,
+                          param_noise=True,
+                          exploration_initial_p=exp_start,
+                          explore_final_eps=exp_end)
 
 
 if __name__ == '__main__':

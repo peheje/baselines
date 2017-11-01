@@ -89,6 +89,7 @@ def learn(env,
           lr=5e-4,
           max_timesteps=100000,
           buffer_size=50000,
+          exploration_initial_p=0.2,
           exploration_fraction=0.1,
           exploration_final_eps=0.02,
           train_freq=1,
@@ -218,7 +219,7 @@ def learn(env,
 
     # Create the schedule for exploration starting from 1.
     exploration = LinearSchedule(schedule_timesteps=int(exploration_fraction * max_timesteps),
-                                 initial_p=0.2,
+                                 initial_p=exploration_initial_p,
                                  final_p=exploration_final_eps)
     #exploration = PiecewiseSchedule([
     #    (0, 1.0),
@@ -339,7 +340,7 @@ def learn(env,
                     save_reason += "_timesteps"
                     fewest_timesteps_in_episode = timesteps_this_episode
 
-                save_path = model_path + "/model-" + datetime.now().strftime('%Y-%m-%d_%H-%M-%S') + save_reason + ".pkl"
+                save_path = model_path + "/model" + save_reason + ".pkl"
                 logger.log("Saving model to {}".format(save_path))
                 save_model(save_path, act_params)
                 model_saved = True

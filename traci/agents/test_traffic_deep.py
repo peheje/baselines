@@ -17,7 +17,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 import tensorflow as tf
 
 
-def test(environment_name, path_to_model, configured_environment, act=None, log_dir=""):
+def test(environment_name, path_to_model, configured_environment, act=None, log_dir="", no_explore=False):
     print("RUNNING TEST")
     env = configured_environment
     if act is None:
@@ -34,12 +34,12 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
     logger.logtxt(path_to_model,"model_path")
 
     # Run episodes acting greedily
-    env.render()
 
     num_bits=1
     multi_act=act.get_act()
     actions=[0 for _ in range(len(multi_act))]
 
+    # env.render()
     obs, done = env.reset(), False
     for i in range(5):
         episode_rew = 0
@@ -73,10 +73,9 @@ if __name__ == '__main__':
     for setup in path_props:
         path = setup["path"]
         props = setup["props"]
-        action_func = setup["action_func"]
         info = setup["info"]
         print("Running test for: ", info)
-        print(path, props, action_func)
+        print(props, path)
 
         environment_name = 'Traci_3_cross_env-v0'
         env = gym.make(environment_name)

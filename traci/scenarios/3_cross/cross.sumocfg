@@ -4,7 +4,6 @@
 
     <input>
         <net-file value="randersvej.net.xml"/>
-        <additional-files value="randersvej.det.xml webster.tls.xml"/>
         <gui-settings-file value="gui.settings.xml"/>
         <route-files value="randersvej.rou.xml"/>
     </input>

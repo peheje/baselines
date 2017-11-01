@@ -1,5 +1,7 @@
 import os
 import gym
+
+from BaseTraciEnv import BaseTraciEnv
 import Traci_2_cross_env.Traci_2_cross_env
 import Traci_3_cross_env.Traci_3_cross_env
 from baselines import logger, logger_utils
@@ -18,16 +20,17 @@ def main():
     env = gym.make(env_name)
     env.configure_traci(perform_actions=False,
                         num_car_chances=1000,
-                        start_car_probabilities=[1.0, 0.1],
-                        enjoy_car_probs=False,
+                        start_car_probabilities=[0.25, 0.05],
+                        enjoy_car_probs=True,
                         reward_func=env.reward_total_waiting_vehicles,
+                        action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                         state_contain_num_cars_in_queue_history=True,
                         state_contain_time_since_tl_change=True,
                         state_contain_tl_state_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
-                        num_actions_pr_trafficlight=3)
+                        num_actions_pr_trafficlight=2)
 
-    #env.render()
+    env.render()
     _, done = env.reset(), False
     for episode in range(10):
         while not done:
@@ -38,5 +41,5 @@ def main():
 
 
 if __name__ == '__main__':
-    #with Profiler():
+    # with Profiler():
     main()
