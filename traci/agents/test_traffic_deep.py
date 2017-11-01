@@ -62,9 +62,9 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "/home/nikolaj/Desktop/Traci_3_cross_env-v0deep_q/2017-10-24_13-59-02/model-2017-10-24_14-53-56.pkl",
+            "path": "/home/nikolaj/Desktop/Traci_3_cross_env-v0deep_q/2017-10-28_00-39-28/model-2017-10-28_06-18-06.pkl",
             "info": "LOW_DIR",
-            "props": [0.25, 0.05],
+            "props": [1.0, 0.10],
             "action_func": BaseTraciEnv.set_light_phase_4_cross_green_dir
         },
 
@@ -79,7 +79,7 @@ if __name__ == '__main__':
 
         environment_name = 'Traci_3_cross_env-v0'
         env = gym.make(environment_name)
-        env.configure_traci(num_car_chances=100,
+        env.configure_traci(num_car_chances=1000,
                             start_car_probabilities=props,
                             enjoy_car_probs=False,
                             reward_func=BaseTraciEnv.reward_total_waiting_vehicles_split,

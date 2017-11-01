@@ -218,8 +218,7 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
         self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
-        self.total_num_state_scalars = (
-                                           self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+        self.total_num_state_scalars = (self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
