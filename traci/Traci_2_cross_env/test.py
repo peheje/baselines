@@ -1,37 +1,24 @@
-import numpy as np
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
-from scipy.optimize import rosen, differential_evolution
+msg = MIMEMultipart()
+msg['From'] = 'sumotraci@gmail.com'
+msg['To'] = 'nikolajholden@gmail.com'
+msg['Subject'] = 'simple email in python'
+message = 'here is the email'
+msg.attach(MIMEText(message))
 
-bounds = [(0,2), (0, 2), (0, 2), (0, 2), (0, 2)]
-result = differential_evolution(rosen, bounds)
-result.x, result.fun
+mailserver = smtplib.SMTP('smtp.gmail.com',587)
+# identify ourselves to smtp gmail client
+mailserver.ehlo()
+# secure our email with tls encryption
+mailserver.starttls()
+# re-identify ourselves as an encrypted connection
+mailserver.ehlo()
+mailserver.login('sumotraci@gmail.com', 'tracisumo')
 
-print(result.x)
-print(result.fun)
+mailserver.sendmail('sumotraci@gmail.com','nikolajholden@gmail.com',msg.as_string())
 
-def relu(x, derivative=False):
-    return np.where(derivative,
-                    (x > 0) * 1.0 + (x <= 0) * 0.0,
-                    np.maximum(x, 0))
+mailserver.quit()
 
-f = relu
-
-y = np.random.uniform(-1, 1, (3, 3))
-print(y)
-print(f(y))
-print(f(y, True))
-
-X = np.array([10, 20]).T
-print(X)
-l1 = np.array([[1, 2], [3, 4], [5, 6]]).T
-print("---l1")
-print(l1)
-print("---l1 mutated")
-print(l1)
-print("---")
-ol1 = f(np.dot(X, l1))
-print(ol1)
-
-l2 = np.array([[1, 2, 3], [4, 5, 6]]).T
-ol2 = f(np.dot(ol1, l2))
-print(ol2)

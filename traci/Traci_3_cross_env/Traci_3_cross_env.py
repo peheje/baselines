@@ -12,6 +12,9 @@ from gym.utils import seeding
 import traci
 from BaseTraciEnv import BaseTraciEnv
 from sumolib import checkBinary
+import smtplib
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 logger = logging.getLogger(__name__)
 
@@ -33,6 +36,31 @@ def cosinus(n):
         enjoying_props.append(max([c, 0.0001]))
         x += end / n
     return enjoying_props
+
+
+def send_mail():
+
+    emails=["nikolajholden@gmail.com","peterhj@gmail.com"]
+    for i in range(len(emails)):
+        msg = MIMEMultipart()
+        msg['From'] = 'sumotraci@gmail.com'
+        msg['To'] = emails[i]
+        msg['Subject'] = "SUMO TRACI Simulation couldn't start"
+        message = 'Please restart :('
+        msg.attach(MIMEText(message))
+
+        mailserver = smtplib.SMTP('smtp.gmail.com', 587)
+        # identify ourselves to smtp gmail client
+        mailserver.ehlo()
+        # secure our email with tls encryption
+        mailserver.starttls()
+        # re-identify ourselves as an encrypted connection
+        mailserver.ehlo()
+        mailserver.login('sumotraci@gmail.com', 'tracisumo')
+
+        mailserver.sendmail('sumotraci@gmail.com', emails[i], msg.as_string())
+
+        mailserver.quit()
 
 
 class Traci_3_cross_env(BaseTraciEnv):
@@ -133,16 +161,26 @@ class Traci_3_cross_env(BaseTraciEnv):
         print(status)
 
     def __traci_start__(self):
-        traci.start(
-            [self.sumo_binary,
-             "-c", "scenarios/3_cross/cross.sumocfg",
-             "--tripinfo-output", self.tripinfo_file_name,
-             "--start",
-             "--quit-on-end",
-             "--time-to-teleport", "300",
-             "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
-             "--xml-validation", "never",
-             "--route-files", self.route_file_name])
+        hasStarted=False
+        for i in range(10):
+            try:
+                traci.start(
+                [self.sumo_binary,
+                 "-c", "scenarios/3_cross/cross.sumocfg",
+                 "--tripinfo-output", self.tripinfo_file_name,
+                 "--start",
+                 "--quit-on-end",
+                 "--time-to-teleport", "300",
+                 "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
+                 "--xml-validation", "never",
+                 "--route-files", self.route_file_name])
+                hasStarted=True
+                break
+            except:
+                pass
+        if not hasStarted:
+            send_mail()
+            exit(code=666)
 
     def __init__(self):
         # Start by calling parent init
