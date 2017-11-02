@@ -206,7 +206,10 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         subscription_state = []
         if self.state_use_num_cars_in_queue_history:
-            subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+            vehicle_nums = self.extract_list(raw_mee_state, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+            if self.normalize_queue_lengths:
+                vehicle_nums = np.divide(vehicle_nums, 200)
+            subscription_state += list(vehicle_nums)
         if self.state_use_avg_speed_between_detectors_history:
             subscription_state += self.extract_list(raw_mee_state, traci.constants.LAST_STEP_MEAN_SPEED)
         if self.state_use_tl_state_history:

@@ -79,7 +79,8 @@ class BaseTraciEnv(gym.Env):
                         state_contain_avg_speed_between_detectors_history=False,
                         state_contain_time_since_tl_change=False,
                         state_contain_tl_state_history=True,
-                        state_contain_num_cars_in_queue_history=True):
+                        state_contain_num_cars_in_queue_history=True,
+                        normalize_queue_lengths=False):
 
         """
 
@@ -120,6 +121,7 @@ class BaseTraciEnv(gym.Env):
         self.state_use_tl_state_history = state_contain_tl_state_history
         self.state_use_num_cars_in_queue_history = state_contain_num_cars_in_queue_history
         self.num_history_states = num_history_states
+        self.normalize_queue_lengths = normalize_queue_lengths
 
         self.restart()
 
