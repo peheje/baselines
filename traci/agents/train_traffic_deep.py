@@ -93,7 +93,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
                         num_history_states=num_history_states,
                         normalize_queue_lengths=normalize_queue_lengths)
-    env.render()
+    # env.render()
 
     # Initialize logger
     logger.reset()
