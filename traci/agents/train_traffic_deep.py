@@ -55,6 +55,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_cpu=8,
                   param_noise=False,
                   state_use_queue_length=True,
+                  normalize_queue_lengths=True,
                   state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
@@ -90,8 +91,9 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
-                        num_history_states=num_history_states)
-    # env.render()
+                        num_history_states=num_history_states,
+                        normalize_queue_lengths=normalize_queue_lengths)
+    env.render()
 
     # Initialize logger
     logger.reset()
@@ -161,10 +163,10 @@ def main():
     ]
 
     # Set this by hand!
-    experiment_name = "paramnoise"
+    experiment_name = "normalize"
 
-    exp_start = 0.8
-    exp_end = 0.01
+    exp_start = 0.2
+    exp_end = 0.02
 
     for pr in probabilities:
         print("Now props:", pr)
@@ -175,8 +177,6 @@ def main():
         with g.as_default():
             train_and_log(start_car_probabilities=pr,
                           experiment_name=experiment_name,
-                          layer_norm=True,
-                          param_noise=True,
                           exploration_initial_p=exp_start,
                           explore_final_eps=exp_end)
 
