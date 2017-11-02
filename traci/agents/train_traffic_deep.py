@@ -47,7 +47,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=True,
+                  prioritized_replay=False,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -164,20 +164,35 @@ def main():
         200000
     ]
 
+    priotized=[False,True]
+
     # Set this by hand!
     experiment_name = "multiple_q_networks"
 
-    for bs in buffer_sizes:
-        for pr in probabilities:
-            print("Now props:", pr)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(start_car_probabilities=pr,
-                              experiment_name=experiment_name,
-                              buffer_size=bs)
+    skip=True #first run ran succesfully, so skip it
+
+    for prio in priotized:
+        for bs in buffer_sizes:
+            for pr in probabilities:
+                if skip:
+                    skip=False
+                    continue
+                print("Now props:", pr)
+                g = tf.Graph()
+                config = tf.ConfigProto()
+                config.gpu_options.allow_growth = True
+                sess = tf.InteractiveSession(graph=g, config=config)
+                with g.as_default():
+                    if prio:
+                        train_and_log(start_car_probabilities=pr,
+                                      experiment_name=experiment_name+"_Prio",
+                                      buffer_size=bs,
+                                      prioritized_replay=True,
+                                      lr=1e-3/4) #lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
+                    else:
+                        train_and_log(start_car_probabilities=pr,
+                                  experiment_name=experiment_name,
+                                  buffer_size=bs)
 
 
 if __name__ == '__main__':
