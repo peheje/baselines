@@ -1,0 +1,10 @@
+
+Low prop bests:
+high buf prio: 2017-10-27_19-03-22
+low buf, no prio: 2017-10-18_20-40-00
+low buf prio: 2017-10-26_16-08-21
+
+High prop bests:
+low buf no prio: 2017-10-22_03-39-08
+low buf prio: 	2017-10-26_18-13
+high buf prio:	2017-10-27_21-18-13
