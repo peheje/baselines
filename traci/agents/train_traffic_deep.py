@@ -55,7 +55,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_cpu=8,
                   param_noise=False,
                   state_use_queue_length=True,
-                  normalize_queue_lengths=True,
+                  normalize_queue_lengths=False,
                   state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
@@ -163,21 +163,26 @@ def main():
         [1.0, 0.10]
     ]
 
-    # Set this by hand!
-    experiment_name = "multiple_norm_prio"
+    history_states=[
+        16,8,4,2,1
+    ]
 
-    for pr in probabilities:
-        print("Now props:", pr)
-        g = tf.Graph()
-        config = tf.ConfigProto()
-        config.gpu_options.allow_growth = True
-        sess = tf.InteractiveSession(graph=g, config=config)
-        with g.as_default():
-            train_and_log(start_car_probabilities=pr,
-                          experiment_name=experiment_name,
-                          buffer_size=200000,
-                          prioritized_replay=True,
-                          lr=1e-3/4) #lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
+    # Set this by hand!
+    experiment_name = "history_states"
+    for hs in history_states:
+        for pr in probabilities:
+            print("Now props:", pr)
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                train_and_log(start_car_probabilities=pr,
+                              experiment_name=experiment_name,
+                              buffer_size=200000,
+                              prioritized_replay=True,
+                              lr=1e-3/4,
+                              num_history_states=hs) #lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
 
 if __name__ == '__main__':
     main()
