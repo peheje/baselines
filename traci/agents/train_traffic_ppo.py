@@ -1,6 +1,9 @@
 #!/usr/bin/env python
 import inspect
 
+import threading
+import queue
+
 from agents import test_traffic_ppo
 from baselines.common import set_global_seeds, tf_util as U
 from baselines import bench
@@ -86,41 +89,74 @@ def train_and_log(env_id,
     def policy_fn(name, ob_space, ac_space):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
             hid_size=hid_size, num_hid_layers=num_hid_layers)
-    env = bench.Monitor(env, logger.get_dir() and 
-        osp.join(logger.get_dir(), "monitor.json"))
+    # env = bench.Monitor(env, logger.get_dir() and  osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
-    act=pposgd_simple.learn(env, policy_fn,
-                        max_timesteps=max_timesteps,
-                        timesteps_per_batch=timesteps_per_batch,
-                        clip_param=clip_param, entcoeff=entcoeff,
-                        optim_epochs=optim_epochs, optim_stepsize=optim_stepsize, optim_batchsize=optim_batchsize,
-                        gamma=gamma, lam=lam, schedule=schedule, checkpoint_freq=checkpoint_freq,logger_path=logger_path
-                        )
+
+    acts = []
+    threads = []
+    q = queue.Queue()
+
+    def pposgd_simple_wrapper(**kwargs):
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            pposgd_simple.learn(**kwargs)
+
+    for i in range(4):
+            t = threading.Thread(target=pposgd_simple_wrapper, kwargs={
+                "env": env,
+                "policy_func": policy_fn,
+                "max_timesteps": max_timesteps,
+                "timesteps_per_batch": timesteps_per_batch,
+                "clip_param": clip_param,
+                "entcoeff": entcoeff,
+                "optim_epochs": optim_epochs,
+                "optim_stepsize": optim_stepsize,
+                "optim_batchsize": optim_batchsize,
+                "gamma": gamma,
+                "lam": lam,
+                "schedule": schedule,
+                "checkpoint_freq": checkpoint_freq,
+                "logger_path": logger_path,
+                "queue": q,
+                "tls_id": i
+            })
+            threads.append(t)
+            t.daemon = True             # Stops if main stops
+            t.start()
+
+    for i in range(4):
+        acts.append(q.get())    # get is blocking
+    assert len(acts) == 4
+
+
     save_path=logger_path+"/ckpt/saved_model"
     U.save_state(save_path)
 
     env.close()
 
 
-    # Run test
-    test_environment = gym.make(env_id)
-    test_environment.configure_traci(num_car_chances=num_car_chances,
-                                     start_car_probabilities=start_car_probabilities,
-                                     enjoy_car_probs=False,
-                                     reward_func=reward_function,
-                                     action_func=action_function,
-                                     state_contain_num_cars_in_queue_history=state_use_queue_length,
-                                     state_contain_time_since_tl_change=state_use_time_since_tl_change,
-                                     state_contain_tl_state_history=state_use_tl_state,
-                                     state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
-                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
-                                     num_history_states=num_history_states)
-    test_traffic_ppo.test(environment_name=env_id,
-                           path_to_model=save_path,
-                           configured_environment=test_environment,
-                           act=act,
-                           log_dir=logger_path)
+    # # Run test
+    # test_environment = gym.make(env_id)
+    # test_environment.configure_traci(num_car_chances=num_car_chances,
+    #                                  start_car_probabilities=start_car_probabilities,
+    #                                  enjoy_car_probs=False,
+    #                                  reward_func=reward_function,
+    #                                  action_func=action_function,
+    #                                  state_contain_num_cars_in_queue_history=state_use_queue_length,
+    #                                  state_contain_time_since_tl_change=state_use_time_since_tl_change,
+    #                                  state_contain_tl_state_history=state_use_tl_state,
+    #                                  state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
+    #                                  num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+    #                                  num_history_states=num_history_states)
+    # test_traffic_ppo.test(environment_name=env_id,
+    #                        path_to_model=save_path,
+    #                        configured_environment=test_environment,
+    #                        act=acts,
+    #                        log_dir=logger_path)
 
 def setup_thread_and_run(**kwargs):
     g = tf.Graph()

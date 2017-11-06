@@ -3,7 +3,8 @@ import math
 import subprocess
 import tempfile
 from collections import deque
-from threading import Thread
+from threading import Thread, Lock
+import queue
 
 import numpy as np
 from gym import spaces
@@ -39,8 +40,7 @@ def cosinus(n):
 
 
 def send_mail():
-
-    emails=["nikolajholden@gmail.com","peterhj@gmail.com"]
+    emails = ["nikolajholden@gmail.com", "peterhj@gmail.com"]
     for i in range(len(emails)):
         msg = MIMEMultipart()
         msg['From'] = 'sumotraci@gmail.com'
@@ -161,20 +161,20 @@ class Traci_3_cross_env(BaseTraciEnv):
         print(status)
 
     def __traci_start__(self):
-        hasStarted=False
+        hasStarted = False
         for i in range(10):
             try:
                 traci.start(
-                [self.sumo_binary,
-                 "-c", "scenarios/3_cross/cross.sumocfg",
-                 "--tripinfo-output", self.tripinfo_file_name,
-                 "--start",
-                 "--quit-on-end",
-                 "--time-to-teleport", "300",
-                 "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
-                 "--xml-validation", "never",
-                 "--route-files", self.route_file_name])
-                hasStarted=True
+                    [self.sumo_binary,
+                     "-c", "scenarios/3_cross/cross.sumocfg",
+                     "--tripinfo-output", self.tripinfo_file_name,
+                     "--start",
+                     "--quit-on-end",
+                     "--time-to-teleport", "300",
+                     "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
+                     "--xml-validation", "never",
+                     "--route-files", self.route_file_name])
+                hasStarted = True
                 break
             except:
                 pass
@@ -200,6 +200,10 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.unique_counters = []
         self.route_file_name = None
         self.jtrroute_seed = 0
+
+        self.master_lock = Lock()
+        self.action_queue = queue.Queue()
+        self.state_queue = queue.Queue()
 
     def get_state_multientryexit(self):
         raw_mee_state = traci.multientryexit.getSubscriptionResults()
@@ -259,7 +263,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
         self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
-        self.total_num_state_scalars = (self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+        self.total_num_state_scalars = (
+                                       self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
@@ -273,7 +278,8 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # Get constant ids
         self.trafficlights_ids = sorted(traci.trafficlights.getIDList())
-        self.trafficlights_controlled_lanes=[traci.trafficlights.getControlledLanes(tl) for tl in self.trafficlights_ids]
+        self.trafficlights_controlled_lanes = [traci.trafficlights.getControlledLanes(tl) for tl in
+                                               self.trafficlights_ids]
 
         # Subscriptions
         # Subscribe to multi entry exit
@@ -308,12 +314,49 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.np_random, seed = seeding.np_random(seed)
         return [seed]
 
+    def slave_step(self, action, tls_id):
+        # First one here becomes master.
+        if self.master_lock.acquire(False):  # Non blocking acquire
+            # Is master
+
+            # Waits for actions for all other
+            action_tls = [{"tls_id": tls_id, "action": action}]
+            for i in range(3):
+                action_tls.append(self.action_queue.get())
+            actions = [x["action"] for x in sorted(action_tls, key=lambda k: k["tls_id"])]
+
+            # Take simulation step
+            state, reward, done, _ = self._step(actions)
+            state_dict = {
+                "state": state,
+                "reward": reward,
+                "done": done
+            }
+
+            # Send state to others
+            for i in range(3):
+                self.state_queue.put(state_dict)
+
+            self.master_lock.release()
+        else:
+            # Is slave
+
+            # Slave sends it action to master
+            self.action_queue.put({"tls_id": tls_id, "action": action})
+
+            # Slaves wait for state before returning.
+            state_dict = self.state_queue.get()
+
+            state = state_dict["state"]
+            reward = state_dict["reward"]
+            done = state_dict["done"]
+
+            return state, reward, done
+
     def _step(self, action):
         if self.perform_actions:
             # assert self.action_space.contains(action), "%r (%s) invalid" % (action, type(action))
             # convert action into many actions
-            action = self.action_converter(action)
-
             phases = self.get_traffic_states()
             for i, tlsid in enumerate(self.trafficlights_ids):
                 self.action_func(self, tlsid, action[i], phases[i])

@@ -9,7 +9,7 @@ from mpi4py import MPI
 from collections import deque
 import sys
 
-def traj_segment_generator(pi, env, horizon, stochastic):
+def traj_segment_generator(pi, env, horizon, stochastic, tls_id):
     t = 0
     ac = env.action_space.sample() # not used, just so we have the datatype
     new = True # marks if we're on first timestep of an episode
@@ -49,7 +49,7 @@ def traj_segment_generator(pi, env, horizon, stochastic):
         acs[i] = ac
         prevacs[i] = prevac
 
-        ob, rew, new, _ = env.step(ac)
+        ob, rew, new, _ = env.slave_step(ac, tls_id)
         rews[i] = rew
 
         cur_ep_ret += rew
@@ -88,7 +88,9 @@ def learn(env, policy_func, *,
         adam_epsilon=1e-5,
         checkpoint_freq=10000,
         logger_path=None,
-        schedule='constant' # annealing for stepsize parameters (epsilon and adam)
+        schedule='constant', # annealing for stepsize parameters (epsilon and adam)
+          queue,
+          tls_id=-1
         ):
     # Setup losses and stuff
     # ----------------------------------------
@@ -133,7 +135,7 @@ def learn(env, policy_func, *,
 
     # Prepare for rollouts
     # ----------------------------------------
-    seg_gen = traj_segment_generator(pi, env, timesteps_per_batch, stochastic=True)
+    seg_gen = traj_segment_generator(pi, env, timesteps_per_batch, stochastic=True, tls_id=tls_id)
 
     episodes_so_far = 0
     timesteps_so_far = 0
@@ -242,7 +244,7 @@ def learn(env, policy_func, *,
 
         if MPI.COMM_WORLD.Get_rank()==0:
             logger.dump_tabular()
-    return pi
+    queue.put({"pi": pi, "tls_id": tls_id})
 
 def flatten_lists(listoflists):
     return [el for list_ in listoflists for el in list_]
