@@ -295,15 +295,24 @@ class BaseTraciEnv(gym.Env):
 
     @staticmethod
     def reward_average_speed_split():
-        speed_map = traci.vehicle.getSubscriptionResults()
-        speeds = BaseTraciEnv.extract_list(speed_map, traci.constants.VAR_SPEED)
+        raw_mme = traci.multientryexit.getSubscriptionResults()
 
-        if len(speeds) < 1:
-            speeds.append(0.0)
+        veh_nums = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        mean_speeds = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_MEAN_SPEED)
 
-        a_mean = np.mean(speeds)
+        rewards = []
+        for i in range(4):
+            cross_idx = i * 4
+            n_cars_cross = np.sum(veh_nums[cross_idx:cross_idx+4])
+            if n_cars_cross == 0:
+                rewards.append(0.0)
+                continue
+            tls_reward = 0.0
+            for mme_idx in range(4):
+                tls_reward += (veh_nums[cross_idx+mme_idx] * mean_speeds[cross_idx+mme_idx]) / n_cars_cross
+            rewards.append(tls_reward)
 
-        return [a_mean,a_mean,a_mean,a_mean]
+        return rewards
 
     @staticmethod
     def reward_average_accumulated_wait_time():
