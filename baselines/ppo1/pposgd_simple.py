@@ -202,9 +202,7 @@ def learn(env, policy_func, *,
             losses.append(newlosses)            
         meanlosses,_,_ = mpi_moments(losses, axis=0)
         logger.log(fmt_row(13, meanlosses))
-        for (lossval, name) in zipsame(meanlosses, loss_names):
-            logger.record_tabular("loss_"+name, lossval)
-        logger.record_tabular("ev_tdlam_before", explained_variance(vpredbefore, tdlamret))
+
         lrlocal = (seg["ep_lens"], seg["ep_rets"]) # local values
         listoflrpairs = MPI.COMM_WORLD.allgather(lrlocal) # list of tuples
         lens, rews = map(flatten_lists, zip(*listoflrpairs))
@@ -212,15 +210,9 @@ def learn(env, policy_func, *,
         rewbuffer.extend(rews)
         EpLenMean=np.mean(lenbuffer)
         EpRewMean=np.mean(rewbuffer)
-        logger.record_tabular("EpLenMean", EpLenMean)
-        logger.record_tabular("EpRewMean", EpRewMean)
-        logger.record_tabular("EpThisIter", len(lens))
         episodes_so_far += len(lens)
         timesteps_so_far += sum(lens)
         iters_so_far += 1
-        logger.record_tabular("EpisodesSoFar", episodes_so_far)
-        logger.record_tabular("TimestepsSoFar", timesteps_so_far)
-        logger.record_tabular("TimeElapsed", time.time() - tstart)
 
         # Check if we should save the model
         if (timesteps_so_far - last_checkpoint_timestep) > checkpoint_freq:
@@ -242,8 +234,6 @@ def learn(env, policy_func, *,
                 print("Wanted to save model, but logger_path was None!")
             last_checkpoint_timestep = timesteps_so_far
 
-        if MPI.COMM_WORLD.Get_rank()==0:
-            logger.dump_tabular()
     queue.put({"pi": pi, "tls_id": tls_id})
 
 def flatten_lists(listoflists):

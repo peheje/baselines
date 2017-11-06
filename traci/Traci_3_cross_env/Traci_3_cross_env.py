@@ -285,10 +285,8 @@ class Traci_3_cross_env(BaseTraciEnv):
         # Subscriptions
         # Subscribe to multi entry exit
         multientryexit_subs = []
-        if self.state_use_num_cars_in_queue_history:
-            multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
-        if self.state_use_avg_speed_between_detectors_history:
-            multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
+        multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
+        multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
 
         if len(multientryexit_subs) > 0:
             for mee_id in traci.multientryexit.getIDList():
