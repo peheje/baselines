@@ -351,7 +351,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             reward = state_dict["reward"]
             done = state_dict["done"]
 
-            return state, reward, done
+        return state, reward, done
 
     def _step(self, action):
         if self.perform_actions:
@@ -373,7 +373,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             total_state = self.get_state_multientryexit()
 
         # Build reward
-        reward = self.reward_func(self)
+        reward = self.reward_func()
 
         # See if done
         done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1

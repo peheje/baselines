@@ -49,7 +49,7 @@ def traj_segment_generator(pi, env, horizon, stochastic, tls_id):
         acs[i] = ac
         prevacs[i] = prevac
 
-        ob, rew, new, _ = env.slave_step(ac, tls_id)
+        ob, rew, new = env.slave_step(ac, tls_id)
         rews[i] = rew
 
         cur_ep_ret += rew
@@ -104,7 +104,7 @@ def learn(env, policy_func, *,
     lrmult = tf.placeholder(name='lrmult', dtype=tf.float32, shape=[]) # learning rate multiplier, updated with schedule
     clip_param = clip_param * lrmult # Annealed cliping parameter epislon
 
-    ob = U.get_placeholder_cached(name="ob")
+    ob = U.ensure_tf_input(U.BatchInput(env.observation_space.shape, name="ob")).get()
     ac = pi.pdtype.sample_placeholder([None])
 
     kloldnew = oldpi.pd.kl(pi.pd)
