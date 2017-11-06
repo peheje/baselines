@@ -201,9 +201,10 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.route_file_name = None
         self.jtrroute_seed = 0
 
-        self.master_lock = Lock()
         self.action_queue = queue.Queue()
         self.state_queue = queue.Queue()
+        self.ack_state_queue = queue.Queue()
+        self.continue_queue = queue.Queue()
 
     def get_state_multientryexit(self):
         raw_mee_state = traci.multientryexit.getSubscriptionResults()
@@ -316,14 +317,18 @@ class Traci_3_cross_env(BaseTraciEnv):
 
     def slave_step(self, action, tls_id):
         # First one here becomes master.
-        if self.master_lock.acquire(False):  # Non blocking acquire
+        if tls_id == 0:
             # Is master
+
+            # print("became master")
 
             # Waits for actions for all other
             action_tls = [{"tls_id": tls_id, "action": action}]
             for i in range(3):
                 action_tls.append(self.action_queue.get())
             actions = [x["action"] for x in sorted(action_tls, key=lambda k: k["tls_id"])]
+
+            # print("master got all actions from slaves")
 
             # Take simulation step
             state, reward, done, _ = self._step(actions)
@@ -333,25 +338,51 @@ class Traci_3_cross_env(BaseTraciEnv):
                 "done": done
             }
 
+            # print("master took step")
+
             # Send state to others
             for i in range(3):
+                # print("master puts state_dict: " + str(i))
                 self.state_queue.put(state_dict)
 
-            self.master_lock.release()
+            # Wait for ack state
+                # print("master awaits acks on state")
+            for i in range(3):
+                self.ack_state_queue.get()
+                # print("master got 3 acks on state, signals they can go on")
+
+            assert self.action_queue.empty()
+            assert self.state_queue.empty()
+
+            # Signal to threads they can go on
+            for i in range(3):
+                self.continue_queue.put("go")
+
         else:
             # Is slave
 
             # Slave sends it action to master
+            # print("slave puts action")
             self.action_queue.put({"tls_id": tls_id, "action": action})
 
             # Slaves wait for state before returning.
+            # print("slave waits state")
             state_dict = self.state_queue.get()
 
             state = state_dict["state"]
             reward = state_dict["reward"]
             done = state_dict["done"]
 
-        return state, reward, done
+            # print("slave state")
+            # print(state, reward, done)
+
+            # print("slave got state, ack state")
+            self.ack_state_queue.put("ACK")
+
+            self.continue_queue.get()
+            # print("slave got go signal from master")
+
+        return state, reward[tls_id], done
 
     def _step(self, action):
         if self.perform_actions:
@@ -382,11 +413,16 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         return total_state, reward, done, {}
 
+    def slave_reset(self, tls_id):
+        if tls_id == 0:
+            self._reset()
+        return np.zeros(self.total_num_state_scalars)
+
     def _reset(self):
         # Check if actually done, might be initial reset call
         if traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             traci.close(wait=True)  # Wait for tripinfo to be written
-            self.log_end_episode(self.reward_func(self))
+            self.log_end_episode(self.reward_func())
             BaseTraciEnv._reset(self)
             self.restart()
         return np.zeros(self.total_num_state_scalars)

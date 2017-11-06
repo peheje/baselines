@@ -294,6 +294,18 @@ class BaseTraciEnv(gym.Env):
         return a_mean
 
     @staticmethod
+    def reward_average_speed_split():
+        speed_map = traci.vehicle.getSubscriptionResults()
+        speeds = BaseTraciEnv.extract_list(speed_map, traci.constants.VAR_SPEED)
+
+        if len(speeds) < 1:
+            speeds.append(0.0)
+
+        a_mean = np.mean(speeds)
+
+        return [a_mean,a_mean,a_mean,a_mean]
+
+    @staticmethod
     def reward_average_accumulated_wait_time():
         vehs = traci.vehicle.getIDList()
         accu_sum = 0

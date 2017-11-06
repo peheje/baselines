@@ -13,7 +13,7 @@ def traj_segment_generator(pi, env, horizon, stochastic, tls_id):
     t = 0
     ac = env.action_space.sample() # not used, just so we have the datatype
     new = True # marks if we're on first timestep of an episode
-    ob = env.reset()
+    ob = env.slave_reset(tls_id)
 
     cur_ep_ret = 0 # return in current episode
     cur_ep_len = 0 # len of current episode
@@ -59,7 +59,7 @@ def traj_segment_generator(pi, env, horizon, stochastic, tls_id):
             ep_lens.append(cur_ep_len)
             cur_ep_ret = 0
             cur_ep_len = 0
-            ob = env.reset()
+            ob = env.slave_reset(tls_id)
         t += 1
 
 def add_vtarg_and_adv(seg, gamma, lam):
@@ -96,15 +96,15 @@ def learn(env, policy_func, *,
     # ----------------------------------------
     ob_space = env.observation_space
     ac_space = env.action_space
-    pi = policy_func("pi", ob_space, ac_space) # Construct network for new policy
-    oldpi = policy_func("oldpi", ob_space, ac_space) # Network for old policy
+    pi = policy_func("pi", ob_space, ac_space, tls_id=tls_id) # Construct network for new policy
+    oldpi = policy_func("oldpi", ob_space, ac_space, tls_id=tls_id) # Network for old policy
     atarg = tf.placeholder(dtype=tf.float32, shape=[None]) # Target advantage function (if applicable)
     ret = tf.placeholder(dtype=tf.float32, shape=[None]) # Empirical return
 
     lrmult = tf.placeholder(name='lrmult', dtype=tf.float32, shape=[]) # learning rate multiplier, updated with schedule
     clip_param = clip_param * lrmult # Annealed cliping parameter epislon
 
-    ob = U.ensure_tf_input(U.BatchInput(env.observation_space.shape, name="ob")).get()
+    ob = U.get_placeholder_cached(name="ob", tls_id=tls_id)
     ac = pi.pdtype.sample_placeholder([None])
 
     kloldnew = oldpi.pd.kl(pi.pd)
@@ -191,7 +191,7 @@ def learn(env, policy_func, *,
             losses = [] # list of tuples, each of which gives the loss for a minibatch
             for batch in d.iterate_once(optim_batchsize):
                 *newlosses, g = lossandgrad(batch["ob"], batch["ac"], batch["atarg"], batch["vtarg"], cur_lrmult)
-                adam.update(g, optim_stepsize * cur_lrmult) 
+                adam.update(g, optim_stepsize * cur_lrmult)
                 losses.append(newlosses)
             logger.log(fmt_row(13, np.mean(losses, axis=0)))
 

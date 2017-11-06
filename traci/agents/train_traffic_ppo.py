@@ -26,7 +26,7 @@ def train_and_log(env_id,
                   checkpoint_freq=10000,
                   num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
-                  reward_function=BaseTraciEnv.reward_average_speed,
+                  reward_function=BaseTraciEnv.reward_average_speed_split,
                   max_timesteps=int(1e6),
                   start_car_probabilities=[1.0, 0.1],
                   end_car_probabilities=None,  # When set to None do not anneal
@@ -37,7 +37,7 @@ def train_and_log(env_id,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
                   num_actions_pr_trafficlight=2,
-                  num_history_states=2,
+                  num_history_states=1,
                   hid_size=64,
                   num_hid_layers=2,
                   timesteps_per_batch=2048,
@@ -86,9 +86,9 @@ def train_and_log(env_id,
     logger.logtxt(call_params_string_array)
     copyfile(__file__, logger_path + "/params.txt")
 
-    def policy_fn(name, ob_space, ac_space):
+    def policy_fn(name, ob_space, ac_space, tls_id):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
-            hid_size=hid_size, num_hid_layers=num_hid_layers)
+            hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id)
     # env = bench.Monitor(env, logger.get_dir() and  osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
@@ -174,29 +174,19 @@ def main():
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     args = parser.parse_args()
 
-    reward_functions = [BaseTraciEnv.reward_average_speed,
-                        BaseTraciEnv.reward_average_accumulated_wait_time,
-                        BaseTraciEnv.reward_rms_accumulated_wait_time,
-                        BaseTraciEnv.reward_total_waiting_vehicles,
-                        BaseTraciEnv.reward_total_in_queue_3cross,
-                        BaseTraciEnv.reward_arrived_vehicles,
-                        BaseTraciEnv.reward_halting_in_queue_3cross]
-
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
 
     with tf.device("/gpu:1"):
-        for rf in reward_functions:
-            for pr in probabilities:
-                print("Now reward function is:", rf, "and props:", pr)
-                g = tf.Graph()
-                config = tf.ConfigProto()
-                config.gpu_options.allow_growth = True
-                sess = tf.InteractiveSession(graph=g, config=config)
-                with g.as_default():
-                    train_and_log(reward_function=rf,
-                                  start_car_probabilities=pr,
-                                  env_id=args.env,
-                                  seed=args.seed)
+        for pr in probabilities:
+            print("Now props:", pr)
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                train_and_log(start_car_probabilities=pr,
+                              env_id=args.env,
+                              seed=args.seed)
 
 
 

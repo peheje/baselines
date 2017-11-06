@@ -728,13 +728,20 @@ def in_session(f):
 _PLACEHOLDER_CACHE = {}  # name -> (placeholder, dtype, shape)
 
 
-def get_placeholder(name, dtype, shape):
-    out = tf.placeholder(dtype=dtype, shape=shape, name=name)
-    return out
+def get_placeholder(name, dtype, shape, tls_id=99):
+    name = name + str(tls_id)
+    if name in _PLACEHOLDER_CACHE:
+        out, dtype1, shape1 = _PLACEHOLDER_CACHE[name]
+        assert dtype1 == dtype and shape1 == shape
+        return out
+    else:
+        out = tf.placeholder(dtype=dtype, shape=shape, name=name)
+        _PLACEHOLDER_CACHE[name] = (out, dtype, shape)
+        return out
 
 
-def get_placeholder_cached(name):
-    return _PLACEHOLDER_CACHE[name][0]
+def get_placeholder_cached(name, tls_id=99):
+    return _PLACEHOLDER_CACHE[name+str(tls_id)][0]
 
 
 def flattenallbut0(x):
