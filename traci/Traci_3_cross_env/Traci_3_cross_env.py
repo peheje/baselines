@@ -319,16 +319,11 @@ class Traci_3_cross_env(BaseTraciEnv):
         # First one here becomes master.
         if tls_id == 0:
             # Is master
-
-            # print("became master")
-
             # Waits for actions for all other
             action_tls = [{"tls_id": tls_id, "action": action}]
             for i in range(3):
                 action_tls.append(self.action_queue.get())
             actions = [x["action"] for x in sorted(action_tls, key=lambda k: k["tls_id"])]
-
-            # print("master got all actions from slaves")
 
             # Take simulation step
             state, reward, done, _ = self._step(actions)
@@ -338,18 +333,13 @@ class Traci_3_cross_env(BaseTraciEnv):
                 "done": done
             }
 
-            # print("master took step")
-
             # Send state to others
             for i in range(3):
-                # print("master puts state_dict: " + str(i))
                 self.state_queue.put(state_dict)
 
             # Wait for ack state
-                # print("master awaits acks on state")
             for i in range(3):
                 self.ack_state_queue.get()
-                # print("master got 3 acks on state, signals they can go on")
 
             assert self.action_queue.empty()
             assert self.state_queue.empty()
@@ -360,27 +350,18 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         else:
             # Is slave
-
             # Slave sends it action to master
-            # print("slave puts action")
             self.action_queue.put({"tls_id": tls_id, "action": action})
 
             # Slaves wait for state before returning.
-            # print("slave waits state")
             state_dict = self.state_queue.get()
 
             state = state_dict["state"]
             reward = state_dict["reward"]
             done = state_dict["done"]
 
-            # print("slave state")
-            # print(state, reward, done)
-
-            # print("slave got state, ack state")
             self.ack_state_queue.put("ACK")
-
             self.continue_queue.get()
-            # print("slave got go signal from master")
 
         return state, reward[tls_id], done
 
