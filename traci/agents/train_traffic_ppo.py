@@ -23,7 +23,7 @@ def train_and_log(env_id,
                   checkpoint_freq=10000,
                   num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
-                  reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
+                  reward_function=BaseTraciEnv.reward_average_speed,
                   max_timesteps=int(1e6),
                   start_car_probabilities=[1.0, 0.1],
                   end_car_probabilities=None,  # When set to None do not anneal
