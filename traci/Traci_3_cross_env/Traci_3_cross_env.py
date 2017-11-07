@@ -1,7 +1,6 @@
 import logging
 import math
 import subprocess
-import copy
 import tempfile
 from collections import deque
 from threading import Thread, Lock
@@ -62,45 +61,6 @@ def send_mail():
         mailserver.sendmail('sumotraci@gmail.com', emails[i], msg.as_string())
 
         mailserver.quit()
-
-
-def ingoing_outgoing_edges_for_tls(trafficlights_ids_sorted):
-    # Find ingoing links & outgoing
-    reward_lanes = []
-    tmp_reward_lanes = [traci.trafficlights.getControlledLinks(tl) for tl in trafficlights_ids_sorted]
-    for tls_idx, tls in enumerate(tmp_reward_lanes):
-        reward_lanes.append([])
-        for link in tls:
-            lanes = link[0][:2]
-            for l in lanes:
-                reward_lanes[tls_idx].append(l)
-
-    # Find next level outgoing links
-    tmp = copy.deepcopy(reward_lanes)
-    for tls_idx, tls in enumerate(reward_lanes):
-        for lane in tls:
-            links = traci.lane.getLinks(lane)
-            for link in links:
-                l2 = link[0]
-                tmp[tls_idx].append(l2)
-
-    # Make to edges
-    for tls in tmp:
-        for lane_idx in range(len(tls)):
-            # Remove lane id (last two chars) makes them into edge ids
-            tls[lane_idx] = tls[lane_idx][:-2]
-
-    # Uniques
-    uniques = []
-    for tls in tmp:
-        uniques.append(set(tls))
-
-    # Add level 2 ingoing (by hand)
-    uniques[0].add("-gneE3")
-    uniques[1].update(["gneE3", "-gneE12"])
-    uniques[2].update(["gneE12", "nd_north_out"])
-    uniques[3].update(["st_south_out", "Is", "Hs", "Js"])
-    return uniques
 
 
 class Traci_3_cross_env(BaseTraciEnv):
@@ -240,7 +200,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.unique_counters = []
         self.route_file_name = None
         self.jtrroute_seed = 0
-        self.ingoing_outgoing = None
 
         self.action_queue = queue.Queue()
         self.state_queue = queue.Queue()
@@ -306,7 +265,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.num_history_state_scalars = self.calculate_num_history_state_scalars()
         self.num_nonhistory_state_scalars = self.calculate_num_nonhistory_state_scalars()
         self.total_num_state_scalars = (
-                                           self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
+                                       self.num_history_state_scalars * self.num_history_states) + self.num_nonhistory_state_scalars
         self.action_space = spaces.Discrete(self.num_actions)
         self.observation_space = spaces.Box(self.min_state_scalar_value, self.max_state_scalar_value,
                                             shape=(self.total_num_state_scalars))
@@ -320,10 +279,6 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # Get constant ids
         self.trafficlights_ids = sorted(traci.trafficlights.getIDList())
-
-        if self.ingoing_outgoing is None:
-            self.ingoing_outgoing = ingoing_outgoing_edges_for_tls(self.trafficlights_ids)
-
         self.trafficlights_controlled_lanes = [traci.trafficlights.getControlledLanes(tl) for tl in
                                                self.trafficlights_ids]
 
@@ -353,13 +308,6 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.vehicle_subs = [traci.constants.VAR_CO2EMISSION,
                              traci.constants.VAR_SPEED,
                              traci.constants.VAR_LANE_ID]
-
-        # Subscribe to edge
-        flat_list = [item for sublist in self.ingoing_outgoing for item in sublist]
-        flat_list = list(set(flat_list))
-        for edge_id in flat_list:
-            traci.edge.subscribe(edge_id, [traci.constants.LAST_STEP_MEAN_SPEED,
-                                           traci.constants.LAST_STEP_VEHICLE_NUMBER])
 
     def _seed(self, seed=None):
         self.np_random, seed = seeding.np_random(seed)
@@ -435,7 +383,7 @@ class Traci_3_cross_env(BaseTraciEnv):
             total_state = self.get_state_multientryexit()
 
         # Build reward
-        reward = self.reward_func(self.ingoing_outgoing)
+        reward = self.reward_func()
 
         # See if done
         done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1

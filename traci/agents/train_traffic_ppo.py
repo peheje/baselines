@@ -90,7 +90,6 @@ def train_and_log(env_id,
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
             hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id)
     # env = bench.Monitor(env, logger.get_dir() and  osp.join(logger.get_dir(), "monitor.json"))
-    # env.render()
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
 
