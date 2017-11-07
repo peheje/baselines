@@ -305,7 +305,7 @@ class BaseTraciEnv(gym.Env):
             cross_idx = i * 4
             n_cars_cross = np.sum(veh_nums[cross_idx:cross_idx+4])
             if n_cars_cross == 0:
-                rewards.append(0.0)
+                rewards.append(15.0)
                 continue
             tls_reward = 0.0
             for mme_idx in range(4):
