@@ -107,14 +107,14 @@ class BaseTraciEnv(gym.Env):
         else:
             raise Exception("Not supported other than 2 or 3 actions pr. traffic light.")
 
-        self.enjoy_car_probs=enjoy_car_probs
+        self.enjoy_car_probs = enjoy_car_probs
         self.num_car_chances = num_car_chances
         self.car_probabilities = copy.deepcopy(start_car_probabilities)
         self.start_car_probabilities = copy.deepcopy(start_car_probabilities)
         self.end_car_probabilities = end_car_probabilities
-        self.num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs
+        self.num_steps_from_start_car_probs_to_end_car_probs = num_steps_from_start_car_probs_to_end_car_probs
         self.reward_func = reward_func
-        self.action_func=action_func
+        self.action_func = action_func
         self.perform_actions = perform_actions
         self.state_use_time_since_tl_change = state_contain_time_since_tl_change
         self.state_use_avg_speed_between_detectors_history = state_contain_avg_speed_between_detectors_history
@@ -143,10 +143,10 @@ class BaseTraciEnv(gym.Env):
         else:
             for i in range(len(self.car_probabilities)):
                 new_prop = LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
-                                       initial_p=self.start_car_probabilities[i],
-                                       final_p=self.end_car_probabilities[i]).value(self.timestep)
+                                          initial_p=self.start_car_probabilities[i],
+                                          final_p=self.end_car_probabilities[i]).value(self.timestep)
                 # print("new_prop", new_prop)
-                self.car_probabilities[i]=new_prop
+                self.car_probabilities[i] = new_prop
 
     def _step(self, action):
         """ Implement in child """
@@ -213,10 +213,10 @@ class BaseTraciEnv(gym.Env):
         speeds = BaseTraciEnv.extract_list(vehicle_subs, traci.constants.VAR_SPEED)
         lanes = BaseTraciEnv.extract_list(vehicle_subs, traci.constants.VAR_LANE_ID)
 
-        for i,s in enumerate(speeds):
+        for i, s in enumerate(speeds):
             if s < 1.0:
-                #Figure out which traffic light this car is located at
-                for j,clanes in enumerate(self.trafficlights_controlled_lanes):
+                # Figure out which traffic light this car is located at
+                for j, clanes in enumerate(self.trafficlights_controlled_lanes):
                     if lanes[i] in clanes:
                         total_wait[j] -= 1.0
                         break
@@ -294,24 +294,24 @@ class BaseTraciEnv(gym.Env):
         return a_mean
 
     @staticmethod
-    def reward_average_speed_split():
-        raw_mme = traci.multientryexit.getSubscriptionResults()
-
-        veh_nums = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_VEHICLE_NUMBER)
-        mean_speeds = BaseTraciEnv.extract_list(raw_mme, traci.constants.LAST_STEP_MEAN_SPEED)
-
+    def reward_average_speed_split(ingoing_outgoing):
+        raw_edge = traci.edge.getSubscriptionResults()
         rewards = []
-        for i in range(4):
-            cross_idx = i * 4
-            n_cars_cross = np.sum(veh_nums[cross_idx:cross_idx+4])
-            if n_cars_cross == 0:
-                rewards.append(0.0)
+        for tls_id in ingoing_outgoing:
+            vehicles_on_tls_edges = []
+            for edge in tls_id:
+                vehicles_on_tls_edges.append(raw_edge[edge][traci.constants.LAST_STEP_VEHICLE_NUMBER])
+            sum_num_on_edges = sum(vehicles_on_tls_edges)
+            if sum_num_on_edges == 0.0:
+                # If no cars, assume max mean speed.
+                rewards.append(15)
                 continue
-            tls_reward = 0.0
-            for mme_idx in range(4):
-                tls_reward += (veh_nums[cross_idx+mme_idx] * mean_speeds[cross_idx+mme_idx]) / n_cars_cross
-            rewards.append(tls_reward)
+            mean_speed_tls = 0.0
+            for i, edge in enumerate(tls_id):
+                mean_speed_tls += vehicles_on_tls_edges[i] * raw_edge[edge][traci.constants.LAST_STEP_MEAN_SPEED] / sum_num_on_edges
+            rewards.append(mean_speed_tls)
 
+        # print(rewards)
         return rewards
 
     @staticmethod
@@ -324,16 +324,18 @@ class BaseTraciEnv(gym.Env):
             return -(accu_sum / len(vehs))
         else:
             return 0
+
     @staticmethod
     def reward_rms_accumulated_wait_time():
         vehs = traci.vehicle.getIDList()
         square_sum = 0
         for veh_id in vehs:
-            square_sum += traci.vehicle.getAccumulatedWaitingTime(veh_id)**2
+            square_sum += traci.vehicle.getAccumulatedWaitingTime(veh_id) ** 2
         if len(vehs) > 0:
             return -math.sqrt(square_sum / len(vehs))
         else:
             return 0
+
     @staticmethod
     def reward_estimated_travel_time():
         lanes = traci.lane.getIDList()
@@ -394,6 +396,7 @@ class BaseTraciEnv(gym.Env):
                 self.time_since_tl_change[light_id] = 0
         else:
             pass  # do nothing
+
     def set_light_phase_4_cross_green_dir(self, light_id, action, cur_phase):
         if light_id in self.time_since_tl_change:
             self.time_since_tl_change[light_id] += 1
@@ -453,10 +456,10 @@ class BaseTraciEnv(gym.Env):
         avg_speed_reward = self.reward_average_speed()
         self.add_fully_stopped_cars()
 
-        if len(self.episode_rewards) ==0:
+        if len(self.episode_rewards) == 0:
             self.episode_rewards.append(reward)
         else:
-            self.episode_rewards[-1] = list(map(add, self.episode_rewards[-1],reward))
+            self.episode_rewards[-1] = list(map(add, self.episode_rewards[-1], reward))
         self.step_rewards.append(reward)
         self.co2_step_rewards.append(emission_reward)
         self.avg_speed_step_rewards.append(avg_speed_reward)
@@ -535,5 +538,3 @@ class BaseTraciEnv(gym.Env):
             ["Sums", str(np.sum(self.episode_mean_travel_times)), str(np.sum(self.episode_mean_time_losses))])
 
         logger.logtxt(string_array_to_log, "travel_time_and_time_loss")
-
-
