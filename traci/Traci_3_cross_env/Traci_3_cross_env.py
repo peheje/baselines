@@ -453,7 +453,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         # Check if actually done, might be initial reset call
         if traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1:
             traci.close(wait=True)  # Wait for tripinfo to be written
-            self.log_end_episode(self.reward_func())
+            self.log_end_episode(self.reward_func(self.ingoing_outgoing))
             BaseTraciEnv._reset(self)
             self.restart()
         return np.zeros(self.total_num_state_scalars)
