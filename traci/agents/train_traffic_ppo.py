@@ -139,24 +139,24 @@ def train_and_log(env_id,
 
     env.close()
 
-    # # Run test
-    test_environment = gym.make(env_id)
-    test_environment.configure_traci(num_car_chances=num_car_chances,
-                                     start_car_probabilities=start_car_probabilities,
-                                     enjoy_car_probs=False,
-                                     reward_func=reward_function,
-                                     action_func=action_function,
-                                     state_contain_num_cars_in_queue_history=state_use_queue_length,
-                                     state_contain_time_since_tl_change=state_use_time_since_tl_change,
-                                     state_contain_tl_state_history=state_use_tl_state,
-                                     state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
-                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
-                                     num_history_states=num_history_states)
-    test_traffic_ppo.test(environment_name=env_id,
-                           path_to_model=save_path,
-                           configured_environment=test_environment,
-                           act=acts,
-                           log_dir=logger_path)
+    # # # Run test
+    # test_environment = gym.make(env_id)
+    # test_environment.configure_traci(num_car_chances=num_car_chances,
+    #                                  start_car_probabilities=start_car_probabilities,
+    #                                  enjoy_car_probs=False,
+    #                                  reward_func=reward_function,
+    #                                  action_func=action_function,
+    #                                  state_contain_num_cars_in_queue_history=state_use_queue_length,
+    #                                  state_contain_time_since_tl_change=state_use_time_since_tl_change,
+    #                                  state_contain_tl_state_history=state_use_tl_state,
+    #                                  state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
+    #                                  num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+    #                                  num_history_states=num_history_states)
+    # test_traffic_ppo.test(environment_name=env_id,
+    #                        path_to_model=save_path,
+    #                        configured_environment=test_environment,
+    #                        act=acts,
+    #                        log_dir=logger_path)
 
 def setup_thread_and_run(**kwargs):
     g = tf.Graph()
