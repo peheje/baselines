@@ -38,8 +38,12 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     for i in range(10):
         episode_rew = 0
         while not done:
-            obs, rew, done, _ = configured_environment.step(act.act(True, obs)[0])
-            episode_rew += rew
+            actions=[None for _ in range(len(act))]
+            for i in range(len(act)):
+                with act[i]['sess'].as_default():
+                    actions[i]=act[i]['pi'].act(True,obs)[0]
+            obs, rew, done, _ = configured_environment.step(actions)
+            #episode_rew += rew
         print("Episode reward", episode_rew)
         obs, done = configured_environment.reset(), False  # Done afterwards to ensure logging
     configured_environment.log_travel_time_table()

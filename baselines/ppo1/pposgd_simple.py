@@ -234,7 +234,7 @@ def learn(env, policy_func, *,
                 print("Wanted to save model, but logger_path was None!")
             last_checkpoint_timestep = timesteps_so_far
 
-    queue.put({"pi": pi, "tls_id": tls_id})
+    queue.put({"pi": pi, "tls_id": tls_id,"sess":tf.get_default_session()})
 
 def flatten_lists(listoflists):
     return [el for list_ in listoflists for el in list_]

@@ -99,7 +99,7 @@ class BaseTraciEnv(gym.Env):
         :param state_contain_num_cars_in_queue_history:
         """
         self.num_actions_pr_trafficlight = num_actions_pr_trafficlight
-        self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
+        self.num_actions = 2
         if self.num_actions_pr_trafficlight == 2:
             self.action_converter = self.binary_action
         elif self.num_actions_pr_trafficlight == 3:
