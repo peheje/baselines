@@ -45,7 +45,7 @@ def train_and_log(env_id,
                   gamma=0.99,
                   lam=0.95,
                   schedule='linear',
-                  process_id=0
+                  run_num=0
                   ):
     from baselines.ppo1 import mlp_policy, pposgd_simple
     # Obtain call params
@@ -77,7 +77,7 @@ def train_and_log(env_id,
 
     log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
-    logger_path=logger_path+"_pid_"+str(process_id)
+    logger_path=logger_path+"_pid_"+str(run_num)
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(call_params_string_array)
@@ -85,18 +85,19 @@ def train_and_log(env_id,
 
     def policy_fn(name, ob_space, ac_space):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
-            hid_size=hid_size, num_hid_layers=num_hid_layers)
+                                    hid_size=hid_size, num_hid_layers=num_hid_layers, run_num=run_num)
     env = bench.Monitor(env, logger.get_dir() and 
         osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
     act=pposgd_simple.learn(env, policy_fn,
-                        max_timesteps=max_timesteps,
-                        timesteps_per_batch=timesteps_per_batch,
-                        clip_param=clip_param, entcoeff=entcoeff,
-                        optim_epochs=optim_epochs, optim_stepsize=optim_stepsize, optim_batchsize=optim_batchsize,
-                        gamma=gamma, lam=lam, schedule=schedule, checkpoint_freq=checkpoint_freq,logger_path=logger_path
-                        )
+                            max_timesteps=max_timesteps,
+                            timesteps_per_batch=timesteps_per_batch,
+                            clip_param=clip_param, entcoeff=entcoeff,
+                            optim_epochs=optim_epochs, optim_stepsize=optim_stepsize, optim_batchsize=optim_batchsize,
+                            gamma=gamma, lam=lam, schedule=schedule, checkpoint_freq=checkpoint_freq, logger_path=logger_path,
+                            run_num=run_num
+                            )
     save_path=logger_path+"/ckpt/saved_model"
     U.save_state(save_path)
 
@@ -147,7 +148,7 @@ def main():
                         BaseTraciEnv.reward_halting_in_queue_3cross]
 
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
-
+    run_num=0
     with tf.device("/gpu:1"):
         for rf in reward_functions:
             for pr in probabilities:
@@ -156,11 +157,14 @@ def main():
                 config = tf.ConfigProto()
                 config.gpu_options.allow_growth = True
                 sess = tf.InteractiveSession(graph=g, config=config)
+
                 with g.as_default():
                     train_and_log(reward_function=rf,
                                   start_car_probabilities=pr,
                                   env_id=args.env,
-                                  seed=args.seed)
+                                  seed=args.seed,
+                                  run_num=run_num)
+                run_num += 1
 
 
 
