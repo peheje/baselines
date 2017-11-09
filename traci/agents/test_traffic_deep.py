@@ -54,54 +54,10 @@ if __name__ == '__main__':
 
     path_props = [
         {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_15-44-50_[16]_low/model-2017-10-23_17-40-58.pkl",
-            "info": "[16]_LOW",
-            "props": [0.25, 0.05]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_01-29-43_[16]_high/model-2017-10-24_05-07-15.pkl",
-            "info": "[16]_HIGH",
-            "props": [1.0, 0.10]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_17-41-41_[64]_low/model-2017-10-23_19-29-50.pkl",
-            "info": "[64]_LOW",
-            "props": [0.25, 0.05]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_05-11-10_[64]_high/model-2017-10-24_08-33-51.pkl",
-            "info": "[64]_HIGH",
-            "props": [1.0, 0.10]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_19-30-38_[1024]_low/model-2017-10-23_21-22-29.pkl",
-            "info": "[1024]_LOW",
-            "props": [0.25, 0.05]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-24_10-13-56_[1024]_high/model-2017-10-24_14-43-40.pkl",
-            "info": "[1024]_HIGH",
-            "props": [1.0, 0.10]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_21-23-12_[512,512]_low/model-2017-10-23_23-13-41.pkl",
-            "info": "[512, 512]_LOW",
-            "props": [0.25, 0.05]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-25_11-27-22_[512,512]_high/model-2017-10-25_15-43-35.pkl",
-            "info": "[512, 512]_HIGH",
-            "props": [1.0, 0.10]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-23_23-14-37_[256,256,256]_low/model-2017-10-24_01-28-21.pkl",
-            "info": "[256, 256, 256]_LOW",
-            "props": [0.25, 0.05]
-        },
-        {
-            "path": "/home/phj-nh/Desktop/architectures_zero_expl_test/2017-10-25_16-10-25_[256,256,256]_high/model-2017-10-25_20-32-03.pkl",
-            "info": "[256, 256, 256]_HIGH",
-            "props": [1.0, 0.10]
+            "path": "/home/phj-nh/git_repos/baselines_new/traci/tensorboard_logs/action_cleaned/2017-10-22_00-05-19/model-2017-10-22_03-30-04.pkl",
+            "info": "ACTION_EXTEND_HIGH",
+            "props": [1.0, 0.10],
+            "action_func": BaseTraciEnv.set_light_phase_4_cross_extend
         }
     ]
 
@@ -109,6 +65,7 @@ if __name__ == '__main__':
         path = setup["path"]
         props = setup["props"]
         info = setup["info"]
+        action_func = setup["action_func"]
         print("Running test for: ", info)
         print(props, path)
 
@@ -118,7 +75,7 @@ if __name__ == '__main__':
                             start_car_probabilities=props,
                             enjoy_car_probs=False,
                             reward_func=BaseTraciEnv.reward_total_waiting_vehicles,
-                            action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
+                            action_func=action_func,
                             state_contain_num_cars_in_queue_history=True,
                             state_contain_time_since_tl_change=True,
                             state_contain_tl_state_history=True,
@@ -134,6 +91,7 @@ if __name__ == '__main__':
             with g.as_default():
                 test(environment_name=environment_name,
                      path_to_model=path,
-                     configured_environment=env)
+                     configured_environment=env,
+                     no_explore=True)
 
 
