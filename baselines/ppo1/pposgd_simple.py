@@ -90,7 +90,8 @@ def learn(env, policy_func, *,
         logger_path=None,
         schedule='constant', # annealing for stepsize parameters (epsilon and adam)
           queue,
-          tls_id=-1
+          tls_id=-1,
+          mpi_lock
         ):
     # Setup losses and stuff
     # ----------------------------------------
@@ -184,35 +185,37 @@ def learn(env, policy_func, *,
         if hasattr(pi, "ob_rms"): pi.ob_rms.update(ob) # update running mean/std for policy
 
         assign_old_eq_new() # set old parameter values to new parameter values
-        logger.log("Optimizing...")
-        logger.log(fmt_row(13, loss_names))
-        # Here we do a bunch of optimization epochs over the data
-        for _ in range(optim_epochs):
-            losses = [] # list of tuples, each of which gives the loss for a minibatch
+
+        with mpi_lock:
+            logger.log("Optimizing...")
+            logger.log(fmt_row(13, loss_names))
+            # Here we do a bunch of optimization epochs over the data
+            for _ in range(optim_epochs):
+                losses = [] # list of tuples, each of which gives the loss for a minibatch
+                for batch in d.iterate_once(optim_batchsize):
+                    *newlosses, g = lossandgrad(batch["ob"], batch["ac"], batch["atarg"], batch["vtarg"], cur_lrmult)
+                    adam.update(g, optim_stepsize * cur_lrmult)
+                    losses.append(newlosses)
+                logger.log(fmt_row(13, np.mean(losses, axis=0)))
+
+            logger.log("Evaluating losses...")
+            losses = []
             for batch in d.iterate_once(optim_batchsize):
-                *newlosses, g = lossandgrad(batch["ob"], batch["ac"], batch["atarg"], batch["vtarg"], cur_lrmult)
-                adam.update(g, optim_stepsize * cur_lrmult)
+                newlosses = compute_losses(batch["ob"], batch["ac"], batch["atarg"], batch["vtarg"], cur_lrmult)
                 losses.append(newlosses)
-            logger.log(fmt_row(13, np.mean(losses, axis=0)))
+            meanlosses,_,_ = mpi_moments(losses, axis=0)
+            logger.log(fmt_row(13, meanlosses))
 
-        logger.log("Evaluating losses...")
-        losses = []
-        for batch in d.iterate_once(optim_batchsize):
-            newlosses = compute_losses(batch["ob"], batch["ac"], batch["atarg"], batch["vtarg"], cur_lrmult)
-            losses.append(newlosses)            
-        meanlosses,_,_ = mpi_moments(losses, axis=0)
-        logger.log(fmt_row(13, meanlosses))
-
-        lrlocal = (seg["ep_lens"], seg["ep_rets"]) # local values
-        listoflrpairs = MPI.COMM_WORLD.allgather(lrlocal) # list of tuples
-        lens, rews = map(flatten_lists, zip(*listoflrpairs))
-        lenbuffer.extend(lens)
-        rewbuffer.extend(rews)
-        EpLenMean=np.mean(lenbuffer)
-        EpRewMean=np.mean(rewbuffer)
-        episodes_so_far += len(lens)
-        timesteps_so_far += sum(lens)
-        iters_so_far += 1
+            lrlocal = (seg["ep_lens"], seg["ep_rets"]) # local values
+            listoflrpairs = MPI.COMM_WORLD.allgather(lrlocal) # list of tuples
+            lens, rews = map(flatten_lists, zip(*listoflrpairs))
+            lenbuffer.extend(lens)
+            rewbuffer.extend(rews)
+            EpLenMean=np.mean(lenbuffer)
+            EpRewMean=np.mean(rewbuffer)
+            episodes_so_far += len(lens)
+            timesteps_so_far += sum(lens)
+            iters_so_far += 1
 
         # Check if we should save the model
         if (timesteps_so_far - last_checkpoint_timestep) > checkpoint_freq:
@@ -229,7 +232,7 @@ def learn(env, policy_func, *,
                     fewest_timesteps_in_episode = EpLenMean
 
                 print("Saving model at timestep: ", str(timesteps_so_far)," save reason: "+save_reason)
-                U.save_state(logger_path + "/"+save_reason+"/saved_model")
+                U.save_state(logger_path + "/tls"+str(tls_id)+"/"+save_reason+"/saved_model")
             else:
                 print("Wanted to save model, but logger_path was None!")
             last_checkpoint_timestep = timesteps_so_far

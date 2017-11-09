@@ -105,6 +105,7 @@ def train_and_log(env_id,
         with g.as_default():
             pposgd_simple.learn(**kwargs)
 
+    mpilock=threading.Lock()
     for i in range(4):
             t = threading.Thread(target=pposgd_simple_wrapper, kwargs={
                 "env": env,
@@ -122,7 +123,8 @@ def train_and_log(env_id,
                 "checkpoint_freq": checkpoint_freq,
                 "logger_path": logger_path,
                 "queue": q,
-                "tls_id": i
+                "tls_id": i,
+                "mpi_lock":mpilock
             })
             threads.append(t)
             t.daemon = True             # Stops if main stops
