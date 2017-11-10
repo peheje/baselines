@@ -55,7 +55,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_cpu=8,
                   param_noise=False,
                   state_use_queue_length=True,
-                  normalize_queue_lengths=True,
+                  normalize_queue_lengths=False,
                   state_use_tl_state=True,
                   state_use_time_since_tl_change=True,
                   state_use_avg_speed=False,
@@ -164,10 +164,7 @@ def main():
     ]
 
     # Set this by hand!
-    experiment_name = "normalize"
-
-    exp_start = 0.2
-    exp_end = 0.02
+    experiment_name = ""
 
     for pr in probabilities:
         print("Now props:", pr)
@@ -177,9 +174,7 @@ def main():
         sess = tf.InteractiveSession(graph=g, config=config)
         with g.as_default():
             train_and_log(start_car_probabilities=pr,
-                          experiment_name=experiment_name,
-                          exploration_initial_p=exp_start,
-                          explore_final_eps=exp_end)
+                          experiment_name=experiment_name)
 
 
 if __name__ == '__main__':
