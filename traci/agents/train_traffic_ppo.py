@@ -78,7 +78,7 @@ def train_and_log(env_id,
     # Initialize logger
     # Setup path of logging, name of environment
 
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo']
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-multiple']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
     logger_path=logger_path+"_pid_"+str(process_id)
     logger.reset()
