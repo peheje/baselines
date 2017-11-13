@@ -25,6 +25,9 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     if act is None:
         act = policy_fn('pi', configured_environment.observation_space, configured_environment.action_space)
         tf.train.Saver().restore(sess, path_to_model)
+    else:
+        #sort the acts based on tls id
+        act = [x for x in sorted(act, key=lambda k: k["tls_id"])]
     # Setup path of logging, name of environment and save the current arguments (this script)
     if log_dir == "":
         log_dir = os.path.join(str(Path.home()), "Desktop")
