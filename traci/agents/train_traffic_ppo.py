@@ -155,7 +155,7 @@ def train_and_log(env_id,
                                      num_actions_pr_trafficlight=num_actions_pr_trafficlight,
                                      num_history_states=num_history_states)
     test_traffic_ppo.test(environment_name=env_id,
-                           #path_to_model=save_path,
+                           path_to_model="not_needed_here",
                            configured_environment=test_environment,
                            act=acts,
                            log_dir=logger_path)
