@@ -19,12 +19,21 @@ import tensorflow as tf
 
 
 def test(environment_name, path_to_model, configured_environment, act, log_dir):
-    def policy_fn(name, ob_space, ac_space):
+    def policy_fn(name, ob_space, ac_space,tls_id,process_id):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
-                                    hid_size=64, num_hid_layers=2)                    #set these?
+                                    hid_size=64, num_hid_layers=2,tls_id=tls_id,process_id=process_id)                    #set these?
     if act is None:
-        act = policy_fn('pi', configured_environment.observation_space, configured_environment.action_space)
-        tf.train.Saver().restore(sess, path_to_model)
+        act=[{} for i in range(4)]
+        process_id=path_to_model.split("_")[-1]
+        for i in range(4): #Assuming 4 networks
+            g = tf.Graph()
+            config = tf.ConfigProto()
+            config.gpu_options.allow_growth = True
+            sess = tf.InteractiveSession(graph=g, config=config)
+            with g.as_default():
+                act[i]["sess"]=sess
+                act[i]["pi"] = policy_fn('pi', configured_environment.observation_space, configured_environment.action_space,tls_id=i,process_id=process_id)
+                tf.train.Saver().restore(sess, path_to_model+"/tls"+str(i)+"/ckpt/saved_model")
     else:
         #sort the acts based on tls id
         act = [x for x in sorted(act, key=lambda k: k["tls_id"])]
@@ -36,7 +45,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(path_to_model, "Model path")
-    #configured_environment.render()
+    configured_environment.render()
     obs, done = configured_environment.reset(), False
     for i in range(10):
         episode_rew = 0
@@ -55,19 +64,19 @@ if __name__ == '__main__':
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment = 'Traci_3_cross_env-v0'
-    path_to_model = "/home/nikolaj/Desktop/Traci_3_cross_env-v0-ppo/2017-10-25_13-37-55/ckpt_timesteps/saved_model"
+    path_to_model = "/home/nikolaj/Desktop/2017-11-14_01-01-16_pid_0"
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
-                            start_car_probabilities=[1.0,0.1],
+                            start_car_probabilities=[1.0 ,0.1],
                             enjoy_car_probs=False,
-                            reward_func=BaseTraciEnv.reward_total_waiting_vehicles,
+                            reward_func=BaseTraciEnv.reward_average_speed_split,
                             action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                             state_contain_num_cars_in_queue_history=True,
                             state_contain_time_since_tl_change=True,
                             state_contain_tl_state_history=True,
                             state_contain_avg_speed_between_detectors_history=False,
                             num_actions_pr_trafficlight=2,
-                            num_history_states=2)
+                            num_history_states=1)
     test(environment, path_to_model, env, None, "")
 
 
