@@ -11,13 +11,13 @@ class MlpPolicy(object):
             self._init(*args, **kwargs)
             self.scope = tf.get_variable_scope().name
 
-    def _init(self, ob_space, ac_space, hid_size, num_hid_layers, tls_id, gaussian_fixed_var=True):
+    def _init(self, ob_space, ac_space, hid_size, num_hid_layers, tls_id,process_id, gaussian_fixed_var=True):
         assert isinstance(ob_space, gym.spaces.Box)
 
         self.pdtype = pdtype = make_pdtype(ac_space)
         sequence_length = None
 
-        ob = U.get_placeholder(name="ob", dtype=tf.float32, shape=[sequence_length] + list(ob_space.shape), tls_id=tls_id)
+        ob = U.get_placeholder(name="ob"+str(process_id), dtype=tf.float32, shape=[sequence_length] + list(ob_space.shape), tls_id=tls_id)
 
         with tf.variable_scope("obfilter"):
             self.ob_rms = RunningMeanStd(shape=ob_space.shape)

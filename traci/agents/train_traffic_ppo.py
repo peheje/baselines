@@ -86,9 +86,9 @@ def train_and_log(env_id,
     logger.logtxt(call_params_string_array)
     copyfile(__file__, logger_path + "/params.txt")
 
-    def policy_fn(name, ob_space, ac_space, tls_id):
+    def policy_fn(name, ob_space, ac_space, tls_id,process_id):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
-            hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id)
+            hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id,process_id=process_id)
     # env = bench.Monitor(env, logger.get_dir() and  osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
@@ -102,12 +102,20 @@ def train_and_log(env_id,
         config = tf.ConfigProto()
         config.gpu_options.allow_growth = True
         sess = tf.InteractiveSession(graph=g, config=config)
+
+        newkwargs = dict({k: value for k, value in kwargs.items() if k != "done_testing_event"})
+
         with g.as_default():
-            pposgd_simple.learn(**kwargs)
+            pposgd_simple.learn(**newkwargs)
+        kwargs["done_testing_event"].wait()
+        sess.close()
+
+    done_testing_event=threading.Event()
 
     mpilock=threading.Lock()
     for i in range(4):
             t = threading.Thread(target=pposgd_simple_wrapper, kwargs={
+                "done_testing_event":done_testing_event,
                 "env": env,
                 "policy_func": policy_fn,
                 "max_timesteps": max_timesteps,
@@ -124,7 +132,8 @@ def train_and_log(env_id,
                 "logger_path": logger_path,
                 "queue": q,
                 "tls_id": i,
-                "mpi_lock":mpilock
+                "mpi_lock":mpilock,
+                "process_id":process_id
             })
             threads.append(t)
             t.daemon = True             # Stops if main stops
@@ -159,6 +168,8 @@ def train_and_log(env_id,
                            configured_environment=test_environment,
                            act=acts,
                            log_dir=logger_path)
+    done_testing_event.set() #make threads clean up
+
 
 def setup_thread_and_run(**kwargs):
     g = tf.Graph()
@@ -178,17 +189,12 @@ def main():
 
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
 
-    with tf.device("/gpu:1"):
-        for pr in probabilities:
+    for i,pr in enumerate(probabilities):
             print("Now props:", pr)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(start_car_probabilities=pr,
+            train_and_log(start_car_probabilities=pr,
                               env_id=args.env,
-                              seed=args.seed)
+                              seed=args.seed,
+                              process_id=i)
 
 
 

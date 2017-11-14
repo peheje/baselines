@@ -91,21 +91,22 @@ def learn(env, policy_func, *,
         schedule='constant', # annealing for stepsize parameters (epsilon and adam)
           queue,
           tls_id=-1,
-          mpi_lock
+          mpi_lock,
+          process_id=-1
         ):
     # Setup losses and stuff
     # ----------------------------------------
     ob_space = env.observation_space
     ac_space = env.action_space
-    pi = policy_func("pi", ob_space, ac_space, tls_id=tls_id) # Construct network for new policy
-    oldpi = policy_func("oldpi", ob_space, ac_space, tls_id=tls_id) # Network for old policy
+    pi = policy_func("pi"+str(process_id), ob_space, ac_space, tls_id=tls_id,process_id=process_id) # Construct network for new policy
+    oldpi = policy_func("oldpi"+str(process_id), ob_space, ac_space, tls_id=tls_id,process_id=process_id) # Network for old policy
     atarg = tf.placeholder(dtype=tf.float32, shape=[None]) # Target advantage function (if applicable)
     ret = tf.placeholder(dtype=tf.float32, shape=[None]) # Empirical return
 
     lrmult = tf.placeholder(name='lrmult', dtype=tf.float32, shape=[]) # learning rate multiplier, updated with schedule
     clip_param = clip_param * lrmult # Annealed cliping parameter epislon
 
-    ob = U.get_placeholder_cached(name="ob", tls_id=tls_id)
+    ob = U.get_placeholder_cached(name="ob"+str(process_id), tls_id=tls_id)
     ac = pi.pdtype.sample_placeholder([None])
 
     kloldnew = oldpi.pd.kl(pi.pd)

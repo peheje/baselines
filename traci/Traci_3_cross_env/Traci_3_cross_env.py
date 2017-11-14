@@ -177,6 +177,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                 hasStarted = True
                 break
             except:
+                print("Couldn't start traci")
                 pass
         if not hasStarted:
             send_mail()
@@ -259,6 +260,7 @@ class Traci_3_cross_env(BaseTraciEnv):
         try:
             traci.close(wait=True)
         except:
+            print("Couldn't close traci")
             pass
         Thread(target=self.__traci_start__())
 
