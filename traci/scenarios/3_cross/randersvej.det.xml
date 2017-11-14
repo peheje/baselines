@@ -45,7 +45,7 @@
     </e3Detector>
     <e3Detector id="mc_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="Es_0" pos="795"/>
-        <detExit lane="Es_0" pos="995" friendlyPos="True"/>
+        <detExit lane="Es_0" pos="-0.1" friendlyPos="True"/>
     </e3Detector>
     <e3Detector id="mc_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="gneE3_1" pos="100.00"/>
@@ -65,7 +65,7 @@
     </e3Detector>
     <e3Detector id="mc_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="Ds_0" pos="795"/>
-        <detExit lane="Ds_0" pos="990"/>
+        <detExit lane="Ds_0" pos="-0.1"/>
     </e3Detector>
     <e3Detector id="nd_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="Is_0" pos="195.00"/>
@@ -107,7 +107,7 @@
     </e3Detector>
     <e3Detector id="st_east" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="Gs_0" pos="795.00"/>
-        <detExit lane="Gs_0" pos="990.00"/>
+        <detExit lane="Gs_0" pos="-0.1"/>
     </e3Detector>
     <e3Detector id="st_north" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="gneE12_1" pos="145.00"/>
@@ -125,6 +125,6 @@
     </e3Detector>
     <e3Detector id="st_west" freq="100.00" file="e3.out.xml" timeThreshold="1.00" speedThreshold="1.39" x="0.00" y="0.00">
         <detEntry lane="Fs_0" pos="795.00"/>
-        <detExit lane="Fs_0" pos="990.00"/>
+        <detExit lane="Fs_0" pos="-0.1"/>
     </e3Detector>
 </additionals>
