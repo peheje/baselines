@@ -31,13 +31,13 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   num_car_chances=1000,
                   action_function=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                   reward_function=BaseTraciEnv.reward_total_waiting_vehicles,
-                  lr=1e-3,  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
+                  lr=(1e-3 / 4.0),  # lr / 4.0 as described in (Tom Schaul 2016) when using prio. exp. repl.
                   max_timesteps=int(1e6),
-                  buffer_size=50000,
+                  buffer_size=200000,
                   exploration_initial_p=0.2,
                   exploration_fraction=0.5,
                   explore_final_eps=0.02,
-                  train_freq=100,
+                  train_freq=10,
                   batch_size=32,
                   checkpoint_freq=10000,
                   learning_starts=10000,
@@ -47,7 +47,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   # [0.1,0.1,0.1,0.1,0.1,0.1,0.1], #For traci_3_cross: Bigroad_spawn_prob,Smallroad_spawn_prob
                   end_car_probabilities=None,  # When set to None do not anneal
                   num_steps_from_start_car_probs_to_end_car_probs=1e5,
-                  prioritized_replay=False,
+                  prioritized_replay=True,
                   prioritized_replay_alpha=0.6,
                   prioritized_replay_beta0=0.4,
                   prioritized_replay_beta_iters=None,
@@ -61,7 +61,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   state_use_avg_speed=False,
                   hidden_layers=[64],
                   num_actions_pr_trafficlight=2,
-                  num_history_states=2,
+                  num_history_states=1,
                   experiment_name="",
                   layer_norm=False):
     print("RUNNING train_and_log")
@@ -162,22 +162,19 @@ def main():
         [0.25, 0.05],
         [1.0, 0.10]
     ]
-    train_freqs = [10, 50, 100, 200]
 
     # Set this by hand!
-    experiment_name = "train_freq"
+    experiment_name = ""
 
-    for train_freq in train_freqs:
-        for pr in probabilities:
-            print("Now props:", pr)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(start_car_probabilities=pr,
-                              experiment_name=experiment_name,
-                              train_freq=train_freq)
+    for pr in probabilities:
+        print("Now props:", pr)
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            train_and_log(start_car_probabilities=pr,
+                          experiment_name=experiment_name)
 
 
 if __name__ == '__main__':
