@@ -45,7 +45,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(path_to_model, "Model path")
-    configured_environment.render()
+    #configured_environment.render()
     obs, done = configured_environment.reset(), False
     for i in range(10):
         episode_rew = 0
