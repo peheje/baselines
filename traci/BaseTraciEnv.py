@@ -80,17 +80,31 @@ class BaseTraciEnv(gym.Env):
                         state_contain_time_since_tl_change=False,
                         state_contain_tl_state_history=True,
                         state_contain_num_cars_in_queue_history=True,
-                        normalize_queue_lengths=False):
+                        normalize_queue_lengths=False,
+                        teleport_time=300,
+                        max_green_time=-1,
+                        min_green_time=-1):
 
         """
 
+        :param min_green_time: Minimum green time. Non-positive values disables a min green time. Defaults to -1.
+        :param max_green_time: Max green time for any tls,
+                                if exceeded will shift.
+                                Non-positive values disables
+                                a max green time. Defaults to -1.
+        :param action_func: Action function to use.
+        :param normalize_queue_lengths: Divides the number of cars in the queue with 200 before feeding it to the state.
+        :param teleport_time: Specify how long a vehicle may wait
+                                         until being teleported, defaults to
+                                         300, non-positive values disable
+                                         teleporting
         :param num_car_chances: How many chances there are to spawning cars.
         :param start_car_probabilities: Start car probabilities to start annealing down to end_car_probabilities.
         :param reward_func: Which reward function to use. Only used for training.
         :param num_actions_pr_trafficlight: 2 (Switch, Nothing) or 3 (Green-NS, Green-WE, Nothing). Only used for training.
         :param num_steps_from_start_car_probs_to_end_car_probs: Number of steps to anneal from start_car_probabilities to end_car_probabilities.
         :param num_history_states: How many history states to include in the state. Only used for training.
-        :param end_car_probabilities: The end probability for spawning cars when annealed num_steps_from_start_car_probs_to_end_car_probs steps. If set to None, do not anneal.
+        :param end_car_probabilities: The endx probability for spawning cars when annealed num_steps_from_start_car_probs_to_end_car_probs steps. If set to None, do not anneal.
         :param enjoy_car_probs: Whether to change car probabilities to something hardcoded for enjoy (test) over the episode.
         :param perform_actions: Whether to perform actions based upon some model, for cycle set to False.
         :param state_contain_avg_speed_between_detectors_history:
@@ -98,6 +112,12 @@ class BaseTraciEnv(gym.Env):
         :param state_contain_tl_state_history:
         :param state_contain_num_cars_in_queue_history:
         """
+
+        assert max_green_time >= min_green_time
+
+        self.min_green_time = min_green_time
+        self.max_green_time = max_green_time
+        self.teleport_time = teleport_time
         self.num_actions_pr_trafficlight = num_actions_pr_trafficlight
         self.num_actions = self.num_actions_pr_trafficlight ** self.num_trafficlights
         if self.num_actions_pr_trafficlight == 2:
@@ -336,6 +356,17 @@ class BaseTraciEnv(gym.Env):
             nums.append(0)
         return list(reversed(nums))
 
+    def max_tls_exceeded(self, light_id):
+        """
+         Implements the flag self.max_green_time.
+         Returns True if it is exceeded.
+         Returns False otherwise.
+         """
+        if self.max_green_time < 0 or self.time_since_tl_change[light_id] < self.max_green_time:
+            return False
+        else:
+            return True
+
     def set_light_phase_4_cross_extend(self, light_id, action, cur_phase):
         if light_id in self.time_since_tl_change:
             self.time_since_tl_change[light_id] += 1
@@ -358,12 +389,32 @@ class BaseTraciEnv(gym.Env):
                 self.time_since_tl_change[light_id] = 0
         else:
             pass  # do nothing
+
     def set_light_phase_4_cross_green_dir(self, light_id, action, cur_phase):
+
+        # Increment time since tl change for this light_id
         if light_id in self.time_since_tl_change:
             self.time_since_tl_change[light_id] += 1
         else:
             self.time_since_tl_change[light_id] = 1
-        # Run action
+
+        # Check if exceeded max tls, then shift.
+        if self.max_tls_exceeded(light_id):
+            # print("max exceeded on tls_id {} shifting".format(light_id))
+            if cur_phase in [0, 4]:
+                traci.trafficlights.setPhase(light_id, cur_phase+1)
+                self.traffic_light_changes += 1
+                self.time_since_tl_change[light_id] = 0
+            return
+
+        # Check if been green for min_green_time.
+        if self.min_green_time > 0 and self.time_since_tl_change[light_id] < self.min_green_time:
+            # print("min green time not met, staying in phase for tls_id {}".format(light_id))
+            if cur_phase in [0, 4]:
+                traci.trafficlights.setPhase(light_id, cur_phase)
+            return
+
+        # Run action.
         if action == 0:
             if cur_phase == 4:
                 traci.trafficlights.setPhase(light_id, 5)
