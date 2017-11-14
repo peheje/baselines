@@ -165,16 +165,16 @@ class Traci_3_cross_env(BaseTraciEnv):
         for i in range(10):
             try:
                 traci.start(
-                    [self.sumo_binary,
-                     "-c", "scenarios/3_cross/cross.sumocfg",
-                     "--tripinfo-output", self.tripinfo_file_name,
-                     "--start",
-                     "--quit-on-end",
-                     "--time-to-teleport", "300",
-                     "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
-                     "--xml-validation", "never",
-                     "--route-files", self.route_file_name])
-                hasStarted = True
+                [self.sumo_binary,
+                 "-c", "scenarios/3_cross/cross.sumocfg",
+                 "--tripinfo-output", self.tripinfo_file_name,
+                 "--start",
+                 "--quit-on-end",
+                 "--time-to-teleport", str(self.teleport_time),
+                 "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
+                 "--xml-validation", "never",
+                 "--route-files", self.route_file_name])
+                hasStarted=True
                 break
             except:
                 print("Couldn't start traci")
