@@ -45,7 +45,10 @@ def test(environment_name, path_to_model, configured_environment, act=None, log_
         episode_rew = 0
         while not done:
             for i in range(len(multi_act)):
-                actions[i]=multi_act[i](obs[None])[0]
+                if no_explore:
+                    actions[i] = multi_act[i](obs[None], update_eps=0)[0]
+                else:
+                    actions[i] = multi_act[i](obs[None])[0]
             total_action = ""
             for a in actions:
                 total_action += format(a, "0" + str(int(num_bits)) + "b")
@@ -74,6 +77,7 @@ if __name__ == '__main__':
         path = setup["path"]
         props = setup["props"]
         info = setup["info"]
+        action_func = setup["action_func"]
         print("Running test for: ", info)
         print(props, path)
 
