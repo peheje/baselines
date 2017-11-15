@@ -189,15 +189,16 @@ def main():
 
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
     timesteps_per_batches=[128,256,512,1024]
-
+    process_id=0
     for i,pr in enumerate(probabilities):
         for tspb in timesteps_per_batches:
             print("Now props:", pr)
             train_and_log(start_car_probabilities=pr,
                               env_id=args.env,
                               seed=args.seed,
-                              process_id=i,
+                              process_id=process_id,
                               timesteps_per_batch=tspb)
+            process_id +=1
 
 
 
