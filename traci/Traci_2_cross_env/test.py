@@ -1,24 +1,19 @@
-import smtplib
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+import math
 
-msg = MIMEMultipart()
-msg['From'] = 'sumotraci@gmail.com'
-msg['To'] = 'nikolajholden@gmail.com'
-msg['Subject'] = 'simple email in python'
-message = 'here is the email'
-msg.attach(MIMEText(message))
 
-mailserver = smtplib.SMTP('smtp.gmail.com',587)
-# identify ourselves to smtp gmail client
-mailserver.ehlo()
-# secure our email with tls encryption
-mailserver.starttls()
-# re-identify ourselves as an encrypted connection
-mailserver.ehlo()
-mailserver.login('sumotraci@gmail.com', 'tracisumo')
+def f1(std):
+    return -0.5 * (math.log(2 * math.pi * std ** 2) + 1)
 
-mailserver.sendmail('sumotraci@gmail.com','nikolajholden@gmail.com',msg.as_string())
 
-mailserver.quit()
+def f2(std):
+    return -(math.log(std) + 0.5 * math.log(2.0 * math.pi * math.e))
 
+
+def f3(std):
+    return -math.log(std*math.sqrt(2*math.pi*math.e))
+
+
+for i in range(1, 10):
+    print("f1", f1(i))
+    print("f2", f2(i))
+    print("f3", f3(i))
