@@ -21,6 +21,7 @@ import os
 import tensorflow as tf
 from shutil import copyfile
 
+
 def train_and_log(env_id,
                   seed,
                   checkpoint_freq=10000,
@@ -40,8 +41,9 @@ def train_and_log(env_id,
                   num_history_states=1,
                   hid_size=64,
                   num_hid_layers=2,
-                  timesteps_per_batch=2048,
-                  clip_param=0.2, entcoeff=0.0,
+                  timesteps_per_batch=512,
+                  clip_param=0.2,
+                  entcoeff=0.0,
                   optim_epochs=10,
                   optim_stepsize=3e-4,
                   optim_batchsize=64,
@@ -80,15 +82,17 @@ def train_and_log(env_id,
 
     log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-multiple']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
-    logger_path=logger_path+"_pid_"+str(process_id)
+    logger_path = logger_path + "_pid_" + str(process_id)
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
     logger.logtxt(call_params_string_array)
     copyfile(__file__, logger_path + "/params.txt")
 
-    def policy_fn(name, ob_space, ac_space, tls_id,process_id):
+    def policy_fn(name, ob_space, ac_space, tls_id, process_id):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
-            hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id,process_id=process_id)
+                                    hid_size=hid_size, num_hid_layers=num_hid_layers, tls_id=tls_id,
+                                    process_id=process_id)
+
     # env = bench.Monitor(env, logger.get_dir() and  osp.join(logger.get_dir(), "monitor.json"))
     env.seed(seed)
     gym.logger.setLevel(logging.WARN)
@@ -110,45 +114,44 @@ def train_and_log(env_id,
         kwargs["done_testing_event"].wait()
         sess.close()
 
-    done_testing_event=threading.Event()
+    done_testing_event = threading.Event()
 
-    mpilock=threading.Lock()
+    mpilock = threading.Lock()
     for i in range(4):
-            t = threading.Thread(target=pposgd_simple_wrapper, kwargs={
-                "done_testing_event":done_testing_event,
-                "env": env,
-                "policy_func": policy_fn,
-                "max_timesteps": max_timesteps,
-                "timesteps_per_batch": timesteps_per_batch,
-                "clip_param": clip_param,
-                "entcoeff": entcoeff,
-                "optim_epochs": optim_epochs,
-                "optim_stepsize": optim_stepsize,
-                "optim_batchsize": optim_batchsize,
-                "gamma": gamma,
-                "lam": lam,
-                "schedule": schedule,
-                "checkpoint_freq": checkpoint_freq,
-                "logger_path": logger_path,
-                "queue": q,
-                "tls_id": i,
-                "mpi_lock":mpilock,
-                "process_id":process_id
-            })
-            threads.append(t)
-            t.daemon = True             # Stops if main stops
-            t.start()
+        t = threading.Thread(target=pposgd_simple_wrapper, kwargs={
+            "done_testing_event": done_testing_event,
+            "env": env,
+            "policy_func": policy_fn,
+            "max_timesteps": max_timesteps,
+            "timesteps_per_batch": timesteps_per_batch,
+            "clip_param": clip_param,
+            "entcoeff": entcoeff,
+            "optim_epochs": optim_epochs,
+            "optim_stepsize": optim_stepsize,
+            "optim_batchsize": optim_batchsize,
+            "gamma": gamma,
+            "lam": lam,
+            "schedule": schedule,
+            "checkpoint_freq": checkpoint_freq,
+            "logger_path": logger_path,
+            "queue": q,
+            "tls_id": i,
+            "mpi_lock": mpilock,
+            "process_id": process_id
+        })
+        threads.append(t)
+        t.daemon = True  # Stops if main stops
+        t.start()
 
     for i in range(4):
-        acts.append(q.get())    # get is blocking
+        acts.append(q.get())  # get is blocking
     assert len(acts) == 4
-
 
     # Saving doesn't work for now
     # save_path=logger_path+"/ckpt/saved_model"
     # U.save_state(save_path)
 
-    #env.close()
+    # env.close()
 
     # # Run test
     test_environment = gym.make(env_id)
@@ -164,11 +167,11 @@ def train_and_log(env_id,
                                      num_actions_pr_trafficlight=num_actions_pr_trafficlight,
                                      num_history_states=num_history_states)
     test_traffic_ppo.test(environment_name=env_id,
-                           path_to_model="not_needed_here",
-                           configured_environment=test_environment,
-                           act=acts,
-                           log_dir=logger_path)
-    done_testing_event.set() #make threads clean up
+                          path_to_model="not_needed_here",
+                          configured_environment=test_environment,
+                          act=acts,
+                          log_dir=logger_path)
+    done_testing_event.set()  # make threads clean up
 
 
 def setup_thread_and_run(**kwargs):
@@ -188,20 +191,17 @@ def main():
     args = parser.parse_args()
 
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
-    timesteps_per_batches=[128,256,512,1024]
-    process_id=0
-    for i,pr in enumerate(probabilities):
-        for tspb in timesteps_per_batches:
+    entropies = [0.1, 0.01, 0.001, 0.0001]
+    process_id = 0
+    for i, pr in enumerate(probabilities):
+        for ent in entropies:
             print("Now props:", pr)
             train_and_log(start_car_probabilities=pr,
-                              env_id=args.env,
-                              seed=args.seed,
-                              process_id=process_id,
-                              timesteps_per_batch=tspb)
-            process_id +=1
-
-
-
+                          env_id=args.env,
+                          seed=args.seed,
+                          process_id=process_id,
+                          entcoeff=ent)
+            process_id += 1
 
 
 if __name__ == '__main__':
