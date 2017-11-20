@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <tlLogic id="gneJ24" type="delay_based" programID="b" offset="0">
+        <param key="detectorRange" value="300"/>
+        <param key="minTimeLoss" value="1"/>
+        <param key="file" value="NULL"/>
+        <param key="freq" value="300"/>
+        <param key="show-detectors" value="true"/>
+        <phase duration="10" minDur="5" maxDur="45" state="GGgrrGGGrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="yygrryyyrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrGrrrrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rryrrrrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrGgrrrGGg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrygrrryyg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrGrrrrrG"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrryrrrrry"/>
+    </tlLogic>
+    <tlLogic id="gneJ28" type="delay_based" programID="b" offset="0">
+        <param key="detectorRange" value="300"/>
+        <param key="minTimeLoss" value="1"/>
+        <param key="file" value="NULL"/>
+        <param key="freq" value="300"/>
+        <param key="show-detectors" value="true"/>
+        <phase duration="10" minDur="5" maxDur="45" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="yyyyggrrrrryyyggrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrryyrrrrrrrryyrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrryyyggrrrrryyygg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrrrryyrrrrrrrryy"/>
+    </tlLogic>
+    <tlLogic id="hr_junction" type="delay_based" programID="b" offset="0">
+        <param key="detectorRange" value="300"/>
+        <param key="minTimeLoss" value="1"/>
+        <param key="file" value="NULL"/>
+        <param key="freq" value="300"/>
+        <param key="show-detectors" value="true"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrryyyggrrrrryyygg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrrrryyrrrrrrrryy"/>
+        <phase duration="10" minDur="5" maxDur="45" state="GGGGggrrrrrGGGggrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="yyyyggrrrrryyyggrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrryyrrrrrrrryyrrrrr"/>
+    </tlLogic>
+    <tlLogic id="mc" type="delay_based" programID="b" offset="0">
+        <param key="detectorRange" value="300"/>
+        <param key="minTimeLoss" value="1"/>
+        <param key="file" value="NULL"/>
+        <param key="freq" value="300"/>
+        <param key="show-detectors" value="true"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrGGGgrrrGGGg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrryyygrrryyyg"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrrGrrrrrrG"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrrrrryrrrrrry"/>
+        <phase duration="10" minDur="5" maxDur="45" state="GGgrrrrGGgrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="yygrrrryygrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rrGrrrrrrGrrrr"/>
+        <phase duration="10" minDur="5" maxDur="45" state="rryrrrrrryrrrr"/>
+    </tlLogic>
+</additional>

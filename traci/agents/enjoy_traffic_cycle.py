@@ -21,7 +21,7 @@ def main():
     env.configure_traci(perform_actions=False,
                         num_car_chances=1000,
                         start_car_probabilities=[0.25, 0.05],
-                        enjoy_car_probs=True,
+                        enjoy_car_probs=False,
                         reward_func=env.reward_total_waiting_vehicles,
                         action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
                         state_contain_num_cars_in_queue_history=True,
@@ -30,9 +30,9 @@ def main():
                         state_contain_avg_speed_between_detectors_history=False,
                         num_actions_pr_trafficlight=2)
 
-    env.render()
+    # env.render()
     _, done = env.reset(), False
-    for episode in range(10):
+    for episode in range(5):
         while not done:
             _, _, done, _ = env.step(-1)
         _, done = env.reset(), False
