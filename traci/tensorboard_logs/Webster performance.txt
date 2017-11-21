@@ -1,9 +1,0 @@
-Webster low: 	2.53E5
-Webster high:	1.42E6
-
-Actuated:
-Time gaps low:	
-Time gaps high:	
-
-Time loss low:
-Time loss high:
