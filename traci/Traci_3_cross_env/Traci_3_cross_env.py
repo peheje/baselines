@@ -80,28 +80,22 @@ class Traci_3_cross_env(BaseTraciEnv):
             print("<routes>", file=flows)
 
             if self.enjoy_car_probs:
-                hard_coded_bigroad_probs = [1.000,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            1.000]
-                # hard_coded_bigroad_probs = cosinus(100)
-                increment_every_interval = self.num_car_chances // len(hard_coded_bigroad_probs)
+                changes_over_ep = 10
+                big_road_prop = np.random.uniform(0.01, self.big_road_max, changes_over_ep)
+                small_road_prop = np.random.uniform(0.01, self.small_road_max, changes_over_ep)
 
+                print("car props", big_road_prop, small_road_prop)
+
+                increment_every_interval = self.num_car_chances // len(big_road_prop)
                 flow_id = 0
                 cur_interval_start = 0
-                for interval in range(len(hard_coded_bigroad_probs)):
+                for interval in range(len(big_road_prop)):
                     for iter, f in enumerate(froms):
                         # If spawning from big road
                         if any(bigroad in f for bigroad in big_roads):
-                            spawn_prob = hard_coded_bigroad_probs[interval]
+                            spawn_prob = big_road_prop[interval]
                         else:
-                            spawn_prob = hard_coded_bigroad_probs[interval] / 10
+                            spawn_prob = small_road_prop[interval]
 
                         print('<flow id="{}" from="{}" begin="{}" end="{}" probability="{}"/>'.format(flow_id, f,
                                                                                                       cur_interval_start,
@@ -201,6 +195,11 @@ class Traci_3_cross_env(BaseTraciEnv):
         self.route_file_name = None
         self.jtrroute_seed = 0
 
+        self.small_big_toggle = False
+        self.did_teleport = False
+        self.small_road_max = 0.9
+        self.big_road_max = 0.9
+
     def get_state_multientryexit(self):
         raw_mee_state = traci.multientryexit.getSubscriptionResults()
 
@@ -245,7 +244,45 @@ class Traci_3_cross_env(BaseTraciEnv):
             arr += a
         return arr
 
+    def match_difficulty(self):
+        k = 1.05
+        d = 0.98
+
+        if not self.did_teleport:
+            # Increase other prop
+            self.small_big_toggle = not self.small_big_toggle
+
+            if self.small_big_toggle:
+                # Increase small
+                print("increasing small")
+                self.small_road_max *= k
+            else:
+                # Increase big
+                print("increasing big")
+                self.big_road_max *= k
+            self.small_road_max = min(1.0, self.small_road_max)
+            self.big_road_max = min(1.0, self.big_road_max)
+        else:
+            # Decrease car props
+            if self.small_big_toggle:
+                # Decrease small
+                print("decreasing small")
+                self.small_road_max *= d
+            else:
+                # Decrease big
+                print("decreasing big")
+                self.big_road_max *= d
+
+        self.did_teleport = False
+
+        print("big max", self.big_road_max)
+        print("small max", self.small_road_max)
+
     def restart(self):
+
+        if self.enjoy_car_probs:
+            self.match_difficulty()
+
         self.spawn_cars()
         if self.should_render:
             self.sumo_binary = checkBinary('sumo-gui')
@@ -333,6 +370,10 @@ class Traci_3_cross_env(BaseTraciEnv):
 
         # See if done
         done = traci.simulation.getSubscriptionResults()[traci.constants.VAR_MIN_EXPECTED_VEHICLES] < 1
+
+        # See if teleport
+        if traci.simulation.getStartingTeleportNumber() > 0:
+            self.did_teleport = True
 
         self.log_end_step(reward)
 
