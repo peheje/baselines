@@ -191,16 +191,16 @@ def main():
     args = parser.parse_args()
 
     probabilities = [[0.25, 0.05], [1.0, 0.10]]
-    entropies = [0.1, 0.01, 0.001, 0.0001]
+    clippings = [0.1, 0.2, 0.3, 0.4]
     process_id = 0
     for i, pr in enumerate(probabilities):
-        for ent in entropies:
+        for cl in clippings:
             print("Now props:", pr)
             train_and_log(start_car_probabilities=pr,
                           env_id=args.env,
                           seed=args.seed,
                           process_id=process_id,
-                          entcoeff=ent)
+                          clip_param=cl)
             process_id += 1
 
 
