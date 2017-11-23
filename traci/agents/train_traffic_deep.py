@@ -40,7 +40,7 @@ def train_and_log(environment_name="Traci_3_cross_env-v0",
                   train_freq=10,
                   batch_size=32,
                   checkpoint_freq=10000,
-                  learning_starts=10000,
+                  learning_starts=1000,
                   gamma=0.9,
                   target_network_update_freq=500,
                   start_car_probabilities=[1.0, 0.1],
@@ -163,21 +163,17 @@ def main():
         [1.0, 0.10]
     ]
 
-    gammas = [0.7, 0.8, 0.99, 0.999]
-
     # Set this by hand!
-    experiment_name = "gammas"
-    for gam in gammas:
-        for pr in probabilities:
-            print("Now props:", pr)
-            g = tf.Graph()
-            config = tf.ConfigProto()
-            config.gpu_options.allow_growth = True
-            sess = tf.InteractiveSession(graph=g, config=config)
-            with g.as_default():
-                train_and_log(start_car_probabilities=pr,
-                              experiment_name=experiment_name,
-                              gamma=gam)
+    experiment_name = "unknown"
+    for pr in probabilities:
+        print("Now props:", pr)
+        g = tf.Graph()
+        config = tf.ConfigProto()
+        config.gpu_options.allow_growth = True
+        sess = tf.InteractiveSession(graph=g, config=config)
+        with g.as_default():
+            train_and_log(start_car_probabilities=pr,
+                          experiment_name=experiment_name)
 
 if __name__ == '__main__':
     main()
