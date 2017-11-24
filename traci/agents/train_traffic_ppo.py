@@ -50,7 +50,8 @@ def train_and_log(env_id,
                   gamma=0.99,
                   lam=0.95,
                   schedule='linear',
-                  process_id=0
+                  process_id=0,
+                  enjoy_car_props=False
                   ):
     from baselines.ppo1 import mlp_policy, pposgd_simple
     # Obtain call params
@@ -76,11 +77,12 @@ def train_and_log(env_id,
                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
                         state_contain_tl_state_history=state_use_tl_state,
                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
-                        num_history_states=num_history_states)
+                        num_history_states=num_history_states,
+                        enjoy_car_probs=enjoy_car_props)
     # Initialize logger
     # Setup path of logging, name of environment
 
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-multiple']
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-multiple-generalize']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
     logger_path = logger_path + "_pid_" + str(process_id)
     logger.reset()
@@ -154,23 +156,44 @@ def train_and_log(env_id,
     # env.close()
 
     # # Run test
-    test_environment = gym.make(env_id)
-    test_environment.configure_traci(num_car_chances=num_car_chances,
-                                     start_car_probabilities=start_car_probabilities,
-                                     enjoy_car_probs=False,
-                                     reward_func=reward_function,
-                                     action_func=action_function,
-                                     state_contain_num_cars_in_queue_history=state_use_queue_length,
-                                     state_contain_time_since_tl_change=state_use_time_since_tl_change,
-                                     state_contain_tl_state_history=state_use_tl_state,
-                                     state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
-                                     num_actions_pr_trafficlight=num_actions_pr_trafficlight,
-                                     num_history_states=num_history_states)
-    test_traffic_ppo.test(environment_name=env_id,
-                          path_to_model="not_needed_here",
-                          configured_environment=test_environment,
-                          act=acts,
-                          log_dir=logger_path)
+    if enjoy_car_props:
+        for props in [[0.25, 0.05], [1.0, 0.10]]:
+            test_environment = gym.make(env_id)
+            test_environment.configure_traci(num_car_chances=num_car_chances,
+                                             start_car_probabilities=props,
+                                             enjoy_car_probs=False,
+                                             reward_func=reward_function,
+                                             action_func=action_function,
+                                             state_contain_num_cars_in_queue_history=state_use_queue_length,
+                                             state_contain_time_since_tl_change=state_use_time_since_tl_change,
+                                             state_contain_tl_state_history=state_use_tl_state,
+                                             state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
+                                             num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                                             num_history_states=num_history_states)
+            test_traffic_ppo.test(environment_name=env_id,
+                                  path_to_model="not_needed_here",
+                                  configured_environment=test_environment,
+                                  act=acts,
+                                  log_dir=logger_path)
+    else:
+        test_environment = gym.make(env_id)
+        test_environment.configure_traci(num_car_chances=num_car_chances,
+                                         start_car_probabilities=start_car_probabilities,
+                                         enjoy_car_probs=False,
+                                         reward_func=reward_function,
+                                         action_func=action_function,
+                                         state_contain_num_cars_in_queue_history=state_use_queue_length,
+                                         state_contain_time_since_tl_change=state_use_time_since_tl_change,
+                                         state_contain_tl_state_history=state_use_tl_state,
+                                         state_contain_avg_speed_between_detectors_history=state_use_avg_speed,
+                                         num_actions_pr_trafficlight=num_actions_pr_trafficlight,
+                                         num_history_states=num_history_states)
+        test_traffic_ppo.test(environment_name=env_id,
+                              path_to_model="not_needed_here",
+                              configured_environment=test_environment,
+                              act=acts,
+                              log_dir=logger_path)
+
     done_testing_event.set()  # make threads clean up
 
 
@@ -190,18 +213,18 @@ def main():
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     args = parser.parse_args()
 
-    probabilities = [[0.25, 0.05], [1.0, 0.10]]
-    clippings = [0.1, 0.2, 0.3, 0.4]
+    # probabilities = [[0.25, 0.05], [1.0, 0.10]]
+    probabilities = [[0.0, 0.0]]
     process_id = 0
     for i, pr in enumerate(probabilities):
-        for cl in clippings:
-            print("Now props:", pr)
-            train_and_log(start_car_probabilities=pr,
-                          env_id=args.env,
-                          seed=args.seed,
-                          process_id=process_id,
-                          clip_param=cl)
-            process_id += 1
+        print("Now props:", pr)
+        train_and_log(start_car_probabilities=pr,
+                      env_id=args.env,
+                      seed=args.seed,
+                      process_id=process_id,
+                      enjoy_car_props=True,
+                      max_timesteps=int(10e6))
+        process_id += 1
 
 
 if __name__ == '__main__':
