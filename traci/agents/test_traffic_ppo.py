@@ -32,7 +32,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
             sess = tf.InteractiveSession(graph=g, config=config)
             with g.as_default():
                 act[i]["sess"]=sess
-                act[i]["pi"] = policy_fn('pi', configured_environment.observation_space, configured_environment.action_space,tls_id=i,process_id=process_id)
+                act[i]["pi"] = policy_fn('pi'+str(process_id), configured_environment.observation_space, configured_environment.action_space,tls_id=i,process_id=process_id)
                 tf.train.Saver().restore(sess, path_to_model+"/tls"+str(i)+"/ckpt/saved_model")
     else:
         #sort the acts based on tls id
