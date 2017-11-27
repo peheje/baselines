@@ -64,10 +64,12 @@ if __name__ == '__main__':
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment = 'Traci_3_cross_env-v0'
-    path_to_model = "/home/nikolaj/Desktop/2017-11-14_01-01-16_pid_0"
+    path_to_model = "/home/nikolaj/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
-                            start_car_probabilities=[1.0 ,0.1],
+                            start_car_probabilities=[0.1 ,0.025],
+                            end_car_probabilities=[1.0,0.25],
+                            num_episodes_from_start_car_probs_to_end_car_probs=10,
                             enjoy_car_probs=False,
                             reward_func=BaseTraciEnv.reward_average_speed_split,
                             action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
