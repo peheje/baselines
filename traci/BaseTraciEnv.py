@@ -285,7 +285,7 @@ class BaseTraciEnv(gym.Env):
         for i in range(self.num_trafficlights):
             idx = i * 4
             for_intersection = haltings[idx:idx + 4]
-            halting_split.append(sum(for_intersection))
+            halting_split.append(-sum(for_intersection))
 
         return halting_split
 
