@@ -33,6 +33,7 @@ class BaseTraciEnv(gym.Env):
         self.step_rewards = deque([], maxlen=100)
         self.mean_episode_rewards = deque([], maxlen=100)
         self.episode_mean_travel_times = []
+        self.car_probs_all_episodes=[]
         self.episode_mean_time_losses = []
         self.co2_step_rewards = []
         self.avg_speed_step_rewards = []
@@ -72,6 +73,7 @@ class BaseTraciEnv(gym.Env):
                         action_func,
                         num_actions_pr_trafficlight,
                         num_steps_from_start_car_probs_to_end_car_probs=1e5,
+                        num_episodes_from_start_car_probs_to_end_car_probs=None,
                         num_history_states=2,
                         end_car_probabilities=None,
                         enjoy_car_probs=False,
@@ -133,6 +135,7 @@ class BaseTraciEnv(gym.Env):
         self.start_car_probabilities = copy.deepcopy(start_car_probabilities)
         self.end_car_probabilities = end_car_probabilities
         self.num_steps_from_start_car_probs_to_end_car_probs=num_steps_from_start_car_probs_to_end_car_probs
+        self.num_episodes_from_start_car_probs_to_end_car_probs=num_episodes_from_start_car_probs_to_end_car_probs
         self.reward_func = reward_func
         self.action_func=action_func
         self.perform_actions = perform_actions
@@ -162,11 +165,18 @@ class BaseTraciEnv(gym.Env):
             return
         else:
             for i in range(len(self.car_probabilities)):
-                new_prop = LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
-                                       initial_p=self.start_car_probabilities[i],
-                                       final_p=self.end_car_probabilities[i]).value(self.timestep)
-                # print("new_prop", new_prop)
-                self.car_probabilities[i]=new_prop
+                if self.num_episodes_from_start_car_probs_to_end_car_probs is None:
+                    new_prop = LinearSchedule(self.num_steps_from_start_car_probs_to_end_car_probs,
+                                           initial_p=self.start_car_probabilities[i],
+                                           final_p=self.end_car_probabilities[i]).value(self.timestep)
+                    # print("new_prop", new_prop)
+                    self.car_probabilities[i]=new_prop
+                else:
+                    new_prop = LinearSchedule(self.num_episodes_from_start_car_probs_to_end_car_probs,
+                                              initial_p=self.start_car_probabilities[i],
+                                              final_p=self.end_car_probabilities[i]).value(self.episode)
+                    # print("new_prop", new_prop)
+                    self.car_probabilities[i] = new_prop
 
     def _step(self, action):
         """ Implement in child """
@@ -545,6 +555,7 @@ class BaseTraciEnv(gym.Env):
             except xml.etree.ElementTree.ParseError as err:
                 print("Couldn't read xml, skipping logging this iteration")
                 retry = False
+        self.car_probs_all_episodes.append(copy.copy(self.car_probabilities))
 
         self.mean_episode_rewards.append(np.sum(self.episode_rewards[-1]) / self.timestep_this_episode)
         mean_100ep_mean_reward = round(np.mean(self.mean_episode_rewards), 1)
@@ -572,18 +583,18 @@ class BaseTraciEnv(gym.Env):
             self.log_end_episode(reward)
 
     def log_travel_time_table(self):
-        string_array_to_log = [["Episode", "Mean travel time", "Mean time loss"]]
+        string_array_to_log = [["Episode", "Mean travel time", "Mean time loss","Multiply factor","Car probabilities"]]
         for i in range(len(self.episode_mean_travel_times)):
             string_array_to_log.append(
-                [str(i + 1), str(self.episode_mean_travel_times[i]), str(self.episode_mean_time_losses[i])])
+                [str(i + 1), str(self.episode_mean_travel_times[i]), str(self.episode_mean_time_losses[i]),str(self.car_probs_all_episodes[i][0]/self.start_car_probabilities[0]),str(self.car_probs_all_episodes[i])])
 
         # Means
         string_array_to_log.append(
-            ["Means", str(np.mean(self.episode_mean_travel_times)), str(np.mean(self.episode_mean_time_losses))])
+            ["Means", str(np.mean(self.episode_mean_travel_times)), str(np.mean(self.episode_mean_time_losses)),"-","-"])
 
         # Sums/totals
         string_array_to_log.append(
-            ["Sums", str(np.sum(self.episode_mean_travel_times)), str(np.sum(self.episode_mean_time_losses))])
+            ["Sums", str(np.sum(self.episode_mean_travel_times)), str(np.sum(self.episode_mean_time_losses)),"-","-"])
 
         logger.logtxt(string_array_to_log, "travel_time_and_time_loss")
 
