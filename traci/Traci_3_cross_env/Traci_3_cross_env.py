@@ -80,16 +80,13 @@ class Traci_3_cross_env(BaseTraciEnv):
             print("<routes>", file=flows)
 
             if self.enjoy_car_probs:
-                hard_coded_bigroad_probs = [1.000,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            0.001,
-                                            1.000]
+                changes = 2
+                hard_coded_bigroad_probs = np.random.uniform(0.05, 0.7, changes)
+                hard_coded_smallroad_probs = np.random.uniform(0.01, 0.2, changes)
+
+                print("big", hard_coded_bigroad_probs)
+                print("small", hard_coded_smallroad_probs)
+
                 # hard_coded_bigroad_probs = cosinus(100)
                 increment_every_interval = self.num_car_chances // len(hard_coded_bigroad_probs)
 
@@ -101,7 +98,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                         if any(bigroad in f for bigroad in big_roads):
                             spawn_prob = hard_coded_bigroad_probs[interval]
                         else:
-                            spawn_prob = hard_coded_bigroad_probs[interval] / 10
+                            spawn_prob = hard_coded_smallroad_probs[interval]
 
                         print('<flow id="{}" from="{}" begin="{}" end="{}" probability="{}"/>'.format(flow_id, f,
                                                                                                       cur_interval_start,
