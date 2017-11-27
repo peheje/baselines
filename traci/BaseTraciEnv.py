@@ -274,6 +274,21 @@ class BaseTraciEnv(gym.Env):
             s += traci.multientryexit.getLastStepHaltingNumber(id)
         return -s
 
+    def reward_halting_in_queue_3cross_split(self):
+
+        # Acquire haltings
+        mee_subs = traci.multientryexit.getSubscriptionResults()
+        haltings = BaseTraciEnv.extract_list(mee_subs, traci.constants.LAST_STEP_VEHICLE_HALTING_NUMBER)
+
+        # Split by 4, already sorted by name
+        halting_split = []
+        for i in range(self.num_trafficlights):
+            idx = i * 4
+            for_intersection = haltings[idx:idx + 4]
+            halting_split.append(sum(for_intersection))
+
+        return halting_split
+
     def reward_total_in_queue(self):
         num_waiting_cars = 0
         for counter in self.unique_counters:

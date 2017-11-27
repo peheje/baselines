@@ -282,6 +282,8 @@ class Traci_3_cross_env(BaseTraciEnv):
             multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_NUMBER)
         if self.state_use_avg_speed_between_detectors_history:
             multientryexit_subs.append(traci.constants.LAST_STEP_MEAN_SPEED)
+        if self.reward_func == BaseTraciEnv.reward_halting_in_queue_3cross_split:
+            multientryexit_subs.append(traci.constants.LAST_STEP_VEHICLE_HALTING_NUMBER)
 
         if len(multientryexit_subs) > 0:
             for mee_id in traci.multientryexit.getIDList():
