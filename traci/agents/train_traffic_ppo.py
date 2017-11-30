@@ -82,7 +82,7 @@ def train_and_log(env_id,
     # Initialize logger
     # Setup path of logging, name of environment
 
-    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-multiple-generalize']
+    log_dir = [os.path.join(str(Path.home()), "Desktop"), 'Traci_3_cross_env-v0-ppo-avg_speed_state']
     logger_path = logger_utils.path_with_date(log_dir[0], log_dir[1])
     logger_path = logger_path + "_pid_" + str(process_id)
     logger.reset()
@@ -213,8 +213,7 @@ def main():
     parser.add_argument('--seed', help='RNG seed', type=int, default=0)
     args = parser.parse_args()
 
-    # probabilities = [[0.25, 0.05], [1.0, 0.10]]
-    probabilities = [[0.0, 0.0]]
+    probabilities = [[0.25, 0.05], [1.0, 0.10]]
     process_id = 0
     for i, pr in enumerate(probabilities):
         print("Now props:", pr)
@@ -222,8 +221,7 @@ def main():
                       env_id=args.env,
                       seed=args.seed,
                       process_id=process_id,
-                      enjoy_car_props=True,
-                      max_timesteps=int(10e6))
+                      state_use_avg_speed=True)
         process_id += 1
 
 
