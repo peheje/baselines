@@ -81,6 +81,5 @@ if __name__ == '__main__':
                         state_contain_tl_state_history=True,
                         state_contain_avg_speed_between_detectors_history=False,
                         num_actions_pr_trafficlight=2,
-                        num_history_states=1,
-                        n_test_episodes=100)
-    test(environment, path_to_model, env, None, "", )
+                        num_history_states=1)
+    test(environment, path_to_model, env, None, "", n_test_episodes=100)
