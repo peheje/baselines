@@ -18,7 +18,7 @@ import Traci_3_cross_env.Traci_3_cross_env
 import tensorflow as tf
 
 
-def test(environment_name, path_to_model, configured_environment, act, log_dir):
+def test(environment_name, path_to_model, configured_environment, act, log_dir, n_test_episodes=5):
     def policy_fn(name, ob_space, ac_space,tls_id,process_id):
         return mlp_policy.MlpPolicy(name=name, ob_space=ob_space, ac_space=ac_space,
                                     hid_size=64, num_hid_layers=2,tls_id=tls_id,process_id=process_id)                    #set these?
@@ -47,7 +47,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     logger.logtxt(path_to_model, "Model path")
     #configured_environment.render()
     obs, done = configured_environment.reset(), False
-    for i in range(100):
+    for i in range(n_test_episodes):
         episode_rew = 0
         while not done:
             actions=[None for _ in range(len(act))]
@@ -78,7 +78,8 @@ if __name__ == '__main__':
                             state_contain_tl_state_history=True,
                             state_contain_avg_speed_between_detectors_history=False,
                             num_actions_pr_trafficlight=2,
-                            num_history_states=1)
-    test(environment, path_to_model, env, None, "")
+                            num_history_states=1,
+                            n_test_episodes=100)
+    test(environment, path_to_model, env, None, "", )
 
 
