@@ -47,7 +47,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir):
     logger.logtxt(path_to_model, "Model path")
     #configured_environment.render()
     obs, done = configured_environment.reset(), False
-    for i in range(10):
+    for i in range(100):
         episode_rew = 0
         while not done:
             actions=[None for _ in range(len(act))]
@@ -64,12 +64,12 @@ if __name__ == '__main__':
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment = 'Traci_3_cross_env-v0'
-    path_to_model = "/home/nikolaj/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
+    path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
-                            start_car_probabilities=[0.1 ,0.025],
-                            end_car_probabilities=[1.0,0.25],
-                            num_episodes_from_start_car_probs_to_end_car_probs=10,
+                            start_car_probabilities=[0.1 ,0.01],
+                            end_car_probabilities=[1.0,0.1],
+                            num_episodes_from_start_car_probs_to_end_car_probs=100,
                             enjoy_car_probs=False,
                             reward_func=BaseTraciEnv.reward_average_speed_split,
                             action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
