@@ -1,4 +1,5 @@
 import os
 
-newest = sorted(os.listdir("."), key=os.path.getctime)[-1]
-print(newest)
+folder = "/Users/phj/Dropbox/Code/banditstone"
+newest1 = max(os.listdir(folder), key=lambda f: os.path.getctime("{}/{}".format(folder, f)))
+print(newest1)
