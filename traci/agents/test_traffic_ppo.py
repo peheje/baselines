@@ -35,7 +35,10 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir, 
                 act[i]["sess"] = sess
                 act[i]["pi"] = policy_fn('pi' + str(process_id), configured_environment.observation_space,
                                          configured_environment.action_space, tls_id=i, process_id=process_id)
-                tf.train.Saver().restore(sess, path_to_model + "/tls" + str(i) + "/ckpt/saved_model")
+                search_path = path_to_model + "/tls" + str(i) + "/"
+                newest = sorted(os.listdir(search_path), key=os.path.getctime)[-1]
+                print("for tls id {} choosing newest save in folder {}".format(i, newest))
+                tf.train.Saver().restore(sess, path_to_model + "/tls" + str(i) + "/{}/saved_model".format(newest))
     else:
         # sort the acts based on tls id
         act = [x for x in sorted(act, key=lambda k: k["tls_id"])]
