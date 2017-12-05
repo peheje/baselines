@@ -37,7 +37,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir, 
                                          configured_environment.action_space, tls_id=i, process_id=process_id)
                 search_path = path_to_model + "/tls" + str(i) + "/"
                 print("search_path", search_path)
-		newest = sorted(os.listdir(search_path), key=os.path.getctime)[-1]
+                newest = sorted(os.listdir(search_path), key=os.path.getctime)[-1]
                 print("for tls id {} choosing newest save in folder {}".format(i, newest))
                 tf.train.Saver().restore(sess, path_to_model + "/tls" + str(i) + "/{}/saved_model".format(newest))
     else:
