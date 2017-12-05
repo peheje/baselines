@@ -73,7 +73,7 @@ if __name__ == '__main__':
     path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
-                        start_car_probabilities=[0.1, 0.01],
+                        start_car_probabilities=[0.25, 0.05],
                         end_car_probabilities=[1.0, 0.1],
                         num_episodes_from_start_car_probs_to_end_car_probs=100,
                         enjoy_car_probs=False,
