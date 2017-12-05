@@ -168,7 +168,7 @@ class Traci_3_cross_env(BaseTraciEnv):
                  "--start",
                  "--quit-on-end",
                  "--time-to-teleport", str(self.teleport_time),
-                 "--additional-files", "scenarios/3_cross/randersvej.det.xml," + self.temp_webster,
+                 "--additional-files", "scenarios/3_cross/randersvej.det.xml," + "scenarios/3_cross/time_loss.tls.xml",
                  "--xml-validation", "never",
                  "--route-files", self.route_file_name])
                 hasStarted=True
