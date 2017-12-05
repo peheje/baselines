@@ -47,7 +47,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir, 
     # Setup path of logging, name of environment and save the current arguments (this script)
     if log_dir == "":
         log_dir = os.path.join(str(Path.home()), "Desktop")
-    logger_path = logger_utils.path_with_date(log_dir, environment_name + "test_best_ppo")
+    logger_path = logger_utils.path_with_date(log_dir, environment_name + "test_generalize_ppo2")
     # Initialize logger
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
@@ -72,12 +72,14 @@ if __name__ == '__main__':
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment = 'Traci_3_cross_env-v0'
-    path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple/2017-11-16_05-42-07_pid_6"
+    # path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple/2017-11-16_05-42-07_pid_6"
+    path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
+
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
-                        start_car_probabilities=[1.0, 0.1],
-                        end_car_probabilities=None,
-                        num_episodes_from_start_car_probs_to_end_car_probs=None,
+                        start_car_probabilities=[0.25, 0.05],
+                        end_car_probabilities=[1.0, 0.10],
+                        num_episodes_from_start_car_probs_to_end_car_probs=100,
                         enjoy_car_probs=False,
                         reward_func=BaseTraciEnv.reward_average_speed_split,
                         action_func=BaseTraciEnv.set_light_phase_4_cross_green_dir,
@@ -87,4 +89,4 @@ if __name__ == '__main__':
                         state_contain_avg_speed_between_detectors_history=False,
                         num_actions_pr_trafficlight=2,
                         num_history_states=1)
-    test(environment, path_to_model, env, None, "", n_test_episodes=5)
+    test(environment, path_to_model, env, None, "", n_test_episodes=100)
