@@ -47,7 +47,7 @@ def test(environment_name, path_to_model, configured_environment, act, log_dir, 
     # Setup path of logging, name of environment and save the current arguments (this script)
     if log_dir == "":
         log_dir = os.path.join(str(Path.home()), "Desktop")
-    logger_path = logger_utils.path_with_date(log_dir, environment_name + "test_generalize_ppo2")
+    logger_path = logger_utils.path_with_date(log_dir, environment_name + "test_best_ppo2")
     # Initialize logger
     logger.reset()
     logger.configure(logger_path, ["tensorboard", "stdout"])
@@ -72,8 +72,8 @@ if __name__ == '__main__':
     sess = U.make_session(num_cpu=1)
     sess.__enter__()
     environment = 'Traci_3_cross_env-v0'
-    # path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple/2017-11-16_05-42-07_pid_6"
-    path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
+    path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple/2017-11-16_05-42-07_pid_6"
+    # path_to_model = "/home/phj-nh/Desktop/Traci_3_cross_env-v0-ppo-multiple-generalize/2017-11-24_12-49-44_pid_0"
 
     env = gym.make(environment)
     env.configure_traci(num_car_chances=1000,
