@@ -16,7 +16,7 @@ class Position:
 
 class Gridworld:
     def __init__(self, rows, cols):
-        self.goal = Position(rows - 1, cols - 1)
+        self.goal = Position(rows - 10, cols - 1)    
         self.rows = rows
         self.cols = cols
         self.world = None
@@ -52,8 +52,8 @@ class Gridworld:
         q1 = self.cols // 4
         q2 = self.cols // 2
         q3 = (self.cols // 4) * 3
-        for i in range(0, self.rows//4):
-            self.world[i][q1] = "W"
+        for i in range(0, self.rows-1):
+            self.world[i][q2] = "W"
 
     def wind(self):
         for i in range(self.col_wind[self.pos.col]):

@@ -26,9 +26,9 @@ moveset = [
     Position(-1, 0)  # up
 ]
 
-print_map = False
-print_plot = False
-update_plot_while_running = False
+print_map = True
+print_plot = True
+update_plot_while_running = True
 
 
 def run(alpha, eps_start, gamma, lambd, color):
@@ -62,8 +62,8 @@ def run(alpha, eps_start, gamma, lambd, color):
             d = r + gamma * q[sn.row, sn.col, an] - q[s.row, s.col, a]
             e[s.row, s.col, a] += 1
 
-            q += alpha * d #* e
-            #e *= gamma * lambd
+            q += alpha * d * e
+            e *= gamma * lambd
 
             s = Position(sn.row, sn.col)
             a = an
